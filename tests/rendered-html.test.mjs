@@ -2,13 +2,13 @@ import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
 
-async function render() {
+async function render(pathname = "/") {
   const workerUrl = new URL("../dist/server/index.js", import.meta.url);
   workerUrl.searchParams.set("test", `${process.pid}-${Date.now()}`);
   const { default: worker } = await import(workerUrl.href);
 
   return worker.fetch(
-    new Request("http://localhost/", { headers: { accept: "text/html" } }),
+    new Request(`http://localhost${pathname}`, { headers: { accept: "text/html" } }),
     { ASSETS: { fetch: async () => new Response("Not found", { status: 404 }) } },
     { waitUntil() {}, passThroughOnException() {} },
   );
@@ -25,6 +25,23 @@ test("server-renders the Eain discovery homepage", async () => {
   assert.match(html, /Verified homes/);
   assert.match(html, /AI home assistant/i);
   assert.doesNotMatch(html, /codex-preview|Your site is taking shape|react-loading-skeleton/i);
+});
+
+test("server-renders every production product route", async () => {
+  const routes = [
+    ["/search?purpose=rent&location=Yangon", /Search verified homes in Myanmar/i],
+    ["/properties/MM-PROP-001", /Light-filled 1-bed condo in Bahan/i],
+    ["/dashboard", /Welcome home, Thiri/i],
+    ["/owner", /Property performance/i],
+    ["/agent", /Agency workspace/i],
+    ["/assistant", /Eain property consultant/i],
+  ];
+
+  for (const [pathname, expected] of routes) {
+    const response = await render(pathname);
+    assert.equal(response.status, 200, pathname);
+    assert.match(await response.text(), expected, pathname);
+  }
 });
 
 test("ships the complete mock-data foundation", async () => {

@@ -22,6 +22,8 @@ import {
 } from "lucide-react";
 import { FormEvent, useEffect, useMemo, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { PropertyCard } from "@/components/property/property-card";
 import properties from "@/public/data/properties.json";
 
@@ -47,12 +49,12 @@ const fadeUp = {
 };
 
 export default function HomePage() {
+  const router = useRouter();
   const [purpose, setPurpose] = useState<Purpose>("rent");
   const [location, setLocation] = useState("Yangon");
   const [budget, setBudget] = useState("Any budget");
   const [propertyType, setPropertyType] = useState("Any home");
   const [saved, setSaved] = useState<string[]>([]);
-  const [searchNotice, setSearchNotice] = useState("");
   const [mobileMenu, setMobileMenu] = useState(false);
   const [assistantInput, setAssistantInput] = useState("");
   const [assistantReply, setAssistantReply] = useState(
@@ -86,10 +88,14 @@ export default function HomePage() {
   }
 
   function runSearch() {
-    setSearchNotice(
-      `Showing ${purpose === "rent" ? "rentals" : "homes for sale"} in ${location}${propertyType !== "Any home" ? ` · ${propertyType}` : ""}`,
-    );
-    document.querySelector("#featured")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    const params = new URLSearchParams({ purpose, location });
+    if (propertyType !== "Any home") params.set("type", propertyType.toLowerCase());
+    const maxPrice = budget.match(/[\d,.]+/)?.[0]?.replaceAll(",", "");
+    if (maxPrice) {
+      const multiplier = budget.includes("M MMK") ? 1_000_000 : 1;
+      params.set("maxPrice", String(Number(maxPrice) * multiplier));
+    }
+    router.push(`/search?${params.toString()}`);
   }
 
   function askAssistant(event?: FormEvent) {
@@ -108,22 +114,22 @@ export default function HomePage() {
   return (
     <div className="site-shell">
       <header className="topbar">
-        <a className="brand" href="#top" aria-label="Eain home">
+        <Link className="brand" href="/" aria-label="Eain home">
           <span className="brand-mark"><House size={21} strokeWidth={2.1} /></span>
           <span className="brand-name">eain<span>.</span></span>
           <span className="brand-mm" lang="my">အိမ်</span>
-        </a>
+        </Link>
 
         <nav className="desktop-nav" aria-label="Primary navigation">
-          <a href="#search">Search</a>
-          <button onClick={() => changePurpose("rent")} className={purpose === "rent" ? "active" : ""}>Rent</button>
-          <button onClick={() => changePurpose("sale")} className={purpose === "sale" ? "active" : ""}>Buy</button>
-          <a href="#saved">Saved{saved.length ? <span className="saved-count">{saved.length}</span> : null}</a>
+          <Link href="/search">Search</Link>
+          <Link href="/search?purpose=rent">Rent</Link>
+          <Link href="/search?purpose=sale">Buy</Link>
+          <Link href="/dashboard?section=saved">Saved{saved.length ? <span className="saved-count">{saved.length}</span> : null}</Link>
         </nav>
 
         <div className="nav-actions">
-          <button className="list-property">List your property</button>
-          <button className="profile-button" aria-label="Open profile"><Menu size={18} /><CircleUserRound size={26} /></button>
+          <Link className="list-property" href="/owner">List your property</Link>
+          <Link className="profile-button" href="/dashboard" aria-label="Open profile"><Menu size={18} /><CircleUserRound size={26} /></Link>
           <button className="mobile-menu-button" aria-label="Open menu" onClick={() => setMobileMenu(true)}><Menu size={22} /></button>
         </div>
       </header>
@@ -133,12 +139,12 @@ export default function HomePage() {
           <motion.div className="mobile-menu" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
             <motion.div className="mobile-menu-panel" initial={{ x: 40 }} animate={{ x: 0 }} exit={{ x: 40 }}>
               <button className="close-menu" aria-label="Close menu" onClick={() => setMobileMenu(false)}><X /></button>
-              <a className="brand" href="#top" onClick={() => setMobileMenu(false)}><span className="brand-mark"><House size={21} /></span><span className="brand-name">eain<span>.</span></span></a>
-              <a href="#search" onClick={() => setMobileMenu(false)}>Find a home</a>
+              <Link className="brand" href="/" onClick={() => setMobileMenu(false)}><span className="brand-mark"><House size={21} /></span><span className="brand-name">eain<span>.</span></span></Link>
+              <Link href="/search" onClick={() => setMobileMenu(false)}>Find a home</Link>
               <a href="#featured" onClick={() => setMobileMenu(false)}>Featured homes</a>
               <a href="#verified" onClick={() => setMobileMenu(false)}>How verification works</a>
-              <a href="#assistant" onClick={() => setMobileMenu(false)}>Ask the AI assistant</a>
-              <button className="primary-button">List your property</button>
+              <Link href="/assistant" onClick={() => setMobileMenu(false)}>Ask the AI assistant</Link>
+              <Link className="primary-button" href="/owner" onClick={() => setMobileMenu(false)}>List your property</Link>
             </motion.div>
           </motion.div>
         )}
@@ -222,6 +228,7 @@ export default function HomePage() {
                 <motion.div className="property-card-slot" key={property.id} {...fadeUp} transition={{ ...fadeUp.transition, delay: index * 0.06 }}>
                   <PropertyCard
                     property={property}
+                    href={`/properties/${property.id}`}
                     isFavorite={isSaved}
                     onFavoriteToggle={(selectedProperty) => toggleSaved(selectedProperty.id)}
                   />
@@ -229,7 +236,6 @@ export default function HomePage() {
               );
             })}
           </div>
-          {searchNotice && <div className="search-notice" role="status"><Check size={17} /> {searchNotice}</div>}
           <a className="mobile-view-all" href="#search">Explore all homes <ArrowRight size={17} /></a>
         </section>
 
@@ -279,15 +285,15 @@ export default function HomePage() {
 
         <section className="owner-banner section">
           <div><span className="owner-icon"><Home size={24} /></span><div><h2>Have a place to call someone’s home?</h2><p>List with clear guidance, reach serious seekers, and stay in control.</p></div></div>
-          <button className="primary-button">List your property <ArrowRight size={17} /></button>
+          <Link className="primary-button" href="/owner">List your property <ArrowRight size={17} /></Link>
         </section>
       </main>
 
       <footer className="footer">
         <div className="footer-main">
           <div className="footer-brand"><a className="brand inverted" href="#top"><span className="brand-mark"><House size={21} /></span><span className="brand-name">eain<span>.</span></span></a><p>A simpler, safer way to find home in Myanmar.</p><button className="language-button">English <span>·</span> မြန်မာ <ChevronDown size={15} /></button></div>
-          <div><strong>Discover</strong><a href="#search">Rent a home</a><a href="#search">Buy a home</a><a href="#featured">Popular locations</a><a href="#assistant">AI home assistant</a></div>
-          <div><strong>List with us</strong><a href="#top">List a property</a><a href="#top">Owner guide</a><a href="#top">Agent tools</a><a href="#verified">Verification</a></div>
+          <div><strong>Discover</strong><Link href="/search?purpose=rent">Rent a home</Link><Link href="/search?purpose=sale">Buy a home</Link><a href="#featured">Popular locations</a><Link href="/assistant">AI home assistant</Link></div>
+          <div><strong>List with us</strong><Link href="/owner">List a property</Link><Link href="/owner">Owner guide</Link><Link href="/agent">Agent tools</Link><a href="#verified">Verification</a></div>
           <div><strong>Company</strong><a href="#top">About Eain</a><a href="#top">Trust & safety</a><a href="#top">Help centre</a><a href="#top">Contact</a></div>
         </div>
         <div className="footer-bottom"><span>© 2026 Eain. Built with care in Myanmar.</span><span><a href="#top">Privacy</a><a href="#top">Terms</a><a href="#top">Community standards</a></span></div>
@@ -295,9 +301,9 @@ export default function HomePage() {
 
       <nav className="mobile-bottom-nav" aria-label="Mobile navigation">
         <a href="#top" className="active"><Home size={20} /><span>Home</span></a>
-        <a href="#search"><Search size={20} /><span>Search</span></a>
-        <a href="#saved" className="mobile-saved"><Heart size={20} /><span>Saved</span>{saved.length ? <b>{saved.length}</b> : null}</a>
-        <a href="#assistant"><MessageCircle size={20} /><span>Assistant</span></a>
+        <Link href="/search"><Search size={20} /><span>Search</span></Link>
+        <Link href="/dashboard?section=saved" className="mobile-saved"><Heart size={20} /><span>Saved</span>{saved.length ? <b>{saved.length}</b> : null}</Link>
+        <Link href="/assistant"><MessageCircle size={20} /><span>Assistant</span></Link>
       </nav>
     </div>
   );

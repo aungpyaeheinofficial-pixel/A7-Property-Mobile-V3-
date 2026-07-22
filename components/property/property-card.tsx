@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { Bath, BedDouble, Heart, House, Maximize2, ShieldCheck } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
@@ -32,6 +33,7 @@ export interface PropertyCardProps {
   onFavoriteToggle?: (property: PropertyCardProperty) => void;
   onSelect?: (property: PropertyCardProperty) => void;
   onEmptyAction?: () => void;
+  href?: string;
 }
 
 function formatPropertyPrice(property: PropertyCardProperty) {
@@ -49,6 +51,7 @@ function PropertyCard({
   onFavoriteToggle,
   onSelect,
   onEmptyAction,
+  href,
 }: PropertyCardProps) {
   if (isLoading) return <PropertyCardSkeleton className={className} />;
   if (!property) return <PropertyCardEmpty className={className} onAction={onEmptyAction} />;
@@ -109,7 +112,11 @@ function PropertyCard({
           </span>
         </div>
 
-        {onSelect ? (
+        {href ? (
+          <Link className="line-clamp-2 min-h-11 text-[15px] font-semibold leading-[1.4] tracking-[-0.02em] hover:text-[#236457] sm:text-base" href={href}>
+            {property.title}
+          </Link>
+        ) : onSelect ? (
           <button
             className="line-clamp-2 min-h-11 text-left text-[15px] font-semibold leading-[1.4] tracking-[-0.02em] hover:text-[#236457] sm:text-base"
             onClick={() => onSelect(property)}
