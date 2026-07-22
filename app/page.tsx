@@ -10,7 +10,6 @@ import {
   CircleUserRound,
   Heart,
   Home,
-  House,
   MapPin,
   Menu,
   MessageCircle,
@@ -24,7 +23,9 @@ import { FormEvent, useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { A7Brand } from "@/components/brand/a7-brand";
 import { PropertyCard } from "@/components/property/property-card";
+import { readStoredIds, STORAGE_KEYS, writeStoredIds } from "@/lib/local-storage";
 import properties from "@/public/data/properties.json";
 
 type Purpose = "rent" | "sale";
@@ -62,8 +63,8 @@ export default function HomePage() {
   );
 
   useEffect(() => {
-    const stored = window.localStorage.getItem("eain-saved-homes");
-    if (stored) queueMicrotask(() => setSaved(JSON.parse(stored)));
+    const stored = readStoredIds(STORAGE_KEYS.saved, STORAGE_KEYS.legacySaved);
+    if (stored.length) queueMicrotask(() => setSaved(stored));
   }, []);
 
   const budgetOptions = useMemo(
@@ -82,7 +83,7 @@ export default function HomePage() {
   function toggleSaved(id: string) {
     setSaved((current) => {
       const next = current.includes(id) ? current.filter((item) => item !== id) : [...current, id];
-      window.localStorage.setItem("eain-saved-homes", JSON.stringify(next));
+      writeStoredIds(STORAGE_KEYS.saved, next);
       return next;
     });
   }
@@ -114,11 +115,7 @@ export default function HomePage() {
   return (
     <div className="site-shell">
       <header className="topbar">
-        <Link className="brand" href="/" aria-label="Eain home">
-          <span className="brand-mark"><House size={21} strokeWidth={2.1} /></span>
-          <span className="brand-name">eain<span>.</span></span>
-          <span className="brand-mm" lang="my">အိမ်</span>
-        </Link>
+        <Link className="brand" href="/" aria-label="A7 Property home"><A7Brand showMyanmar /></Link>
 
         <nav className="desktop-nav" aria-label="Primary navigation">
           <Link href="/search">Search</Link>
@@ -139,7 +136,7 @@ export default function HomePage() {
           <motion.div className="mobile-menu" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
             <motion.div className="mobile-menu-panel" initial={{ x: 40 }} animate={{ x: 0 }} exit={{ x: 40 }}>
               <button className="close-menu" aria-label="Close menu" onClick={() => setMobileMenu(false)}><X /></button>
-              <Link className="brand" href="/" onClick={() => setMobileMenu(false)}><span className="brand-mark"><House size={21} /></span><span className="brand-name">eain<span>.</span></span></Link>
+              <Link className="brand" href="/" onClick={() => setMobileMenu(false)}><A7Brand /></Link>
               <Link href="/search" onClick={() => setMobileMenu(false)}>Find a home</Link>
               <a href="#featured" onClick={() => setMobileMenu(false)}>Featured homes</a>
               <a href="#verified" onClick={() => setMobileMenu(false)}>How verification works</a>
@@ -241,7 +238,7 @@ export default function HomePage() {
 
         <section className="trust-section" id="verified">
           <motion.div className="trust-story" {...fadeUp}>
-            <div className="trust-seal"><ShieldCheck size={33} /><span>eain<br /><small>verified</small></span></div>
+            <div className="trust-seal"><ShieldCheck size={33} /><span>A7<br /><small>verified</small></span></div>
             <div className="eyebrow light"><span /> Trust, built in</div>
             <h2>Homes you can<br /><em>believe in.</em></h2>
             <p>Finding a home is a big decision. We check the details that matter before a listing earns our verified mark.</p>
@@ -260,7 +257,7 @@ export default function HomePage() {
             <div className="ai-orb"><Sparkles size={25} /></div>
             <div className="eyebrow"><span /> Your personal guide</div>
             <h2>Describe your life.<br />We’ll help find the home.</h2>
-            <p>Skip the complicated filters. Tell Eain what matters and get a small set of homes with clear reasons for every match.</p>
+            <p>Skip the complicated filters. Tell A7 what matters and get a small set of homes with clear reasons for every match.</p>
             <div className="assistant-prompts">
               {["Near work, but quiet", "A family home under 800k", "Bright apartment in Yankin"].map((prompt) => (
                 <button key={prompt} onClick={() => setAssistantInput(prompt)}>{prompt} <ArrowRight size={14} /></button>
@@ -268,7 +265,7 @@ export default function HomePage() {
             </div>
           </motion.div>
           <motion.div className="assistant-demo" {...fadeUp} transition={{ ...fadeUp.transition, delay: 0.1 }}>
-            <div className="assistant-window-top"><span className="assistant-avatar"><Bot size={20} /></span><span><strong>Eain home assistant</strong><small>Usually replies instantly</small></span><span className="online-dot" /></div>
+            <div className="assistant-window-top"><span className="assistant-avatar"><Bot size={20} /></span><span><strong>A7 home assistant</strong><small>Usually replies instantly</small></span><span className="online-dot" /></div>
             <div className="assistant-chat">
               <div className="assistant-message"><Sparkles size={16} /><p>{assistantReply}</p></div>
               <div className="match-preview">
@@ -291,12 +288,12 @@ export default function HomePage() {
 
       <footer className="footer">
         <div className="footer-main">
-          <div className="footer-brand"><a className="brand inverted" href="#top"><span className="brand-mark"><House size={21} /></span><span className="brand-name">eain<span>.</span></span></a><p>A simpler, safer way to find home in Myanmar.</p><button className="language-button">English <span>·</span> မြန်မာ <ChevronDown size={15} /></button></div>
+          <div className="footer-brand"><a className="brand inverted" href="#top"><A7Brand inverted /></a><p>A simpler, safer way to find home in Myanmar.</p><button className="language-button">English <span>·</span> မြန်မာ <ChevronDown size={15} /></button></div>
           <div><strong>Discover</strong><Link href="/search?purpose=rent">Rent a home</Link><Link href="/search?purpose=sale">Buy a home</Link><a href="#featured">Popular locations</a><Link href="/assistant">AI home assistant</Link></div>
           <div><strong>List with us</strong><Link href="/owner">List a property</Link><Link href="/owner">Owner guide</Link><Link href="/agent">Agent tools</Link><a href="#verified">Verification</a></div>
-          <div><strong>Company</strong><a href="#top">About Eain</a><a href="#top">Trust & safety</a><a href="#top">Help centre</a><a href="#top">Contact</a></div>
+          <div><strong>Company</strong><a href="#top">About A7 Property</a><a href="#top">Trust & safety</a><a href="#top">Help centre</a><a href="#top">Contact</a></div>
         </div>
-        <div className="footer-bottom"><span>© 2026 Eain. Built with care in Myanmar.</span><span><a href="#top">Privacy</a><a href="#top">Terms</a><a href="#top">Community standards</a></span></div>
+        <div className="footer-bottom"><span>© 2026 A7 Property. Built with care in Myanmar.</span><span><a href="#top">Privacy</a><a href="#top">Terms</a><a href="#top">Community standards</a></span></div>
       </footer>
 
       <nav className="mobile-bottom-nav" aria-label="Mobile navigation">

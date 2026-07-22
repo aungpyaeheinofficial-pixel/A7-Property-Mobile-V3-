@@ -14,13 +14,13 @@ async function render(pathname = "/") {
   );
 }
 
-test("server-renders the Eain discovery homepage", async () => {
+test("server-renders the A7 Property discovery homepage", async () => {
   const response = await render();
   assert.equal(response.status, 200);
   assert.match(response.headers.get("content-type") ?? "", /^text\/html\b/i);
 
   const html = await response.text();
-  assert.match(html, /<title>Eain — Find a place you can call home<\/title>/i);
+  assert.match(html, /<title>A7 Property — Find a place you can call home<\/title>/i);
   assert.match(html, /Find a place/);
   assert.match(html, /Verified homes/);
   assert.match(html, /AI home assistant/i);
@@ -34,7 +34,7 @@ test("server-renders every production product route", async () => {
     ["/dashboard", /Welcome home, Thiri/i],
     ["/owner", /Property performance/i],
     ["/agent", /Agency workspace/i],
-    ["/assistant", /Eain property consultant/i],
+    ["/assistant", /A7 property consultant/i],
   ];
 
   for (const [pathname, expected] of routes) {

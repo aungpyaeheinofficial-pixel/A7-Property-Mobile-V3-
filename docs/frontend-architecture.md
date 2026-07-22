@@ -1,4 +1,4 @@
-# Eain Production Frontend Architecture
+# A7 Property Production Frontend Architecture
 
 This document is the implementation contract for the next product milestone. It is intentionally written before the route code so each page starts with an explicit component tree, file boundary, data flow, and state model.
 
@@ -174,4 +174,3 @@ Conversation messages, current input, loading status, parsed intent, recommendat
 - Map markers are keyboard-operable and mirrored by a textual result list.
 - Motion respects the existing reduced-motion stylesheet.
 - Detail routes expose descriptive image alt text and location/price content in server-rendered HTML.
-

@@ -18,14 +18,14 @@ interface SearchToolbarProps {
 
 function SearchToolbar({ count, location, sort, onSortChange, mapOpen, onMapToggle, activeFilters, onOpenFilters }: SearchToolbarProps) {
   return (
-    <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[#123c33]/8 pb-4">
-      <div><h1 className="text-xl font-semibold tracking-[-0.03em] sm:text-2xl">Homes in {location === "All Myanmar" ? "Myanmar" : location}</h1><p className="mt-1 text-[11px] text-[#7b837f]">{count} verified and recently updated homes</p></div>
+    <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[#0b3768]/8 pb-4">
+      <div><h1 className="text-xl font-semibold tracking-[-0.03em] sm:text-2xl">Homes in {location === "All Myanmar" ? "Myanmar" : location}</h1><p className="mt-1 text-[11px] text-[#728396]">{count} verified and recently updated homes</p></div>
       <div className="flex items-center gap-2">
-        <Button variant="outline" className="relative h-10 px-3 text-xs lg:hidden" onClick={onOpenFilters}><SlidersHorizontal className="size-4" />Filters{activeFilters > 0 && <span className="grid size-5 place-items-center rounded-full bg-[#b7653d] text-[9px] text-white">{activeFilters}</span>}</Button>
-        <label className="hidden sm:block"><span className="sr-only">Sort properties</span><select value={sort} onChange={(event) => onSortChange(event.target.value as PropertySort)} className="h-10 rounded-xl border border-[#123c33]/12 bg-white px-3 text-xs font-medium outline-none focus:border-[#236457]"><option value="recommended">Recommended</option><option value="newest">Newest</option><option value="price-asc">Price low–high</option></select></label>
+        <Button variant="outline" className="relative h-10 px-3 text-xs lg:hidden" onClick={onOpenFilters}><SlidersHorizontal className="size-4" />Filters{activeFilters > 0 && <span className="grid size-5 place-items-center rounded-full bg-[#0f6fb2] text-[9px] text-white">{activeFilters}</span>}</Button>
+        <label className="hidden sm:block"><span className="sr-only">Sort properties</span><select value={sort} onChange={(event) => onSortChange(event.target.value as PropertySort)} className="h-10 rounded-xl border border-[#0b3768]/12 bg-white px-3 text-xs font-medium outline-none focus:border-[#0f6fb2]"><option value="recommended">Recommended</option><option value="newest">Newest</option><option value="price-asc">Price low–high</option></select></label>
         <Button variant="outline" className="h-10 px-3 text-xs" onClick={onMapToggle}>{mapOpen ? <Rows3 className="size-4" /> : <Map className="size-4" />}{mapOpen ? "List" : "Map"}<span className="hidden sm:inline"> view</span></Button>
       </div>
-      <label className="w-full sm:hidden"><span className="sr-only">Sort properties</span><select value={sort} onChange={(event) => onSortChange(event.target.value as PropertySort)} className="h-10 w-full rounded-xl border border-[#123c33]/12 bg-white px-3 text-xs font-medium outline-none"><option value="recommended">Recommended</option><option value="newest">Newest</option><option value="price-asc">Price low–high</option></select></label>
+      <label className="w-full sm:hidden"><span className="sr-only">Sort properties</span><select value={sort} onChange={(event) => onSortChange(event.target.value as PropertySort)} className="h-10 w-full rounded-xl border border-[#0b3768]/12 bg-white px-3 text-xs font-medium outline-none"><option value="recommended">Recommended</option><option value="newest">Newest</option><option value="price-asc">Price low–high</option></select></label>
     </div>
   );
 }

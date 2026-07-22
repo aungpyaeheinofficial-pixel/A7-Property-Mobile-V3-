@@ -19,6 +19,7 @@ import {
   type PropertySort,
   type SearchFilters,
 } from "@/lib/properties";
+import { readStoredIds, STORAGE_KEYS, writeStoredIds } from "@/lib/local-storage";
 import { cn } from "@/lib/utils";
 
 function PropertySearch({ properties }: { properties: Property[] }) {
@@ -42,8 +43,8 @@ function PropertySearch({ properties }: { properties: Property[] }) {
   const [saved, setSaved] = useState<string[]>([]);
 
   useEffect(() => {
-    const stored = window.localStorage.getItem("eain-saved-homes");
-    if (stored) queueMicrotask(() => setSaved(JSON.parse(stored)));
+    const stored = readStoredIds(STORAGE_KEYS.saved, STORAGE_KEYS.legacySaved);
+    if (stored.length) queueMicrotask(() => setSaved(stored));
   }, []);
 
   const results = useMemo(() => sortProperties(filterProperties(properties, filters), sort), [properties, filters, sort]);
@@ -51,7 +52,7 @@ function PropertySearch({ properties }: { properties: Property[] }) {
   function toggleSaved(id: string) {
     setSaved((current) => {
       const next = current.includes(id) ? current.filter((item) => item !== id) : [...current, id];
-      window.localStorage.setItem("eain-saved-homes", JSON.stringify(next));
+      writeStoredIds(STORAGE_KEYS.saved, next);
       return next;
     });
   }
@@ -67,15 +68,15 @@ function PropertySearch({ properties }: { properties: Property[] }) {
   }
 
   return (
-    <div className="min-h-screen bg-[#f8f7f3]">
+    <div className="min-h-screen bg-[#f7f9fc]">
       <AppHeader compact />
       <main className="mx-auto w-full max-w-[1480px] px-4 py-6 sm:px-6 lg:px-8 lg:py-8">
-        <div className="mb-5 rounded-[20px] border border-[#123c33]/8 bg-white p-4 shadow-sm lg:hidden">
-          <label className="block"><span className="mb-1.5 block text-[9px] font-semibold uppercase tracking-wider text-[#7b837f]">Where do you want to live?</span><select className="h-11 w-full rounded-xl bg-[#eff1ed] px-3 text-sm font-semibold outline-none" value={filters.location} onChange={(event) => setFilters({ ...filters, location: event.target.value })}><option>All Myanmar</option><option>Yangon</option><option>Bahan</option><option>Kamayut</option><option>Yankin</option><option>Sanchaung</option><option>Hlaing</option><option>Mayangone</option><option>Mandalay</option></select></label>
+        <div className="mb-5 rounded-[20px] border border-[#0b3768]/8 bg-white p-4 shadow-sm lg:hidden">
+          <label className="block"><span className="mb-1.5 block text-[9px] font-semibold uppercase tracking-wider text-[#728396]">Where do you want to live?</span><select className="h-11 w-full rounded-xl bg-[#edf3f8] px-3 text-sm font-semibold outline-none" value={filters.location} onChange={(event) => setFilters({ ...filters, location: event.target.value })}><option>All Myanmar</option><option>Yangon</option><option>Bahan</option><option>Kamayut</option><option>Yankin</option><option>Sanchaung</option><option>Hlaing</option><option>Mayangone</option><option>Mandalay</option></select></label>
         </div>
         <div className="grid gap-7 lg:grid-cols-[285px_minmax(0,1fr)] xl:gap-9">
           <aside className="hidden lg:block">
-            <div className="sticky top-[88px] max-h-[calc(100vh-110px)] overflow-y-auto rounded-[20px] border border-[#123c33]/8 bg-white p-5 shadow-[0_7px_28px_rgba(18,60,51,.05)]">
+            <div className="sticky top-[88px] max-h-[calc(100vh-110px)] overflow-y-auto rounded-[20px] border border-[#0b3768]/8 bg-white p-5 shadow-[0_7px_28px_rgba(11,55,104,.05)]">
               <FilterPanel value={filters} onChange={setFilters} />
             </div>
           </aside>
@@ -87,7 +88,7 @@ function PropertySearch({ properties }: { properties: Property[] }) {
             ) : mapOpen ? (
               <div className="mt-5 grid items-start gap-5 xl:grid-cols-[minmax(320px,.78fr)_minmax(470px,1.22fr)]">
                 <div className="grid gap-4 xl:max-h-[calc(100vh-170px)] xl:overflow-y-auto xl:pr-2">
-                  {results.slice(0, 12).map((property) => <div key={property.id} className={cn("rounded-[22px] transition-shadow", selectedId === property.id && "ring-3 ring-[#b7653d]/30")}><PropertyCard property={property} href={`/properties/${property.id}`} isFavorite={saved.includes(property.id)} onFavoriteToggle={(item) => toggleSaved(item.id)} /></div>)}
+                  {results.slice(0, 12).map((property) => <div key={property.id} className={cn("rounded-[22px] transition-shadow", selectedId === property.id && "ring-3 ring-[#47bbea]/30")}><PropertyCard property={property} href={`/properties/${property.id}`} isFavorite={saved.includes(property.id)} onFavoriteToggle={(item) => toggleSaved(item.id)} /></div>)}
                 </div>
                 <PropertyMap className="sticky top-[88px] h-[calc(100vh-112px)]" properties={results} selectedId={selectedId} onSelect={setSelectedId} />
               </div>

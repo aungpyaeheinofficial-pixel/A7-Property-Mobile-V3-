@@ -4,7 +4,7 @@ import { PropertySearch } from "@/components/search/property-search";
 import { allProperties } from "@/lib/properties";
 
 export const metadata: Metadata = {
-  title: "Search verified homes in Myanmar | Eain",
+  title: "Search verified homes in Myanmar | A7 Property",
   description: "Filter verified Myanmar properties by location, price, home type, bedrooms, furniture and parking. Explore list and map views.",
 };
 
