@@ -3,8 +3,6 @@
 import { AnimatePresence, motion } from "framer-motion";
 import {
   ArrowRight,
-  Bath,
-  BedDouble,
   Bot,
   Building2,
   Check,
@@ -20,11 +18,11 @@ import {
   Send,
   ShieldCheck,
   Sparkles,
-  Star,
   X,
 } from "lucide-react";
 import { FormEvent, useEffect, useMemo, useState } from "react";
 import Image from "next/image";
+import { PropertyCard } from "@/components/property/property-card";
 import properties from "@/public/data/properties.json";
 
 type Purpose = "rent" | "sale";
@@ -47,11 +45,6 @@ const fadeUp = {
   viewport: { once: true, amount: 0.16 },
   transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] as const },
 };
-
-function formatPrice(price: number, purpose: string) {
-  if (purpose === "rent") return `${new Intl.NumberFormat("en-US").format(price)} MMK`;
-  return `${price / 1_000_000}M MMK`;
-}
 
 export default function HomePage() {
   const [purpose, setPurpose] = useState<Purpose>("rent");
@@ -226,24 +219,13 @@ export default function HomePage() {
             {featuredProperties.map((property, index) => {
               const isSaved = saved.includes(property.id);
               return (
-                <motion.article className="property-card" key={property.id} {...fadeUp} transition={{ ...fadeUp.transition, delay: index * 0.06 }}>
-                  <div className="property-image-wrap">
-                    <Image src={property.images[0]} alt={property.title} className="property-image" fill sizes="(max-width: 760px) 83vw, (max-width: 1050px) 50vw, 25vw" />
-                    <span className="property-purpose">For {property.purpose === "rent" ? "rent" : "sale"}</span>
-                    <button className={`save-button ${isSaved ? "saved" : ""}`} aria-label={isSaved ? "Remove from saved homes" : "Save home"} onClick={() => toggleSaved(property.id)}>
-                      <Heart size={19} fill={isSaved ? "currentColor" : "none"} />
-                    </button>
-                  </div>
-                  <div className="property-body">
-                    <div className="property-location"><MapPin size={14} /> {property.township}, {property.city}<span><Star size={13} fill="currentColor" /> {property.rating}</span></div>
-                    <h3>{property.title}</h3>
-                    <div className="property-facts"><span><BedDouble size={16} /> {property.bedrooms} beds</span><span><Bath size={16} /> {property.bathrooms} baths</span><span>{new Intl.NumberFormat("en-US").format(property.area_sqft)} sqft</span></div>
-                    <div className="property-price-row">
-                      <div><strong>{formatPrice(property.price, property.purpose)}</strong><small>{property.purpose === "rent" ? "/ month" : "total price"}</small></div>
-                      <span className="verified-label"><ShieldCheck size={15} /> Verified</span>
-                    </div>
-                  </div>
-                </motion.article>
+                <motion.div className="property-card-slot" key={property.id} {...fadeUp} transition={{ ...fadeUp.transition, delay: index * 0.06 }}>
+                  <PropertyCard
+                    property={property}
+                    isFavorite={isSaved}
+                    onFavoriteToggle={(selectedProperty) => toggleSaved(selectedProperty.id)}
+                  />
+                </motion.div>
               );
             })}
           </div>
