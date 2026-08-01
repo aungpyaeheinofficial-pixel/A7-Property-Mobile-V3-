@@ -1,69 +1,583 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
-import { CalendarCheck2, ChevronRight, Clock3, Heart, MessageCircle, ShieldCheck, UserRound } from "lucide-react";
-import { useEffect, useMemo, useState } from "react";
+import { useSearchParams } from "next/navigation";
+import {
+  ArrowDown,
+  ArrowRight,
+  Bath,
+  BedDouble,
+  Bell,
+  CalendarDays,
+  Check,
+  ChevronRight,
+  Clock3,
+  Heart,
+  House,
+  MapPin,
+  Maximize2,
+  MessageCircle,
+  Search,
+  Send,
+  ShieldCheck,
+} from "lucide-react";
+import { useEffect, useMemo, useState, type FormEvent } from "react";
 
-import { DashboardShell } from "@/components/dashboard/dashboard-shell";
-import { MetricCard } from "@/components/dashboard/metric-card";
-import { PropertyCard } from "@/components/property/property-card";
-import { Badge } from "@/components/ui/badge";
+import { A7AssistantPopover } from "@/components/assistant/a7-assistant-popover";
+import { A7Brand } from "@/components/brand/a7-brand";
+import { useLanguage } from "@/components/i18n/language-provider";
+import { LanguageSwitcher } from "@/components/i18n/language-switcher";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { readStoredIds, STORAGE_KEYS, writeStoredIds } from "@/lib/local-storage";
-import { allProperties } from "@/lib/properties";
-import { mockAppointments, mockMessages, mockUser } from "@/lib/mock-users";
+import { Sheet } from "@/components/ui/sheet";
+import { readStoredIds, readStoredJson, STORAGE_KEYS, writeStoredIds, writeStoredJson } from "@/lib/local-storage";
+import { mockAppointments, mockMessages, mockUser, type UserAppointment, type UserConversation } from "@/lib/mock-users";
+import { allProperties, formatPropertyPrice, type Property } from "@/lib/properties";
+import { cn } from "@/lib/utils";
+
+const journeyLinks = [
+  { id: "saved", label: "Saved homes", labelMy: "သိမ်းထားသောအိမ်များ", href: "/dashboard?section=saved#saved-homes", icon: Heart },
+  { id: "messages", label: "Messages", labelMy: "မက်ဆေ့ချ်များ", href: "/dashboard?section=messages#conversations", icon: MessageCircle },
+  { id: "viewings", label: "Viewings", labelMy: "အိမ်ကြည့်ချိန်များ", href: "/dashboard?section=viewings#viewings", icon: CalendarDays },
+] as const;
+
+const priceDropByProperty: Record<string, number> = {
+  "MM-PROP-005": 20_000_000,
+  "MM-PROP-012": 50_000,
+};
+
+function propertiesFromIds(ids: string[]) {
+  return ids
+    .map((id) => allProperties.find((property) => property.id === id))
+    .filter((property): property is Property => Boolean(property));
+}
+
+function propertyMeta(property: Property) {
+  return `${property.bedrooms} bed${property.bedrooms === 1 ? "" : "s"} · ${property.bathrooms} bath${property.bathrooms === 1 ? "" : "s"} · ${new Intl.NumberFormat("en-US").format(property.area_sqft)} sqft`;
+}
+
+interface HomeCardProps {
+  property: Property;
+  saved: boolean;
+  onToggle: (property: Property) => void;
+  priority?: boolean;
+}
+
+function SavedHomeCard({ property, saved, onToggle, priority = false }: HomeCardProps) {
+  const { tx, isMyanmar } = useLanguage();
+  const priceDrop = priceDropByProperty[property.id];
+
+  return (
+    <article className="group overflow-hidden rounded-[26px] bg-white shadow-[0_12px_36px_rgba(26,39,56,.08)] ring-1 ring-[#18263A]/7 transition-[transform,box-shadow] duration-300 hover:-translate-y-1 hover:shadow-[0_18px_48px_rgba(26,39,56,.13)]">
+      <div className="relative aspect-[16/10] overflow-hidden bg-[#E8E9E5]">
+        <Link href={`/properties/${property.id}`} className="absolute inset-0 z-10" aria-label={`View ${property.title}`} />
+        <Image
+          src={property.images[0]}
+          alt={property.title}
+          fill
+          priority={priority}
+          sizes="(max-width: 767px) 92vw, (max-width: 1279px) 46vw, 570px"
+          className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.035]"
+        />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#101D2D]/32 via-transparent to-[#101D2D]/8" />
+
+        <div className="absolute left-4 top-4 z-20 flex flex-wrap gap-2">
+          {property.verification_status === "verified" && (
+            <span className="inline-flex h-8 items-center gap-1.5 rounded-full border border-white/60 bg-white/92 px-3 text-[10px] font-semibold text-[#276A4B] shadow-sm backdrop-blur-md">
+              <ShieldCheck className="size-3.5" aria-hidden="true" />
+              {tx("Verified home", "စိစစ်ထားသောအိမ်")}
+            </span>
+          )}
+          {priceDrop && (
+            <span className="inline-flex h-8 items-center gap-1.5 rounded-full border border-white/60 bg-[#ECF8F0]/95 px-3 text-[10px] font-semibold text-[#24704C] shadow-sm backdrop-blur-md">
+              <ArrowDown className="size-3.5" aria-hidden="true" />
+              {tx("Price reduced", "ဈေးနှုန်းလျှော့ထားသည်")}
+            </span>
+          )}
+        </div>
+
+        <button
+          type="button"
+          onClick={() => onToggle(property)}
+          className="absolute right-4 top-4 z-20 grid size-11 place-items-center rounded-full border border-white/70 bg-white/94 text-[#17304A] shadow-[0_6px_18px_rgba(16,29,45,.16)] backdrop-blur-md transition-transform hover:scale-105 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-white/70"
+          aria-label={saved ? tx(`Remove ${property.title} from saved homes`, `${property.title} ကို သိမ်းထားမှုမှဖယ်ရန်`) : tx(`Save ${property.title}`, `${property.title} ကို သိမ်းရန်`)}
+          aria-pressed={saved}
+        >
+          <Heart className={cn("size-[19px]", saved && "fill-[#0B6CF2] text-[#0B6CF2]")} aria-hidden="true" />
+        </button>
+
+        <span className="absolute bottom-4 left-4 z-20 inline-flex items-center gap-1.5 rounded-full bg-[#10233A]/62 px-3 py-1.5 text-[10px] font-medium text-white backdrop-blur-md">
+          <MapPin className="size-3.5" aria-hidden="true" />
+          {property.township}, {property.city}
+        </span>
+      </div>
+
+      <div className="p-5 sm:p-6">
+        <div className="flex items-start justify-between gap-4">
+          <div className="min-w-0">
+            <p data-type="number" className="text-[20px] font-semibold tracking-[-0.035em] text-[#17263A]">
+              {formatPropertyPrice(property, isMyanmar ? "my" : "en")}
+              {property.purpose === "rent" && <span className="ml-1 text-[11px] font-normal tracking-normal text-[#76808C]">/ {tx("month", "လ")}</span>}
+            </p>
+            <Link href={`/properties/${property.id}`} className="mt-2 line-clamp-1 block text-[15px] font-medium text-[#26364A] transition-colors hover:text-[#006AFF]">
+              {property.title}
+            </Link>
+          </div>
+          <span className="shrink-0 rounded-full bg-[#F2F5F8] px-3 py-1.5 text-[9px] font-semibold uppercase tracking-[0.1em] text-[#5F6B79]">
+            {property.purpose === "rent" ? tx("For rent", "ငှားရန်") : tx("For sale", "ရောင်းရန်")}
+          </span>
+        </div>
+        <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-[#E7E9EC] pt-4 text-[11px] text-[#66717E]">
+          <span className="inline-flex items-center gap-1.5"><BedDouble className="size-4" />{tx(`${property.bedrooms} ${property.bedrooms === 1 ? "bed" : "beds"}`, `အိပ်ခန်း ${property.bedrooms}`)}</span>
+          <span className="inline-flex items-center gap-1.5"><Bath className="size-4" />{tx(`${property.bathrooms} ${property.bathrooms === 1 ? "bath" : "baths"}`, `ရေချိုးခန်း ${property.bathrooms}`)}</span>
+          <span className="inline-flex items-center gap-1.5"><Maximize2 className="size-3.5" />{new Intl.NumberFormat("en-US").format(property.area_sqft)} sqft</span>
+          <Link href={`/properties/${property.id}`} className="ml-auto inline-flex items-center gap-1 font-semibold text-[#0B6CF2] hover:underline">
+            {tx("View home", "အိမ်ကိုကြည့်ရန်")} <ArrowRight className="size-3.5" />
+          </Link>
+        </div>
+      </div>
+    </article>
+  );
+}
+
+function HomeRailCard({ property, saved, onToggle }: HomeCardProps) {
+  const { isMyanmar } = useLanguage();
+  return (
+    <article className="group min-w-[272px] flex-1 snap-start sm:min-w-[300px]">
+      <div className="relative aspect-[4/3] overflow-hidden rounded-[22px] bg-[#E8E9E5] shadow-[0_8px_28px_rgba(26,39,56,.08)]">
+        <Link href={`/properties/${property.id}`} className="absolute inset-0 z-10" aria-label={`View ${property.title}`} />
+        <Image
+          src={property.images[0]}
+          alt={property.title}
+          fill
+          sizes="(max-width: 639px) 78vw, 310px"
+          className="object-cover transition-transform duration-700 group-hover:scale-[1.035]"
+        />
+        <button
+          type="button"
+          onClick={() => onToggle(property)}
+          className="absolute right-3 top-3 z-20 grid size-10 place-items-center rounded-full bg-white/94 text-[#17304A] shadow-md backdrop-blur-md"
+          aria-label={saved ? `Remove ${property.title} from saved homes` : `Save ${property.title}`}
+          aria-pressed={saved}
+        >
+          <Heart className={cn("size-[18px]", saved && "fill-[#0B6CF2] text-[#0B6CF2]")} />
+        </button>
+      </div>
+      <Link href={`/properties/${property.id}`} className="mt-4 block">
+        <div className="flex items-start justify-between gap-3">
+          <div className="min-w-0">
+            <h3 className="truncate text-[14px] font-semibold text-[#1C2C40]">{property.township}, {property.city}</h3>
+            <p className="mt-1 truncate text-[12px] text-[#6D7783]">{property.title}</p>
+          </div>
+          <p data-type="number" className="shrink-0 text-[13px] font-semibold text-[#1C2C40]">{formatPropertyPrice(property, isMyanmar ? "my" : "en")}</p>
+        </div>
+        <p className="mt-2 text-[10px] text-[#7A838D]">{propertyMeta(property)}</p>
+      </Link>
+    </article>
+  );
+}
+
+function RecentHomeCard({ property, saved, onToggle }: HomeCardProps) {
+  const { isMyanmar } = useLanguage();
+  return (
+    <article className="flex min-w-[286px] snap-start gap-4 rounded-[20px] bg-white p-3 shadow-[0_8px_28px_rgba(26,39,56,.06)] ring-1 ring-[#18263A]/6 sm:min-w-0">
+      <Link href={`/properties/${property.id}`} className="relative h-[112px] w-[116px] shrink-0 overflow-hidden rounded-[15px] bg-[#E8E9E5]">
+        <Image src={property.images[0]} alt={property.title} fill sizes="116px" className="object-cover transition-transform duration-500 hover:scale-105" />
+      </Link>
+      <div className="flex min-w-0 flex-1 flex-col py-1">
+        <div className="flex items-start gap-2">
+          <Link href={`/properties/${property.id}`} className="min-w-0 flex-1">
+            <h3 className="truncate text-[13px] font-semibold text-[#1C2C40]">{property.title}</h3>
+            <p className="mt-1 text-[10px] text-[#74808C]">{property.township}, {property.city}</p>
+          </Link>
+          <button type="button" onClick={() => onToggle(property)} className="text-[#617083]" aria-label={saved ? `Remove ${property.title} from saved homes` : `Save ${property.title}`} aria-pressed={saved}>
+            <Heart className={cn("size-[17px]", saved && "fill-[#0B6CF2] text-[#0B6CF2]")} />
+          </button>
+        </div>
+        <p data-type="number" className="mt-auto text-[13px] font-semibold text-[#1C2C40]">{formatPropertyPrice(property, isMyanmar ? "my" : "en")}</p>
+        <p className="mt-1 text-[9px] text-[#7A838D]">{propertyMeta(property)}</p>
+      </div>
+    </article>
+  );
+}
 
 function UserDashboard() {
+  const { isMyanmar, tx } = useLanguage();
+  const searchParams = useSearchParams();
   const [savedIds, setSavedIds] = useState(mockUser.savedPropertyIds);
   const [recentIds, setRecentIds] = useState(mockUser.recentlyViewedIds);
+  const [messages, setMessages] = useState<UserConversation[]>(mockMessages);
+  const [appointments, setAppointments] = useState<UserAppointment[]>(mockAppointments);
+  const [activeConversationId, setActiveConversationId] = useState<string | null>(null);
+  const [reply, setReply] = useState("");
 
   useEffect(() => {
-    const saved = readStoredIds(STORAGE_KEYS.saved, STORAGE_KEYS.legacySaved);
-    const recent = readStoredIds(STORAGE_KEYS.recent, STORAGE_KEYS.legacyRecent);
+    const saved = readStoredIds(STORAGE_KEYS.saved, STORAGE_KEYS.legacySaved, mockUser.savedPropertyIds);
+    const recent = readStoredIds(STORAGE_KEYS.recent, STORAGE_KEYS.legacyRecent, mockUser.recentlyViewedIds);
+    const storedMessages = readStoredJson<UserConversation[]>(STORAGE_KEYS.conversations, mockMessages);
+    const storedAppointments = readStoredJson<UserAppointment[]>(STORAGE_KEYS.viewings, mockAppointments);
     queueMicrotask(() => {
-      if (saved.length) setSavedIds(saved);
-      if (recent.length) setRecentIds(recent);
+      setSavedIds(saved);
+      setRecentIds(recent);
+      setMessages(storedMessages);
+      setAppointments(storedAppointments);
     });
   }, []);
 
-  const savedProperties = useMemo(() => savedIds.map((id) => allProperties.find((property) => property.id === id)).filter(Boolean).slice(0, 3), [savedIds]);
-  const recentProperties = useMemo(() => recentIds.map((id) => allProperties.find((property) => property.id === id)).filter(Boolean).slice(0, 3), [recentIds]);
+  const requestedSection = searchParams.get("section");
+  useEffect(() => {
+    if (!requestedSection) return;
+    const targetId = requestedSection === "messages" ? "conversations" : requestedSection;
+    const frame = window.requestAnimationFrame(() => {
+      document.getElementById(targetId)?.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+    return () => window.cancelAnimationFrame(frame);
+  }, [requestedSection]);
 
-  function toggleSaved(id: string) {
+  const savedProperties = useMemo(() => propertiesFromIds(savedIds), [savedIds]);
+  const recentProperties = useMemo(() => propertiesFromIds(recentIds).slice(0, 3), [recentIds]);
+  const recommendedProperties = useMemo(() => {
+    const saved = new Set(savedIds);
+    return allProperties
+      .filter((property) => !saved.has(property.id))
+      .sort((a, b) => {
+        const aPreferred = Number(mockUser.preferredTownships.includes(a.township));
+        const bPreferred = Number(mockUser.preferredTownships.includes(b.township));
+        return bPreferred - aPreferred || b.rating - a.rating;
+      })
+      .slice(0, 4);
+  }, [savedIds]);
+
+  const activeSection = requestedSection ?? "saved";
+  const priceAlerts = savedProperties.filter((property) => priceDropByProperty[property.id]).slice(0, 2);
+  const activeConversation = messages.find((message) => message.id === activeConversationId) ?? null;
+
+  function toggleSaved(property: Property) {
     setSavedIds((current) => {
-      const next = current.includes(id) ? current.filter((item) => item !== id) : [...current, id];
+      const next = current.includes(property.id)
+        ? current.filter((id) => id !== property.id)
+        : [...current, property.id];
       writeStoredIds(STORAGE_KEYS.saved, next);
       return next;
     });
   }
 
-  return (
-    <DashboardShell role="user" name={mockUser.name} initials={mockUser.initials} title={`Welcome home, ${mockUser.name.split(" ")[0]}`} description="Your saved homes, conversations, and upcoming viewings in one calm place.">
-      <div className="grid gap-4 sm:grid-cols-3">
-        <MetricCard label="Saved properties" value={String(savedIds.length)} change="2 new" icon={Heart} />
-        <MetricCard label="Active conversations" value={String(mockMessages.length)} icon={MessageCircle} tone="sand" />
-        <MetricCard label="Upcoming viewings" value={String(mockAppointments.length)} icon={CalendarCheck2} tone="copper" />
-      </div>
+  function openConversation(conversation: UserConversation) {
+    const next = messages.map((item) => item.id === conversation.id ? { ...item, unread: false } : item);
+    setMessages(next);
+    writeStoredJson(STORAGE_KEYS.conversations, next);
+    setActiveConversationId(conversation.id);
+  }
 
-      <div className="mt-6 grid gap-6 xl:grid-cols-[minmax(0,1fr)_340px]">
-        <section className="min-w-0 rounded-[22px] border border-[#0b3768]/8 bg-white p-5 shadow-sm sm:p-6">
-          <div className="mb-5 flex items-end justify-between"><div><h2 className="text-lg font-semibold tracking-[-0.03em]">Saved homes</h2><p className="mt-1 text-[10px] text-[#728396]">Your shortlist, ready to compare</p></div><Link href="/search" className="flex items-center gap-1 text-[10px] font-semibold text-[#0f6fb2]">Find more <ChevronRight className="size-3.5" /></Link></div>
-          <div className="grid gap-4 md:grid-cols-2 2xl:grid-cols-3">{savedProperties.map((property) => property && <PropertyCard key={property.id} property={property} href={`/properties/${property.id}`} isFavorite onFavoriteToggle={(item) => toggleSaved(item.id)} />)}</div>
+  function sendReply(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const text = reply.trim();
+    if (!text || !activeConversation) return;
+    const next = messages.map((conversation) => {
+      if (conversation.id !== activeConversation.id) return conversation;
+      return {
+        ...conversation,
+        preview: text,
+        time: "Just now",
+        thread: [
+          ...conversation.thread,
+          { id: `${conversation.id}-${Date.now()}`, sender: "user" as const, text, time: "Just now" },
+        ],
+      };
+    });
+    setMessages(next);
+    writeStoredJson(STORAGE_KEYS.conversations, next);
+    setReply("");
+  }
+
+  return (
+    <div className="min-h-screen bg-[#F7F7F4] text-[#17263A]">
+      <header className="sticky top-0 z-50 h-[72px] border-b border-[#17263A]/8 bg-[#FBFBF9]/92 backdrop-blur-2xl">
+        <div className="mx-auto flex h-full max-w-[1440px] items-center gap-7 px-4 sm:px-6 lg:px-10">
+          <Link href="/" aria-label="A7 Property home"><A7Brand /></Link>
+
+          <nav className="hidden items-center gap-1 md:flex" aria-label={tx("My home journey", "ကျွန်ုပ်၏အိမ်ခရီးစဉ်")}>
+            {journeyLinks.map((item) => {
+              const Icon = item.icon;
+              const active = activeSection === item.id;
+              return (
+                <Link
+                  key={item.id}
+                  href={item.href}
+                  aria-current={active ? "page" : undefined}
+                  className={cn(
+                    "inline-flex h-10 items-center gap-2 rounded-full px-4 text-[12px] font-medium transition-colors",
+                    active ? "bg-[#E9F2FF] text-[#075FCB]" : "text-[#5F6B78] hover:bg-white hover:text-[#17263A]",
+                  )}
+                >
+                  <Icon className="size-[17px]" />
+                  {isMyanmar ? item.labelMy : item.label}
+                  {item.id === "saved" && (
+                    <span data-type="number" className="grid h-6 min-w-6 place-items-center rounded-full bg-[#006AFF] px-1.5 text-[10px] font-bold text-white shadow-[0_4px_10px_rgba(0,106,255,.25)]">
+                      {savedProperties.length}
+                    </span>
+                  )}
+                </Link>
+              );
+            })}
+          </nav>
+
+          <div className="ml-auto flex items-center gap-1.5 sm:gap-2">
+            <Link href="/search?purpose=rent" className="hidden size-10 place-items-center rounded-full text-[#526171] transition-colors hover:bg-white hover:text-[#006AFF] sm:grid" aria-label={tx("Find homes", "အိမ်ရှာရန်")}>
+              <Search className="size-[19px]" />
+            </Link>
+            <A7AssistantPopover labelClassName="hidden min-[400px]:inline" />
+            <LanguageSwitcher className="hidden sm:block" />
+            <LanguageSwitcher compact className="sm:hidden" />
+            <Link href="/dashboard#price-alerts" className="relative grid size-10 place-items-center rounded-full text-[#526171] transition-colors hover:bg-white hover:text-[#006AFF]" aria-label={tx("Price alerts", "ဈေးနှုန်းအသိပေးချက်များ")}>
+              <Bell className="size-[19px]" />
+              <span className="absolute right-2 top-2 size-2 rounded-full border-2 border-[#FBFBF9] bg-[#E07B52]" />
+            </Link>
+            <Link href="/profile" className="ml-1 grid size-10 place-items-center rounded-full bg-[#17304A] text-[11px] font-semibold text-white transition-transform hover:scale-105 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#006AFF]/20" aria-label={`Open ${mockUser.name} profile`}>{mockUser.initials}</Link>
+          </div>
+        </div>
+      </header>
+
+      <main className="mx-auto max-w-[1440px] px-4 pb-28 sm:px-6 lg:px-10 lg:pb-20">
+        <section className="flex flex-col gap-7 pb-9 pt-10 sm:pb-12 sm:pt-14 lg:flex-row lg:items-end lg:justify-between">
+          <div>
+            <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[#6B7580]">{tx("Your home journey", "သင့်အိမ်ခရီးစဉ်")}</p>
+            <h1 className="mt-3 text-[36px] font-semibold tracking-[-0.05em] text-[#142438] sm:text-[46px]">{tx("Welcome back, Thiri", "ပြန်လာတာ ကြိုဆိုပါတယ်၊ သီရိ")}</h1>
+            <p className="mt-3 max-w-[580px] text-[15px] leading-7 text-[#65717E] sm:text-[16px]">
+              {tx("The homes you love, the people you’re talking with, and what’s coming next—all in one calm place.", "သင်နှစ်သက်သောအိမ်များ၊ ဆက်သွယ်နေသူများနှင့် နောက်လာမည့်အစီအစဉ်များကို တည်ငြိမ်သောတစ်နေရာတည်းတွင် စီမံပါ။")}
+            </p>
+          </div>
+          <Link href="/search?purpose=rent" className="inline-flex h-12 w-fit items-center gap-2 rounded-full bg-[#17304A] px-5 text-[13px] font-semibold text-white shadow-[0_8px_22px_rgba(23,48,74,.18)] transition-transform hover:-translate-y-0.5">
+            {tx("Find more homes", "နောက်ထပ်အိမ်များ ရှာမယ်")} <ArrowRight className="size-4" />
+          </Link>
         </section>
 
-        <aside className="space-y-6">
-          <Card className="rounded-[22px] border-[#0b3768]/8 shadow-sm"><CardContent className="p-5"><div className="flex items-center justify-between"><span className="grid size-11 place-items-center rounded-2xl bg-[#e6f4fb] text-[#1384c8]"><UserRound className="size-5" /></span><Badge className="bg-[#f0f8fd] text-[#24825f]"><ShieldCheck className="size-3.5" />Phone verified</Badge></div><h2 className="mt-5 text-sm font-semibold">Complete your profile</h2><p className="mt-2 text-[10px] leading-5 text-[#4e6478]">Owners respond faster when they know a little about who is interested.</p><div className="mt-4 h-2 overflow-hidden rounded-full bg-[#e3eaf1]"><div className="h-full rounded-full bg-[#0f6fb2]" style={{ width: `${mockUser.profileCompletion}%` }} /></div><div className="mt-2 flex justify-between text-[9px] text-[#728396]"><span>{mockUser.profileCompletion}% complete</span><span>Add move-in date</span></div><Button variant="outline" className="mt-5 w-full text-xs">Update profile</Button></CardContent></Card>
-        </aside>
-      </div>
+        <section id="saved-homes" className="scroll-mt-24 border-t border-[#17263A]/8 pt-9 sm:pt-11">
+          <div className="mb-6 flex items-end justify-between gap-5 sm:mb-8">
+            <div>
+              <div className="flex items-center gap-3">
+                <h2 className="text-[28px] font-semibold tracking-[-0.045em] sm:text-[34px]">{tx("Saved homes", "သိမ်းထားသောအိမ်များ")}</h2>
+                <span data-type="number" className="grid h-7 min-w-7 place-items-center rounded-full bg-[#006AFF] px-2 text-[11px] font-bold text-white shadow-[0_5px_14px_rgba(0,106,255,.28)]">{savedProperties.length}</span>
+              </div>
+              <p className="mt-2 text-[13px] text-[#697582]">{tx("Your shortlist of places that could feel like home.", "ကိုယ့်အိမ်လို ခံစားရနိုင်သောနေရာများ၏ စိတ်ကြိုက်စာရင်း။")}</p>
+            </div>
+            <Link href="/search?purpose=rent" className="hidden items-center gap-1 text-[12px] font-semibold text-[#0869DF] hover:underline sm:inline-flex">
+              {tx("Browse all homes", "အိမ်အားလုံးကြည့်ရန်")} <ChevronRight className="size-4" />
+            </Link>
+          </div>
 
-      <div className="mt-6 grid gap-6 xl:grid-cols-2">
-        <section className="rounded-[22px] border border-[#0b3768]/8 bg-white p-5 shadow-sm sm:p-6"><h2 className="text-lg font-semibold tracking-[-0.03em]">Messages</h2><div className="mt-4 divide-y divide-[#e3eaf1]">{mockMessages.map((message) => { const property = allProperties.find((item) => item.id === message.propertyId); return <button key={message.id} className="flex w-full items-center gap-3 py-4 text-left"><span className="relative grid size-10 shrink-0 place-items-center rounded-full bg-[#eaf6fc] text-xs font-semibold text-[#315f82]">{message.contact.split(" ").map((part) => part[0]).join("")}{message.unread && <span className="absolute right-0 top-0 size-2.5 rounded-full border-2 border-white bg-[#47bbea]" />}</span><span className="min-w-0 flex-1"><strong className="block truncate text-xs">{message.contact} · {property?.township}</strong><small className="mt-1 block truncate text-[10px] text-[#728396]">{message.preview}</small></span><span className="text-[9px] text-[#728396]">{message.time}</span></button>; })}</div></section>
-        <section className="rounded-[22px] border border-[#0b3768]/8 bg-white p-5 shadow-sm sm:p-6"><h2 className="text-lg font-semibold tracking-[-0.03em]">Viewing appointments</h2><div className="mt-4 space-y-3">{mockAppointments.map((appointment) => { const property = allProperties.find((item) => item.id === appointment.propertyId); return <div key={appointment.id} className="flex items-start gap-3 rounded-2xl bg-[#f8fafc] p-4"><span className="grid size-10 shrink-0 place-items-center rounded-xl bg-[#e6f4fb] text-[#1384c8]"><Clock3 className="size-[18px]" /></span><span className="min-w-0 flex-1"><strong className="block truncate text-xs">{property?.title}</strong><small className="mt-1.5 block text-[10px] text-[#4e6478]">{appointment.date} · {appointment.time}</small><Badge className="mt-2 bg-white text-[#0f6fb2]">{appointment.status}</Badge></span></div>; })}</div></section>
-      </div>
+          {savedProperties.length ? (
+            <div className="grid gap-5 md:grid-cols-2 lg:gap-6">
+              {savedProperties.slice(0, 4).map((property, index) => (
+                <SavedHomeCard key={property.id} property={property} saved onToggle={toggleSaved} priority={index < 2} />
+              ))}
+            </div>
+          ) : (
+            <div className="grid min-h-[300px] place-items-center rounded-[28px] bg-white px-6 text-center shadow-sm ring-1 ring-[#17263A]/7">
+              <div>
+                <span className="mx-auto grid size-14 place-items-center rounded-full bg-[#EEF4FB] text-[#0B6CF2]"><House className="size-6" /></span>
+                <h3 className="mt-5 text-xl font-semibold">{tx("Start your shortlist", "စိတ်ကြိုက်စာရင်း စတင်ပါ")}</h3>
+                <p className="mt-2 text-sm text-[#6C7783]">{tx("Save the homes you love and they’ll stay together here.", "သင်နှစ်သက်သောအိမ်များကို သိမ်းထားပါ။ ဒီနေရာမှာ တစ်စုတစ်စည်းတည်း ရှိနေမည်။")}</p>
+                <Link href="/search?purpose=rent" className="mt-5 inline-flex h-11 items-center rounded-full bg-[#17304A] px-5 text-xs font-semibold text-white">{tx("Explore homes", "အိမ်များကြည့်မယ်")}</Link>
+              </div>
+            </div>
+          )}
+        </section>
 
-      <section className="mt-6 rounded-[22px] border border-[#0b3768]/8 bg-white p-5 shadow-sm sm:p-6"><h2 className="text-lg font-semibold tracking-[-0.03em]">Recently viewed</h2><div className="mt-4 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">{recentProperties.map((property) => property && <PropertyCard key={property.id} property={property} href={`/properties/${property.id}`} isFavorite={savedIds.includes(property.id)} onFavoriteToggle={(item) => toggleSaved(item.id)} />)}</div></section>
-    </DashboardShell>
+        <section className="mt-16 sm:mt-20">
+          <div className="mb-6 flex items-end justify-between">
+            <div>
+              <h2 className="text-[24px] font-semibold tracking-[-0.04em] sm:text-[28px]">{tx("Recently viewed", "မကြာသေးမီက ကြည့်ခဲ့သောအိမ်များ")}</h2>
+              <p className="mt-2 text-[12px] text-[#6D7884]">{tx("Pick up where you left off.", "နောက်ဆုံးကြည့်ခဲ့သည့်နေရာမှ ဆက်ကြည့်ပါ။")}</p>
+            </div>
+            <Link href="/search?purpose=rent" className="text-[11px] font-semibold text-[#0869DF] hover:underline">{tx("See browsing history", "ကြည့်ရှုမှုမှတ်တမ်း")}</Link>
+          </div>
+          <div className="hide-scrollbar -mx-4 flex snap-x gap-4 overflow-x-auto px-4 pb-2 sm:mx-0 sm:grid sm:grid-cols-2 sm:px-0 lg:grid-cols-3">
+            {recentProperties.map((property) => (
+              <RecentHomeCard key={property.id} property={property} saved={savedIds.includes(property.id)} onToggle={toggleSaved} />
+            ))}
+          </div>
+        </section>
+
+        <section className="mt-16 border-y border-[#17263A]/8 py-12 sm:mt-20 sm:py-16">
+          <div className="mb-7 flex items-end justify-between">
+            <div>
+              <p className="text-[10px] font-semibold uppercase tracking-[0.15em] text-[#7A7166]">{tx("Inspired by your saves", "သိမ်းထားမှုအပေါ် အခြေခံထားသည်")}</p>
+              <h2 className="mt-2 text-[24px] font-semibold tracking-[-0.04em] sm:text-[30px]">{tx("More homes you may love", "သင်နှစ်သက်နိုင်မည့် နောက်ထပ်အိမ်များ")}</h2>
+            </div>
+            <Link href="/search?purpose=rent&sort=recommended" className="hidden items-center gap-1 text-[11px] font-semibold text-[#0869DF] hover:underline sm:inline-flex">{tx("See recommendations", "အကြံပြုအိမ်များကြည့်ရန်")} <ChevronRight className="size-4" /></Link>
+          </div>
+          <div className="hide-scrollbar -mx-4 flex snap-x gap-5 overflow-x-auto px-4 pb-3 sm:mx-0 sm:px-0">
+            {recommendedProperties.map((property) => (
+              <HomeRailCard key={property.id} property={property} saved={savedIds.includes(property.id)} onToggle={toggleSaved} />
+            ))}
+          </div>
+        </section>
+
+        <div className="mt-16 grid gap-6 lg:grid-cols-[0.9fr_1.1fr] lg:gap-8">
+          <section id="price-alerts" className="scroll-mt-24 rounded-[26px] bg-[#EDF5EF] p-5 sm:p-7">
+            <div className="flex items-start justify-between gap-4">
+              <div>
+                <span className="grid size-10 place-items-center rounded-full bg-white text-[#26704D] shadow-sm"><Bell className="size-[18px]" /></span>
+                <h2 className="mt-5 text-[22px] font-semibold tracking-[-0.035em]">{tx("Price change alerts", "ဈေးနှုန်းပြောင်းလဲမှု အသိပေးချက်များ")}</h2>
+                <p className="mt-2 text-[12px] leading-5 text-[#5E7166]">{tx("Good news from homes on your shortlist.", "သင်သိမ်းထားသောအိမ်များမှ သတင်းကောင်းများ။")}</p>
+              </div>
+              <span className="rounded-full bg-white/80 px-3 py-1.5 text-[9px] font-semibold text-[#337457]">{tx("Alerts on", "အသိပေးချက်ဖွင့်ထားသည်")}</span>
+            </div>
+            <div className="mt-6 space-y-3">
+              {priceAlerts.map((property) => {
+                const drop = priceDropByProperty[property.id];
+                const previousPrice = { ...property, price: property.price + drop };
+                return (
+                  <Link key={property.id} href={`/properties/${property.id}`} className="flex items-center gap-3 rounded-[18px] bg-white/88 p-3 transition-transform hover:-translate-y-0.5">
+                    <span className="relative size-14 shrink-0 overflow-hidden rounded-[13px]">
+                      <Image src={property.images[0]} alt="" fill sizes="56px" className="object-cover" />
+                    </span>
+                    <span className="min-w-0 flex-1">
+                      <strong className="block truncate text-[12px] text-[#1D3429]">{property.township} {tx("home", "ရှိအိမ်")}</strong>
+                      <small className="mt-1 block text-[10px] text-[#6C7B72]"><s>{formatPropertyPrice(previousPrice, isMyanmar ? "my" : "en")}</s> → {formatPropertyPrice(property, isMyanmar ? "my" : "en")}</small>
+                    </span>
+                    <span className="inline-flex shrink-0 items-center gap-1 text-[10px] font-semibold text-[#26704D]"><ArrowDown className="size-3.5" />{property.purpose === "sale" ? `${drop / 1_000_000}M` : new Intl.NumberFormat("en-US").format(drop)}</span>
+                  </Link>
+                );
+              })}
+              {!priceAlerts.length && <p className="rounded-[18px] bg-white/75 p-4 text-xs text-[#627269]">{tx("We’ll let you know when a saved home changes price.", "သိမ်းထားသောအိမ်၏ဈေးနှုန်း ပြောင်းလဲပါက အသိပေးပါမည်။")}</p>}
+            </div>
+          </section>
+
+          <section id="conversations" className="scroll-mt-24 rounded-[26px] bg-white p-5 shadow-[0_10px_36px_rgba(26,39,56,.06)] ring-1 ring-[#17263A]/7 sm:p-7">
+            <div className="flex items-end justify-between">
+              <div>
+                <h2 className="text-[22px] font-semibold tracking-[-0.035em]">{tx("Conversations with owners", "အိမ်ရှင်များနှင့် စကားပြောဆိုမှုများ")}</h2>
+                <p className="mt-2 text-[12px] text-[#6D7884]">{tx("Answers that help you decide with confidence.", "ယုံကြည်စိတ်ချစွာ ဆုံးဖြတ်နိုင်ရန် အထောက်အကူဖြစ်မည့်အဖြေများ။")}</p>
+              </div>
+              <Link href="/dashboard?section=messages#conversations" className="text-[11px] font-semibold text-[#0869DF]">{tx("View all", "အားလုံးကြည့်ရန်")}</Link>
+            </div>
+            <div className="mt-5 divide-y divide-[#E8EAED]">
+              {messages.map((message) => {
+                const property = allProperties.find((item) => item.id === message.propertyId);
+                return (
+                  <button key={message.id} type="button" onClick={() => openConversation(message)} className="group flex w-full items-center gap-3 py-4 text-left">
+                    <span className="relative grid size-11 shrink-0 place-items-center rounded-full bg-[#EEF3F7] text-[11px] font-semibold text-[#30465C]">
+                      {message.contact.split(" ").map((part) => part[0]).join("")}
+                      {message.unread && <span className="absolute right-0 top-0 size-2.5 rounded-full border-2 border-white bg-[#0B6CF2]" />}
+                    </span>
+                    <span className="min-w-0 flex-1">
+                      <span className="flex items-center gap-2">
+                        <strong className="truncate text-[12px] text-[#223246]">{message.contact}</strong>
+                        <small className="truncate text-[9px] text-[#8A929B]">{tx("about", "အကြောင်း")} {property?.township}</small>
+                      </span>
+                      <small className="mt-1.5 block truncate text-[10px] leading-4 text-[#66727E]">{message.preview}</small>
+                    </span>
+                    <span className="shrink-0 text-[9px] text-[#89919A]">{message.time}</span>
+                    <ChevronRight className="size-4 shrink-0 text-[#A2A8AF] transition-transform group-hover:translate-x-0.5" />
+                  </button>
+                );
+              })}
+            </div>
+          </section>
+        </div>
+
+        <section id="viewings" className="scroll-mt-24 mt-6 rounded-[28px] bg-[#17304A] p-5 text-white shadow-[0_16px_42px_rgba(23,48,74,.16)] sm:p-8">
+          <div className="grid gap-7 lg:grid-cols-[0.72fr_1.28fr] lg:items-center">
+            <div>
+              <span className="grid size-11 place-items-center rounded-full bg-white/10 text-[#A9CCFF]"><CalendarDays className="size-5" /></span>
+              <p className="mt-5 text-[10px] font-semibold uppercase tracking-[0.15em] text-white/55">{tx("Coming up", "မကြာမီလာမည်")}</p>
+              <h2 className="mt-2 text-[25px] font-semibold tracking-[-0.04em] sm:text-[30px]">{tx("Upcoming viewings", "လာမည့်အိမ်ကြည့်ချိန်များ")}</h2>
+              <p className="mt-3 max-w-sm text-[12px] leading-6 text-white/65">{tx("Everything you need for your next visit, in one place.", "နောက်လာမည့်အိမ်ကြည့်ခရီးအတွက် လိုအပ်သမျှကို တစ်နေရာတည်းမှာ။")}</p>
+            </div>
+            <div className="grid gap-3 sm:grid-cols-2">
+              {appointments.map((appointment) => {
+                const property = allProperties.find((item) => item.id === appointment.propertyId);
+                const [weekday, date] = appointment.date.split(", ");
+                return (
+                  <Link key={appointment.id} href={`/properties/${appointment.propertyId}`} className="rounded-[20px] border border-white/10 bg-white/[.075] p-4 transition-colors hover:bg-white/[.11]">
+                    <div className="flex items-start gap-4">
+                      <span className="grid size-12 shrink-0 place-items-center rounded-[15px] bg-white text-center text-[#17304A] shadow-lg">
+                        <span><strong className="block text-[16px] leading-4">{date?.split(" ")[0]}</strong><small className="text-[8px] font-semibold uppercase">{weekday}</small></span>
+                      </span>
+                      <span className="min-w-0">
+                        <strong className="block truncate text-[12px]">{property?.title}</strong>
+                        <small className="mt-1.5 flex items-center gap-1.5 text-[10px] text-white/62"><Clock3 className="size-3.5" />{appointment.time}</small>
+                        <small className="mt-1 flex items-center gap-1.5 text-[10px] text-white/62"><MapPin className="size-3.5" />{property?.township}, {property?.city}</small>
+                      </span>
+                    </div>
+                    <div className="mt-4 flex items-center justify-between border-t border-white/10 pt-3">
+                      <span className="inline-flex items-center gap-1.5 text-[9px] font-medium text-[#BFD8FF]"><Check className="size-3.5" />{appointment.status}</span>
+                      <span className="text-[9px] text-white/52">{tx("with", "နှင့်")} {appointment.contact}</span>
+                    </div>
+                  </Link>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <nav className="fixed inset-x-3 bottom-2 z-50 grid h-[66px] grid-cols-4 rounded-[22px] border border-[#17263A]/10 bg-white/94 p-1.5 shadow-[0_14px_36px_rgba(23,43,63,.18)] backdrop-blur-2xl md:hidden" aria-label={tx("Mobile home journey", "မိုဘိုင်းအိမ်ခရီးစဉ်")}>
+        <Link href="/search?purpose=rent" className="flex flex-col items-center justify-center gap-1 rounded-2xl text-[10px] font-medium text-[#687481]"><Search className="size-[18px]" />{tx("Explore", "ရှာဖွေ")}</Link>
+        {journeyLinks.map((item) => {
+          const Icon = item.icon;
+          const active = activeSection === item.id;
+          return (
+            <Link key={item.id} href={item.href} aria-current={active ? "page" : undefined} className={cn("flex flex-col items-center justify-center gap-1 rounded-2xl text-[10px] font-medium", active ? "bg-[#EAF2FF] text-[#006AFF]" : "text-[#687481]")}>
+              <Icon className="size-[18px]" />
+              <span className="inline-flex items-center gap-1">
+                {isMyanmar ? item.labelMy : item.label.replace(" homes", "")}
+                {item.id === "saved" && <span data-type="number" className="grid min-w-4 place-items-center rounded-full bg-[#006AFF] px-1 text-[8px] font-bold leading-4 text-white">{savedProperties.length}</span>}
+              </span>
+            </Link>
+          );
+        })}
+      </nav>
+
+      <Sheet
+        open={Boolean(activeConversation)}
+        onOpenChange={(open) => { if (!open) setActiveConversationId(null); }}
+        title={activeConversation ? `Conversation with ${activeConversation.contact}` : "Conversation"}
+        description={activeConversation ? `About ${allProperties.find((item) => item.id === activeConversation.propertyId)?.title ?? "this home"}` : undefined}
+        side="right"
+        footer={activeConversation && (
+          <form onSubmit={sendReply} className="flex items-center gap-2">
+            <label className="sr-only" htmlFor="conversation-reply">Write a reply</label>
+            <input
+              id="conversation-reply"
+              value={reply}
+              onChange={(event) => setReply(event.target.value)}
+              placeholder="Write a message…"
+              className="h-11 min-w-0 flex-1 rounded-full border border-[#D6DEE7] bg-[#F8FAFC] px-4 text-xs outline-none focus:border-[#006AFF] focus:ring-4 focus:ring-[#006AFF]/10"
+            />
+            <Button type="submit" size="icon" className="size-11 shrink-0 rounded-full" disabled={!reply.trim()} aria-label="Send reply">
+              <Send className="size-4" />
+            </Button>
+          </form>
+        )}
+      >
+        {activeConversation && (
+          <div className="flex min-h-full flex-col p-5 sm:p-7">
+            <Link href={`/properties/${activeConversation.propertyId}`} className="mb-6 flex items-center justify-between rounded-2xl bg-[#F2F6FA] p-4 text-xs font-semibold text-[#17304A]">
+              View property details <ChevronRight className="size-4 text-[#006AFF]" />
+            </Link>
+            <div className="space-y-4" aria-live="polite">
+              {activeConversation.thread.map((message) => (
+                <div key={message.id} className={cn("flex", message.sender === "user" ? "justify-end" : "justify-start")}>
+                  <div className={cn(
+                    "max-w-[84%] rounded-[18px] px-4 py-3 text-[12px] leading-5",
+                    message.sender === "user"
+                      ? "rounded-br-md bg-[#006AFF] text-white"
+                      : "rounded-bl-md bg-[#EEF2F6] text-[#33465A]",
+                  )}>
+                    <p>{message.text}</p>
+                    <span className={cn("mt-1.5 block text-[9px]", message.sender === "user" ? "text-white/65" : "text-[#82909E]")}>{message.time}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <p className="mt-auto pt-8 text-center text-[10px] leading-5 text-[#7A8794]">Your contact details remain private until you choose to share them.</p>
+          </div>
+        )}
+      </Sheet>
+    </div>
   );
 }
 

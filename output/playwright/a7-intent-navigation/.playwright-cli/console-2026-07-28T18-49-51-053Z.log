@@ -1,0 +1,66 @@
+[     249ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=56be4b71:14337
+[   68437ms] [LOG] [vite] server connection lost. Polling for restart... @ http://localhost:3001/@vite/client:968
+[   68769ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=56be4b71:14337
+[14265435ms] [LOG] [vite] server connection lost. Polling for restart... @ http://localhost:3001/@vite/client:968
+[14266109ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=56be4b71:14337
+[55495323ms] [ERROR] ReferenceError: Bot is not defined
+    at HomePage (http://localhost:3001/app/page.tsx?t=1785320086111:962:45)
+    at Object.react_stack_bottom_frame (http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=56be4b71:12868:12)
+    at renderWithHooks (http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=56be4b71:4213:19)
+    at updateFunctionComponent (http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=56be4b71:5569:16)
+    at beginWork (http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=56be4b71:6140:20)
+    at runWithFiberInDEV (http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=56be4b71:851:66)
+    at performUnitOfWork (http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=56be4b71:8429:92)
+    at workLoopSync (http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=56be4b71:8325:37)
+    at renderRootSync (http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=56be4b71:8309:6)
+    at performWorkOnRoot (http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=56be4b71:7994:27) @ http://localhost:3001/@vite/client:509
+[55495330ms] [ERROR] The above error occurred in a React component:
+
+    at HomePage (http://localhost:3001/app/page.tsx?t=1785320086111:124:23)
+    at AwaitAppRenderDependencies [Server] (<anonymous>)
+    at Slot (http://localhost:3001/node_modules/vinext/dist/shims/slot.js?v=56be4b71:42:17)
+    at LayoutSegmentProvider (http://localhost:3001/node_modules/vinext/dist/shims/layout-segment-context.js?v=56be4b71:32:34)
+    at RedirectErrorBoundary (http://localhost:3001/node_modules/vinext/dist/shims/error-boundary.js?v=56be4b71:56:3)
+    at RedirectBoundary (http://localhost:3001/node_modules/vinext/dist/shims/error-boundary.js?v=56be4b71:86:29)
+    at Children (http://localhost:3001/node_modules/vinext/dist/shims/slot.js?v=56be4b71:64:17)
+    at div (<anonymous>)
+    at MotionDOMComponent (http://localhost:3001/node_modules/.vite/deps/framer-motion.js?v=56be4b71:10649:35)
+    at RouteFade (http://localhost:3001/components/layout/route-fade.tsx:6:22)
+    at RouteTemplate [Server] (<anonymous>)
+    at AwaitAppRenderDependencies [Server] (<anonymous>)
+    at Slot (http://localhost:3001/node_modules/vinext/dist/shims/slot.js?v=56be4b71:42:17)
+    at Children (http://localhost:3001/node_modules/vinext/dist/shims/slot.js?v=56be4b71:64:17)
+    at body (<anonymous>)
+    at html (<anonymous>)
+    at RootLayout [Server] (<anonymous>)
+    at default (about://React/Server/file:///Users/aungpyaehein/Myanmar%20Real%20Estate/app/layout.tsx?10:77:26)
+    at default (about://React/Server/file:///Users/aungpyaehein/Myanmar%20Real%20Estate/app/layout.tsx?10:77:26)
+    at Slot (http://localhost:3001/node_modules/vinext/dist/shims/slot.js?v=56be4b71:42:17)
+    at LayoutSegmentProvider (http://localhost:3001/node_modules/vinext/dist/shims/layout-segment-context.js?v=56be4b71:32:34)
+    at Slot (http://localhost:3001/node_modules/vinext/dist/shims/slot.js?v=56be4b71:42:17)
+    at NavigationCommitSignal (http://localhost:3001/node_modules/vinext/dist/server/app-browser-navigation-controller.js?v=56be4b71:184:36)
+    at RedirectErrorBoundary (http://localhost:3001/node_modules/vinext/dist/shims/error-boundary.js?v=56be4b71:56:3)
+    at RedirectBoundary (http://localhost:3001/node_modules/vinext/dist/shims/error-boundary.js?v=56be4b71:86:29)
+    at DevRecoveryBoundary (http://localhost:3001/node_modules/vinext/dist/shims/error-boundary.js?v=56be4b71:268:3)
+    at BrowserRoot (http://localhost:3001/node_modules/vinext/dist/server/app-browser-entry.js?v=56be4b71:209:24) @ http://localhost:3001/@vite/client:509
+[57193471ms] [LOG] [vite] server connection lost. Polling for restart... @ http://localhost:3001/@vite/client:968
+[57194930ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=56be4b71:14337
+[57297390ms] [LOG] [vite] server connection lost. Polling for restart... @ http://localhost:3001/@vite/client:968
+[57297577ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=56be4b71:14337
+[57530642ms] [LOG] [vite] server connection lost. Polling for restart... @ http://localhost:3001/@vite/client:968
+[57533386ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=56be4b71:14337
+[67823850ms] [LOG] [vite] server connection lost. Polling for restart... @ http://localhost:3001/@vite/client:968
+[67824726ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=56be4b71:14337
+[72567995ms] [LOG] [vite] server connection lost. Polling for restart... @ http://localhost:3001/@vite/client:968
+[72568924ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=56be4b71:14337
+[90527441ms] [LOG] [vite] server connection lost. Polling for restart... @ http://localhost:3001/@vite/client:968
+[90528373ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=56be4b71:14337
+[90726489ms] [LOG] [vite] server connection lost. Polling for restart... @ http://localhost:3001/@vite/client:968
+[90726650ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=56be4b71:14337
+[152691660ms] [LOG] [vite] server connection lost. Polling for restart... @ http://localhost:3001/@vite/client:968
+[152692477ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=56be4b71:14337
+[160688992ms] [LOG] [vite] server connection lost. Polling for restart... @ http://localhost:3001/@vite/client:968
+[160689198ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=56be4b71:14337
+[160895897ms] [LOG] [vite] server connection lost. Polling for restart... @ http://localhost:3001/@vite/client:968
+[160896093ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3001/node_modules/.vite/deps/react-dom_client.js?v=56be4b71:14337
+[161129561ms] [LOG] [vite] server connection lost. Polling for restart... @ http://localhost:3001/@vite/client:968

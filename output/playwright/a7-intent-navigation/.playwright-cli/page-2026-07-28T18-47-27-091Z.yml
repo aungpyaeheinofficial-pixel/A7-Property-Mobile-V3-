@@ -1,0 +1,185 @@
+- generic [ref=e3612]:
+  - complementary [ref=e3613]:
+    - link "A7 Property owner" [ref=e3614] [cursor=pointer]:
+      - /url: /
+      - generic [ref=e3615]: A7 Property
+      - generic [ref=e3619]: owner
+    - navigation "Dashboard navigation" [ref=e3620]:
+      - link "Overview" [ref=e3621] [cursor=pointer]:
+        - /url: /owner
+      - link "Properties" [ref=e3627] [cursor=pointer]:
+        - /url: /owner?section=properties
+      - link "Messages" [ref=e3632] [cursor=pointer]:
+        - /url: /owner?section=messages
+      - link "Analytics" [ref=e3635] [cursor=pointer]:
+        - /url: /owner?section=analytics
+      - link "Verification" [ref=e3638] [cursor=pointer]:
+        - /url: /owner?section=verification
+      - link "Settings" [ref=e3642] [cursor=pointer]:
+        - /url: /owner?section=settings
+      - link "Browse marketplace" [ref=e3646] [cursor=pointer]:
+        - /url: /search
+    - generic [ref=e3650]:
+      - generic [ref=e3651]: KM
+      - generic [ref=e3652]:
+        - strong [ref=e3653]: Daw Khin Myint
+        - generic [ref=e3654]: View account
+  - generic [ref=e3655]:
+    - banner [ref=e3656]:
+      - generic [ref=e3657]: Owner workspace
+      - generic [ref=e3658]:
+        - button "Create listing" [ref=e3660]
+        - button "Notifications" [ref=e3662]
+        - generic [ref=e3667]: KM
+    - main [ref=e3668]:
+      - generic [ref=e3670]:
+        - paragraph [ref=e3671]: owner workspace
+        - heading "Property performance" [level=1] [ref=e3672]
+        - paragraph [ref=e3673]: Manage listings, pricing, inquiries, and verification from one place.
+      - generic [ref=e3674]:
+        - generic [ref=e3675]:
+          - generic [ref=e3676]: KM
+          - generic [ref=e3677]:
+            - strong [ref=e3678]: Daw Khin Myint
+            - generic [ref=e3682]: Property owner · replies in 18 min
+        - link "Switch to agent view" [ref=e3683] [cursor=pointer]:
+          - /url: /agent
+      - generic [ref=e3686]:
+        - generic [ref=e3688]:
+          - generic [ref=e3689]: +3 this month
+          - generic [ref=e3696]:
+            - strong [ref=e3697]: "25"
+            - generic [ref=e3698]: Active properties
+        - generic [ref=e3700]:
+          - generic [ref=e3701]: +18.6%
+          - generic [ref=e3707]:
+            - strong [ref=e3708]: 15,000
+            - generic [ref=e3709]: Listing views
+        - generic [ref=e3711]:
+          - generic [ref=e3712]: +24 this week
+          - generic [ref=e3717]:
+            - strong [ref=e3718]: "250"
+            - generic [ref=e3719]: Messages
+        - generic [ref=e3721]:
+          - generic [ref=e3722]: Above average
+          - generic [ref=e3728]:
+            - strong [ref=e3729]: 8.4%
+            - generic [ref=e3730]: Inquiry conversion
+      - generic [ref=e3731]:
+        - generic [ref=e3733]:
+          - generic [ref=e3734]:
+            - generic [ref=e3735]:
+              - heading "Listing views" [level=2] [ref=e3736]
+              - paragraph [ref=e3737]: Last 7 days across your active inventory
+            - generic [ref=e3738]: 18.6%
+          - generic [ref=e3742]:
+            - generic [ref=e3743]: Mon
+            - generic [ref=e3746]: Tue
+            - generic [ref=e3749]: Wed
+            - generic [ref=e3752]: Thu
+            - generic [ref=e3755]: Fri
+            - generic [ref=e3758]: Sat
+            - generic [ref=e3761]: Sun
+        - generic [ref=e3765]:
+          - generic [ref=e3767]:
+            - heading "Verification health" [level=2] [ref=e3768]
+            - paragraph [ref=e3769]: Keep every listing trusted
+          - generic [ref=e3774]:
+            - generic [ref=e3775]: Identity verified
+            - generic [ref=e3779]: Phone verified
+            - generic [ref=e3783]: 23 listings reviewed
+            - generic [ref=e3787]:
+              - generic [ref=e3788]: "!"
+              - text: 2 listings need documents
+          - button "Review verification" [ref=e3789]
+      - generic [ref=e3790]:
+        - generic [ref=e3791]:
+          - generic [ref=e3792]:
+            - generic [ref=e3793]:
+              - heading "Properties" [level=2] [ref=e3794]
+              - paragraph [ref=e3795]: Price, availability, and listing quality
+            - button "View all" [ref=e3796]
+          - table [ref=e3798]:
+            - rowgroup [ref=e3799]:
+              - row [ref=e3800]:
+                - columnheader "Property" [ref=e3801]
+                - columnheader "Price" [ref=e3802]
+                - columnheader "Views" [ref=e3803]
+                - columnheader "Status" [ref=e3804]
+                - columnheader "Actions" [ref=e3805]
+            - rowgroup [ref=e3807]:
+              - row [ref=e3808]:
+                - cell "Light-filled 1-bed condo in Bahan Bahan · MM-PROP-001" [ref=e3809]:
+                  - strong [ref=e3810]: Light-filled 1-bed condo in Bahan
+                  - generic [ref=e3811]: Bahan · MM-PROP-001
+                - cell "300,000 MMK" [ref=e3812]
+                - cell "430" [ref=e3813]
+                - cell "Active" [ref=e3814]
+                - cell [ref=e3816]:
+                  - button "Edit Light-filled 1-bed condo in Bahan" [ref=e3817]
+              - row [ref=e3821]:
+                - cell "Quiet 2-bed mini condo in Kamayut Kamayut · MM-PROP-002" [ref=e3822]:
+                  - strong [ref=e3823]: Quiet 2-bed mini condo in Kamayut
+                  - generic [ref=e3824]: Kamayut · MM-PROP-002
+                - cell "500,000 MMK" [ref=e3825]
+                - cell "717" [ref=e3826]
+                - cell "Active" [ref=e3827]
+                - cell [ref=e3829]:
+                  - button "Edit Quiet 2-bed mini condo in Kamayut" [ref=e3830]
+              - row [ref=e3834]:
+                - cell "Well-kept 3-bed apartment in Hlaing Hlaing · MM-PROP-003" [ref=e3835]:
+                  - strong [ref=e3836]: Well-kept 3-bed apartment in Hlaing
+                  - generic [ref=e3837]: Hlaing · MM-PROP-003
+                - cell "800,000 MMK" [ref=e3838]
+                - cell "1,004" [ref=e3839]
+                - cell "Active" [ref=e3840]
+                - cell [ref=e3842]:
+                  - button "Edit Well-kept 3-bed apartment in Hlaing" [ref=e3843]
+              - row [ref=e3847]:
+                - cell "Spacious 1-bed apartment in Yankin Yankin · MM-PROP-004" [ref=e3848]:
+                  - strong [ref=e3849]: Spacious 1-bed apartment in Yankin
+                  - generic [ref=e3850]: Yankin · MM-PROP-004
+                - cell "520M MMK" [ref=e3851]
+                - cell "1,291" [ref=e3852]
+                - cell "Needs review" [ref=e3853]
+                - cell [ref=e3855]:
+                  - button "Edit Spacious 1-bed apartment in Yankin" [ref=e3856]
+              - row [ref=e3860]:
+                - cell "Move-in ready 4-bed villa in Sanchaung Sanchaung · MM-PROP-005" [ref=e3861]:
+                  - strong [ref=e3862]: Move-in ready 4-bed villa in Sanchaung
+                  - generic [ref=e3863]: Sanchaung · MM-PROP-005
+                - cell "680M MMK" [ref=e3864]
+                - cell "1,578" [ref=e3865]
+                - cell "Active" [ref=e3866]
+                - cell [ref=e3868]:
+                  - button "Edit Move-in ready 4-bed villa in Sanchaung" [ref=e3869]
+        - generic [ref=e3873]:
+          - generic [ref=e3875]:
+            - heading "Recent leads" [level=2] [ref=e3876]
+            - paragraph [ref=e3877]: Prioritized by intent
+          - generic [ref=e3880]:
+            - button "TW Thiri Win Viewing request · 8 min ago New" [ref=e3881]:
+              - generic [ref=e3882]: TW
+              - generic [ref=e3883]:
+                - strong [ref=e3884]: Thiri Win
+                - generic [ref=e3885]: Viewing request · 8 min ago
+              - generic [ref=e3886]: New
+            - button "KM Ko Min Asked about ownership · 24 min ago Replied" [ref=e3887]:
+              - generic [ref=e3888]: KM
+              - generic [ref=e3889]:
+                - strong [ref=e3890]: Ko Min
+                - generic [ref=e3891]: Asked about ownership · 24 min ago
+              - generic [ref=e3892]: Replied
+            - button "MS May Su Price question · 1 hr ago New" [ref=e3893]:
+              - generic [ref=e3894]: MS
+              - generic [ref=e3895]:
+                - strong [ref=e3896]: May Su
+                - generic [ref=e3897]: Price question · 1 hr ago
+              - generic [ref=e3898]: New
+            - button "HN Htet Naing Move-in date · Yesterday Viewing" [ref=e3899]:
+              - generic [ref=e3900]: HN
+              - generic [ref=e3901]:
+                - strong [ref=e3902]: Htet Naing
+                - generic [ref=e3903]: Move-in date · Yesterday
+              - generic [ref=e3904]: Viewing
+          - button "Open lead inbox" [ref=e3905]

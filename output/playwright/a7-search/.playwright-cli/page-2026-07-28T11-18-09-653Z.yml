@@ -1,0 +1,225 @@
+- generic [ref=e1330]:
+  - banner [ref=e1331]:
+    - generic [ref=e1332]:
+      - link "A7 Property home" [ref=e1333] [cursor=pointer]:
+        - /url: /
+        - generic [ref=e1334]: A7 Property
+      - generic [ref=e1338]:
+        - link "AI Home Assistant" [ref=e1339] [cursor=pointer]:
+          - /url: /assistant
+        - link "Sign in" [ref=e1343] [cursor=pointer]:
+          - /url: /sign-in
+  - navigation "Mobile search navigation" [ref=e1347]:
+    - link "Home" [ref=e1348] [cursor=pointer]:
+      - /url: /
+    - link "Search" [ref=e1352] [cursor=pointer]:
+      - /url: /search
+    - link "Saved" [ref=e1356] [cursor=pointer]:
+      - /url: /dashboard?section=saved
+    - link "Messages" [ref=e1359] [cursor=pointer]:
+      - /url: /dashboard?section=messages
+    - link "Profile" [ref=e1362] [cursor=pointer]:
+      - /url: /sign-in
+  - region "Property search" [ref=e1366]:
+    - generic [ref=e1369]:
+      - combobox "Search by address, township, city or landmark" [ref=e1371]: Bahan
+      - button "Clear location" [ref=e1372]
+      - button "Search homes" [ref=e1376]
+  - main [ref=e1380]:
+    - generic [ref=e1381]:
+      - generic [ref=e1383]:
+        - generic [ref=e1384]:
+          - paragraph [ref=e1385]: Curated homes for you
+          - heading "Homes in Bahan" [level=1] [ref=e1386]
+          - paragraph [ref=e1387]:
+            - strong [ref=e1388]: "5"
+            - text: homes · reviewed, refreshed, and ready to explore
+        - generic [ref=e1389]:
+          - button "Map" [ref=e1390]
+          - generic [ref=e1393]:
+            - generic [ref=e1394]: Sort homes
+            - combobox "Sort homes" [ref=e1395]:
+              - option "Recommended" [selected]
+              - option "Newest"
+              - option "Price low–high"
+      - generic "Quick filters" [ref=e1396]:
+        - generic "Search purpose" [ref=e1397]:
+          - button "Rent" [ref=e1398]
+          - button "Buy" [pressed] [ref=e1399]
+        - generic [ref=e1400]:
+          - generic [ref=e1401]: Price
+          - combobox "Price ⌄" [ref=e1402]:
+            - option "Any price" [selected]
+            - option "Up to 100M"
+            - option "Up to 300M"
+            - option "Up to 500M"
+          - generic: ⌄
+        - generic [ref=e1403]:
+          - generic [ref=e1404]: Property type
+          - combobox "Property type ⌄" [ref=e1405]:
+            - option "Any type" [selected]
+            - option "Condo"
+            - option "Apartment"
+            - option "House"
+            - option "Mini condo"
+            - option "Villa"
+          - generic: ⌄
+        - generic [ref=e1406]:
+          - generic [ref=e1407]: Bedrooms
+          - combobox "Bedrooms ⌄" [ref=e1408]:
+            - option "Any beds" [selected]
+            - option "1+ beds"
+            - option "2+ beds"
+            - option "3+ beds"
+            - option "4+ beds"
+          - generic: ⌄
+        - generic [ref=e1409]:
+          - generic [ref=e1410]: Bathrooms
+          - combobox "Bathrooms ⌄" [ref=e1411]:
+            - option "Any baths" [selected]
+            - option "1+ baths"
+            - option "2+ baths"
+            - option "3+ baths"
+            - option "4+ baths"
+          - generic: ⌄
+        - button "Verified only" [ref=e1412]
+        - button "More filters" [ref=e1415]
+      - generic [ref=e1417]:
+        - article [ref=e1419]:
+          - link "View details for Spacious 1-bed apartment in Bahan" [ref=e1420] [cursor=pointer]:
+            - /url: /properties/MM-PROP-064
+          - generic [ref=e1421]:
+            - img "Spacious 1-bed apartment in Bahan" [ref=e1422]
+            - generic [ref=e1423]:
+              - generic [ref=e1424]: Verified
+              - generic [ref=e1428]: 3 photos
+            - button "Save Spacious 1-bed apartment in Bahan" [ref=e1432]
+          - generic [ref=e1435]:
+            - generic [ref=e1436]:
+              - generic [ref=e1437]:
+                - strong [ref=e1439]: 520 သန်း
+                - paragraph [ref=e1440]: 520,000,000 MMK total
+              - generic [ref=e1441]: For sale
+            - heading "Spacious 1-bed apartment in Bahan" [level=2] [ref=e1442]
+            - paragraph [ref=e1443]:
+              - generic [ref=e1447]: Bahan, Yangon · Ward 1
+            - generic [ref=e1448]:
+              - generic [ref=e1449]: 1 bed
+              - generic [ref=e1453]: 1 bath
+              - generic [ref=e1457]: 650 sqft
+            - generic [ref=e1463]:
+              - generic [ref=e1464]: Verified owner · Real photos
+              - generic [ref=e1469]: 96% trust
+            - generic [ref=e1470]:
+              - generic [ref=e1471]: Replies in ~85 min · 2 hours ago
+              - generic [ref=e1475]: View details
+        - article [ref=e1479]:
+          - link "View details for Move-in ready 4-bed villa in Bahan" [ref=e1480] [cursor=pointer]:
+            - /url: /properties/MM-PROP-055
+          - generic [ref=e1481]:
+            - img "Move-in ready 4-bed villa in Bahan" [ref=e1482]
+            - generic [ref=e1483]:
+              - generic [ref=e1484]: Verified
+              - generic [ref=e1488]: 3 photos
+            - button "Save Move-in ready 4-bed villa in Bahan" [ref=e1492]
+          - generic [ref=e1495]:
+            - generic [ref=e1496]:
+              - generic [ref=e1497]:
+                - strong [ref=e1499]: 120 သန်း
+                - paragraph [ref=e1500]: 120,000,000 MMK total
+              - generic [ref=e1501]: For sale
+            - heading "Move-in ready 4-bed villa in Bahan" [level=2] [ref=e1502]
+            - paragraph [ref=e1503]:
+              - generic [ref=e1507]: Bahan, Yangon · Ward 8
+            - generic [ref=e1508]:
+              - generic [ref=e1509]: 4 beds
+              - generic [ref=e1513]: 4 baths
+              - generic [ref=e1517]: 3,200 sqft
+            - generic [ref=e1523]:
+              - generic [ref=e1524]: Verified owner · Real photos
+              - generic [ref=e1529]: 95% trust
+            - generic [ref=e1530]:
+              - generic [ref=e1531]: Replies in ~22 min · today
+              - generic [ref=e1535]: View details
+        - article [ref=e1539]:
+          - link "View details for Spacious 1-bed apartment in Bahan" [ref=e1540] [cursor=pointer]:
+            - /url: /properties/MM-PROP-019
+          - generic [ref=e1541]:
+            - img "Spacious 1-bed apartment in Bahan" [ref=e1542]
+            - generic [ref=e1543]:
+              - generic [ref=e1544]: Verified
+              - generic [ref=e1548]: 3 photos
+            - button "Save Spacious 1-bed apartment in Bahan" [ref=e1552]
+          - generic [ref=e1555]:
+            - generic [ref=e1556]:
+              - generic [ref=e1557]:
+                - strong [ref=e1559]: 120 သန်း
+                - paragraph [ref=e1560]: 120,000,000 MMK total
+              - generic [ref=e1561]: For sale
+            - heading "Spacious 1-bed apartment in Bahan" [level=2] [ref=e1562]
+            - paragraph [ref=e1563]:
+              - generic [ref=e1567]: Bahan, Yangon · Ward 4
+            - generic [ref=e1568]:
+              - generic [ref=e1569]: 1 bed
+              - generic [ref=e1573]: 1 bath
+              - generic [ref=e1577]: 1,330 sqft
+            - generic [ref=e1583]:
+              - generic [ref=e1584]: Verified owner · Real photos
+              - generic [ref=e1589]: 93% trust
+            - generic [ref=e1590]:
+              - generic [ref=e1591]: Replies in ~43 min · today
+              - generic [ref=e1595]: View details
+        - article [ref=e1599]:
+          - link "View details for Move-in ready 5-bed villa in Bahan" [ref=e1600] [cursor=pointer]:
+            - /url: /properties/MM-PROP-010
+          - generic [ref=e1601]:
+            - img "Move-in ready 5-bed villa in Bahan" [ref=e1602]
+            - generic [ref=e1603]:
+              - generic [ref=e1604]: Verified
+              - generic [ref=e1608]: 3 photos
+            - button "Save Move-in ready 5-bed villa in Bahan" [ref=e1612]
+          - generic [ref=e1615]:
+            - generic [ref=e1616]:
+              - generic [ref=e1617]:
+                - strong [ref=e1619]: 520 သန်း
+                - paragraph [ref=e1620]: 520,000,000 MMK total
+              - generic [ref=e1621]: For sale
+            - heading "Move-in ready 5-bed villa in Bahan" [level=2] [ref=e1622]
+            - paragraph [ref=e1623]:
+              - generic [ref=e1627]: Bahan, Yangon · Ward 3
+            - generic [ref=e1628]:
+              - generic [ref=e1629]: 5 beds
+              - generic [ref=e1633]: 4 baths
+              - generic [ref=e1637]: 4,250 sqft
+            - generic [ref=e1643]:
+              - generic [ref=e1644]: Verified owner · Real photos
+              - generic [ref=e1649]: 93% trust
+            - generic [ref=e1650]:
+              - generic [ref=e1651]: Replies in ~71 min · today
+              - generic [ref=e1655]: View details
+        - article [ref=e1659]:
+          - link "View details for Move-in ready 5-bed villa in Bahan" [ref=e1660] [cursor=pointer]:
+            - /url: /properties/MM-PROP-100
+          - generic [ref=e1661]:
+            - img "Move-in ready 5-bed villa in Bahan" [ref=e1662]
+            - generic [ref=e1663]: 3 photos
+            - button "Save Move-in ready 5-bed villa in Bahan" [ref=e1668]
+          - generic [ref=e1671]:
+            - generic [ref=e1672]:
+              - generic [ref=e1673]:
+                - strong [ref=e1675]: 520 သန်း
+                - paragraph [ref=e1676]: 520,000,000 MMK total
+              - generic [ref=e1677]: For sale
+            - heading "Move-in ready 5-bed villa in Bahan" [level=2] [ref=e1678]
+            - paragraph [ref=e1679]:
+              - generic [ref=e1683]: Bahan, Yangon · Ward 5
+            - generic [ref=e1684]:
+              - generic [ref=e1685]: 5 beds
+              - generic [ref=e1689]: 4 baths
+              - generic [ref=e1693]: 4,250 sqft
+            - generic [ref=e1699]:
+              - generic [ref=e1700]: Verified owner · Real photos
+              - generic [ref=e1705]: 88% trust
+            - generic [ref=e1706]:
+              - generic [ref=e1707]: Replies in ~64 min · 2 hours ago
+              - generic [ref=e1711]: View details

@@ -1,63 +1,122 @@
 "use client";
 
-import { useSearchParams } from "next/navigation";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { Heart, MapPin, RotateCcw, SearchX } from "lucide-react";
+import Link from "next/link";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 
-import { AppHeader } from "@/components/layout/app-header";
-import { PropertyCard, PropertyCardEmpty } from "@/components/property/property-card";
-import { PropertyMap } from "@/components/property/property-map";
-import { FilterPanel } from "@/components/search/filter-panel";
-import { SearchToolbar } from "@/components/search/search-toolbar";
+import { DiscoveryFilterSidebar } from "@/components/search/discovery-filter-sidebar";
+import { useLanguage } from "@/components/i18n/language-provider";
+import { DiscoveryToolbar } from "@/components/search/discovery-toolbar";
+import { PersistentSearchBar } from "@/components/search/persistent-search-bar";
+import {
+  clearAdvancedFilters,
+  clearRefinementFilters,
+  createDiscoveryFilters,
+  filterDiscoveryProperties,
+  type DiscoveryFilters,
+} from "@/components/search/search-discovery";
+import { QuickFilterBar } from "@/components/search/quick-filter-bar";
+import { SearchMapPanel } from "@/components/search/search-map-panel";
+import { SearchNavbar } from "@/components/search/search-navbar";
+import { SearchPropertyCard } from "@/components/search/search-property-card";
 import { Button } from "@/components/ui/button";
 import { Sheet } from "@/components/ui/sheet";
+import { readStoredIds, STORAGE_KEYS, writeStoredIds } from "@/lib/local-storage";
+import { mockUser } from "@/lib/mock-users";
 import {
-  countActiveFilters,
   defaultSearchFilters,
-  filterProperties,
   sortProperties,
   type Property,
   type PropertySort,
-  type SearchFilters,
 } from "@/lib/properties";
-import { readStoredIds, STORAGE_KEYS, writeStoredIds } from "@/lib/local-storage";
-import { cn } from "@/lib/utils";
 
 function PropertySearch({ properties }: { properties: Property[] }) {
+  const { tx } = useLanguage();
   const searchParams = useSearchParams();
+  const pathname = usePathname();
+  const router = useRouter();
   const initialPurpose = searchParams.get("purpose") === "sale" ? "sale" : "rent";
+  const sellJourney = initialPurpose === "sale" && searchParams.get("journey") === "sell";
   const initialLocation = searchParams.get("location") ?? "All Myanmar";
   const initialType = searchParams.get("type") as Property["property_type"] | null;
+  const initialMinPrice = Number(searchParams.get("minPrice"));
   const initialMaxPrice = Number(searchParams.get("maxPrice"));
-  const [filters, setFilters] = useState<SearchFilters>({
+  const initialBedrooms = Number(searchParams.get("bedrooms"));
+  const initialBathrooms = Number(searchParams.get("bathrooms"));
+  const initialSort = searchParams.get("sort");
+  const initialFilters = createDiscoveryFilters({
     ...defaultSearchFilters,
     purpose: initialPurpose,
     location: initialLocation,
     propertyTypes: initialType ? [initialType] : [],
+    minPrice: Number.isFinite(initialMinPrice) && initialMinPrice > 0 ? initialMinPrice : null,
     maxPrice: Number.isFinite(initialMaxPrice) && initialMaxPrice > 0 ? initialMaxPrice : null,
+    bedrooms: Number.isFinite(initialBedrooms) && initialBedrooms > 0 ? initialBedrooms : null,
+    bathrooms: Number.isFinite(initialBathrooms) && initialBathrooms > 0 ? initialBathrooms : null,
   });
-  const [draftFilters, setDraftFilters] = useState(filters);
-  const [sort, setSort] = useState<PropertySort>("recommended");
+  initialFilters.verifiedOnly = searchParams.get("verified") === "1";
+
+  const [filters, setFilters] = useState<DiscoveryFilters>(initialFilters);
+  const [draftFilters, setDraftFilters] = useState<DiscoveryFilters>(initialFilters);
+  const [sort, setSort] = useState<PropertySort>(initialSort === "newest" || initialSort === "price-asc" ? initialSort : "recommended");
   const [mapOpen, setMapOpen] = useState(false);
   const [filterOpen, setFilterOpen] = useState(false);
   const [selectedId, setSelectedId] = useState<string | null>(null);
-  const [saved, setSaved] = useState<string[]>([]);
+  const [saved, setSaved] = useState<string[]>(mockUser.savedPropertyIds);
+  const [saveNotice, setSaveNotice] = useState<{ id: string; title: string; saved: boolean } | null>(null);
+  const [visibleCount, setVisibleCount] = useState(24);
+  const reduceMotion = useReducedMotion();
 
   useEffect(() => {
-    const stored = readStoredIds(STORAGE_KEYS.saved, STORAGE_KEYS.legacySaved);
-    if (stored.length) queueMicrotask(() => setSaved(stored));
+    const stored = readStoredIds(STORAGE_KEYS.saved, STORAGE_KEYS.legacySaved, mockUser.savedPropertyIds);
+    queueMicrotask(() => setSaved(stored));
   }, []);
 
-  const results = useMemo(() => sortProperties(filterProperties(properties, filters), sort), [properties, filters, sort]);
+  useEffect(() => {
+    if (!saveNotice) return;
+    const timer = window.setTimeout(() => setSaveNotice(null), 3200);
+    return () => window.clearTimeout(timer);
+  }, [saveNotice]);
 
-  function toggleSaved(id: string) {
-    setSaved((current) => {
-      const next = current.includes(id) ? current.filter((item) => item !== id) : [...current, id];
-      writeStoredIds(STORAGE_KEYS.saved, next);
-      return next;
-    });
+  const results = useMemo(
+    () => sortProperties(filterDiscoveryProperties(properties, filters), sort),
+    [properties, filters, sort],
+  );
+
+  useEffect(() => {
+    const params = new URLSearchParams();
+    params.set("purpose", filters.purpose);
+    if (filters.purpose === "sale" && sellJourney) params.set("journey", "sell");
+    if (filters.location !== "All Myanmar") params.set("location", filters.location);
+    if (filters.minPrice !== null) params.set("minPrice", String(filters.minPrice));
+    if (filters.maxPrice !== null) params.set("maxPrice", String(filters.maxPrice));
+    if (filters.propertyTypes[0]) params.set("type", filters.propertyTypes[0]);
+    if (filters.bedrooms !== null) params.set("bedrooms", String(filters.bedrooms));
+    if (filters.bathrooms !== null) params.set("bathrooms", String(filters.bathrooms));
+    if (filters.verifiedOnly) params.set("verified", "1");
+    if (sort !== "recommended") params.set("sort", sort);
+    const query = params.toString();
+    router.replace(query ? `${pathname}?${query}` : pathname, { scroll: false });
+  }, [filters, pathname, router, sellJourney, sort]);
+
+  useEffect(() => {
+    if (results.length === 0) return;
+    if (!selectedId || !results.some((property) => property.id === selectedId)) {
+      queueMicrotask(() => setSelectedId(results[0].id));
+    }
+  }, [results, selectedId]);
+
+  function toggleSaved(property: Property) {
+    const isSaving = !saved.includes(property.id);
+    const next = isSaving ? [...saved, property.id] : saved.filter((item) => item !== property.id);
+    setSaved(next);
+    writeStoredIds(STORAGE_KEYS.saved, next);
+    setSaveNotice({ id: property.id, title: property.title, saved: isSaving });
   }
 
-  function openMobileFilters() {
+  function openMoreFilters() {
     setDraftFilters(filters);
     setFilterOpen(true);
   }
@@ -65,53 +124,117 @@ function PropertySearch({ properties }: { properties: Property[] }) {
   function applyMobileFilters() {
     setFilters(draftFilters);
     setFilterOpen(false);
+    requestAnimationFrame(() => document.getElementById("search-results")?.scrollIntoView({ behavior: "smooth", block: "start" }));
   }
 
-  return (
-    <div className="min-h-screen bg-[#f7f9fc]">
-      <AppHeader compact />
-      <main className="mx-auto w-full max-w-[1480px] px-4 py-6 sm:px-6 lg:px-8 lg:py-8">
-        <div className="mb-5 rounded-[20px] border border-[#0b3768]/8 bg-white p-4 shadow-sm lg:hidden">
-          <label className="block"><span className="mb-1.5 block text-[9px] font-semibold uppercase tracking-wider text-[#728396]">Where do you want to live?</span><select className="h-11 w-full rounded-xl bg-[#edf3f8] px-3 text-sm font-semibold outline-none" value={filters.location} onChange={(event) => setFilters({ ...filters, location: event.target.value })}><option>All Myanmar</option><option>Yangon</option><option>Bahan</option><option>Kamayut</option><option>Yankin</option><option>Sanchaung</option><option>Hlaing</option><option>Mayangone</option><option>Mandalay</option></select></label>
-        </div>
-        <div className="grid gap-7 lg:grid-cols-[285px_minmax(0,1fr)] xl:gap-9">
-          <aside className="hidden lg:block">
-            <div className="sticky top-[88px] max-h-[calc(100vh-110px)] overflow-y-auto rounded-[20px] border border-[#0b3768]/8 bg-white p-5 shadow-[0_7px_28px_rgba(11,55,104,.05)]">
-              <FilterPanel value={filters} onChange={setFilters} />
-            </div>
-          </aside>
+  function clearFilters() {
+    const reset = clearRefinementFilters(filters);
+    setFilters(reset);
+    setDraftFilters(reset);
+  }
 
-          <section className="min-w-0">
-            <SearchToolbar count={results.length} location={filters.location} sort={sort} onSortChange={setSort} mapOpen={mapOpen} onMapToggle={() => setMapOpen((value) => !value)} activeFilters={countActiveFilters(filters)} onOpenFilters={openMobileFilters} />
+  function runSearch() {
+    document.getElementById("search-results")?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  const cardInitial = reduceMotion ? false : { opacity: 0, y: 10 };
+  const cardTransition = { duration: reduceMotion ? 0 : 0.22 };
+
+  return (
+    <div className="min-h-screen bg-[radial-gradient(circle_at_82%_-5%,rgba(0,106,255,.075),transparent_28rem),#F5F7FB] pb-20 md:pb-0">
+      <SearchNavbar savedCount={saved.length} />
+      <PersistentSearchBar value={filters} onChange={setFilters} onSearch={runSearch} />
+
+      <main id="search-results" className="mx-auto w-full max-w-[1600px] scroll-mt-[185px] px-4 py-6 sm:px-6 lg:px-8 lg:py-8">
+        <section className="min-w-0">
+            <DiscoveryToolbar count={results.length} location={filters.location} purpose={filters.purpose} sort={sort} onSortChange={setSort} mapOpen={mapOpen} onMapToggle={() => setMapOpen((value) => !value)} />
+            <QuickFilterBar value={filters} onChange={setFilters} onOpenMore={openMoreFilters} onClear={clearFilters} />
+
             {results.length === 0 ? (
-              <div className="mx-auto mt-10 max-w-sm"><PropertyCardEmpty onAction={() => setFilters(defaultSearchFilters)} /></div>
+              <SearchEmptyState location={filters.location} onClear={clearFilters} onLocation={(location) => setFilters({ ...clearRefinementFilters(filters), location })} />
             ) : mapOpen ? (
-              <div className="mt-5 grid items-start gap-5 xl:grid-cols-[minmax(320px,.78fr)_minmax(470px,1.22fr)]">
-                <div className="grid gap-4 xl:max-h-[calc(100vh-170px)] xl:overflow-y-auto xl:pr-2">
-                  {results.slice(0, 12).map((property) => <div key={property.id} className={cn("rounded-[22px] transition-shadow", selectedId === property.id && "ring-3 ring-[#47bbea]/30")}><PropertyCard property={property} href={`/properties/${property.id}`} isFavorite={saved.includes(property.id)} onFavoriteToggle={(item) => toggleSaved(item.id)} /></div>)}
-                </div>
-                <PropertyMap className="sticky top-[88px] h-[calc(100vh-112px)]" properties={results} selectedId={selectedId} onSelect={setSelectedId} />
+              <div className="mt-5 xl:grid xl:grid-cols-[minmax(480px,1fr)_minmax(360px,.82fr)] xl:items-start xl:gap-4 2xl:grid-cols-[minmax(560px,1.05fr)_minmax(420px,.95fr)]">
+                <motion.div layout className="hidden gap-4 xl:grid">
+                  <AnimatePresence initial={false}>
+                    {results.slice(0, 18).map((property) => (
+                      <motion.div key={property.id} layout initial={cardInitial} animate={{ opacity: 1, y: 0 }} exit={reduceMotion ? undefined : { opacity: 0, scale: 0.98 }} transition={cardTransition}>
+                        <SearchPropertyCard property={property} isFavorite={saved.includes(property.id)} selected={selectedId === property.id} onFavoriteToggle={toggleSaved} onFocus={(item) => setSelectedId(item.id)} />
+                      </motion.div>
+                    ))}
+                  </AnimatePresence>
+                </motion.div>
+                <SearchMapPanel className="h-[calc(100vh-220px)] min-h-[540px] xl:sticky xl:top-[185px]" properties={results} selectedId={selectedId} onSelect={setSelectedId} />
               </div>
             ) : (
-              <div className="mt-5 grid gap-4 sm:grid-cols-2 2xl:grid-cols-3">
-                {results.slice(0, 24).map((property) => <PropertyCard key={property.id} property={property} href={`/properties/${property.id}`} isFavorite={saved.includes(property.id)} onFavoriteToggle={(item) => toggleSaved(item.id)} />)}
-              </div>
+              <motion.div layout className="mt-5 grid gap-4 xl:grid-cols-2">
+                <AnimatePresence initial={false}>
+                  {results.slice(0, visibleCount).map((property) => (
+                    <motion.div key={property.id} layout initial={cardInitial} animate={{ opacity: 1, y: 0 }} exit={reduceMotion ? undefined : { opacity: 0, scale: 0.98 }} transition={cardTransition}>
+                      <SearchPropertyCard property={property} isFavorite={saved.includes(property.id)} selected={false} onFavoriteToggle={toggleSaved} onFocus={(item) => setSelectedId(item.id)} />
+                    </motion.div>
+                  ))}
+                </AnimatePresence>
+              </motion.div>
             )}
-            {results.length > 24 && !mapOpen && <div className="mt-8 flex justify-center"><Button variant="outline">Load more homes</Button></div>}
-          </section>
-        </div>
+
+            {results.length > visibleCount && !mapOpen && <div className="mt-8 flex justify-center"><Button variant="outline" className="h-12 px-6 text-xs" onClick={() => setVisibleCount((count) => count + 24)}>{tx("Show more homes", "နောက်ထပ်အိမ်များ ပြရန်")}</Button></div>}
+        </section>
       </main>
+
+      <AnimatePresence>
+        {saveNotice && (
+          <motion.div
+            key={`${saveNotice.id}-${saveNotice.saved}`}
+            initial={reduceMotion ? false : { opacity: 0, y: 16, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 10, scale: 0.98 }}
+            transition={{ duration: reduceMotion ? 0 : 0.22, ease: [0.22, 1, 0.36, 1] }}
+            role="status"
+            aria-live="polite"
+            className="fixed inset-x-3 bottom-[82px] z-[70] mx-auto flex max-w-[430px] items-center gap-3 rounded-[18px] border border-[#172B3F]/10 bg-[#172B3F]/96 p-3.5 text-white shadow-[0_18px_46px_rgba(23,43,63,.28)] backdrop-blur-xl md:inset-x-auto md:bottom-6 md:right-6 md:w-[410px]"
+          >
+            <span className="grid size-10 shrink-0 place-items-center rounded-full bg-white/12 text-[#9EC7FF]">
+              <Heart className="size-[18px]" fill={saveNotice.saved ? "currentColor" : "none"} />
+            </span>
+            <span className="min-w-0 flex-1">
+              <strong className="block text-[12px]">{saveNotice.saved ? tx("Saved to My Homes", "ကျွန်ုပ်၏အိမ်များတွင် သိမ်းပြီး") : tx("Removed from saved homes", "သိမ်းထားသောအိမ်များမှ ဖယ်ရှားပြီး")}</strong>
+              <small className="mt-1 block truncate text-[10px] text-white/62">{saveNotice.title}</small>
+            </span>
+            {saveNotice.saved && (
+              <Link href="/dashboard?section=saved" className="shrink-0 rounded-full bg-white px-3 py-2 text-[10px] font-semibold text-[#17304A] transition-transform hover:-translate-y-0.5">
+                {tx("View saved", "သိမ်းထားသည်ကို ကြည့်ရန်")}
+              </Link>
+            )}
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <Sheet
         open={filterOpen}
         onOpenChange={setFilterOpen}
-        title="Filter homes"
-        description={`${results.length} homes match your current search`}
+        title={tx("More filters", "နောက်ထပ်စစ်ထုတ်ရန်")}
+        description={tx("Choose furniture, parking, amenities and nearby essentials", "ပရိဘောဂ၊ ကားပါကင်၊ ဝန်ဆောင်မှုများနှင့် အနီးအနားလိုအပ်ချက်များကို ရွေးပါ")}
         side="bottom"
-        footer={<div className="grid grid-cols-[1fr_1.4fr] gap-2"><Button variant="outline" onClick={() => setDraftFilters(defaultSearchFilters)}>Clear all</Button><Button onClick={applyMobileFilters}>Show homes</Button></div>}
+        footer={<div className="grid grid-cols-[1fr_1.4fr] gap-2"><Button variant="outline" onClick={() => setDraftFilters(clearAdvancedFilters(draftFilters))}>{tx("Clear", "ရှင်းရန်")}</Button><Button className="!text-white" onClick={applyMobileFilters}>{tx(`Show ${filterDiscoveryProperties(properties, draftFilters).length} homes`, `အိမ် ${filterDiscoveryProperties(properties, draftFilters).length} လုံး ပြရန်`)}</Button></div>}
       >
-        <FilterPanel className="p-5 pb-8" value={draftFilters} onChange={setDraftFilters} />
+        <DiscoveryFilterSidebar className="p-5 pb-8" value={draftFilters} onChange={setDraftFilters} />
       </Sheet>
+    </div>
+  );
+}
+
+function SearchEmptyState({ location, onClear, onLocation }: { location: string; onClear: () => void; onLocation: (location: string) => void }) {
+  const { tx } = useLanguage();
+  const nearby = ["Kamayut", "Bahan", "Sanchaung"].filter((item) => item !== location);
+  return (
+    <div className="mx-auto mt-10 max-w-xl rounded-2xl border border-dashed border-[#9FC4FF] bg-white p-8 text-center shadow-[0_8px_26px_rgba(42,42,51,.06)] sm:p-10">
+      <div className="mx-auto grid size-14 place-items-center rounded-2xl bg-[#F1F6FF] text-[#006AFF]"><SearchX className="size-6" /></div>
+      <h2 className="mt-5 text-xl font-semibold tracking-[-0.03em]">{tx("No exact matches yet", "အတိအကျကိုက်ညီသောအိမ် မတွေ့သေးပါ")}</h2>
+      <p className="mx-auto mt-2 max-w-md text-sm leading-6 text-[#59616A]">{tx("Try a nearby township or remove one filter. We’ll keep your Rent/Buy choice unchanged.", "အနီးအနားမြို့နယ်တစ်ခုကို စမ်းကြည့်ပါ သို့မဟုတ် စစ်ထုတ်မှုတစ်ခုဖယ်ပါ။ ငှားရန်/ဝယ်ရန် ရွေးချယ်မှုကို မပြောင်းဘဲထားမည်။")}</p>
+      <div className="mt-5 flex flex-wrap justify-center gap-2">
+        {nearby.map((item) => <button key={item} type="button" onClick={() => onLocation(item)} className="inline-flex h-10 items-center gap-1.5 rounded-full border border-[#B9BEC4] bg-white px-4 text-xs font-semibold hover:border-[#006AFF] hover:text-[#006AFF]"><MapPin className="size-4" />{item}</button>)}
+      </div>
+      <button type="button" onClick={onClear} className="mt-5 inline-flex items-center gap-2 text-xs font-semibold text-[#006AFF] hover:text-[#0057D9]"><RotateCcw className="size-4" />{tx("Clear filters", "စစ်ထုတ်မှုများ ရှင်းရန်")}</button>
     </div>
   );
 }

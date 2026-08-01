@@ -1,0 +1,123 @@
+"use client";
+
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { Check, ChevronDown, Globe2 } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+
+import { useLanguage, type Language } from "@/components/i18n/language-provider";
+import { cn } from "@/lib/utils";
+
+const options: Array<{ value: Language; label: string; nativeLabel: string }> = [
+  { value: "en", label: "English", nativeLabel: "English" },
+  { value: "my", label: "Myanmar", nativeLabel: "မြန်မာ" },
+];
+
+interface LanguageSwitcherProps {
+  className?: string;
+  compact?: boolean;
+  menuAlign?: "left" | "right";
+}
+
+function LanguageSwitcher({ className, compact = false, menuAlign = "right" }: LanguageSwitcherProps) {
+  const { language, setLanguage, tx } = useLanguage();
+  const [open, setOpen] = useState(false);
+  const rootRef = useRef<HTMLDivElement>(null);
+  const reduceMotion = useReducedMotion();
+  const current = options.find((option) => option.value === language) ?? options[0];
+
+  useEffect(() => {
+    if (!open) return;
+
+    function closeOnOutsidePress(event: PointerEvent) {
+      if (!rootRef.current?.contains(event.target as Node)) setOpen(false);
+    }
+
+    function closeOnEscape(event: KeyboardEvent) {
+      if (event.key === "Escape") setOpen(false);
+    }
+
+    document.addEventListener("pointerdown", closeOnOutsidePress);
+    document.addEventListener("keydown", closeOnEscape);
+    return () => {
+      document.removeEventListener("pointerdown", closeOnOutsidePress);
+      document.removeEventListener("keydown", closeOnEscape);
+    };
+  }, [open]);
+
+  function chooseLanguage(nextLanguage: Language) {
+    setLanguage(nextLanguage);
+    setOpen(false);
+  }
+
+  return (
+    <div ref={rootRef} className={cn("relative", className)}>
+      <button
+        type="button"
+        aria-label={tx("Change language", "ဘာသာစကား ပြောင်းရန်")}
+        aria-haspopup="menu"
+        aria-expanded={open}
+        onClick={() => setOpen((value) => !value)}
+        className={cn(
+          "inline-flex h-10 items-center justify-center rounded-full text-[#526172] transition-[background-color,color,box-shadow] hover:bg-[#EEF3F9] hover:text-[#006AFF] focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-[#006AFF]/18",
+          compact ? "w-10" : "gap-1.5 px-3",
+          open && "bg-[#EEF3F9] text-[#006AFF]",
+        )}
+      >
+        <Globe2 className="size-[18px]" strokeWidth={2} />
+        {!compact && (
+          <>
+            <span className="text-[11px] font-semibold">{language === "my" ? current.nativeLabel : current.label}</span>
+            <ChevronDown className={cn("size-3.5 transition-transform", open && "rotate-180")} />
+          </>
+        )}
+      </button>
+
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            role="menu"
+            aria-label={tx("Choose language", "ဘာသာစကား ရွေးချယ်ရန်")}
+            initial={reduceMotion ? false : { opacity: 0, y: -7, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={reduceMotion ? { opacity: 0 } : { opacity: 0, y: -5, scale: 0.98 }}
+            transition={{ duration: reduceMotion ? 0 : 0.16, ease: [0.22, 1, 0.36, 1] }}
+            className={cn(
+              "absolute top-[calc(100%+10px)] z-[90] w-[210px] overflow-hidden rounded-2xl border border-[#172B3F]/10 bg-white p-2 shadow-[0_20px_50px_rgba(23,43,63,.18)]",
+              menuAlign === "right" ? "right-0" : "left-0",
+            )}
+          >
+            <div className="px-3 pb-2 pt-1">
+              <p className="text-[10px] font-semibold uppercase tracking-[.12em] text-[#7A8794]">{tx("Language", "ဘာသာစကား")}</p>
+              <p className="mt-1 text-[10px] text-[#8A96A3]">{tx("Choose your preferred language", "သင်နှစ်သက်ရာ ဘာသာစကားကို ရွေးပါ")}</p>
+            </div>
+            {options.map((option) => {
+              const selected = option.value === language;
+              return (
+                <button
+                  key={option.value}
+                  type="button"
+                  role="menuitemradio"
+                  aria-checked={selected}
+                  onClick={() => chooseLanguage(option.value)}
+                  className={cn(
+                    "flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left transition-colors",
+                    selected ? "bg-[#EEF5FF] text-[#005ED8]" : "text-[#29445F] hover:bg-[#F5F7FA]",
+                  )}
+                >
+                  <span className="grid size-8 place-items-center rounded-lg bg-white text-[11px] font-bold shadow-sm ring-1 ring-[#172B3F]/8">{option.value === "en" ? "EN" : "မြန်"}</span>
+                  <span className="min-w-0 flex-1">
+                    <strong lang={option.value === "my" ? "my" : "en"} className="block text-[12px] font-semibold">{option.nativeLabel}</strong>
+                    <small className="mt-0.5 block text-[9px] font-normal text-[#7A8794]">{option.label}</small>
+                  </span>
+                  {selected && <Check className="size-4 text-[#006AFF]" strokeWidth={2.5} />}
+                </button>
+              );
+            })}
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
+
+export { LanguageSwitcher };

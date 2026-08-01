@@ -1,0 +1,760 @@
+- generic [ref=e521]:
+  - banner [ref=e522]:
+    - generic [ref=e523]:
+      - link "A7 Property home" [ref=e524] [cursor=pointer]:
+        - /url: /
+        - generic [ref=e525]: A7 Property
+      - navigation "Property journeys" [ref=e529]:
+        - link "Rent" [ref=e530] [cursor=pointer]:
+          - /url: /search?purpose=rent
+        - link "Buy" [ref=e534] [cursor=pointer]:
+          - /url: /search?purpose=sale
+        - link "Sell" [ref=e539] [cursor=pointer]:
+          - /url: /owner
+      - generic [ref=e543]:
+        - link "AI Home Assistant" [ref=e544] [cursor=pointer]:
+          - /url: /assistant
+          - generic [ref=e548]: Ask A7
+        - link "Saved" [ref=e549] [cursor=pointer]:
+          - /url: /dashboard?section=saved
+        - link "Sign in" [ref=e552] [cursor=pointer]:
+          - /url: /sign-in
+  - region "Property search" [ref=e556]:
+    - generic [ref=e559]:
+      - combobox "Search by address, township, city or landmark" [ref=e561]
+      - button "Search homes" [ref=e562]
+  - main [ref=e566]:
+    - generic [ref=e567]:
+      - generic [ref=e569]:
+        - generic [ref=e570]:
+          - paragraph [ref=e571]: Buy with confidence
+          - heading "Homes for sale across Myanmar" [level=1] [ref=e572]
+          - paragraph [ref=e573]:
+            - strong [ref=e574]: "40"
+            - text: homes for sale · reviewed, refreshed, and ready to explore
+        - generic [ref=e575]:
+          - button "Map view" [ref=e576]:
+            - text: Map
+            - generic [ref=e579]: view
+          - generic [ref=e580]:
+            - generic [ref=e581]: Sort homes
+            - combobox "Sort homes" [ref=e582]:
+              - option "Recommended" [selected]
+              - option "Newest"
+              - option "Price low–high"
+      - generic "Quick filters" [ref=e583]:
+        - generic "Search purpose" [ref=e584]:
+          - button "Rent" [ref=e585]
+          - button "Buy" [pressed] [ref=e589]
+        - generic [ref=e594]:
+          - generic [ref=e595]: Price
+          - combobox "Price ⌄" [ref=e596]:
+            - option "Any price" [selected]
+            - option "Up to 100M"
+            - option "Up to 300M"
+            - option "Up to 500M"
+          - generic: ⌄
+        - generic [ref=e597]:
+          - generic [ref=e598]: Property type
+          - combobox "Property type ⌄" [ref=e599]:
+            - option "Any type" [selected]
+            - option "Condo"
+            - option "Apartment"
+            - option "House"
+            - option "Mini condo"
+            - option "Villa"
+          - generic: ⌄
+        - generic [ref=e600]:
+          - generic [ref=e601]: Bedrooms
+          - combobox "Bedrooms ⌄" [ref=e602]:
+            - option "Any beds" [selected]
+            - option "1+ beds"
+            - option "2+ beds"
+            - option "3+ beds"
+            - option "4+ beds"
+          - generic: ⌄
+        - generic [ref=e603]:
+          - generic [ref=e604]: Bathrooms
+          - combobox "Bathrooms ⌄" [ref=e605]:
+            - option "Any baths" [selected]
+            - option "1+ baths"
+            - option "2+ baths"
+            - option "3+ baths"
+            - option "4+ baths"
+          - generic: ⌄
+        - button "Verified only" [ref=e606]
+        - button "More filters" [ref=e609]
+      - generic [ref=e611]:
+        - article [ref=e613]:
+          - link "View details for Move-in ready 5-bed villa in Chanmyathazi" [ref=e614] [cursor=pointer]:
+            - /url: /properties/MM-PROP-080
+          - generic [ref=e615]:
+            - img "Move-in ready 5-bed villa in Chanmyathazi" [ref=e616]
+            - generic [ref=e617]:
+              - generic [ref=e618]: Verified
+              - generic [ref=e622]: 3 photos
+            - button "Save Move-in ready 5-bed villa in Chanmyathazi" [ref=e626]
+          - generic [ref=e629]:
+            - generic [ref=e630]:
+              - generic [ref=e631]:
+                - strong [ref=e633]: 185 သန်း
+                - paragraph [ref=e634]: 185,000,000 MMK total
+              - generic [ref=e635]: For sale
+            - heading "Move-in ready 5-bed villa in Chanmyathazi" [level=2] [ref=e636]
+            - paragraph [ref=e637]:
+              - generic [ref=e641]: Chanmyathazi, Mandalay · Ward 1
+            - generic [ref=e642]:
+              - generic [ref=e643]: 5 beds
+              - generic [ref=e647]: 4 baths
+              - generic [ref=e651]: 3,550 sqft
+            - generic [ref=e657]:
+              - generic [ref=e658]: Verified owner · Real photos
+              - generic [ref=e663]: 96% trust
+            - generic [ref=e664]:
+              - generic [ref=e665]: Replies in ~15 min · 2 hours ago
+              - generic [ref=e669]: View details
+        - article [ref=e673]:
+          - link "View details for Move-in ready 5-bed villa in Yankin" [ref=e674] [cursor=pointer]:
+            - /url: /properties/MM-PROP-040
+          - generic [ref=e675]:
+            - img "Move-in ready 5-bed villa in Yankin" [ref=e676]
+            - generic [ref=e677]:
+              - generic [ref=e678]: Verified
+              - generic [ref=e682]: 3 photos
+            - button "Save Move-in ready 5-bed villa in Yankin" [ref=e686]
+          - generic [ref=e689]:
+            - generic [ref=e690]:
+              - generic [ref=e691]:
+                - strong [ref=e693]: 520 သန်း
+                - paragraph [ref=e694]: 520,000,000 MMK total
+              - generic [ref=e695]: For sale
+            - heading "Move-in ready 5-bed villa in Yankin" [level=2] [ref=e696]
+            - paragraph [ref=e697]:
+              - generic [ref=e701]: Yankin, Yangon · Ward 1
+            - generic [ref=e702]:
+              - generic [ref=e703]: 5 beds
+              - generic [ref=e707]: 4 baths
+              - generic [ref=e711]: 4,250 sqft
+            - generic [ref=e717]:
+              - generic [ref=e718]: Verified owner · Real photos
+              - generic [ref=e723]: 96% trust
+            - generic [ref=e724]:
+              - generic [ref=e725]: Replies in ~8 min · 2 hours ago
+              - generic [ref=e729]: View details
+        - article [ref=e733]:
+          - link "View details for Spacious 1-bed apartment in Bahan" [ref=e734] [cursor=pointer]:
+            - /url: /properties/MM-PROP-064
+          - generic [ref=e735]:
+            - img "Spacious 1-bed apartment in Bahan" [ref=e736]
+            - generic [ref=e737]:
+              - generic [ref=e738]: Verified
+              - generic [ref=e742]: 3 photos
+            - button "Save Spacious 1-bed apartment in Bahan" [ref=e746]
+          - generic [ref=e749]:
+            - generic [ref=e750]:
+              - generic [ref=e751]:
+                - strong [ref=e753]: 520 သန်း
+                - paragraph [ref=e754]: 520,000,000 MMK total
+              - generic [ref=e755]: For sale
+            - heading "Spacious 1-bed apartment in Bahan" [level=2] [ref=e756]
+            - paragraph [ref=e757]:
+              - generic [ref=e761]: Bahan, Yangon · Ward 1
+            - generic [ref=e762]:
+              - generic [ref=e763]: 1 bed
+              - generic [ref=e767]: 1 bath
+              - generic [ref=e771]: 650 sqft
+            - generic [ref=e777]:
+              - generic [ref=e778]: Verified owner · Real photos
+              - generic [ref=e783]: 96% trust
+            - generic [ref=e784]:
+              - generic [ref=e785]: Replies in ~85 min · 2 hours ago
+              - generic [ref=e789]: View details
+        - article [ref=e793]:
+          - link "View details for Spacious 3-bed apartment in Dagon" [ref=e794] [cursor=pointer]:
+            - /url: /properties/MM-PROP-024
+          - generic [ref=e795]:
+            - img "Spacious 3-bed apartment in Dagon" [ref=e796]
+            - generic [ref=e797]:
+              - generic [ref=e798]: Verified
+              - generic [ref=e802]: 3 photos
+            - button "Save Spacious 3-bed apartment in Dagon" [ref=e806]
+          - generic [ref=e809]:
+            - generic [ref=e810]:
+              - generic [ref=e811]:
+                - strong [ref=e813]: 900 သန်း
+                - paragraph [ref=e814]: 900,000,000 MMK total
+              - generic [ref=e815]: For sale
+            - heading "Spacious 3-bed apartment in Dagon" [level=2] [ref=e816]
+            - paragraph [ref=e817]:
+              - generic [ref=e821]: Dagon, Yangon · Ward 1
+            - generic [ref=e822]:
+              - generic [ref=e823]: 3 beds
+              - generic [ref=e827]: 2 baths
+              - generic [ref=e831]: 990 sqft
+            - generic [ref=e837]:
+              - generic [ref=e838]: Verified owner · Real photos
+              - generic [ref=e843]: 96% trust
+            - generic [ref=e844]:
+              - generic [ref=e845]: Replies in ~78 min · 2 hours ago
+              - generic [ref=e849]: View details
+        - article [ref=e853]:
+          - link "View details for Move-in ready 4-bed villa in Bahan" [ref=e854] [cursor=pointer]:
+            - /url: /properties/MM-PROP-055
+          - generic [ref=e855]:
+            - img "Move-in ready 4-bed villa in Bahan" [ref=e856]
+            - generic [ref=e857]:
+              - generic [ref=e858]: Verified
+              - generic [ref=e862]: 3 photos
+            - button "Save Move-in ready 4-bed villa in Bahan" [ref=e866]
+          - generic [ref=e869]:
+            - generic [ref=e870]:
+              - generic [ref=e871]:
+                - strong [ref=e873]: 120 သန်း
+                - paragraph [ref=e874]: 120,000,000 MMK total
+              - generic [ref=e875]: For sale
+            - heading "Move-in ready 4-bed villa in Bahan" [level=2] [ref=e876]
+            - paragraph [ref=e877]:
+              - generic [ref=e881]: Bahan, Yangon · Ward 8
+            - generic [ref=e882]:
+              - generic [ref=e883]: 4 beds
+              - generic [ref=e887]: 4 baths
+              - generic [ref=e891]: 3,200 sqft
+            - generic [ref=e897]:
+              - generic [ref=e898]: Verified owner · Real photos
+              - generic [ref=e903]: 95% trust
+            - generic [ref=e904]:
+              - generic [ref=e905]: Replies in ~22 min · today
+              - generic [ref=e909]: View details
+        - article [ref=e913]:
+          - link "View details for Spacious 1-bed apartment in Mayangone" [ref=e914] [cursor=pointer]:
+            - /url: /properties/MM-PROP-079
+          - generic [ref=e915]:
+            - img "Spacious 1-bed apartment in Mayangone" [ref=e916]
+            - generic [ref=e917]:
+              - generic [ref=e918]: Verified
+              - generic [ref=e922]: 3 photos
+            - button "Save Spacious 1-bed apartment in Mayangone" [ref=e926]
+          - generic [ref=e929]:
+            - generic [ref=e930]:
+              - generic [ref=e931]:
+                - strong [ref=e933]: 120 သန်း
+                - paragraph [ref=e934]: 120,000,000 MMK total
+              - generic [ref=e935]: For sale
+            - heading "Spacious 1-bed apartment in Mayangone" [level=2] [ref=e936]
+            - paragraph [ref=e937]:
+              - generic [ref=e941]: Mayangone, Yangon · Ward 8
+            - generic [ref=e942]:
+              - generic [ref=e943]: 1 bed
+              - generic [ref=e947]: 1 bath
+              - generic [ref=e951]: 820 sqft
+            - generic [ref=e957]:
+              - generic [ref=e958]: Verified owner · Real photos
+              - generic [ref=e963]: 95% trust
+            - generic [ref=e964]:
+              - generic [ref=e965]: Replies in ~8 min · today
+              - generic [ref=e969]: View details
+        - article [ref=e973]:
+          - link "View details for Move-in ready 4-bed villa in Dagon" [ref=e974] [cursor=pointer]:
+            - /url: /properties/MM-PROP-015
+          - generic [ref=e975]:
+            - img "Move-in ready 4-bed villa in Dagon" [ref=e976]
+            - generic [ref=e977]:
+              - generic [ref=e978]: Verified
+              - generic [ref=e982]: 3 photos
+            - button "Save Move-in ready 4-bed villa in Dagon" [ref=e986]
+          - generic [ref=e989]:
+            - generic [ref=e990]:
+              - generic [ref=e991]:
+                - strong [ref=e993]: 260 သန်း
+                - paragraph [ref=e994]: 260,000,000 MMK total
+              - generic [ref=e995]: For sale
+            - heading "Move-in ready 4-bed villa in Dagon" [level=2] [ref=e996]
+            - paragraph [ref=e997]:
+              - generic [ref=e1001]: Dagon, Yangon · Ward 8
+            - generic [ref=e1002]:
+              - generic [ref=e1003]: 4 beds
+              - generic [ref=e1007]: 4 baths
+              - generic [ref=e1011]: 3,900 sqft
+            - generic [ref=e1017]:
+              - generic [ref=e1018]: Verified owner · Real photos
+              - generic [ref=e1023]: 95% trust
+            - generic [ref=e1024]:
+              - generic [ref=e1025]: Replies in ~15 min · yesterday
+              - generic [ref=e1029]: View details
+        - article [ref=e1033]:
+          - link "View details for Spacious 3-bed apartment in Hlaing" [ref=e1034] [cursor=pointer]:
+            - /url: /properties/MM-PROP-039
+          - generic [ref=e1035]:
+            - img "Spacious 3-bed apartment in Hlaing" [ref=e1036]
+            - generic [ref=e1037]:
+              - generic [ref=e1038]: Verified
+              - generic [ref=e1042]: 3 photos
+            - button "Save Spacious 3-bed apartment in Hlaing" [ref=e1046]
+          - generic [ref=e1049]:
+            - generic [ref=e1050]:
+              - generic [ref=e1051]:
+                - strong [ref=e1053]: 260 သန်း
+                - paragraph [ref=e1054]: 260,000,000 MMK total
+              - generic [ref=e1055]: For sale
+            - heading "Spacious 3-bed apartment in Hlaing" [level=2] [ref=e1056]
+            - paragraph [ref=e1057]:
+              - generic [ref=e1061]: Hlaing, Yangon · Ward 8
+            - generic [ref=e1062]:
+              - generic [ref=e1063]: 3 beds
+              - generic [ref=e1067]: 3 baths
+              - generic [ref=e1071]: 1,160 sqft
+            - generic [ref=e1077]:
+              - generic [ref=e1078]: Verified owner · Real photos
+              - generic [ref=e1083]: 95% trust
+            - generic [ref=e1084]:
+              - generic [ref=e1085]: Replies in ~92 min · yesterday
+              - generic [ref=e1089]: View details
+        - article [ref=e1093]:
+          - link "View details for Move-in ready 4-bed villa in Sanchaung" [ref=e1094] [cursor=pointer]:
+            - /url: /properties/MM-PROP-095
+          - generic [ref=e1095]:
+            - img "Move-in ready 4-bed villa in Sanchaung" [ref=e1096]
+            - generic [ref=e1097]:
+              - generic [ref=e1098]: Verified
+              - generic [ref=e1102]: 3 photos
+            - button "Save Move-in ready 4-bed villa in Sanchaung" [ref=e1106]
+          - generic [ref=e1109]:
+            - generic [ref=e1110]:
+              - generic [ref=e1111]:
+                - strong [ref=e1113]: 680 သန်း
+                - paragraph [ref=e1114]: 680,000,000 MMK total
+              - generic [ref=e1115]: For sale
+            - heading "Move-in ready 4-bed villa in Sanchaung" [level=2] [ref=e1116]
+            - paragraph [ref=e1117]:
+              - generic [ref=e1121]: Sanchaung, Yangon · Ward 8
+            - generic [ref=e1122]:
+              - generic [ref=e1123]: 4 beds
+              - generic [ref=e1127]: 4 baths
+              - generic [ref=e1131]: 4,600 sqft
+            - generic [ref=e1137]:
+              - generic [ref=e1138]: Verified owner · Real photos
+              - generic [ref=e1143]: 95% trust
+            - generic [ref=e1144]:
+              - generic [ref=e1145]: Replies in ~29 min · today
+              - generic [ref=e1149]: View details
+        - article [ref=e1153]:
+          - link "View details for Spacious 2-bed apartment in Sanchaung" [ref=e1154] [cursor=pointer]:
+            - /url: /properties/MM-PROP-014
+          - generic [ref=e1155]:
+            - img "Spacious 2-bed apartment in Sanchaung" [ref=e1156]
+            - generic [ref=e1157]:
+              - generic [ref=e1158]: Verified
+              - generic [ref=e1162]: 3 photos
+            - button "Save Spacious 2-bed apartment in Sanchaung" [ref=e1166]
+          - generic [ref=e1169]:
+            - generic [ref=e1170]:
+              - generic [ref=e1171]:
+                - strong [ref=e1173]: 185 သန်း
+                - paragraph [ref=e1174]: 185,000,000 MMK total
+              - generic [ref=e1175]: For sale
+            - heading "Spacious 2-bed apartment in Sanchaung" [level=2] [ref=e1176]
+            - paragraph [ref=e1177]:
+              - generic [ref=e1181]: Sanchaung, Yangon · Ward 7
+            - generic [ref=e1182]:
+              - generic [ref=e1183]: 2 beds
+              - generic [ref=e1187]: 1 bath
+              - generic [ref=e1191]: 1,670 sqft
+            - generic [ref=e1197]:
+              - generic [ref=e1198]: Verified owner · Real photos
+              - generic [ref=e1203]: 95% trust
+            - generic [ref=e1204]:
+              - generic [ref=e1205]: Replies in ~8 min · today
+              - generic [ref=e1209]: View details
+        - article [ref=e1213]:
+          - link "View details for Move-in ready 5-bed villa in Mayangone" [ref=e1214] [cursor=pointer]:
+            - /url: /properties/MM-PROP-070
+          - generic [ref=e1215]:
+            - img "Move-in ready 5-bed villa in Mayangone" [ref=e1216]
+            - generic [ref=e1217]:
+              - generic [ref=e1218]: Verified
+              - generic [ref=e1222]: 3 photos
+            - button "Save Move-in ready 5-bed villa in Mayangone" [ref=e1226]
+          - generic [ref=e1229]:
+            - generic [ref=e1230]:
+              - generic [ref=e1231]:
+                - strong [ref=e1233]: 520 သန်း
+                - paragraph [ref=e1234]: 520,000,000 MMK total
+              - generic [ref=e1235]: For sale
+            - heading "Move-in ready 5-bed villa in Mayangone" [level=2] [ref=e1236]
+            - paragraph [ref=e1237]:
+              - generic [ref=e1241]: Mayangone, Yangon · Ward 7
+            - generic [ref=e1242]:
+              - generic [ref=e1243]: 5 beds
+              - generic [ref=e1247]: 4 baths
+              - generic [ref=e1251]: 4,250 sqft
+            - generic [ref=e1257]:
+              - generic [ref=e1258]: Verified owner · Real photos
+              - generic [ref=e1263]: 95% trust
+            - generic [ref=e1264]:
+              - generic [ref=e1265]: Replies in ~36 min · today
+              - generic [ref=e1269]: View details
+        - article [ref=e1273]:
+          - link "View details for Spacious 1-bed apartment in Yankin" [ref=e1274] [cursor=pointer]:
+            - /url: /properties/MM-PROP-094
+          - generic [ref=e1275]:
+            - img "Spacious 1-bed apartment in Yankin" [ref=e1276]
+            - generic [ref=e1277]:
+              - generic [ref=e1278]: Verified
+              - generic [ref=e1282]: 3 photos
+            - button "Save Spacious 1-bed apartment in Yankin" [ref=e1286]
+          - generic [ref=e1289]:
+            - generic [ref=e1290]:
+              - generic [ref=e1291]:
+                - strong [ref=e1293]: 520 သန်း
+                - paragraph [ref=e1294]: 520,000,000 MMK total
+              - generic [ref=e1295]: For sale
+            - heading "Spacious 1-bed apartment in Yankin" [level=2] [ref=e1296]
+            - paragraph [ref=e1297]:
+              - generic [ref=e1301]: Yankin, Yangon · Ward 7
+            - generic [ref=e1302]:
+              - generic [ref=e1303]: 1 bed
+              - generic [ref=e1307]: 1 bath
+              - generic [ref=e1311]: 990 sqft
+            - generic [ref=e1317]:
+              - generic [ref=e1318]: Verified owner · Real photos
+              - generic [ref=e1323]: 95% trust
+            - generic [ref=e1324]:
+              - generic [ref=e1325]: Replies in ~22 min · today
+              - generic [ref=e1329]: View details
+        - article [ref=e1333]:
+          - link "View details for Move-in ready 5-bed villa in Hlaing" [ref=e1334] [cursor=pointer]:
+            - /url: /properties/MM-PROP-030
+          - generic [ref=e1335]:
+            - img "Move-in ready 5-bed villa in Hlaing" [ref=e1336]
+            - generic [ref=e1337]:
+              - generic [ref=e1338]: Verified
+              - generic [ref=e1342]: 3 photos
+            - button "Save Move-in ready 5-bed villa in Hlaing" [ref=e1346]
+          - generic [ref=e1349]:
+            - generic [ref=e1350]:
+              - generic [ref=e1351]:
+                - strong [ref=e1353]: 900 သန်း
+                - paragraph [ref=e1354]: 900,000,000 MMK total
+              - generic [ref=e1355]: For sale
+            - heading "Move-in ready 5-bed villa in Hlaing" [level=2] [ref=e1356]
+            - paragraph [ref=e1357]:
+              - generic [ref=e1361]: Hlaing, Yangon · Ward 7
+            - generic [ref=e1362]:
+              - generic [ref=e1363]: 5 beds
+              - generic [ref=e1367]: 4 baths
+              - generic [ref=e1371]: 4,950 sqft
+            - generic [ref=e1377]:
+              - generic [ref=e1378]: Verified owner · Real photos
+              - generic [ref=e1383]: 95% trust
+            - generic [ref=e1384]:
+              - generic [ref=e1385]: Replies in ~29 min · yesterday
+              - generic [ref=e1389]: View details
+        - article [ref=e1393]:
+          - link "View details for Spacious 3-bed apartment in Aungmyaythazan" [ref=e1394] [cursor=pointer]:
+            - /url: /properties/MM-PROP-054
+          - generic [ref=e1395]:
+            - img "Spacious 3-bed apartment in Aungmyaythazan" [ref=e1396]
+            - generic [ref=e1397]:
+              - generic [ref=e1398]: Verified
+              - generic [ref=e1402]: 3 photos
+            - button "Save Spacious 3-bed apartment in Aungmyaythazan" [ref=e1406]
+          - generic [ref=e1409]:
+            - generic [ref=e1410]:
+              - generic [ref=e1411]:
+                - strong [ref=e1413]: 900 သန်း
+                - paragraph [ref=e1414]: 900,000,000 MMK total
+              - generic [ref=e1415]: For sale
+            - heading "Spacious 3-bed apartment in Aungmyaythazan" [level=2] [ref=e1416]
+            - paragraph [ref=e1417]:
+              - generic [ref=e1421]: Aungmyaythazan, Mandalay · Ward 7
+            - generic [ref=e1422]:
+              - generic [ref=e1423]: 3 beds
+              - generic [ref=e1427]: 2 baths
+              - generic [ref=e1431]: 1,330 sqft
+            - generic [ref=e1437]:
+              - generic [ref=e1438]: Verified owner · Real photos
+              - generic [ref=e1443]: 95% trust
+            - generic [ref=e1444]:
+              - generic [ref=e1445]: Replies in ~15 min · yesterday
+              - generic [ref=e1449]: View details
+        - article [ref=e1453]:
+          - link "View details for Move-in ready 4-bed villa in Yankin" [ref=e1454] [cursor=pointer]:
+            - /url: /properties/MM-PROP-085
+          - generic [ref=e1455]:
+            - img "Move-in ready 4-bed villa in Yankin" [ref=e1456]
+            - generic [ref=e1457]:
+              - generic [ref=e1458]: Verified
+              - generic [ref=e1462]: 3 photos
+            - button "Save Move-in ready 4-bed villa in Yankin" [ref=e1466]
+          - generic [ref=e1469]:
+            - generic [ref=e1470]:
+              - generic [ref=e1471]:
+                - strong [ref=e1473]: 120 သန်း
+                - paragraph [ref=e1474]: 120,000,000 MMK total
+              - generic [ref=e1475]: For sale
+            - heading "Move-in ready 4-bed villa in Yankin" [level=2] [ref=e1476]
+            - paragraph [ref=e1477]:
+              - generic [ref=e1481]: Yankin, Yangon · Ward 6
+            - generic [ref=e1482]:
+              - generic [ref=e1483]: 4 beds
+              - generic [ref=e1487]: 4 baths
+              - generic [ref=e1491]: 3,200 sqft
+            - generic [ref=e1497]:
+              - generic [ref=e1498]: Verified owner · Real photos
+              - generic [ref=e1503]: 94% trust
+            - generic [ref=e1504]:
+              - generic [ref=e1505]: Replies in ~50 min · today
+              - generic [ref=e1509]: View details
+        - article [ref=e1513]:
+          - link "View details for Move-in ready 4-bed villa in Sanchaung" [ref=e1514] [cursor=pointer]:
+            - /url: /properties/MM-PROP-005
+          - generic [ref=e1515]:
+            - img "Move-in ready 4-bed villa in Sanchaung" [ref=e1516]
+            - generic [ref=e1517]:
+              - generic [ref=e1518]: Verified
+              - generic [ref=e1522]: 3 photos
+            - button "Save Move-in ready 4-bed villa in Sanchaung" [ref=e1526]
+          - generic [ref=e1529]:
+            - generic [ref=e1530]:
+              - generic [ref=e1531]:
+                - strong [ref=e1533]: 680 သန်း
+                - paragraph [ref=e1534]: 680,000,000 MMK total
+              - generic [ref=e1535]: For sale
+            - heading "Move-in ready 4-bed villa in Sanchaung" [level=2] [ref=e1536]
+            - paragraph [ref=e1537]:
+              - generic [ref=e1541]: Sanchaung, Yangon · Ward 6
+            - generic [ref=e1542]:
+              - generic [ref=e1543]: 4 beds
+              - generic [ref=e1547]: 4 baths
+              - generic [ref=e1551]: 4,600 sqft
+            - generic [ref=e1557]:
+              - generic [ref=e1558]: Verified owner · Real photos
+              - generic [ref=e1563]: 94% trust
+            - generic [ref=e1564]:
+              - generic [ref=e1565]: Replies in ~36 min · today
+              - generic [ref=e1569]: View details
+        - article [ref=e1573]:
+          - link "View details for Spacious 2-bed apartment in Kamayut" [ref=e1574] [cursor=pointer]:
+            - /url: /properties/MM-PROP-029
+          - generic [ref=e1575]:
+            - img "Spacious 2-bed apartment in Kamayut" [ref=e1576]
+            - generic [ref=e1577]:
+              - generic [ref=e1578]: Verified
+              - generic [ref=e1582]: 3 photos
+            - button "Save Spacious 2-bed apartment in Kamayut" [ref=e1586]
+          - generic [ref=e1589]:
+            - generic [ref=e1590]:
+              - generic [ref=e1591]:
+                - strong [ref=e1593]: 680 သန်း
+                - paragraph [ref=e1594]: 680,000,000 MMK total
+              - generic [ref=e1595]: For sale
+            - heading "Spacious 2-bed apartment in Kamayut" [level=2] [ref=e1596]
+            - paragraph [ref=e1597]:
+              - generic [ref=e1601]: Kamayut, Yangon · Ward 6
+            - generic [ref=e1602]:
+              - generic [ref=e1603]: 2 beds
+              - generic [ref=e1607]: 2 baths
+              - generic [ref=e1611]: 650 sqft
+            - generic [ref=e1617]:
+              - generic [ref=e1618]: Verified owner · Real photos
+              - generic [ref=e1623]: 94% trust
+            - generic [ref=e1624]:
+              - generic [ref=e1625]: Replies in ~22 min · today
+              - generic [ref=e1629]: View details
+        - article [ref=e1633]:
+          - link "View details for Move-in ready 5-bed villa in Kamayut" [ref=e1634] [cursor=pointer]:
+            - /url: /properties/MM-PROP-020
+          - generic [ref=e1635]:
+            - img "Move-in ready 5-bed villa in Kamayut" [ref=e1636]
+            - generic [ref=e1637]:
+              - generic [ref=e1638]: Verified
+              - generic [ref=e1642]: 3 photos
+            - button "Save Move-in ready 5-bed villa in Kamayut" [ref=e1646]
+          - generic [ref=e1649]:
+            - generic [ref=e1650]:
+              - generic [ref=e1651]:
+                - strong [ref=e1653]: 185 သန်း
+                - paragraph [ref=e1654]: 185,000,000 MMK total
+              - generic [ref=e1655]: For sale
+            - heading "Move-in ready 5-bed villa in Kamayut" [level=2] [ref=e1656]
+            - paragraph [ref=e1657]:
+              - generic [ref=e1661]: Kamayut, Yangon · Ward 5
+            - generic [ref=e1662]:
+              - generic [ref=e1663]: 5 beds
+              - generic [ref=e1667]: 4 baths
+              - generic [ref=e1671]: 3,550 sqft
+            - generic [ref=e1677]:
+              - generic [ref=e1678]: Verified owner · Real photos
+              - generic [ref=e1683]: 94% trust
+            - generic [ref=e1684]:
+              - generic [ref=e1685]: Replies in ~50 min · 2 hours ago
+              - generic [ref=e1689]: View details
+        - article [ref=e1693]:
+          - link "View details for Spacious 2-bed apartment in Chanmyathazi" [ref=e1694] [cursor=pointer]:
+            - /url: /properties/MM-PROP-044
+          - generic [ref=e1695]:
+            - img "Spacious 2-bed apartment in Chanmyathazi" [ref=e1696]
+            - generic [ref=e1697]:
+              - generic [ref=e1698]: Verified
+              - generic [ref=e1702]: 3 photos
+            - button "Save Spacious 2-bed apartment in Chanmyathazi" [ref=e1706]
+          - generic [ref=e1709]:
+            - generic [ref=e1710]:
+              - generic [ref=e1711]:
+                - strong [ref=e1713]: 185 သန်း
+                - paragraph [ref=e1714]: 185,000,000 MMK total
+              - generic [ref=e1715]: For sale
+            - heading "Spacious 2-bed apartment in Chanmyathazi" [level=2] [ref=e1716]
+            - paragraph [ref=e1717]:
+              - generic [ref=e1721]: Chanmyathazi, Mandalay · Ward 5
+            - generic [ref=e1722]:
+              - generic [ref=e1723]: 2 beds
+              - generic [ref=e1727]: 1 bath
+              - generic [ref=e1731]: 820 sqft
+            - generic [ref=e1737]:
+              - generic [ref=e1738]: Verified owner · Real photos
+              - generic [ref=e1743]: 94% trust
+            - generic [ref=e1744]:
+              - generic [ref=e1745]: Replies in ~36 min · 2 hours ago
+              - generic [ref=e1749]: View details
+        - article [ref=e1753]:
+          - link "View details for Spacious 1-bed apartment in Yankin" [ref=e1754] [cursor=pointer]:
+            - /url: /properties/MM-PROP-004
+          - generic [ref=e1755]:
+            - img "Spacious 1-bed apartment in Yankin" [ref=e1756]
+            - generic [ref=e1757]:
+              - generic [ref=e1758]: Verified
+              - generic [ref=e1762]: 3 photos
+            - button "Save Spacious 1-bed apartment in Yankin" [ref=e1766]
+          - generic [ref=e1769]:
+            - generic [ref=e1770]:
+              - generic [ref=e1771]:
+                - strong [ref=e1773]: 520 သန်း
+                - paragraph [ref=e1774]: 520,000,000 MMK total
+              - generic [ref=e1775]: For sale
+            - heading "Spacious 1-bed apartment in Yankin" [level=2] [ref=e1776]
+            - paragraph [ref=e1777]:
+              - generic [ref=e1781]: Yankin, Yangon · Ward 5
+            - generic [ref=e1782]:
+              - generic [ref=e1783]: 1 bed
+              - generic [ref=e1787]: 1 bath
+              - generic [ref=e1791]: 1,160 sqft
+            - generic [ref=e1797]:
+              - generic [ref=e1798]: Verified owner · Real photos
+              - generic [ref=e1803]: 94% trust
+            - generic [ref=e1804]:
+              - generic [ref=e1805]: Replies in ~29 min · 2 hours ago
+              - generic [ref=e1809]: View details
+        - article [ref=e1813]:
+          - link "View details for Move-in ready 5-bed villa in Dagon" [ref=e1814] [cursor=pointer]:
+            - /url: /properties/MM-PROP-060
+          - generic [ref=e1815]:
+            - img "Move-in ready 5-bed villa in Dagon" [ref=e1816]
+            - generic [ref=e1817]:
+              - generic [ref=e1818]: Verified
+              - generic [ref=e1822]: 3 photos
+            - button "Save Move-in ready 5-bed villa in Dagon" [ref=e1826]
+          - generic [ref=e1829]:
+            - generic [ref=e1830]:
+              - generic [ref=e1831]:
+                - strong [ref=e1833]: 900 သန်း
+                - paragraph [ref=e1834]: 900,000,000 MMK total
+              - generic [ref=e1835]: For sale
+            - heading "Move-in ready 5-bed villa in Dagon" [level=2] [ref=e1836]
+            - paragraph [ref=e1837]:
+              - generic [ref=e1841]: Dagon, Yangon · Ward 5
+            - generic [ref=e1842]:
+              - generic [ref=e1843]: 5 beds
+              - generic [ref=e1847]: 4 baths
+              - generic [ref=e1851]: 4,950 sqft
+            - generic [ref=e1857]:
+              - generic [ref=e1858]: Verified owner · Real photos
+              - generic [ref=e1863]: 94% trust
+            - generic [ref=e1864]:
+              - generic [ref=e1865]: Replies in ~57 min · 2 hours ago
+              - generic [ref=e1869]: View details
+        - article [ref=e1873]:
+          - link "View details for Spacious 3-bed apartment in Hlaing" [ref=e1874] [cursor=pointer]:
+            - /url: /properties/MM-PROP-084
+          - generic [ref=e1875]:
+            - img "Spacious 3-bed apartment in Hlaing" [ref=e1876]
+            - generic [ref=e1877]:
+              - generic [ref=e1878]: Verified
+              - generic [ref=e1882]: 3 photos
+            - button "Save Spacious 3-bed apartment in Hlaing" [ref=e1886]
+          - generic [ref=e1889]:
+            - generic [ref=e1890]:
+              - generic [ref=e1891]:
+                - strong [ref=e1893]: 900 သန်း
+                - paragraph [ref=e1894]: 900,000,000 MMK total
+              - generic [ref=e1895]: For sale
+            - heading "Spacious 3-bed apartment in Hlaing" [level=2] [ref=e1896]
+            - paragraph [ref=e1897]:
+              - generic [ref=e1901]: Hlaing, Yangon · Ward 5
+            - generic [ref=e1902]:
+              - generic [ref=e1903]: 3 beds
+              - generic [ref=e1907]: 2 baths
+              - generic [ref=e1911]: 1,670 sqft
+            - generic [ref=e1917]:
+              - generic [ref=e1918]: Verified owner · Real photos
+              - generic [ref=e1923]: 94% trust
+            - generic [ref=e1924]:
+              - generic [ref=e1925]: Replies in ~43 min · 2 hours ago
+              - generic [ref=e1929]: View details
+        - article [ref=e1933]:
+          - link "View details for Spacious 1-bed apartment in Bahan" [ref=e1934] [cursor=pointer]:
+            - /url: /properties/MM-PROP-019
+          - generic [ref=e1935]:
+            - img "Spacious 1-bed apartment in Bahan" [ref=e1936]
+            - generic [ref=e1937]:
+              - generic [ref=e1938]: Verified
+              - generic [ref=e1942]: 3 photos
+            - button "Save Spacious 1-bed apartment in Bahan" [ref=e1946]
+          - generic [ref=e1949]:
+            - generic [ref=e1950]:
+              - generic [ref=e1951]:
+                - strong [ref=e1953]: 120 သန်း
+                - paragraph [ref=e1954]: 120,000,000 MMK total
+              - generic [ref=e1955]: For sale
+            - heading "Spacious 1-bed apartment in Bahan" [level=2] [ref=e1956]
+            - paragraph [ref=e1957]:
+              - generic [ref=e1961]: Bahan, Yangon · Ward 4
+            - generic [ref=e1962]:
+              - generic [ref=e1963]: 1 bed
+              - generic [ref=e1967]: 1 bath
+              - generic [ref=e1971]: 1,330 sqft
+            - generic [ref=e1977]:
+              - generic [ref=e1978]: Verified owner · Real photos
+              - generic [ref=e1983]: 93% trust
+            - generic [ref=e1984]:
+              - generic [ref=e1985]: Replies in ~43 min · today
+              - generic [ref=e1989]: View details
+        - article [ref=e1993]:
+          - link "View details for Move-in ready 4-bed villa in Hlaing" [ref=e1994] [cursor=pointer]:
+            - /url: /properties/MM-PROP-075
+          - generic [ref=e1995]:
+            - img "Move-in ready 4-bed villa in Hlaing" [ref=e1996]
+            - generic [ref=e1997]:
+              - generic [ref=e1998]: Verified
+              - generic [ref=e2002]: 3 photos
+            - button "Save Move-in ready 4-bed villa in Hlaing" [ref=e2006]
+          - generic [ref=e2009]:
+            - generic [ref=e2010]:
+              - generic [ref=e2011]:
+                - strong [ref=e2013]: 260 သန်း
+                - paragraph [ref=e2014]: 260,000,000 MMK total
+              - generic [ref=e2015]: For sale
+            - heading "Move-in ready 4-bed villa in Hlaing" [level=2] [ref=e2016]
+            - paragraph [ref=e2017]:
+              - generic [ref=e2021]: Hlaing, Yangon · Ward 4
+            - generic [ref=e2022]:
+              - generic [ref=e2023]: 4 beds
+              - generic [ref=e2027]: 4 baths
+              - generic [ref=e2031]: 3,900 sqft
+            - generic [ref=e2037]:
+              - generic [ref=e2038]: Verified owner · Real photos
+              - generic [ref=e2043]: 93% trust
+            - generic [ref=e2044]:
+              - generic [ref=e2045]: Replies in ~71 min · yesterday
+              - generic [ref=e2049]: View details
+      - button "Show more homes" [ref=e2053]

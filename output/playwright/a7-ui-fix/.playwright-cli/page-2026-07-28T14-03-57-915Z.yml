@@ -1,0 +1,288 @@
+- generic [ref=e2]:
+  - banner [ref=e3]:
+    - generic [ref=e4]:
+      - link "A7 Property home" [ref=e5] [cursor=pointer]:
+        - /url: /
+        - generic [ref=e6]:
+          - generic [ref=e9]: A7 Property
+          - generic [ref=e10]: အိမ်ခြံမြေ
+      - navigation "Primary navigation" [ref=e11]:
+        - link "Search" [ref=e12] [cursor=pointer]:
+          - /url: /search
+        - link "Rent" [ref=e13] [cursor=pointer]:
+          - /url: /search?purpose=rent
+        - link "Buy" [ref=e14] [cursor=pointer]:
+          - /url: /search?purpose=sale
+        - link "Sell" [ref=e15] [cursor=pointer]:
+          - /url: /owner
+        - link "AI assistant" [ref=e16] [cursor=pointer]:
+          - /url: /assistant
+      - generic [ref=e20]:
+        - link "Saved" [ref=e21] [cursor=pointer]:
+          - /url: /dashboard?section=saved
+        - link "Sign in" [ref=e24] [cursor=pointer]:
+          - /url: /sign-in
+  - main [ref=e29]:
+    - generic [ref=e31]:
+      - img "Contemporary Yangon home surrounded by a tropical garden" [ref=e33]
+      - generic [ref=e37]:
+        - generic [ref=e38]: Trusted homes · Yangon & Mandalay
+        - heading "Find a home that feels like yours." [level=1] [ref=e42]
+        - paragraph [ref=e43]: Search Myanmar’s trusted rentals and homes for sale—with clear details, verified contacts, and less guesswork.
+        - generic [ref=e44]:
+          - generic [ref=e45]:
+            - generic [ref=e46]: Start your search
+            - tablist "Search purpose" [ref=e47]:
+              - tab "Rent" [selected] [ref=e48]
+              - tab "Buy" [ref=e50]
+          - generic [ref=e52]:
+            - combobox "Search by address, township, city or landmark" [ref=e57]
+            - button "Search homes" [ref=e58]:
+              - generic [ref=e62]: Search
+          - generic [ref=e63]:
+            - generic [ref=e64]: "Popular:"
+            - button "Bahan" [ref=e65]
+            - button "Kamayut" [ref=e66]
+            - button "Yankin" [ref=e67]
+            - link "Describe it to A7 AI" [ref=e68] [cursor=pointer]:
+              - /url: /assistant
+        - generic [ref=e72]:
+          - generic [ref=e73]: Real photos reviewed
+          - generic [ref=e76]: Contacts verified
+          - generic [ref=e79]: No seeker fees
+    - generic [ref=e83]:
+      - generic [ref=e84]:
+        - strong [ref=e86]: 1,200+
+        - generic [ref=e87]: reviewed listings
+      - generic [ref=e88]:
+        - strong [ref=e90]: 94%
+        - generic [ref=e91]: verified contacts
+      - generic [ref=e92]:
+        - strong [ref=e94]: 15 min
+        - generic [ref=e95]: typical first reply
+      - generic [ref=e96]:
+        - strong [ref=e98]: 2 cities
+        - generic [ref=e99]: and growing
+    - generic [ref=e100]:
+      - generic [ref=e101]:
+        - generic [ref=e102]:
+          - paragraph [ref=e103]: Explore Yangon
+          - heading "Find your neighbourhood" [level=2] [ref=e104]
+          - paragraph [ref=e105]: Discover places by the way you want to live—not only by a pin on a map.
+        - link "View all locations" [ref=e106] [cursor=pointer]:
+          - /url: /search?location=Yangon
+      - generic [ref=e109]:
+        - button "Bahan neighbourhood 48 homes Bahan Quiet streets · Central Yangon Explore" [ref=e110]:
+          - img "Bahan neighbourhood" [ref=e111]
+          - generic [ref=e113]: 48 homes
+          - generic [ref=e114]:
+            - strong [ref=e115]: Bahan
+            - generic [ref=e116]: Quiet streets · Central Yangon
+            - generic [ref=e117]: Explore
+        - button "Kamayut neighbourhood 36 homes Kamayut Hledan · Universities · Easy commute Explore" [ref=e120]:
+          - img "Kamayut neighbourhood" [ref=e121]
+          - generic [ref=e123]: 36 homes
+          - generic [ref=e124]:
+            - strong [ref=e125]: Kamayut
+            - generic [ref=e126]: Hledan · Universities · Easy commute
+            - generic [ref=e127]: Explore
+        - button "Yankin neighbourhood 31 homes Yankin Modern homes · Family-friendly Explore" [ref=e130]:
+          - img "Yankin neighbourhood" [ref=e131]
+          - generic [ref=e133]: 31 homes
+          - generic [ref=e134]:
+            - strong [ref=e135]: Yankin
+            - generic [ref=e136]: Modern homes · Family-friendly
+            - generic [ref=e137]: Explore
+        - button "Sanchaung neighbourhood 29 homes Sanchaung Local food · Lively neighbourhood Explore" [ref=e140]:
+          - img "Sanchaung neighbourhood" [ref=e141]
+          - generic [ref=e143]: 29 homes
+          - generic [ref=e144]:
+            - strong [ref=e145]: Sanchaung
+            - generic [ref=e146]: Local food · Lively neighbourhood
+            - generic [ref=e147]: Explore
+    - generic [ref=e151]:
+      - generic [ref=e153]:
+        - generic [ref=e154]:
+          - paragraph [ref=e155]: Handpicked for you
+          - heading "Homes worth seeing" [level=2] [ref=e156]
+          - paragraph [ref=e157]: Verified homes with complete details and owners who reply.
+        - link "Explore all homes" [ref=e158] [cursor=pointer]:
+          - /url: /search
+      - generic [ref=e161]:
+        - article [ref=e163]:
+          - link "View Quiet 2-bed mini condo in Kamayut" [ref=e164] [cursor=pointer]:
+            - /url: /properties/MM-PROP-002
+          - img "Quiet 2-bed mini condo in Kamayut" [ref=e165]
+          - generic [ref=e167]:
+            - generic [ref=e168]: Verified home
+            - generic [ref=e172]: Featured
+          - button "Save Quiet 2-bed mini condo in Kamayut" [ref=e173]
+          - generic [ref=e176]:
+            - paragraph [ref=e177]: Kamayut, Yangon
+            - heading "Quiet 2-bed mini condo in Kamayut" [level=3] [ref=e181]
+            - generic [ref=e182]:
+              - generic [ref=e183]:
+                - strong [ref=e184]: 5 သိန်း
+                - text: / month
+                - generic [ref=e185]:
+                  - generic [ref=e186]: 2 beds
+                  - generic [ref=e190]: 1 bath
+                  - generic [ref=e194]: 820 sqft
+              - generic [ref=e200]: Explore this home
+        - generic [ref=e203]:
+          - article [ref=e205]:
+            - link "View Well-kept 3-bed apartment in Hlaing" [ref=e206] [cursor=pointer]:
+              - /url: /properties/MM-PROP-003
+            - generic [ref=e207]:
+              - img "Well-kept 3-bed apartment in Hlaing" [ref=e208]
+              - generic [ref=e209]: Verified
+            - generic [ref=e213]:
+              - generic [ref=e214]:
+                - generic [ref=e215]:
+                  - strong [ref=e216]: 8 သိန်း
+                  - generic [ref=e217]: per month
+                - button "Save Well-kept 3-bed apartment in Hlaing" [ref=e218]
+              - heading "Well-kept 3-bed apartment in Hlaing" [level=3] [ref=e221]
+              - paragraph [ref=e222]: Hlaing, Yangon
+              - generic [ref=e226]:
+                - generic [ref=e227]: 3 beds
+                - generic [ref=e228]: 3 baths
+                - generic [ref=e229]: 990 sqft
+          - article [ref=e231]:
+            - link "View Spacious 1-bed apartment in Yankin" [ref=e232] [cursor=pointer]:
+              - /url: /properties/MM-PROP-004
+            - generic [ref=e233]:
+              - img "Spacious 1-bed apartment in Yankin" [ref=e234]
+              - generic [ref=e235]: Verified
+            - generic [ref=e239]:
+              - generic [ref=e240]:
+                - generic [ref=e241]:
+                  - strong [ref=e242]: 520 သန်း
+                  - generic [ref=e243]: total price
+                - button "Save Spacious 1-bed apartment in Yankin" [ref=e244]
+              - heading "Spacious 1-bed apartment in Yankin" [level=3] [ref=e247]
+              - paragraph [ref=e248]: Yankin, Yangon
+              - generic [ref=e252]:
+                - generic [ref=e253]: 1 bed
+                - generic [ref=e254]: 1 bath
+                - generic [ref=e255]: 1,160 sqft
+          - article [ref=e257]:
+            - link "View Move-in ready 4-bed villa in Sanchaung" [ref=e258] [cursor=pointer]:
+              - /url: /properties/MM-PROP-005
+            - generic [ref=e259]:
+              - img "Move-in ready 4-bed villa in Sanchaung" [ref=e260]
+              - generic [ref=e261]: Verified
+            - generic [ref=e265]:
+              - generic [ref=e266]:
+                - generic [ref=e267]:
+                  - strong [ref=e268]: 680 သန်း
+                  - generic [ref=e269]: total price
+                - button "Save Move-in ready 4-bed villa in Sanchaung" [ref=e270]
+              - heading "Move-in ready 4-bed villa in Sanchaung" [level=3] [ref=e273]
+              - paragraph [ref=e274]: Sanchaung, Yangon
+              - generic [ref=e278]:
+                - generic [ref=e279]: 4 beds
+                - generic [ref=e280]: 4 baths
+                - generic [ref=e281]: 4,600 sqft
+    - generic [ref=e283]:
+      - generic [ref=e284]:
+        - generic [ref=e286]: Trust, built in
+        - heading "A home should feel right before you visit." [level=2] [ref=e290]
+        - paragraph [ref=e291]: We review the details that matter so you can spend less time questioning listings and more time choosing the right home.
+        - link "Explore verified homes" [ref=e292] [cursor=pointer]:
+          - /url: /search
+      - generic [ref=e295]:
+        - generic [ref=e296]:
+          - generic [ref=e300]:
+            - strong [ref=e301]: Identity checked
+            - generic [ref=e302]: Phone number and identity confirmation for owners and agents.
+          - generic [ref=e303]: "01"
+        - generic [ref=e304]:
+          - generic [ref=e308]:
+            - strong [ref=e309]: Photos and facts reviewed
+            - generic [ref=e310]: Price, images, location and essential home details checked for completeness.
+          - generic [ref=e311]: "02"
+        - generic [ref=e312]:
+          - generic [ref=e316]:
+            - strong [ref=e317]: Availability refreshed
+            - generic [ref=e318]: Listers are prompted regularly to confirm the home is still available.
+          - generic [ref=e319]: "03"
+        - generic [ref=e324]:
+          - strong [ref=e325]: Something looks wrong?
+          - text: Report it in one tap. We review every concern.
+    - generic [ref=e326]:
+      - generic [ref=e327]:
+        - paragraph [ref=e332]: A personal property consultant
+        - heading "Describe your life. We’ll find the right fit." [level=2] [ref=e333]: Describe your life.We’ll find the right fit.
+        - paragraph [ref=e334]: Skip complicated filters. Tell the A7 AI home assistant what matters and get a short list with clear reasons for every recommendation.
+        - generic [ref=e335]:
+          - button "Near work, but quiet" [ref=e336]
+          - button "Family home under 8 သိန်း" [ref=e337]
+          - button "Bright apartment in Yankin" [ref=e338]
+      - generic [ref=e339]:
+        - generic [ref=e346]:
+          - strong [ref=e347]: A7 AI home assistant
+          - generic [ref=e348]: Online · Usually replies instantly
+        - generic [ref=e350]:
+          - generic [ref=e351]: Tell me your budget, commute, or what you want home to feel like.
+          - generic [ref=e355]:
+            - img "Recommended bright apartment in Yankin" [ref=e356]
+            - generic [ref=e357]:
+              - generic [ref=e358]: 98% match · Verified
+              - strong [ref=e359]: Bright 2-bed in Yankin
+              - generic [ref=e360]: 8 သိန်း / month
+        - generic [ref=e361]:
+          - textbox "Ask the home assistant" [ref=e362]:
+            - /placeholder: Tell me what home feels right...
+          - button "Send message" [ref=e363]
+    - generic [ref=e368]:
+      - generic [ref=e374]:
+        - heading "Have a place to call someone’s home?" [level=2] [ref=e375]
+        - paragraph [ref=e376]: List with clear guidance, reach serious seekers, and stay in control.
+      - link "List your property" [ref=e377] [cursor=pointer]:
+        - /url: /owner
+  - contentinfo [ref=e380]:
+    - generic [ref=e381]:
+      - generic [ref=e382]:
+        - generic [ref=e383]: A7 Property
+        - paragraph [ref=e387]: A simpler, safer way to discover verified homes across Myanmar.
+        - generic [ref=e388]: English · မြန်မာ
+      - generic [ref=e389]:
+        - strong [ref=e390]: Discover
+        - link "Rent a home" [ref=e391] [cursor=pointer]:
+          - /url: /search?purpose=rent
+        - link "Buy a home" [ref=e392] [cursor=pointer]:
+          - /url: /search?purpose=sale
+        - link "Popular locations" [ref=e393] [cursor=pointer]:
+          - /url: /search
+        - link "AI home assistant" [ref=e394] [cursor=pointer]:
+          - /url: /assistant
+      - generic [ref=e395]:
+        - strong [ref=e396]: List with us
+        - link "List a property" [ref=e397] [cursor=pointer]:
+          - /url: /owner
+        - link "Owner dashboard" [ref=e398] [cursor=pointer]:
+          - /url: /owner
+        - link "Agent tools" [ref=e399] [cursor=pointer]:
+          - /url: /agent
+        - link "Verification" [ref=e400] [cursor=pointer]:
+          - /url: "#verified"
+      - generic [ref=e401]:
+        - strong [ref=e402]: A7 Property
+        - link "Trust & safety" [ref=e403] [cursor=pointer]:
+          - /url: "#verified"
+        - link "Help centre" [ref=e404] [cursor=pointer]:
+          - /url: /dashboard
+        - link "Saved homes" [ref=e405] [cursor=pointer]:
+          - /url: /dashboard?section=saved
+        - link "Contact" [ref=e406] [cursor=pointer]:
+          - /url: /assistant
+    - generic [ref=e407]:
+      - generic [ref=e408]: © 2026 A7 Property. Built with care for Myanmar.
+      - generic [ref=e409]:
+        - link "Privacy" [ref=e410] [cursor=pointer]:
+          - /url: "#top"
+        - link "Terms" [ref=e411] [cursor=pointer]:
+          - /url: "#top"
+        - link "Community standards" [ref=e412] [cursor=pointer]:
+          - /url: "#top"

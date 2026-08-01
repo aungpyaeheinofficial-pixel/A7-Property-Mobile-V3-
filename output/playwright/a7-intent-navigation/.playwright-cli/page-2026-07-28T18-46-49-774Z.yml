@@ -1,0 +1,808 @@
+- generic [ref=e2054]:
+  - banner [ref=e2055]:
+    - generic [ref=e2056]:
+      - link "A7 Property home" [ref=e2057] [cursor=pointer]:
+        - /url: /
+        - generic [ref=e2058]: A7 Property
+      - navigation "Property journeys" [ref=e2062]:
+        - link "Rent" [ref=e2063] [cursor=pointer]:
+          - /url: /search?purpose=rent
+        - link "Buy" [ref=e2067] [cursor=pointer]:
+          - /url: /search?purpose=sale
+        - link "Sell" [ref=e2072] [cursor=pointer]:
+          - /url: /owner
+      - generic [ref=e2076]:
+        - link "AI Home Assistant" [ref=e2077] [cursor=pointer]:
+          - /url: /assistant
+          - generic [ref=e2081]: Ask A7
+        - link "Saved" [ref=e2082] [cursor=pointer]:
+          - /url: /dashboard?section=saved
+        - link "Sign in" [ref=e2085] [cursor=pointer]:
+          - /url: /sign-in
+  - region "Property search" [ref=e2089]:
+    - generic [ref=e2092]:
+      - combobox "Search by address, township, city or landmark" [ref=e2094]
+      - button "Search homes" [ref=e2095]
+  - main [ref=e2099]:
+    - generic [ref=e2100]:
+      - generic [ref=e2102]:
+        - generic [ref=e2103]:
+          - paragraph [ref=e2104]: Find your next rental
+          - heading "Homes for rent across Myanmar" [level=1] [ref=e2105]
+          - paragraph [ref=e2106]:
+            - strong [ref=e2107]: "60"
+            - text: rentals · reviewed, refreshed, and ready to explore
+        - generic [ref=e2108]:
+          - button "Map view" [ref=e2109]:
+            - text: Map
+            - generic [ref=e2112]: view
+          - generic [ref=e2113]:
+            - generic [ref=e2114]: Sort homes
+            - combobox "Sort homes" [ref=e2115]:
+              - option "Recommended" [selected]
+              - option "Newest"
+              - option "Price low–high"
+      - generic "Quick filters" [ref=e2116]:
+        - generic "Search purpose" [ref=e2117]:
+          - button "Rent" [pressed] [ref=e2118]
+          - button "Buy" [ref=e2122]
+        - generic [ref=e2127]:
+          - generic [ref=e2128]: Price
+          - combobox "Price ⌄" [ref=e2129]:
+            - option "Any price" [selected]
+            - option "Up to 5 သိန်း"
+            - option "Up to 8 သိန်း"
+            - option "Up to 15 သိန်း"
+          - generic: ⌄
+        - generic [ref=e2130]:
+          - generic [ref=e2131]: Property type
+          - combobox "Property type ⌄" [ref=e2132]:
+            - option "Any type" [selected]
+            - option "Condo"
+            - option "Apartment"
+            - option "House"
+            - option "Mini condo"
+            - option "Villa"
+          - generic: ⌄
+        - generic [ref=e2133]:
+          - generic [ref=e2134]: Bedrooms
+          - combobox "Bedrooms ⌄" [ref=e2135]:
+            - option "Any beds" [selected]
+            - option "1+ beds"
+            - option "2+ beds"
+            - option "3+ beds"
+            - option "4+ beds"
+          - generic: ⌄
+        - generic [ref=e2136]:
+          - generic [ref=e2137]: Bathrooms
+          - combobox "Bathrooms ⌄" [ref=e2138]:
+            - option "Any baths" [selected]
+            - option "1+ baths"
+            - option "2+ baths"
+            - option "3+ baths"
+            - option "4+ baths"
+          - generic: ⌄
+        - button "Verified only" [ref=e2139]
+        - button "More filters" [ref=e2142]
+      - generic [ref=e2144]:
+        - article [ref=e2146]:
+          - link "View details for Well-kept 2-bed apartment in Chanmyathazi" [ref=e2147] [cursor=pointer]:
+            - /url: /properties/MM-PROP-008
+          - generic [ref=e2148]:
+            - img "Well-kept 2-bed apartment in Chanmyathazi" [ref=e2149]
+            - generic [ref=e2150]:
+              - generic [ref=e2151]: Verified
+              - generic [ref=e2155]: 3 photos
+            - button "Save Well-kept 2-bed apartment in Chanmyathazi" [ref=e2159]
+          - generic [ref=e2162]:
+            - generic [ref=e2163]:
+              - generic [ref=e2164]:
+                - generic [ref=e2165]:
+                  - strong [ref=e2166]: 15 သိန်း
+                  - generic [ref=e2167]: / month
+                - paragraph [ref=e2168]: 1,500,000 MMK per month
+              - generic [ref=e2169]: For rent
+            - heading "Well-kept 2-bed apartment in Chanmyathazi" [level=2] [ref=e2170]
+            - paragraph [ref=e2171]:
+              - generic [ref=e2175]: Chanmyathazi, Mandalay · Ward 1
+            - generic [ref=e2176]:
+              - generic [ref=e2177]: 2 beds
+              - generic [ref=e2181]: 1 bath
+              - generic [ref=e2185]: 650 sqft
+            - generic [ref=e2191]:
+              - generic [ref=e2192]: Verified owner · Real photos
+              - generic [ref=e2197]: 96% trust
+            - generic [ref=e2198]:
+              - generic [ref=e2199]: Replies in ~57 min · 2 hours ago
+              - generic [ref=e2203]: View details
+        - article [ref=e2207]:
+          - link "View details for Light-filled 1-bed condo in Mayangone" [ref=e2208] [cursor=pointer]:
+            - /url: /properties/MM-PROP-016
+          - generic [ref=e2209]:
+            - img "Light-filled 1-bed condo in Mayangone" [ref=e2210]
+            - generic [ref=e2211]:
+              - generic [ref=e2212]: Verified
+              - generic [ref=e2216]: 3 photos
+            - button "Save Light-filled 1-bed condo in Mayangone" [ref=e2220]
+          - generic [ref=e2223]:
+            - generic [ref=e2224]:
+              - generic [ref=e2225]:
+                - generic [ref=e2226]:
+                  - strong [ref=e2227]: 15 သိန်း
+                  - generic [ref=e2228]: / month
+                - paragraph [ref=e2229]: 1,500,000 MMK per month
+              - generic [ref=e2230]: For rent
+            - heading "Light-filled 1-bed condo in Mayangone" [level=2] [ref=e2231]
+            - paragraph [ref=e2232]:
+              - generic [ref=e2236]: Mayangone, Yangon · Ward 1
+            - generic [ref=e2237]:
+              - generic [ref=e2238]: 1 bed
+              - generic [ref=e2242]: 1 bath
+              - generic [ref=e2246]: 820 sqft
+            - generic [ref=e2252]:
+              - generic [ref=e2253]: Verified owner · Real photos
+              - generic [ref=e2258]: 96% trust
+            - generic [ref=e2259]:
+              - generic [ref=e2260]: Replies in ~22 min · 2 hours ago
+              - generic [ref=e2264]: View details
+        - article [ref=e2268]:
+          - link "View details for Quiet 2-bed mini condo in Sanchaung" [ref=e2269] [cursor=pointer]:
+            - /url: /properties/MM-PROP-032
+          - generic [ref=e2270]:
+            - img "Quiet 2-bed mini condo in Sanchaung" [ref=e2271]
+            - generic [ref=e2272]:
+              - generic [ref=e2273]: Verified
+              - generic [ref=e2277]: 3 photos
+            - button "Save Quiet 2-bed mini condo in Sanchaung" [ref=e2281]
+          - generic [ref=e2284]:
+            - generic [ref=e2285]:
+              - generic [ref=e2286]:
+                - generic [ref=e2287]:
+                  - strong [ref=e2288]: 15 သိန်း
+                  - generic [ref=e2289]: / month
+                - paragraph [ref=e2290]: 1,500,000 MMK per month
+              - generic [ref=e2291]: For rent
+            - heading "Quiet 2-bed mini condo in Sanchaung" [level=2] [ref=e2292]
+            - paragraph [ref=e2293]:
+              - generic [ref=e2297]: Sanchaung, Yangon · Ward 1
+            - generic [ref=e2298]:
+              - generic [ref=e2299]: 2 beds
+              - generic [ref=e2303]: 1 bath
+              - generic [ref=e2307]: 1,160 sqft
+            - generic [ref=e2313]:
+              - generic [ref=e2314]: Verified owner · Real photos
+              - generic [ref=e2319]: 96% trust
+            - generic [ref=e2320]:
+              - generic [ref=e2321]: Replies in ~43 min · 2 hours ago
+              - generic [ref=e2325]: View details
+        - article [ref=e2329]:
+          - link "View details for Well-kept 3-bed apartment in Hlaing" [ref=e2330] [cursor=pointer]:
+            - /url: /properties/MM-PROP-048
+          - generic [ref=e2331]:
+            - img "Well-kept 3-bed apartment in Hlaing" [ref=e2332]
+            - generic [ref=e2333]:
+              - generic [ref=e2334]: Verified
+              - generic [ref=e2338]: 3 photos
+            - button "Save Well-kept 3-bed apartment in Hlaing" [ref=e2342]
+          - generic [ref=e2345]:
+            - generic [ref=e2346]:
+              - generic [ref=e2347]:
+                - generic [ref=e2348]:
+                  - strong [ref=e2349]: 15 သိန်း
+                  - generic [ref=e2350]: / month
+                - paragraph [ref=e2351]: 1,500,000 MMK per month
+              - generic [ref=e2352]: For rent
+            - heading "Well-kept 3-bed apartment in Hlaing" [level=2] [ref=e2353]
+            - paragraph [ref=e2354]:
+              - generic [ref=e2358]: Hlaing, Yangon · Ward 1
+            - generic [ref=e2359]:
+              - generic [ref=e2360]: 3 beds
+              - generic [ref=e2364]: 2 baths
+              - generic [ref=e2368]: 1,500 sqft
+            - generic [ref=e2374]:
+              - generic [ref=e2375]: Verified owner · Real photos
+              - generic [ref=e2380]: 96% trust
+            - generic [ref=e2381]:
+              - generic [ref=e2382]: Replies in ~64 min · 2 hours ago
+              - generic [ref=e2386]: View details
+        - article [ref=e2390]:
+          - link "View details for Quiet 3-bed mini condo in Aungmyaythazan" [ref=e2391] [cursor=pointer]:
+            - /url: /properties/MM-PROP-072
+          - generic [ref=e2392]:
+            - img "Quiet 3-bed mini condo in Aungmyaythazan" [ref=e2393]
+            - generic [ref=e2394]:
+              - generic [ref=e2395]: Verified
+              - generic [ref=e2399]: 3 photos
+            - button "Save Quiet 3-bed mini condo in Aungmyaythazan" [ref=e2403]
+          - generic [ref=e2406]:
+            - generic [ref=e2407]:
+              - generic [ref=e2408]:
+                - generic [ref=e2409]:
+                  - strong [ref=e2410]: 15 သိန်း
+                  - generic [ref=e2411]: / month
+                - paragraph [ref=e2412]: 1,500,000 MMK per month
+              - generic [ref=e2413]: For rent
+            - heading "Quiet 3-bed mini condo in Aungmyaythazan" [level=2] [ref=e2414]
+            - paragraph [ref=e2415]:
+              - generic [ref=e2419]: Aungmyaythazan, Mandalay · Ward 1
+            - generic [ref=e2420]:
+              - generic [ref=e2421]: 3 beds
+              - generic [ref=e2425]: 2 baths
+              - generic [ref=e2429]: 820 sqft
+            - generic [ref=e2435]:
+              - generic [ref=e2436]: Verified owner · Real photos
+              - generic [ref=e2441]: 96% trust
+            - generic [ref=e2442]:
+              - generic [ref=e2443]: Replies in ~50 min · 2 hours ago
+              - generic [ref=e2447]: View details
+        - article [ref=e2451]:
+          - link "View details for Well-kept 1-bed apartment in Mayangone" [ref=e2452] [cursor=pointer]:
+            - /url: /properties/MM-PROP-088
+          - generic [ref=e2453]:
+            - img "Well-kept 1-bed apartment in Mayangone" [ref=e2454]
+            - generic [ref=e2455]:
+              - generic [ref=e2456]: Verified
+              - generic [ref=e2460]: 3 photos
+            - button "Save Well-kept 1-bed apartment in Mayangone" [ref=e2464]
+          - generic [ref=e2467]:
+            - generic [ref=e2468]:
+              - generic [ref=e2469]:
+                - generic [ref=e2470]:
+                  - strong [ref=e2471]: 15 သိန်း
+                  - generic [ref=e2472]: / month
+                - paragraph [ref=e2473]: 1,500,000 MMK per month
+              - generic [ref=e2474]: For rent
+            - heading "Well-kept 1-bed apartment in Mayangone" [level=2] [ref=e2475]
+            - paragraph [ref=e2476]:
+              - generic [ref=e2480]: Mayangone, Yangon · Ward 1
+            - generic [ref=e2481]:
+              - generic [ref=e2482]: 1 bed
+              - generic [ref=e2486]: 1 bath
+              - generic [ref=e2490]: 1,160 sqft
+            - generic [ref=e2496]:
+              - generic [ref=e2497]: Verified owner · Real photos
+              - generic [ref=e2502]: 96% trust
+            - generic [ref=e2503]:
+              - generic [ref=e2504]: Replies in ~71 min · 2 hours ago
+              - generic [ref=e2508]: View details
+        - article [ref=e2512]:
+          - link "View details for Light-filled 3-bed condo in Dagon" [ref=e2513] [cursor=pointer]:
+            - /url: /properties/MM-PROP-096
+          - generic [ref=e2514]:
+            - img "Light-filled 3-bed condo in Dagon" [ref=e2515]
+            - generic [ref=e2516]:
+              - generic [ref=e2517]: Verified
+              - generic [ref=e2521]: 3 photos
+            - button "Save Light-filled 3-bed condo in Dagon" [ref=e2525]
+          - generic [ref=e2528]:
+            - generic [ref=e2529]:
+              - generic [ref=e2530]:
+                - generic [ref=e2531]:
+                  - strong [ref=e2532]: 15 သိန်း
+                  - generic [ref=e2533]: / month
+                - paragraph [ref=e2534]: 1,500,000 MMK per month
+              - generic [ref=e2535]: For rent
+            - heading "Light-filled 3-bed condo in Dagon" [level=2] [ref=e2536]
+            - paragraph [ref=e2537]:
+              - generic [ref=e2541]: Dagon, Yangon · Ward 1
+            - generic [ref=e2542]:
+              - generic [ref=e2543]: 3 beds
+              - generic [ref=e2547]: 2 baths
+              - generic [ref=e2551]: 1,330 sqft
+            - generic [ref=e2557]:
+              - generic [ref=e2558]: Verified owner · Real photos
+              - generic [ref=e2563]: 96% trust
+            - generic [ref=e2564]:
+              - generic [ref=e2565]: Replies in ~36 min · 2 hours ago
+              - generic [ref=e2569]: View details
+        - article [ref=e2573]:
+          - link "View details for Quiet 1-bed mini condo in Mayangone" [ref=e2574] [cursor=pointer]:
+            - /url: /properties/MM-PROP-007
+          - generic [ref=e2575]:
+            - img "Quiet 1-bed mini condo in Mayangone" [ref=e2576]
+            - generic [ref=e2577]:
+              - generic [ref=e2578]: Verified
+              - generic [ref=e2582]: 3 photos
+            - button "Save Quiet 1-bed mini condo in Mayangone" [ref=e2586]
+          - generic [ref=e2589]:
+            - generic [ref=e2590]:
+              - generic [ref=e2591]:
+                - generic [ref=e2592]:
+                  - strong [ref=e2593]: 8 သိန်း
+                  - generic [ref=e2594]: / month
+                - paragraph [ref=e2595]: 800,000 MMK per month
+              - generic [ref=e2596]: For rent
+            - heading "Quiet 1-bed mini condo in Mayangone" [level=2] [ref=e2597]
+            - paragraph [ref=e2598]:
+              - generic [ref=e2602]: Mayangone, Yangon · Ward 8
+            - generic [ref=e2603]:
+              - generic [ref=e2604]: 1 bed
+              - generic [ref=e2608]: 1 bath
+              - generic [ref=e2612]: 1,670 sqft
+            - generic [ref=e2618]:
+              - generic [ref=e2619]: Verified owner · Real photos
+              - generic [ref=e2624]: 95% trust
+            - generic [ref=e2625]:
+              - generic [ref=e2626]: Replies in ~50 min · today
+              - generic [ref=e2630]: View details
+        - article [ref=e2634]:
+          - link "View details for Light-filled 1-bed condo in Yankin" [ref=e2635] [cursor=pointer]:
+            - /url: /properties/MM-PROP-031
+          - generic [ref=e2636]:
+            - img "Light-filled 1-bed condo in Yankin" [ref=e2637]
+            - generic [ref=e2638]:
+              - generic [ref=e2639]: Verified
+              - generic [ref=e2643]: 3 photos
+            - button "Save Light-filled 1-bed condo in Yankin" [ref=e2647]
+          - generic [ref=e2650]:
+            - generic [ref=e2651]:
+              - generic [ref=e2652]:
+                - generic [ref=e2653]:
+                  - strong [ref=e2654]: 8 သိန်း
+                  - generic [ref=e2655]: / month
+                - paragraph [ref=e2656]: 800,000 MMK per month
+              - generic [ref=e2657]: For rent
+            - heading "Light-filled 1-bed condo in Yankin" [level=2] [ref=e2658]
+            - paragraph [ref=e2659]:
+              - generic [ref=e2663]: Yankin, Yangon · Ward 8
+            - generic [ref=e2664]:
+              - generic [ref=e2665]: 1 bed
+              - generic [ref=e2669]: 1 bath
+              - generic [ref=e2673]: 990 sqft
+            - generic [ref=e2679]:
+              - generic [ref=e2680]: Verified owner · Real photos
+              - generic [ref=e2685]: 95% trust
+            - generic [ref=e2686]:
+              - generic [ref=e2687]: Replies in ~36 min · today
+              - generic [ref=e2691]: View details
+        - article [ref=e2695]:
+          - link "View details for Quiet 2-bed mini condo in Kamayut" [ref=e2696] [cursor=pointer]:
+            - /url: /properties/MM-PROP-047
+          - generic [ref=e2697]:
+            - img "Quiet 2-bed mini condo in Kamayut" [ref=e2698]
+            - generic [ref=e2699]:
+              - generic [ref=e2700]: Verified
+              - generic [ref=e2704]: 3 photos
+            - button "Save Quiet 2-bed mini condo in Kamayut" [ref=e2708]
+          - generic [ref=e2711]:
+            - generic [ref=e2712]:
+              - generic [ref=e2713]:
+                - generic [ref=e2714]:
+                  - strong [ref=e2715]: 8 သိန်း
+                  - generic [ref=e2716]: / month
+                - paragraph [ref=e2717]: 800,000 MMK per month
+              - generic [ref=e2718]: For rent
+            - heading "Quiet 2-bed mini condo in Kamayut" [level=2] [ref=e2719]
+            - paragraph [ref=e2720]:
+              - generic [ref=e2724]: Kamayut, Yangon · Ward 8
+            - generic [ref=e2725]:
+              - generic [ref=e2726]: 2 beds
+              - generic [ref=e2730]: 2 baths
+              - generic [ref=e2734]: 1,330 sqft
+            - generic [ref=e2740]:
+              - generic [ref=e2741]: Verified owner · Real photos
+              - generic [ref=e2746]: 95% trust
+            - generic [ref=e2747]:
+              - generic [ref=e2748]: Replies in ~57 min · today
+              - generic [ref=e2752]: View details
+        - article [ref=e2756]:
+          - link "View details for Well-kept 3-bed apartment in Aungmyaythazan" [ref=e2757] [cursor=pointer]:
+            - /url: /properties/MM-PROP-063
+          - generic [ref=e2758]:
+            - img "Well-kept 3-bed apartment in Aungmyaythazan" [ref=e2759]
+            - generic [ref=e2760]:
+              - generic [ref=e2761]: Verified
+              - generic [ref=e2765]: 3 photos
+            - button "Save Well-kept 3-bed apartment in Aungmyaythazan" [ref=e2769]
+          - generic [ref=e2772]:
+            - generic [ref=e2773]:
+              - generic [ref=e2774]:
+                - generic [ref=e2775]:
+                  - strong [ref=e2776]: 8 သိန်း
+                  - generic [ref=e2777]: / month
+                - paragraph [ref=e2778]: 800,000 MMK per month
+              - generic [ref=e2779]: For rent
+            - heading "Well-kept 3-bed apartment in Aungmyaythazan" [level=2] [ref=e2780]
+            - paragraph [ref=e2781]:
+              - generic [ref=e2785]: Aungmyaythazan, Mandalay · Ward 8
+            - generic [ref=e2786]:
+              - generic [ref=e2787]: 3 beds
+              - generic [ref=e2791]: 3 baths
+              - generic [ref=e2795]: 1,670 sqft
+            - generic [ref=e2801]:
+              - generic [ref=e2802]: Verified owner · Real photos
+              - generic [ref=e2807]: 95% trust
+            - generic [ref=e2808]:
+              - generic [ref=e2809]: Replies in ~78 min · yesterday
+              - generic [ref=e2813]: View details
+        - article [ref=e2817]:
+          - link "View details for Light-filled 2-bed condo in Chanmyathazi" [ref=e2818] [cursor=pointer]:
+            - /url: /properties/MM-PROP-071
+          - generic [ref=e2819]:
+            - img "Light-filled 2-bed condo in Chanmyathazi" [ref=e2820]
+            - generic [ref=e2821]:
+              - generic [ref=e2822]: Verified
+              - generic [ref=e2826]: 3 photos
+            - button "Save Light-filled 2-bed condo in Chanmyathazi" [ref=e2830]
+          - generic [ref=e2833]:
+            - generic [ref=e2834]:
+              - generic [ref=e2835]:
+                - generic [ref=e2836]:
+                  - strong [ref=e2837]: 8 သိန်း
+                  - generic [ref=e2838]: / month
+                - paragraph [ref=e2839]: 800,000 MMK per month
+              - generic [ref=e2840]: For rent
+            - heading "Light-filled 2-bed condo in Chanmyathazi" [level=2] [ref=e2841]
+            - paragraph [ref=e2842]:
+              - generic [ref=e2846]: Chanmyathazi, Mandalay · Ward 8
+            - generic [ref=e2847]:
+              - generic [ref=e2848]: 2 beds
+              - generic [ref=e2852]: 2 baths
+              - generic [ref=e2856]: 650 sqft
+            - generic [ref=e2862]:
+              - generic [ref=e2863]: Verified owner · Real photos
+              - generic [ref=e2868]: 95% trust
+            - generic [ref=e2869]:
+              - generic [ref=e2870]: Replies in ~43 min · today
+              - generic [ref=e2874]: View details
+        - article [ref=e2878]:
+          - link "View details for Quiet 3-bed mini condo in Dagon" [ref=e2879] [cursor=pointer]:
+            - /url: /properties/MM-PROP-087
+          - generic [ref=e2880]:
+            - img "Quiet 3-bed mini condo in Dagon" [ref=e2881]
+            - generic [ref=e2882]:
+              - generic [ref=e2883]: Verified
+              - generic [ref=e2887]: 3 photos
+            - button "Save Quiet 3-bed mini condo in Dagon" [ref=e2891]
+          - generic [ref=e2894]:
+            - generic [ref=e2895]:
+              - generic [ref=e2896]:
+                - generic [ref=e2897]:
+                  - strong [ref=e2898]: 8 သိန်း
+                  - generic [ref=e2899]: / month
+                - paragraph [ref=e2900]: 800,000 MMK per month
+              - generic [ref=e2901]: For rent
+            - heading "Quiet 3-bed mini condo in Dagon" [level=2] [ref=e2902]
+            - paragraph [ref=e2903]:
+              - generic [ref=e2907]: Dagon, Yangon · Ward 8
+            - generic [ref=e2908]:
+              - generic [ref=e2909]: 3 beds
+              - generic [ref=e2913]: 3 baths
+              - generic [ref=e2917]: 990 sqft
+            - generic [ref=e2923]:
+              - generic [ref=e2924]: Verified owner · Real photos
+              - generic [ref=e2929]: 95% trust
+            - generic [ref=e2930]:
+              - generic [ref=e2931]: Replies in ~64 min · yesterday
+              - generic [ref=e2935]: View details
+        - article [ref=e2939]:
+          - link "View details for Light-filled 3-bed condo in Dagon" [ref=e2940] [cursor=pointer]:
+            - /url: /properties/MM-PROP-006
+          - generic [ref=e2941]:
+            - img "Light-filled 3-bed condo in Dagon" [ref=e2942]
+            - generic [ref=e2943]:
+              - generic [ref=e2944]: Verified
+              - generic [ref=e2948]: 3 photos
+            - button "Save Light-filled 3-bed condo in Dagon" [ref=e2952]
+          - generic [ref=e2955]:
+            - generic [ref=e2956]:
+              - generic [ref=e2957]:
+                - generic [ref=e2958]:
+                  - strong [ref=e2959]: 5 သိန်း
+                  - generic [ref=e2960]: / month
+                - paragraph [ref=e2961]: 500,000 MMK per month
+              - generic [ref=e2962]: For rent
+            - heading "Light-filled 3-bed condo in Dagon" [level=2] [ref=e2963]
+            - paragraph [ref=e2964]:
+              - generic [ref=e2968]: Dagon, Yangon · Ward 7
+            - generic [ref=e2969]:
+              - generic [ref=e2970]: 3 beds
+              - generic [ref=e2974]: 2 baths
+              - generic [ref=e2978]: 1,500 sqft
+            - generic [ref=e2984]:
+              - generic [ref=e2985]: Verified owner · Real photos
+              - generic [ref=e2990]: 95% trust
+            - generic [ref=e2991]:
+              - generic [ref=e2992]: Replies in ~43 min · yesterday
+              - generic [ref=e2996]: View details
+        - article [ref=e3000]:
+          - link "View details for Quiet 1-bed mini condo in Yankin" [ref=e3001] [cursor=pointer]:
+            - /url: /properties/MM-PROP-022
+          - generic [ref=e3002]:
+            - img "Quiet 1-bed mini condo in Yankin" [ref=e3003]
+            - generic [ref=e3004]:
+              - generic [ref=e3005]: Verified
+              - generic [ref=e3009]: 3 photos
+            - button "Save Quiet 1-bed mini condo in Yankin" [ref=e3013]
+          - generic [ref=e3016]:
+            - generic [ref=e3017]:
+              - generic [ref=e3018]:
+                - generic [ref=e3019]:
+                  - strong [ref=e3020]: 5 သိန်း
+                  - generic [ref=e3021]: / month
+                - paragraph [ref=e3022]: 500,000 MMK per month
+              - generic [ref=e3023]: For rent
+            - heading "Quiet 1-bed mini condo in Yankin" [level=2] [ref=e3024]
+            - paragraph [ref=e3025]:
+              - generic [ref=e3029]: Yankin, Yangon · Ward 7
+            - generic [ref=e3030]:
+              - generic [ref=e3031]: 1 bed
+              - generic [ref=e3035]: 1 bath
+              - generic [ref=e3039]: 650 sqft
+            - generic [ref=e3045]:
+              - generic [ref=e3046]: Verified owner · Real photos
+              - generic [ref=e3051]: 95% trust
+            - generic [ref=e3052]:
+              - generic [ref=e3053]: Replies in ~64 min · today
+              - generic [ref=e3057]: View details
+        - article [ref=e3061]:
+          - link "View details for Well-kept 2-bed apartment in Kamayut" [ref=e3062] [cursor=pointer]:
+            - /url: /properties/MM-PROP-038
+          - generic [ref=e3063]:
+            - img "Well-kept 2-bed apartment in Kamayut" [ref=e3064]
+            - generic [ref=e3065]:
+              - generic [ref=e3066]: Verified
+              - generic [ref=e3070]: 3 photos
+            - button "Save Well-kept 2-bed apartment in Kamayut" [ref=e3074]
+          - generic [ref=e3077]:
+            - generic [ref=e3078]:
+              - generic [ref=e3079]:
+                - generic [ref=e3080]:
+                  - strong [ref=e3081]: 5 သိန်း
+                  - generic [ref=e3082]: / month
+                - paragraph [ref=e3083]: 500,000 MMK per month
+              - generic [ref=e3084]: For rent
+            - heading "Well-kept 2-bed apartment in Kamayut" [level=2] [ref=e3085]
+            - paragraph [ref=e3086]:
+              - generic [ref=e3090]: Kamayut, Yangon · Ward 7
+            - generic [ref=e3091]:
+              - generic [ref=e3092]: 2 beds
+              - generic [ref=e3096]: 1 bath
+              - generic [ref=e3100]: 990 sqft
+            - generic [ref=e3106]:
+              - generic [ref=e3107]: Verified owner · Real photos
+              - generic [ref=e3112]: 95% trust
+            - generic [ref=e3113]:
+              - generic [ref=e3114]: Replies in ~85 min · today
+              - generic [ref=e3118]: View details
+        - article [ref=e3122]:
+          - link "View details for Light-filled 1-bed condo in Bahan" [ref=e3123] [cursor=pointer]:
+            - /url: /properties/MM-PROP-046
+          - generic [ref=e3124]:
+            - img "Light-filled 1-bed condo in Bahan" [ref=e3125]
+            - generic [ref=e3126]:
+              - generic [ref=e3127]: Verified
+              - generic [ref=e3131]: 3 photos
+            - button "Save Light-filled 1-bed condo in Bahan" [ref=e3135]
+          - generic [ref=e3138]:
+            - generic [ref=e3139]:
+              - generic [ref=e3140]:
+                - generic [ref=e3141]:
+                  - strong [ref=e3142]: 5 သိန်း
+                  - generic [ref=e3143]: / month
+                - paragraph [ref=e3144]: 500,000 MMK per month
+              - generic [ref=e3145]: For rent
+            - heading "Light-filled 1-bed condo in Bahan" [level=2] [ref=e3146]
+            - paragraph [ref=e3147]:
+              - generic [ref=e3151]: Bahan, Yangon · Ward 7
+            - generic [ref=e3152]:
+              - generic [ref=e3153]: 1 bed
+              - generic [ref=e3157]: 1 bath
+              - generic [ref=e3161]: 1,160 sqft
+            - generic [ref=e3167]:
+              - generic [ref=e3168]: Verified owner · Real photos
+              - generic [ref=e3173]: 95% trust
+            - generic [ref=e3174]:
+              - generic [ref=e3175]: Replies in ~50 min · today
+              - generic [ref=e3179]: View details
+        - article [ref=e3183]:
+          - link "View details for Quiet 2-bed mini condo in Chanmyathazi" [ref=e3184] [cursor=pointer]:
+            - /url: /properties/MM-PROP-062
+          - generic [ref=e3185]:
+            - img "Quiet 2-bed mini condo in Chanmyathazi" [ref=e3186]
+            - generic [ref=e3187]:
+              - generic [ref=e3188]: Verified
+              - generic [ref=e3192]: 3 photos
+            - button "Save Quiet 2-bed mini condo in Chanmyathazi" [ref=e3196]
+          - generic [ref=e3199]:
+            - generic [ref=e3200]:
+              - generic [ref=e3201]:
+                - generic [ref=e3202]:
+                  - strong [ref=e3203]: 5 သိန်း
+                  - generic [ref=e3204]: / month
+                - paragraph [ref=e3205]: 500,000 MMK per month
+              - generic [ref=e3206]: For rent
+            - heading "Quiet 2-bed mini condo in Chanmyathazi" [level=2] [ref=e3207]
+            - paragraph [ref=e3208]:
+              - generic [ref=e3212]: Chanmyathazi, Mandalay · Ward 7
+            - generic [ref=e3213]:
+              - generic [ref=e3214]: 2 beds
+              - generic [ref=e3218]: 1 bath
+              - generic [ref=e3222]: 1,500 sqft
+            - generic [ref=e3228]:
+              - generic [ref=e3229]: Verified owner · Real photos
+              - generic [ref=e3234]: 95% trust
+            - generic [ref=e3235]:
+              - generic [ref=e3236]: Replies in ~71 min · today
+              - generic [ref=e3240]: View details
+        - article [ref=e3244]:
+          - link "View details for Well-kept 1-bed apartment in Yankin" [ref=e3245] [cursor=pointer]:
+            - /url: /properties/MM-PROP-013
+          - generic [ref=e3246]:
+            - img "Well-kept 1-bed apartment in Yankin" [ref=e3247]
+            - generic [ref=e3248]:
+              - generic [ref=e3249]: Verified
+              - generic [ref=e3253]: 3 photos
+            - button "Save Well-kept 1-bed apartment in Yankin" [ref=e3257]
+          - generic [ref=e3260]:
+            - generic [ref=e3261]:
+              - generic [ref=e3262]:
+                - generic [ref=e3263]:
+                  - strong [ref=e3264]: 3 သိန်း
+                  - generic [ref=e3265]: / month
+                - paragraph [ref=e3266]: 300,000 MMK per month
+              - generic [ref=e3267]: For rent
+            - heading "Well-kept 1-bed apartment in Yankin" [level=2] [ref=e3268]
+            - paragraph [ref=e3269]:
+              - generic [ref=e3273]: Yankin, Yangon · Ward 6
+            - generic [ref=e3274]:
+              - generic [ref=e3275]: 1 bed
+              - generic [ref=e3279]: 1 bath
+              - generic [ref=e3283]: 1,500 sqft
+            - generic [ref=e3289]:
+              - generic [ref=e3290]: Verified owner · Real photos
+              - generic [ref=e3295]: 94% trust
+            - generic [ref=e3296]:
+              - generic [ref=e3297]: Replies in ~92 min · today
+              - generic [ref=e3301]: View details
+        - article [ref=e3305]:
+          - link "View details for Light-filled 3-bed condo in Hlaing" [ref=e3306] [cursor=pointer]:
+            - /url: /properties/MM-PROP-021
+          - generic [ref=e3307]:
+            - img "Light-filled 3-bed condo in Hlaing" [ref=e3308]
+            - generic [ref=e3309]:
+              - generic [ref=e3310]: Verified
+              - generic [ref=e3314]: 3 photos
+            - button "Save Light-filled 3-bed condo in Hlaing" [ref=e3318]
+          - generic [ref=e3321]:
+            - generic [ref=e3322]:
+              - generic [ref=e3323]:
+                - generic [ref=e3324]:
+                  - strong [ref=e3325]: 3 သိန်း
+                  - generic [ref=e3326]: / month
+                - paragraph [ref=e3327]: 300,000 MMK per month
+              - generic [ref=e3328]: For rent
+            - heading "Light-filled 3-bed condo in Hlaing" [level=2] [ref=e3329]
+            - paragraph [ref=e3330]:
+              - generic [ref=e3334]: Hlaing, Yangon · Ward 6
+            - generic [ref=e3335]:
+              - generic [ref=e3336]: 3 beds
+              - generic [ref=e3340]: 3 baths
+              - generic [ref=e3344]: 1,670 sqft
+            - generic [ref=e3350]:
+              - generic [ref=e3351]: Verified owner · Real photos
+              - generic [ref=e3356]: 94% trust
+            - generic [ref=e3357]:
+              - generic [ref=e3358]: Replies in ~57 min · yesterday
+              - generic [ref=e3362]: View details
+        - article [ref=e3366]:
+          - link "View details for Quiet 1-bed mini condo in Bahan" [ref=e3367] [cursor=pointer]:
+            - /url: /properties/MM-PROP-037
+          - generic [ref=e3368]:
+            - img "Quiet 1-bed mini condo in Bahan" [ref=e3369]
+            - generic [ref=e3370]:
+              - generic [ref=e3371]: Verified
+              - generic [ref=e3375]: 3 photos
+            - button "Save Quiet 1-bed mini condo in Bahan" [ref=e3379]
+          - generic [ref=e3382]:
+            - generic [ref=e3383]:
+              - generic [ref=e3384]:
+                - generic [ref=e3385]:
+                  - strong [ref=e3386]: 3 သိန်း
+                  - generic [ref=e3387]: / month
+                - paragraph [ref=e3388]: 300,000 MMK per month
+              - generic [ref=e3389]: For rent
+            - heading "Quiet 1-bed mini condo in Bahan" [level=2] [ref=e3390]
+            - paragraph [ref=e3391]:
+              - generic [ref=e3395]: Bahan, Yangon · Ward 6
+            - generic [ref=e3396]:
+              - generic [ref=e3397]: 1 bed
+              - generic [ref=e3401]: 1 bath
+              - generic [ref=e3405]: 820 sqft
+            - generic [ref=e3411]:
+              - generic [ref=e3412]: Verified owner · Real photos
+              - generic [ref=e3417]: 94% trust
+            - generic [ref=e3418]:
+              - generic [ref=e3419]: Replies in ~78 min · today
+              - generic [ref=e3423]: View details
+        - article [ref=e3427]:
+          - link "View details for Well-kept 2-bed apartment in Chanmyathazi" [ref=e3428] [cursor=pointer]:
+            - /url: /properties/MM-PROP-053
+          - generic [ref=e3429]:
+            - img "Well-kept 2-bed apartment in Chanmyathazi" [ref=e3430]
+            - generic [ref=e3431]:
+              - generic [ref=e3432]: Verified
+              - generic [ref=e3436]: 3 photos
+            - button "Save Well-kept 2-bed apartment in Chanmyathazi" [ref=e3440]
+          - generic [ref=e3443]:
+            - generic [ref=e3444]:
+              - generic [ref=e3445]:
+                - generic [ref=e3446]:
+                  - strong [ref=e3447]: 3 သိန်း
+                  - generic [ref=e3448]: / month
+                - paragraph [ref=e3449]: 300,000 MMK per month
+              - generic [ref=e3450]: For rent
+            - heading "Well-kept 2-bed apartment in Chanmyathazi" [level=2] [ref=e3451]
+            - paragraph [ref=e3452]:
+              - generic [ref=e3456]: Chanmyathazi, Mandalay · Ward 6
+            - generic [ref=e3457]:
+              - generic [ref=e3458]: 2 beds
+              - generic [ref=e3462]: 2 baths
+              - generic [ref=e3466]: 1,160 sqft
+            - generic [ref=e3472]:
+              - generic [ref=e3473]: Verified owner · Real photos
+              - generic [ref=e3478]: 94% trust
+            - generic [ref=e3479]:
+              - generic [ref=e3480]: Replies in ~8 min · today
+              - generic [ref=e3484]: View details
+        - article [ref=e3488]:
+          - link "View details for Light-filled 1-bed condo in Mayangone" [ref=e3489] [cursor=pointer]:
+            - /url: /properties/MM-PROP-061
+          - generic [ref=e3490]:
+            - img "Light-filled 1-bed condo in Mayangone" [ref=e3491]
+            - generic [ref=e3492]:
+              - generic [ref=e3493]: Verified
+              - generic [ref=e3497]: 3 photos
+            - button "Save Light-filled 1-bed condo in Mayangone" [ref=e3501]
+          - generic [ref=e3504]:
+            - generic [ref=e3505]:
+              - generic [ref=e3506]:
+                - generic [ref=e3507]:
+                  - strong [ref=e3508]: 3 သိန်း
+                  - generic [ref=e3509]: / month
+                - paragraph [ref=e3510]: 300,000 MMK per month
+              - generic [ref=e3511]: For rent
+            - heading "Light-filled 1-bed condo in Mayangone" [level=2] [ref=e3512]
+            - paragraph [ref=e3513]:
+              - generic [ref=e3517]: Mayangone, Yangon · Ward 6
+            - generic [ref=e3518]:
+              - generic [ref=e3519]: 1 bed
+              - generic [ref=e3523]: 1 bath
+              - generic [ref=e3527]: 1,330 sqft
+            - generic [ref=e3533]:
+              - generic [ref=e3534]: Verified owner · Real photos
+              - generic [ref=e3539]: 94% trust
+            - generic [ref=e3540]:
+              - generic [ref=e3541]: Replies in ~64 min · today
+              - generic [ref=e3545]: View details
+        - article [ref=e3549]:
+          - link "View details for Quiet 2-bed mini condo in Sanchaung" [ref=e3550] [cursor=pointer]:
+            - /url: /properties/MM-PROP-077
+          - generic [ref=e3551]:
+            - img "Quiet 2-bed mini condo in Sanchaung" [ref=e3552]
+            - generic [ref=e3553]:
+              - generic [ref=e3554]: Verified
+              - generic [ref=e3558]: 3 photos
+            - button "Save Quiet 2-bed mini condo in Sanchaung" [ref=e3562]
+          - generic [ref=e3565]:
+            - generic [ref=e3566]:
+              - generic [ref=e3567]:
+                - generic [ref=e3568]:
+                  - strong [ref=e3569]: 3 သိန်း
+                  - generic [ref=e3570]: / month
+                - paragraph [ref=e3571]: 300,000 MMK per month
+              - generic [ref=e3572]: For rent
+            - heading "Quiet 2-bed mini condo in Sanchaung" [level=2] [ref=e3573]
+            - paragraph [ref=e3574]:
+              - generic [ref=e3578]: Sanchaung, Yangon · Ward 6
+            - generic [ref=e3579]:
+              - generic [ref=e3580]: 2 beds
+              - generic [ref=e3584]: 2 baths
+              - generic [ref=e3588]: 1,670 sqft
+            - generic [ref=e3594]:
+              - generic [ref=e3595]: Verified owner · Real photos
+              - generic [ref=e3600]: 94% trust
+            - generic [ref=e3601]:
+              - generic [ref=e3602]: Replies in ~85 min · today
+              - generic [ref=e3606]: View details
+      - button "Show more homes" [ref=e3610]

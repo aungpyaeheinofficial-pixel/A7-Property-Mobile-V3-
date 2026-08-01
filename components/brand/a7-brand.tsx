@@ -27,7 +27,7 @@ function A7Brand({ compact = false, inverted = false, showMyanmar = false, class
           A7 <span className={inverted ? "text-[#72d2f2]" : "text-[#1384c8]"}>Property</span>
         </span>
       )}
-      {showMyanmar && !compact && <span className={cn("border-l pl-3 text-[11px]", inverted ? "border-white/15 text-white/55" : "border-[#e3eaf1] text-[#728396]")} lang="my">အိမ်ခြံမြေ</span>}
+      {showMyanmar && !compact && <span className={cn("hidden whitespace-nowrap border-l pl-3 text-[11px] sm:inline", inverted ? "border-white/15 text-white/55" : "border-[#e3eaf1] text-[#728396]")} lang="my">အိမ်ခြံမြေ</span>}
     </span>
   );
 }

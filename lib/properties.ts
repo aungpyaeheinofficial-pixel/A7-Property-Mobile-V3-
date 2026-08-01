@@ -1,4 +1,6 @@
-import rawProperties from "@/public/data/properties.json";
+import rawProperties from "@/data/properties.json";
+import { getCoordinatesForProperty } from "@/lib/township-coordinates";
+import { formatMyanmarAmount } from "@/lib/myanmar-numbers";
 
 export type PropertyPurpose = "rent" | "sale";
 
@@ -32,6 +34,8 @@ export interface Property {
   owner: PropertyOwner;
   verification_status: "verified" | "pending" | "unverified";
   rating: number;
+  lat: number;
+  lng: number;
 }
 
 export interface SearchFilters {
@@ -48,7 +52,10 @@ export interface SearchFilters {
 
 export type PropertySort = "recommended" | "newest" | "price-asc";
 
-export const allProperties = rawProperties as Property[];
+export const allProperties: Property[] = rawProperties.map((raw, index) => {
+  const coords = getCoordinatesForProperty(index, raw.township);
+  return { ...raw, lat: coords.lat, lng: coords.lng } as Property;
+});
 
 export const defaultSearchFilters: SearchFilters = {
   location: "All Myanmar",
@@ -95,12 +102,26 @@ export function getProperty(id: string) {
   return allProperties.find((property) => property.id === id);
 }
 
-export function formatPropertyPrice(property: Pick<Property, "price" | "currency" | "purpose">) {
+export type PriceLanguage = "en" | "my";
+
+export function formatPropertyPrice(property: Pick<Property, "price" | "currency" | "purpose">, lang: PriceLanguage = "en") {
+  if (lang === "my") {
+    const isSale = property.purpose === "sale";
+    const value = isSale ? property.price / 1_000_000 : property.price / 100_000;
+    const unit = isSale ? "သန်း" : "သိန်း";
+    return `${formatMyanmarAmount(value)} ${unit}`;
+  }
   if (property.purpose === "sale") return `${property.price / 1_000_000}M ${property.currency}`;
   return `${new Intl.NumberFormat("en-US").format(property.price)} ${property.currency}`;
 }
 
-export function formatCompactPrice(property: Pick<Property, "price" | "purpose">) {
+export function formatCompactPrice(property: Pick<Property, "price" | "purpose">, lang: PriceLanguage = "en") {
+  if (lang === "my") {
+    const isSale = property.purpose === "sale";
+    const value = isSale ? property.price / 1_000_000 : property.price / 100_000;
+    const unit = isSale ? "သန်း" : "သိန်း";
+    return `${formatMyanmarAmount(value)} ${unit}`;
+  }
   if (property.purpose === "sale") return `${property.price / 1_000_000}M`;
   if (property.price >= 1_000_000) return `${(property.price / 1_000_000).toFixed(1)}M`;
   return `${property.price / 1_000}K`;

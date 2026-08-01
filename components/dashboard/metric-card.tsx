@@ -11,13 +11,16 @@ interface MetricCardProps {
 }
 
 function MetricCard({ label, value, change, icon: Icon, tone = "jade" }: MetricCardProps) {
-  const toneClass = tone === "sand" ? "bg-[#eaf6fc] text-[#3a6f99]" : tone === "copper" ? "bg-[#e1f3fb] text-[#47bbea]" : "bg-[#e6f4fb] text-[#1384c8]";
+  const toneClass = tone === "sand" ? "bg-[#F1F6FF] text-[#53606E]" : tone === "copper" ? "bg-[#E8F0FF] text-[#0057D9]" : "bg-[#EAF2FF] text-[#006AFF]";
   return (
-    <Card className="rounded-[18px] border-[#0b3768]/8 shadow-[0_5px_20px_rgba(11,55,104,.04)]">
-      <CardContent className="p-4 sm:p-5">
-        <div className="flex items-start justify-between"><span className={`grid size-10 place-items-center rounded-xl ${toneClass}`}><Icon className="size-[19px]" /></span>{change && <span className="rounded-full bg-[#f0f8fd] px-2 py-1 text-[9px] font-semibold text-[#24825f]">{change}</span>}</div>
-        <strong className="mt-5 block text-2xl font-semibold tracking-[-0.04em]">{value}</strong>
-        <span className="mt-1 block text-[11px] text-[#728396]">{label}</span>
+    <Card className="group overflow-hidden rounded-[20px] transition-[transform,box-shadow] duration-200 hover:-translate-y-1 hover:shadow-[0_18px_40px_rgba(23,43,63,.1)]">
+      <CardContent className="relative p-4 sm:p-5">
+        <div className="pointer-events-none absolute -right-8 -top-10 size-24 rounded-full bg-[#006AFF]/5 transition-transform duration-300 group-hover:scale-125" />
+        <div className="relative flex items-start justify-between"><span className={`grid size-10 place-items-center rounded-xl ${toneClass}`}><Icon className="size-[19px]" /></span>{change && <span className="rounded-full border border-[#287A4B]/10 bg-[#F3FAF6] px-2 py-1 text-[10px] font-semibold text-[#287A4B]">{change}</span>}</div>
+        <div className="relative mt-4 flex items-end justify-between gap-3 sm:block">
+          <strong data-type="number" className="block text-[26px] font-semibold tracking-[-0.045em]">{value}</strong>
+          <span className="mb-1 block text-[12px] text-[#667486] sm:mb-0 sm:mt-1">{label}</span>
+        </div>
       </CardContent>
     </Card>
   );

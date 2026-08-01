@@ -48,7 +48,7 @@ function Sheet({ open, onOpenChange, title, description, children, footer, side 
         <div className="fixed inset-0 z-[100]">
           <motion.button
             aria-label="Close dialog"
-            className="absolute inset-0 bg-[#051b33]/45 backdrop-blur-[3px]"
+            className="absolute inset-0 bg-[#102236]/50 backdrop-blur-[5px]"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -60,26 +60,26 @@ function Sheet({ open, onOpenChange, title, description, children, footer, side 
             aria-labelledby={titleId}
             aria-describedby={description ? descriptionId : undefined}
             className={cn(
-              "absolute flex bg-white shadow-[-16px_0_60px_rgba(16,45,74,0.2)]",
-              side === "right" && "inset-y-0 right-0 w-full max-w-[520px] flex-col",
-              side === "bottom" && "inset-x-0 bottom-0 max-h-[92vh] flex-col rounded-t-[26px]",
+              "absolute flex border-[#172B3F]/10 bg-white shadow-[-20px_0_60px_rgba(23,43,63,.22)]",
+              side === "right" && "inset-y-0 right-0 w-full max-w-[540px] flex-col border-l sm:rounded-l-[28px]",
+              side === "bottom" && "inset-x-0 bottom-0 max-h-[92vh] flex-col rounded-t-[30px] border-t",
               className,
             )}
             {...motionPosition}
             transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
           >
-            {side === "bottom" && <div className="mx-auto mt-2 h-1 w-11 rounded-full bg-[#d8e2ec]" />}
-            <div className="flex items-start gap-4 border-b border-[#e3eaf1] px-5 py-5 sm:px-7">
+            {side === "bottom" && <div className="mx-auto mt-2 h-1 w-11 rounded-full bg-[#D1D1D5]" />}
+            <div className="flex items-start gap-4 border-b border-[#172B3F]/8 px-5 py-5 sm:px-7 sm:py-6">
               <div className="min-w-0 flex-1">
-                <h2 id={titleId} className="text-lg font-semibold tracking-[-0.02em]">{title}</h2>
-                {description && <p id={descriptionId} className="mt-1 text-xs leading-5 text-[#4e6478]">{description}</p>}
+                <h2 id={titleId} className="text-xl font-semibold tracking-[-0.035em] text-[#172B3F]">{title}</h2>
+                {description && <p id={descriptionId} className="mt-1.5 text-xs leading-5 text-[#5F6C7B]">{description}</p>}
               </div>
               <Button ref={closeRef} size="icon" variant="ghost" className="-mr-2 -mt-2" onClick={() => onOpenChange(false)} aria-label="Close">
                 <X className="size-5" />
               </Button>
             </div>
             <div className="min-h-0 flex-1 overflow-y-auto">{children}</div>
-            {footer && <div className="border-t border-[#e3eaf1] bg-white px-5 py-4 sm:px-7">{footer}</div>}
+            {footer && <div className="border-t border-[#172B3F]/8 bg-white/92 px-5 py-4 backdrop-blur-xl sm:px-7">{footer}</div>}
           </motion.div>
         </div>
       )}

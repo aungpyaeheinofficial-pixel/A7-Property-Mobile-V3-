@@ -1,21 +1,79 @@
 const STORAGE_KEYS = {
   saved: "a7-property-saved-homes",
   recent: "a7-property-recent-homes",
+  conversations: "a7-property-conversations",
+  viewings: "a7-property-viewings",
+  profile: "a7-property-profile",
+  preferences: "a7-property-preferences",
+  profileSettings: "a7-property-profile-settings",
+  crmDrafts: "a7-property-crm-drafts",
   legacySaved: "eain-saved-homes",
   legacyRecent: "eain-recent-properties",
 } as const;
 
-function readStoredIds(key: string, legacyKey?: string) {
+const memoryStorage = new Map<string, string>();
+
+function getStoredValue(key: string) {
+  if (typeof window !== "undefined") {
+    try {
+      const value = window.localStorage?.getItem(key);
+      if (value !== null && value !== undefined) return value;
+    } catch {
+      // Some embedded or privacy-restricted browsers disable localStorage.
+    }
+  }
+  return memoryStorage.get(key) ?? null;
+}
+
+function readStoredIds(key: string, legacyKey?: string, fallback: string[] = []) {
   try {
-    const value = window.localStorage.getItem(key) ?? (legacyKey ? window.localStorage.getItem(legacyKey) : null);
-    return value ? JSON.parse(value) as string[] : [];
+    const value = getStoredValue(key) ?? (legacyKey ? getStoredValue(legacyKey) : null);
+    if (value === null) return [...fallback];
+    const parsed = JSON.parse(value) as unknown;
+    if (!Array.isArray(parsed)) return [...fallback];
+    return [...new Set(parsed.filter((id): id is string => typeof id === "string"))];
   } catch {
-    return [];
+    return [...fallback];
   }
 }
 
 function writeStoredIds(key: string, ids: string[]) {
-  window.localStorage.setItem(key, JSON.stringify(ids));
+  const normalized = [...new Set(ids)];
+  const value = JSON.stringify(normalized);
+  memoryStorage.set(key, value);
+
+  if (typeof window !== "undefined") {
+    try {
+      window.localStorage?.setItem(key, value);
+    } catch {
+      // The in-memory copy keeps navigation working when storage is unavailable.
+    }
+    window.dispatchEvent(new CustomEvent("a7:stored-ids-change", { detail: { key, ids: normalized } }));
+  }
 }
 
-export { readStoredIds, STORAGE_KEYS, writeStoredIds };
+function readStoredJson<T>(key: string, fallback: T): T {
+  try {
+    const value = getStoredValue(key);
+    if (value === null) return fallback;
+    return JSON.parse(value) as T;
+  } catch {
+    return fallback;
+  }
+}
+
+function writeStoredJson<T>(key: string, value: T) {
+  const serialized = JSON.stringify(value);
+  memoryStorage.set(key, serialized);
+
+  if (typeof window !== "undefined") {
+    try {
+      window.localStorage?.setItem(key, serialized);
+    } catch {
+      // The in-memory copy keeps the current session usable when storage is unavailable.
+    }
+    window.dispatchEvent(new CustomEvent("a7:stored-json-change", { detail: { key, value } }));
+  }
+}
+
+export { readStoredIds, readStoredJson, STORAGE_KEYS, writeStoredIds, writeStoredJson };

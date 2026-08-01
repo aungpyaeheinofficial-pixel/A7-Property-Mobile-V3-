@@ -1,0 +1,11 @@
+- generic [ref=e3]:
+  - generic [ref=e4]: "Only plain objects, and a few built-ins, can be passed to Client Components from Server Components. Classes or null prototypes are not supported. <... params={{}} children={{...}}> ^^^^"
+  - generic [ref=e6]: at resolveErrorDev (/Users/aungpyaehein/Myanmar Real Estate/node_modules/.vite/deps_ssr/react-server-dom-webpack_client__edge.js?v=88041ce3:1819:101) at processFullBinaryRow (/Users/aungpyaehein/Myanmar Real Estate/node_modules/.vite/deps_ssr/react-server-dom-webpack_client__edge.js?v=88041ce3:2279:22) at progress (/Users/aungpyaehein/Myanmar Real Estate/node_modules/.vite/deps_ssr/react-server-dom-webpack_client__edge.js?v=88041ce3:2450:93)
+  - generic [ref=e7]:
+    - text: Click outside, press Esc key, or fix the code to dismiss.You can also disable this overlay by setting
+    - code [ref=e8]: server.hmr.overlay
+    - text: to
+    - code [ref=e9]: "false"
+    - text: in
+    - code [ref=e10]: vite.config.ts
+    - text: .

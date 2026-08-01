@@ -1,0 +1,297 @@
+- generic [ref=e425]:
+  - banner [ref=e426]:
+    - generic [ref=e427]:
+      - link "A7 Property home" [ref=e428] [cursor=pointer]:
+        - /url: /
+        - generic [ref=e429]: A7 Property
+      - navigation "Search navigation" [ref=e433]:
+        - link "Search" [ref=e434] [cursor=pointer]:
+          - /url: /search
+        - link "Rent" [ref=e435] [cursor=pointer]:
+          - /url: /search?purpose=rent
+        - link "Buy" [ref=e436] [cursor=pointer]:
+          - /url: /search?purpose=sale
+        - link "Sell" [ref=e437] [cursor=pointer]:
+          - /url: /owner
+        - link "AI Home Assistant" [ref=e438] [cursor=pointer]:
+          - /url: /assistant
+      - generic [ref=e439]:
+        - link "Saved" [ref=e440] [cursor=pointer]:
+          - /url: /dashboard?section=saved
+        - link "Sign in" [ref=e443] [cursor=pointer]:
+          - /url: /sign-in
+  - region "Property search" [ref=e447]:
+    - generic [ref=e450]:
+      - combobox "Search by address, township, city or landmark" [ref=e452]: Kamayut
+      - button "Clear location" [ref=e453]
+      - button "Search homes" [ref=e457]
+  - main [ref=e461]:
+    - generic [ref=e462]:
+      - generic [ref=e464]:
+        - generic [ref=e465]:
+          - paragraph [ref=e466]: Curated homes for you
+          - heading "Homes in Kamayut" [level=1] [ref=e467]
+          - paragraph [ref=e468]:
+            - strong [ref=e469]: "7"
+            - text: homes · reviewed, refreshed, and ready to explore
+        - generic [ref=e470]:
+          - button "Map view" [ref=e471]:
+            - text: Map
+            - generic [ref=e474]: view
+          - generic [ref=e475]:
+            - generic [ref=e476]: Sort homes
+            - combobox "Sort homes" [ref=e477]:
+              - option "Recommended" [selected]
+              - option "Newest"
+              - option "Price low–high"
+      - generic "Quick filters" [ref=e478]:
+        - generic "Search purpose" [ref=e479]:
+          - button "Rent" [pressed] [ref=e480]
+          - button "Buy" [ref=e481]
+        - generic [ref=e482]:
+          - generic [ref=e483]: Price
+          - combobox "Price ⌄" [ref=e484]:
+            - option "Any price" [selected]
+            - option "Up to 5 သိန်း"
+            - option "Up to 8 သိန်း"
+            - option "Up to 15 သိန်း"
+          - generic: ⌄
+        - generic [ref=e485]:
+          - generic [ref=e486]: Property type
+          - combobox "Property type ⌄" [ref=e487]:
+            - option "Any type" [selected]
+            - option "Condo"
+            - option "Apartment"
+            - option "House"
+            - option "Mini condo"
+            - option "Villa"
+          - generic: ⌄
+        - generic [ref=e488]:
+          - generic [ref=e489]: Bedrooms
+          - combobox "Bedrooms ⌄" [ref=e490]:
+            - option "Any beds" [selected]
+            - option "1+ beds"
+            - option "2+ beds"
+            - option "3+ beds"
+            - option "4+ beds"
+          - generic: ⌄
+        - generic [ref=e491]:
+          - generic [ref=e492]: Bathrooms
+          - combobox "Bathrooms ⌄" [ref=e493]:
+            - option "Any baths" [selected]
+            - option "1+ baths"
+            - option "2+ baths"
+            - option "3+ baths"
+            - option "4+ baths"
+          - generic: ⌄
+        - button "Verified only" [ref=e494]
+        - button "More filters" [ref=e497]
+      - generic [ref=e499]:
+        - article [ref=e501]:
+          - link "View details for Quiet 2-bed mini condo in Kamayut" [ref=e502] [cursor=pointer]:
+            - /url: /properties/MM-PROP-047
+          - generic [ref=e503]:
+            - img "Quiet 2-bed mini condo in Kamayut" [ref=e504]
+            - generic [ref=e505]:
+              - generic [ref=e506]: Verified
+              - generic [ref=e510]: 3 photos
+            - button "Save Quiet 2-bed mini condo in Kamayut" [ref=e514]
+          - generic [ref=e517]:
+            - generic [ref=e518]:
+              - generic [ref=e519]:
+                - generic [ref=e520]:
+                  - strong [ref=e521]: 8 သိန်း
+                  - generic [ref=e522]: / month
+                - paragraph [ref=e523]: 800,000 MMK per month
+              - generic [ref=e524]: For rent
+            - heading "Quiet 2-bed mini condo in Kamayut" [level=2] [ref=e525]
+            - paragraph [ref=e526]:
+              - generic [ref=e530]: Kamayut, Yangon · Ward 8
+            - generic [ref=e531]:
+              - generic [ref=e532]: 2 beds
+              - generic [ref=e536]: 2 baths
+              - generic [ref=e540]: 1,330 sqft
+            - generic [ref=e546]:
+              - generic [ref=e547]: Verified owner · Real photos
+              - generic [ref=e552]: 95% trust
+            - generic [ref=e553]:
+              - generic [ref=e554]: Replies in ~57 min · today
+              - generic [ref=e558]: View details
+        - article [ref=e562]:
+          - link "View details for Well-kept 2-bed apartment in Kamayut" [ref=e563] [cursor=pointer]:
+            - /url: /properties/MM-PROP-038
+          - generic [ref=e564]:
+            - img "Well-kept 2-bed apartment in Kamayut" [ref=e565]
+            - generic [ref=e566]:
+              - generic [ref=e567]: Verified
+              - generic [ref=e571]: 3 photos
+            - button "Save Well-kept 2-bed apartment in Kamayut" [ref=e575]
+          - generic [ref=e578]:
+            - generic [ref=e579]:
+              - generic [ref=e580]:
+                - generic [ref=e581]:
+                  - strong [ref=e582]: 5 သိန်း
+                  - generic [ref=e583]: / month
+                - paragraph [ref=e584]: 500,000 MMK per month
+              - generic [ref=e585]: For rent
+            - heading "Well-kept 2-bed apartment in Kamayut" [level=2] [ref=e586]
+            - paragraph [ref=e587]:
+              - generic [ref=e591]: Kamayut, Yangon · Ward 7
+            - generic [ref=e592]:
+              - generic [ref=e593]: 2 beds
+              - generic [ref=e597]: 1 bath
+              - generic [ref=e601]: 990 sqft
+            - generic [ref=e607]:
+              - generic [ref=e608]: Verified owner · Real photos
+              - generic [ref=e613]: 95% trust
+            - generic [ref=e614]:
+              - generic [ref=e615]: Replies in ~85 min · today
+              - generic [ref=e619]: View details
+        - article [ref=e623]:
+          - link "View details for Quiet 2-bed mini condo in Kamayut" [ref=e624] [cursor=pointer]:
+            - /url: /properties/MM-PROP-092
+          - generic [ref=e625]:
+            - img "Quiet 2-bed mini condo in Kamayut" [ref=e626]
+            - generic [ref=e627]:
+              - generic [ref=e628]: Verified
+              - generic [ref=e632]: 3 photos
+            - button "Save Quiet 2-bed mini condo in Kamayut" [ref=e636]
+          - generic [ref=e639]:
+            - generic [ref=e640]:
+              - generic [ref=e641]:
+                - generic [ref=e642]:
+                  - strong [ref=e643]: 15 သိန်း
+                  - generic [ref=e644]: / month
+                - paragraph [ref=e645]: 1,500,000 MMK per month
+              - generic [ref=e646]: For rent
+            - heading "Quiet 2-bed mini condo in Kamayut" [level=2] [ref=e647]
+            - paragraph [ref=e648]:
+              - generic [ref=e652]: Kamayut, Yangon · Ward 5
+            - generic [ref=e653]:
+              - generic [ref=e654]: 2 beds
+              - generic [ref=e658]: 1 bath
+              - generic [ref=e662]: 650 sqft
+            - generic [ref=e668]:
+              - generic [ref=e669]: Verified owner · Real photos
+              - generic [ref=e674]: 94% trust
+            - generic [ref=e675]:
+              - generic [ref=e676]: Replies in ~8 min · 2 hours ago
+              - generic [ref=e680]: View details
+        - article [ref=e684]:
+          - link "View details for Light-filled 2-bed condo in Kamayut" [ref=e685] [cursor=pointer]:
+            - /url: /properties/MM-PROP-011
+          - generic [ref=e686]:
+            - img "Light-filled 2-bed condo in Kamayut" [ref=e687]
+            - generic [ref=e688]:
+              - generic [ref=e689]: Verified
+              - generic [ref=e693]: 3 photos
+            - button "Save Light-filled 2-bed condo in Kamayut" [ref=e697]
+          - generic [ref=e700]:
+            - generic [ref=e701]:
+              - generic [ref=e702]:
+                - generic [ref=e703]:
+                  - strong [ref=e704]: 8 သိန်း
+                  - generic [ref=e705]: / month
+                - paragraph [ref=e706]: 800,000 MMK per month
+              - generic [ref=e707]: For rent
+            - heading "Light-filled 2-bed condo in Kamayut" [level=2] [ref=e708]
+            - paragraph [ref=e709]:
+              - generic [ref=e713]: Kamayut, Yangon · Ward 4
+            - generic [ref=e714]:
+              - generic [ref=e715]: 2 beds
+              - generic [ref=e719]: 2 baths
+              - generic [ref=e723]: 1,160 sqft
+            - generic [ref=e729]:
+              - generic [ref=e730]: Verified owner · Real photos
+              - generic [ref=e735]: 93% trust
+            - generic [ref=e736]:
+              - generic [ref=e737]: Replies in ~78 min · today
+              - generic [ref=e741]: View details
+        - article [ref=e745]:
+          - link "View details for Well-kept 2-bed apartment in Kamayut" [ref=e746] [cursor=pointer]:
+            - /url: /properties/MM-PROP-083
+          - generic [ref=e747]:
+            - img "Well-kept 2-bed apartment in Kamayut" [ref=e748]
+            - generic [ref=e749]:
+              - generic [ref=e750]: Verified
+              - generic [ref=e754]: 3 photos
+            - button "Save Well-kept 2-bed apartment in Kamayut" [ref=e758]
+          - generic [ref=e761]:
+            - generic [ref=e762]:
+              - generic [ref=e763]:
+                - generic [ref=e764]:
+                  - strong [ref=e765]: 8 သိန်း
+                  - generic [ref=e766]: / month
+                - paragraph [ref=e767]: 800,000 MMK per month
+              - generic [ref=e768]: For rent
+            - heading "Well-kept 2-bed apartment in Kamayut" [level=2] [ref=e769]
+            - paragraph [ref=e770]:
+              - generic [ref=e774]: Kamayut, Yangon · Ward 4
+            - generic [ref=e775]:
+              - generic [ref=e776]: 2 beds
+              - generic [ref=e780]: 2 baths
+              - generic [ref=e784]: 1,500 sqft
+            - generic [ref=e790]:
+              - generic [ref=e791]: Verified owner · Real photos
+              - generic [ref=e796]: 93% trust
+            - generic [ref=e797]:
+              - generic [ref=e798]: Replies in ~36 min · today
+              - generic [ref=e802]: View details
+        - article [ref=e806]:
+          - link "View details for Quiet 2-bed mini condo in Kamayut" [ref=e807] [cursor=pointer]:
+            - /url: /properties/MM-PROP-002
+          - generic [ref=e808]:
+            - img "Quiet 2-bed mini condo in Kamayut" [ref=e809]
+            - generic [ref=e810]:
+              - generic [ref=e811]: Verified
+              - generic [ref=e815]: 3 photos
+            - button "Save Quiet 2-bed mini condo in Kamayut" [ref=e819]
+          - generic [ref=e822]:
+            - generic [ref=e823]:
+              - generic [ref=e824]:
+                - generic [ref=e825]:
+                  - strong [ref=e826]: 5 သိန်း
+                  - generic [ref=e827]: / month
+                - paragraph [ref=e828]: 500,000 MMK per month
+              - generic [ref=e829]: For rent
+            - heading "Quiet 2-bed mini condo in Kamayut" [level=2] [ref=e830]
+            - paragraph [ref=e831]:
+              - generic [ref=e835]: Kamayut, Yangon · Ward 3
+            - generic [ref=e836]:
+              - generic [ref=e837]: 2 beds
+              - generic [ref=e841]: 1 bath
+              - generic [ref=e845]: 820 sqft
+            - generic [ref=e851]:
+              - generic [ref=e852]: Verified owner · Real photos
+              - generic [ref=e857]: 93% trust
+            - generic [ref=e858]:
+              - generic [ref=e859]: Replies in ~15 min · today
+              - generic [ref=e863]: View details
+        - article [ref=e867]:
+          - link "View details for Light-filled 2-bed condo in Kamayut" [ref=e868] [cursor=pointer]:
+            - /url: /properties/MM-PROP-056
+          - generic [ref=e869]:
+            - img "Light-filled 2-bed condo in Kamayut" [ref=e870]
+            - generic [ref=e871]: 3 photos
+            - button "Save Light-filled 2-bed condo in Kamayut" [ref=e876]
+          - generic [ref=e879]:
+            - generic [ref=e880]:
+              - generic [ref=e881]:
+                - generic [ref=e882]:
+                  - strong [ref=e883]: 15 သိန်း
+                  - generic [ref=e884]: / month
+                - paragraph [ref=e885]: 1,500,000 MMK per month
+              - generic [ref=e886]: For rent
+            - heading "Light-filled 2-bed condo in Kamayut" [level=2] [ref=e887]
+            - paragraph [ref=e888]:
+              - generic [ref=e892]: Kamayut, Yangon · Ward 1
+            - generic [ref=e893]:
+              - generic [ref=e894]: 2 beds
+              - generic [ref=e898]: 1 bath
+              - generic [ref=e902]: 1,670 sqft
+            - generic [ref=e908]:
+              - generic [ref=e909]: Verified owner · Real photos
+              - generic [ref=e914]: 90% trust
+            - generic [ref=e915]:
+              - generic [ref=e916]: Replies in ~29 min · 2 hours ago
+              - generic [ref=e920]: View details

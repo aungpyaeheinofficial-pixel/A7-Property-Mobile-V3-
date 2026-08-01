@@ -1,0 +1,297 @@
+- generic [ref=e3]:
+  - banner [ref=e4]:
+    - generic [ref=e5]:
+      - link "A7 Property home" [ref=e6] [cursor=pointer]:
+        - /url: /
+        - generic [ref=e7]: A7 Property
+      - navigation "Search navigation" [ref=e11]:
+        - link "Search" [ref=e12] [cursor=pointer]:
+          - /url: /search
+        - link "Rent" [ref=e13] [cursor=pointer]:
+          - /url: /search?purpose=rent
+        - link "Buy" [ref=e14] [cursor=pointer]:
+          - /url: /search?purpose=sale
+        - link "Sell" [ref=e15] [cursor=pointer]:
+          - /url: /owner
+        - link "AI Home Assistant" [ref=e16] [cursor=pointer]:
+          - /url: /assistant
+      - generic [ref=e17]:
+        - link "Saved" [ref=e18] [cursor=pointer]:
+          - /url: /dashboard?section=saved
+        - link "Sign in" [ref=e21] [cursor=pointer]:
+          - /url: /sign-in
+  - region "Property search" [ref=e25]:
+    - generic [ref=e28]:
+      - combobox "Search by address, township, city or landmark" [ref=e30]: Bahan
+      - button "Clear location" [ref=e31]
+      - button "Search homes" [ref=e35]
+  - main [ref=e39]:
+    - generic [ref=e40]:
+      - generic [ref=e42]:
+        - generic [ref=e43]:
+          - paragraph [ref=e44]: Curated homes for you
+          - heading "Homes in Bahan" [level=1] [ref=e45]
+          - paragraph [ref=e46]:
+            - strong [ref=e47]: "7"
+            - text: homes · reviewed, refreshed, and ready to explore
+        - generic [ref=e48]:
+          - button "Map view" [ref=e49]:
+            - text: Map
+            - generic [ref=e52]: view
+          - generic [ref=e53]:
+            - generic [ref=e54]: Sort homes
+            - combobox "Sort homes" [ref=e55]:
+              - option "Recommended" [selected]
+              - option "Newest"
+              - option "Price low–high"
+      - generic "Quick filters" [ref=e56]:
+        - generic "Search purpose" [ref=e57]:
+          - button "Rent" [pressed] [ref=e58]
+          - button "Buy" [ref=e59]
+        - generic [ref=e60]:
+          - generic [ref=e61]: Price
+          - combobox "Price ⌄" [ref=e62]:
+            - option "Any price" [selected]
+            - option "Up to 5 သိန်း"
+            - option "Up to 8 သိန်း"
+            - option "Up to 15 သိန်း"
+          - generic: ⌄
+        - generic [ref=e63]:
+          - generic [ref=e64]: Property type
+          - combobox "Property type ⌄" [ref=e65]:
+            - option "Any type" [selected]
+            - option "Condo"
+            - option "Apartment"
+            - option "House"
+            - option "Mini condo"
+            - option "Villa"
+          - generic: ⌄
+        - generic [ref=e66]:
+          - generic [ref=e67]: Bedrooms
+          - combobox "Bedrooms ⌄" [ref=e68]:
+            - option "Any beds" [selected]
+            - option "1+ beds"
+            - option "2+ beds"
+            - option "3+ beds"
+            - option "4+ beds"
+          - generic: ⌄
+        - generic [ref=e69]:
+          - generic [ref=e70]: Bathrooms
+          - combobox "Bathrooms ⌄" [ref=e71]:
+            - option "Any baths" [selected]
+            - option "1+ baths"
+            - option "2+ baths"
+            - option "3+ baths"
+            - option "4+ baths"
+          - generic: ⌄
+        - button "Verified only" [ref=e72]
+        - button "More filters" [ref=e75]
+      - generic [ref=e77]:
+        - article [ref=e79]:
+          - link "View details for Light-filled 1-bed condo in Bahan" [ref=e80] [cursor=pointer]:
+            - /url: /properties/MM-PROP-046
+          - generic [ref=e81]:
+            - img "Light-filled 1-bed condo in Bahan" [ref=e82]
+            - generic [ref=e83]:
+              - generic [ref=e84]: Verified
+              - generic [ref=e88]: 3 photos
+            - button "Save Light-filled 1-bed condo in Bahan" [ref=e92]
+          - generic [ref=e95]:
+            - generic [ref=e96]:
+              - generic [ref=e97]:
+                - generic [ref=e98]:
+                  - strong [ref=e99]: 5 သိန်း
+                  - generic [ref=e100]: / month
+                - paragraph [ref=e101]: 500,000 MMK per month
+              - generic [ref=e102]: For rent
+            - heading "Light-filled 1-bed condo in Bahan" [level=2] [ref=e103]
+            - paragraph [ref=e104]:
+              - generic [ref=e108]: Bahan, Yangon · Ward 7
+            - generic [ref=e109]:
+              - generic [ref=e110]: 1 bed
+              - generic [ref=e114]: 1 bath
+              - generic [ref=e118]: 1,160 sqft
+            - generic [ref=e124]:
+              - generic [ref=e125]: Verified owner · Real photos
+              - generic [ref=e130]: 95% trust
+            - generic [ref=e131]:
+              - generic [ref=e132]: Replies in ~50 min · today
+              - generic [ref=e136]: View details
+        - article [ref=e140]:
+          - link "View details for Quiet 1-bed mini condo in Bahan" [ref=e141] [cursor=pointer]:
+            - /url: /properties/MM-PROP-037
+          - generic [ref=e142]:
+            - img "Quiet 1-bed mini condo in Bahan" [ref=e143]
+            - generic [ref=e144]:
+              - generic [ref=e145]: Verified
+              - generic [ref=e149]: 3 photos
+            - button "Save Quiet 1-bed mini condo in Bahan" [ref=e153]
+          - generic [ref=e156]:
+            - generic [ref=e157]:
+              - generic [ref=e158]:
+                - generic [ref=e159]:
+                  - strong [ref=e160]: 3 သိန်း
+                  - generic [ref=e161]: / month
+                - paragraph [ref=e162]: 300,000 MMK per month
+              - generic [ref=e163]: For rent
+            - heading "Quiet 1-bed mini condo in Bahan" [level=2] [ref=e164]
+            - paragraph [ref=e165]:
+              - generic [ref=e169]: Bahan, Yangon · Ward 6
+            - generic [ref=e170]:
+              - generic [ref=e171]: 1 bed
+              - generic [ref=e175]: 1 bath
+              - generic [ref=e179]: 820 sqft
+            - generic [ref=e185]:
+              - generic [ref=e186]: Verified owner · Real photos
+              - generic [ref=e191]: 94% trust
+            - generic [ref=e192]:
+              - generic [ref=e193]: Replies in ~78 min · today
+              - generic [ref=e197]: View details
+        - article [ref=e201]:
+          - link "View details for Well-kept 1-bed apartment in Bahan" [ref=e202] [cursor=pointer]:
+            - /url: /properties/MM-PROP-028
+          - generic [ref=e203]:
+            - img "Well-kept 1-bed apartment in Bahan" [ref=e204]
+            - generic [ref=e205]:
+              - generic [ref=e206]: Verified
+              - generic [ref=e210]: 3 photos
+            - button "Save Well-kept 1-bed apartment in Bahan" [ref=e214]
+          - generic [ref=e217]:
+            - generic [ref=e218]:
+              - generic [ref=e219]:
+                - generic [ref=e220]:
+                  - strong [ref=e221]: 15 သိန်း
+                  - generic [ref=e222]: / month
+                - paragraph [ref=e223]: 1,500,000 MMK per month
+              - generic [ref=e224]: For rent
+            - heading "Well-kept 1-bed apartment in Bahan" [level=2] [ref=e225]
+            - paragraph [ref=e226]:
+              - generic [ref=e230]: Bahan, Yangon · Ward 5
+            - generic [ref=e231]:
+              - generic [ref=e232]: 1 bed
+              - generic [ref=e236]: 1 bath
+              - generic [ref=e240]: 1,670 sqft
+            - generic [ref=e246]:
+              - generic [ref=e247]: Verified owner · Real photos
+              - generic [ref=e252]: 94% trust
+            - generic [ref=e253]:
+              - generic [ref=e254]: Replies in ~15 min · 2 hours ago
+              - generic [ref=e258]: View details
+        - article [ref=e262]:
+          - link "View details for Light-filled 1-bed condo in Bahan" [ref=e263] [cursor=pointer]:
+            - /url: /properties/MM-PROP-091
+          - generic [ref=e264]:
+            - img "Light-filled 1-bed condo in Bahan" [ref=e265]
+            - generic [ref=e266]:
+              - generic [ref=e267]: Verified
+              - generic [ref=e271]: 3 photos
+            - button "Save Light-filled 1-bed condo in Bahan" [ref=e275]
+          - generic [ref=e278]:
+            - generic [ref=e279]:
+              - generic [ref=e280]:
+                - generic [ref=e281]:
+                  - strong [ref=e282]: 8 သိန်း
+                  - generic [ref=e283]: / month
+                - paragraph [ref=e284]: 800,000 MMK per month
+              - generic [ref=e285]: For rent
+            - heading "Light-filled 1-bed condo in Bahan" [level=2] [ref=e286]
+            - paragraph [ref=e287]:
+              - generic [ref=e291]: Bahan, Yangon · Ward 4
+            - generic [ref=e292]:
+              - generic [ref=e293]: 1 bed
+              - generic [ref=e297]: 1 bath
+              - generic [ref=e301]: 1,670 sqft
+            - generic [ref=e307]:
+              - generic [ref=e308]: Verified owner · Real photos
+              - generic [ref=e313]: 93% trust
+            - generic [ref=e314]:
+              - generic [ref=e315]: Replies in ~92 min · today
+              - generic [ref=e319]: View details
+        - article [ref=e323]:
+          - link "View details for Quiet 1-bed mini condo in Bahan" [ref=e324] [cursor=pointer]:
+            - /url: /properties/MM-PROP-082
+          - generic [ref=e325]:
+            - img "Quiet 1-bed mini condo in Bahan" [ref=e326]
+            - generic [ref=e327]:
+              - generic [ref=e328]: Verified
+              - generic [ref=e332]: 3 photos
+            - button "Save Quiet 1-bed mini condo in Bahan" [ref=e336]
+          - generic [ref=e339]:
+            - generic [ref=e340]:
+              - generic [ref=e341]:
+                - generic [ref=e342]:
+                  - strong [ref=e343]: 5 သိန်း
+                  - generic [ref=e344]: / month
+                - paragraph [ref=e345]: 500,000 MMK per month
+              - generic [ref=e346]: For rent
+            - heading "Quiet 1-bed mini condo in Bahan" [level=2] [ref=e347]
+            - paragraph [ref=e348]:
+              - generic [ref=e352]: Bahan, Yangon · Ward 3
+            - generic [ref=e353]:
+              - generic [ref=e354]: 1 bed
+              - generic [ref=e358]: 1 bath
+              - generic [ref=e362]: 1,330 sqft
+            - generic [ref=e368]:
+              - generic [ref=e369]: Verified owner · Real photos
+              - generic [ref=e374]: 93% trust
+            - generic [ref=e375]:
+              - generic [ref=e376]: Replies in ~29 min · today
+              - generic [ref=e380]: View details
+        - article [ref=e384]:
+          - link "View details for Well-kept 1-bed apartment in Bahan" [ref=e385] [cursor=pointer]:
+            - /url: /properties/MM-PROP-073
+          - generic [ref=e386]:
+            - img "Well-kept 1-bed apartment in Bahan" [ref=e387]
+            - generic [ref=e388]:
+              - generic [ref=e389]: Verified
+              - generic [ref=e393]: 3 photos
+            - button "Save Well-kept 1-bed apartment in Bahan" [ref=e397]
+          - generic [ref=e400]:
+            - generic [ref=e401]:
+              - generic [ref=e402]:
+                - generic [ref=e403]:
+                  - strong [ref=e404]: 3 သိန်း
+                  - generic [ref=e405]: / month
+                - paragraph [ref=e406]: 300,000 MMK per month
+              - generic [ref=e407]: For rent
+            - heading "Well-kept 1-bed apartment in Bahan" [level=2] [ref=e408]
+            - paragraph [ref=e409]:
+              - generic [ref=e413]: Bahan, Yangon · Ward 2
+            - generic [ref=e414]:
+              - generic [ref=e415]: 1 bed
+              - generic [ref=e419]: 1 bath
+              - generic [ref=e423]: 990 sqft
+            - generic [ref=e429]:
+              - generic [ref=e430]: Verified owner · Real photos
+              - generic [ref=e435]: 92% trust
+            - generic [ref=e436]:
+              - generic [ref=e437]: Replies in ~57 min · today
+              - generic [ref=e441]: View details
+        - article [ref=e445]:
+          - link "View details for Light-filled 1-bed condo in Bahan" [ref=e446] [cursor=pointer]:
+            - /url: /properties/MM-PROP-001
+          - generic [ref=e447]:
+            - img "Light-filled 1-bed condo in Bahan" [ref=e448]
+            - generic [ref=e449]: 3 photos
+            - button "Save Light-filled 1-bed condo in Bahan" [ref=e454]
+          - generic [ref=e457]:
+            - generic [ref=e458]:
+              - generic [ref=e459]:
+                - generic [ref=e460]:
+                  - strong [ref=e461]: 3 သိန်း
+                  - generic [ref=e462]: / month
+                - paragraph [ref=e463]: 300,000 MMK per month
+              - generic [ref=e464]: For rent
+            - heading "Light-filled 1-bed condo in Bahan" [level=2] [ref=e465]
+            - paragraph [ref=e466]:
+              - generic [ref=e470]: Bahan, Yangon · Ward 2
+            - generic [ref=e471]:
+              - generic [ref=e472]: 1 bed
+              - generic [ref=e476]: 1 bath
+              - generic [ref=e480]: 650 sqft
+            - generic [ref=e486]:
+              - generic [ref=e487]: Contact checked · Photos reviewed
+              - generic [ref=e492]: 81% trust
+            - generic [ref=e493]:
+              - generic [ref=e494]: Replies in ~8 min · today
+              - generic [ref=e498]: View details

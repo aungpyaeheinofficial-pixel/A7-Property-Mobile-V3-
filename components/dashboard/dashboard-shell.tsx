@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import {
   BarChart3,
   Bell,
@@ -19,6 +19,7 @@ import {
 import type { ReactNode } from "react";
 
 import { A7Brand } from "@/components/brand/a7-brand";
+import { LanguageSwitcher } from "@/components/i18n/language-switcher";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
@@ -31,6 +32,7 @@ interface DashboardShellProps {
   title: string;
   description?: string;
   primaryAction?: { label: string; onClick: () => void };
+  onNotifications?: () => void;
   children: ReactNode;
 }
 
@@ -39,7 +41,7 @@ const userNav = [
   { label: "Saved homes", href: "/dashboard?section=saved", icon: Heart },
   { label: "Messages", href: "/dashboard?section=messages", icon: MessageCircle },
   { label: "Viewings", href: "/dashboard?section=viewings", icon: CalendarDays },
-  { label: "Profile", href: "/dashboard?section=profile", icon: UserRound },
+  { label: "Profile", href: "/profile", icon: UserRound },
 ];
 
 const crmNav = (role: "owner" | "agent") => [
@@ -51,59 +53,66 @@ const crmNav = (role: "owner" | "agent") => [
   { label: "Settings", href: `/${role}?section=settings`, icon: Settings },
 ];
 
-function DashboardShell({ role, name, initials, title, description, primaryAction, children }: DashboardShellProps) {
+function DashboardShell({ role, name, initials, title, description, primaryAction, onNotifications, children }: DashboardShellProps) {
   const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const activeSection = searchParams.get("section") ?? "overview";
   const nav = role === "user" ? userNav : crmNav(role);
 
   return (
-    <div className="min-h-screen bg-[#f5f8fb] text-[#172b3f]">
-      <aside className="fixed inset-y-0 left-0 z-50 hidden w-[250px] flex-col border-r border-white/10 bg-[#0b3768] text-white lg:flex">
+    <div className="min-h-screen bg-[radial-gradient(circle_at_78%_-10%,rgba(0,106,255,.08),transparent_28rem),#F5F7FB] text-[#172B3F]">
+      <aside className="fixed inset-y-0 left-0 z-50 hidden w-[260px] flex-col border-r border-white/10 bg-[linear-gradient(180deg,#172B3F_0%,#102236_100%)] text-white shadow-[12px_0_36px_rgba(23,43,63,.08)] lg:flex">
         <Link href="/" className="flex h-[76px] items-center gap-2.5 border-b border-white/10 px-6">
           <A7Brand inverted />
           {role !== "user" && <span className="ml-auto rounded-full bg-white/10 px-2 py-1 text-[8px] font-semibold uppercase tracking-wider">{role}</span>}
         </Link>
         <nav className="flex flex-1 flex-col gap-1 p-4" aria-label="Dashboard navigation">
           {nav.map((item) => {
-            const active = item.href.split("?")[0] === pathname && item.label === "Overview";
+            const section = new URL(item.href, "https://a7.local").searchParams.get("section") ?? "overview";
+            const active = item.href.split("?")[0] === pathname && section === activeSection;
             const Icon = item.icon;
             return (
-              <Link key={item.label} href={item.href} className={cn("flex h-11 items-center gap-3 rounded-xl px-3 text-sm text-white/68 transition-colors hover:bg-white/8 hover:text-white", active && "bg-white/12 text-white")}>
+              <Link key={item.label} href={item.href} aria-current={active ? "page" : undefined} className={cn("flex h-11 items-center gap-3 rounded-xl px-3 text-sm text-white/68 transition-all hover:bg-white/8 hover:text-white", active && "bg-white/12 text-white shadow-[inset_0_0_0_1px_rgba(255,255,255,.08)]")}>
                 <Icon className="size-[18px]" />{item.label}
               </Link>
             );
           })}
-          <Link href="/search" className="mt-auto flex h-11 items-center gap-3 rounded-xl px-3 text-sm text-white/68 hover:bg-white/8 hover:text-white"><Search className="size-[18px]" />Browse marketplace</Link>
+          <Link href="/search?purpose=rent" className="mt-auto flex h-11 items-center gap-3 rounded-xl px-3 text-sm text-white/68 hover:bg-white/8 hover:text-white"><Search className="size-[18px]" />Browse marketplace</Link>
         </nav>
-        <div className="m-4 flex items-center gap-3 rounded-2xl border border-white/10 bg-white/6 p-3">
-          <span className="grid size-10 place-items-center rounded-full bg-[#d9effa] text-sm font-semibold text-[#0b3768]">{initials}</span>
+        <Link href={role === "user" ? "/profile" : `/${role}?section=settings`} className="m-4 flex items-center gap-3 rounded-2xl border border-white/10 bg-white/6 p-3 transition-colors hover:bg-white/10">
+          <span className="grid size-10 place-items-center rounded-full bg-[#EAF2FF] text-sm font-semibold text-[#2A2A33]">{initials}</span>
           <span className="min-w-0"><strong className="block truncate text-xs">{name}</strong><small className="mt-1 block text-[9px] text-white/55">View account</small></span>
-        </div>
+        </Link>
       </aside>
 
-      <div className="lg:pl-[250px]">
-        <header className="sticky top-0 z-40 flex h-[72px] items-center justify-between border-b border-[#0b3768]/8 bg-[#f5f8fb]/92 px-4 backdrop-blur-xl sm:px-7 lg:px-9">
+      <div className="lg:pl-[260px]">
+        <header className="sticky top-0 z-40 flex h-[72px] items-center justify-between border-b border-[#172B3F]/8 bg-white/82 px-4 shadow-[0_1px_0_rgba(255,255,255,.8)] backdrop-blur-2xl sm:px-7 lg:px-9">
           <Link href="/" className="inline-flex items-center lg:hidden" aria-label="A7 Property home"><A7Brand /></Link>
-          <div className="hidden lg:block"><span className="text-xs font-medium text-[#728396]">{role === "user" ? "My A7 Property" : `${role[0].toUpperCase()}${role.slice(1)} workspace`}</span></div>
+          <div className="hidden lg:block"><span className="text-xs font-medium text-[#6B7078]">{role === "user" ? "My A7 Property" : `${role[0].toUpperCase()}${role.slice(1)} workspace`}</span></div>
           <div className="flex items-center gap-2">
-            {primaryAction && <Button className="hidden h-10 text-xs sm:inline-flex" onClick={primaryAction.onClick}><Plus className="size-4" />{primaryAction.label}</Button>}
-            <Button size="icon" variant="ghost" className="relative" aria-label="Notifications"><Bell className="size-5" /><span className="absolute right-2.5 top-2.5 size-2 rounded-full border-2 border-[#f5f8fb] bg-[#47bbea]" /></Button>
-            <span className="grid size-9 place-items-center rounded-full bg-[#e6f4fb] text-xs font-semibold text-[#1384c8]">{initials}</span>
+            {primaryAction && <div className="hidden sm:block"><Button className="h-10 rounded-xl text-xs" onClick={primaryAction.onClick}><Plus className="size-4" />{primaryAction.label}</Button></div>}
+            <LanguageSwitcher className="hidden sm:block" />
+            <LanguageSwitcher compact className="sm:hidden" />
+            <Button size="icon" variant="ghost" className="relative rounded-xl" aria-label="Notifications" onClick={onNotifications}><Bell className="size-5" /><span className="absolute right-2.5 top-2.5 size-2 rounded-full border-2 border-white bg-[#006AFF]" /></Button>
+            <span className="grid size-9 place-items-center rounded-full bg-[#EAF2FF] text-xs font-semibold text-[#006AFF]">{initials}</span>
           </div>
         </header>
 
-        <main className="mx-auto w-full max-w-[1460px] px-4 pb-28 pt-7 sm:px-7 lg:px-9 lg:pb-12 lg:pt-9">
-          <div className="mb-8 flex items-end justify-between gap-5">
-            <div><h1 className="text-2xl font-semibold tracking-[-0.04em] sm:text-[30px]">{title}</h1>{description && <p className="mt-2 text-xs leading-5 text-[#4e6478] sm:text-sm">{description}</p>}</div>
-            {primaryAction && <Button className="sm:hidden" size="icon" onClick={primaryAction.onClick} aria-label={primaryAction.label}><Plus className="size-5" /></Button>}
+        <main className="mx-auto w-full max-w-[1460px] px-4 pb-28 pt-6 sm:px-7 lg:px-9 lg:pb-12 lg:pt-9">
+          <div className="mb-6 flex items-end justify-between gap-5 sm:mb-8">
+            <div><p className="eyebrow mb-2">{role === "user" ? "My A7 Property" : `${role} workspace`}</p><h1 className="text-[28px] font-semibold tracking-[-0.045em] sm:text-[34px]">{title}</h1>{description && <p className="mt-2 max-w-2xl text-[13px] leading-6 text-[#5F6C7B] sm:text-sm">{description}</p>}</div>
+            {primaryAction && <div className="sm:hidden"><Button size="icon" onClick={primaryAction.onClick} aria-label={primaryAction.label}><Plus className="size-5" /></Button></div>}
           </div>
           {children}
         </main>
       </div>
 
-      <nav className="fixed inset-x-3 bottom-2 z-50 grid h-16 grid-cols-4 rounded-[19px] border border-[#0b3768]/10 bg-white/95 p-1.5 shadow-[0_14px_40px_rgba(16,45,74,.16)] backdrop-blur-xl lg:hidden" aria-label="Mobile dashboard navigation">
+      <nav className="fixed inset-x-3 bottom-2 z-50 grid h-[66px] grid-cols-4 rounded-[22px] border border-[#172B3F]/10 bg-white/92 p-1.5 shadow-[0_14px_36px_rgba(23,43,63,.18)] backdrop-blur-2xl lg:hidden" aria-label="Mobile dashboard navigation">
         {nav.slice(0, 4).map((item) => {
           const Icon = item.icon;
-          return <Link key={item.label} href={item.href} className="flex flex-col items-center justify-center gap-1 rounded-xl text-[8px] font-medium text-[#728396] hover:bg-[#f0f8fd] hover:text-[#0f6fb2]"><Icon className="size-[19px]" />{item.label}</Link>;
+          const section = new URL(item.href, "https://a7.local").searchParams.get("section") ?? "overview";
+          const active = section === activeSection;
+          return <Link key={item.label} href={item.href} aria-current={active ? "page" : undefined} className={cn("flex flex-col items-center justify-center gap-1 rounded-2xl text-[10px] font-medium transition-colors", active ? "bg-[#EAF2FF] text-[#006AFF]" : "text-[#667486] hover:bg-[#F3F6FA] hover:text-[#006AFF]")}><Icon className="size-[19px]" />{item.label}</Link>;
         })}
       </nav>
     </div>
