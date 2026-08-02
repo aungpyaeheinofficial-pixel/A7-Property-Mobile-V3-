@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { Suspense, useState } from "react";
 
 import { A7AssistantPopover } from "@/components/assistant/a7-assistant-popover";
 import { useAuth } from "@/components/auth/auth-provider";
@@ -39,7 +39,9 @@ function AppHeader({ compact = false }: AppHeaderProps) {
       <div className="mx-auto flex h-full w-full max-w-[1480px] items-center justify-between gap-5 px-4 sm:px-6 lg:px-8">
         <Link href="/" aria-label="A7 Property home"><A7Brand /></Link>
 
-        <IntentNavigation className="hidden md:flex" />
+        <Suspense fallback={<div className="hidden h-11 w-[252px] rounded-full bg-[#F2F6FA] md:block" aria-hidden="true" />}>
+          <IntentNavigation className="hidden md:flex" />
+        </Suspense>
 
         <div className="flex items-center gap-2">
           <A7AssistantPopover labelClassName="hidden min-[400px]:inline" />

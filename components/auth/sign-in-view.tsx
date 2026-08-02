@@ -175,7 +175,7 @@ function RoleOption({ selected, onSelect, icon, title, desc, label, reduceMotion
 function SignInView() {
   const router = useRouter();
   const { signIn, signUp } = useAuth();
-  const reduceMotion = useReducedMotion();
+  const reduceMotion = useReducedMotion() ?? false;
   const [language, setLanguage] = useState<Language>("en");
   const [mode, setMode] = useState<AuthMode>("sign-in");
   const [step, setStep] = useState<AuthStep>("role");

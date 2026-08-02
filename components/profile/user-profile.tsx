@@ -448,7 +448,7 @@ function UserProfile() {
             setSettingNotice("");
           }
         }}
-        title={activeSetting ? (isMyanmar ? accountSettingsMyanmar[activeSetting].label : activeSettingMeta?.label) : tx("Account setting", "အကောင့်ဆက်တင်")}
+        title={activeSetting ? (isMyanmar ? accountSettingsMyanmar[activeSetting].label : (activeSettingMeta?.label ?? tx("Account setting", "အကောင့်ဆက်တင်"))) : tx("Account setting", "အကောင့်ဆက်တင်")}
         description={activeSetting ? (isMyanmar ? accountSettingsMyanmar[activeSetting].description : settingDescriptions[activeSetting]) : undefined}
         side="right"
       >

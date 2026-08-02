@@ -9,10 +9,6 @@ import { AuthProvider } from "@/components/auth/auth-provider";
 import { ComparisonTray } from "@/components/compare/comparison-tray";
 import { MobileBottomNav } from "@/components/layout/mobile-bottom-nav";
 import "./globals.css";
-import { Geist } from "next/font/google";
-import { cn } from "@/lib/utils";
-
-const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -45,7 +41,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" suppressHydrationWarning className={cn("font-sans", geist.variable)}>
+    <html lang="en" suppressHydrationWarning className="font-sans">
       <body><LanguageProvider><AuthProvider>{children}<ComparisonTray /><MobileBottomNav /></AuthProvider></LanguageProvider></body>
     </html>
   );

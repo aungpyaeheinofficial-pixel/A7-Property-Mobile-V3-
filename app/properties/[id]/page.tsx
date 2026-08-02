@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { PropertyDetailView } from "@/components/property/property-detail-view";
 import { allProperties, formatPropertyPrice, getProperty } from "@/lib/properties";
 
-type RouteProps = { params: Promise<{ id: string }> | { id: string } };
+type RouteProps = { params: Promise<{ id: string }> };
 
 export function generateStaticParams() {
   return allProperties.map((property) => ({ id: property.id }));
