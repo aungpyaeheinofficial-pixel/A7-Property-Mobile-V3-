@@ -48,7 +48,7 @@ function Sheet({ open, onOpenChange, title, description, children, footer, side 
         <div className="fixed inset-0 z-[100]">
           <motion.button
             aria-label="Close dialog"
-            className="absolute inset-0 bg-[#102236]/50 backdrop-blur-[5px]"
+            className="absolute inset-0 bg-[#111827]/50 backdrop-blur-[5px]"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -60,9 +60,9 @@ function Sheet({ open, onOpenChange, title, description, children, footer, side 
             aria-labelledby={titleId}
             aria-describedby={description ? descriptionId : undefined}
             className={cn(
-              "absolute flex border-[#172B3F]/10 bg-white shadow-[-20px_0_60px_rgba(23,43,63,.22)]",
-              side === "right" && "inset-y-0 right-0 w-full max-w-[540px] flex-col border-l sm:rounded-l-[28px]",
-              side === "bottom" && "inset-x-0 bottom-0 max-h-[92vh] flex-col rounded-t-[30px] border-t",
+              "absolute flex border-[#111827]/10 bg-white shadow-[0_4px_20px_rgba(0,0,0,.08)]",
+              side === "right" && "inset-y-0 right-0 w-full max-w-[540px] flex-col border-l sm:rounded-l-[20px]",
+              side === "bottom" && "inset-x-0 bottom-0 max-h-[92vh] flex-col rounded-t-[20px] border-t",
               className,
             )}
             {...motionPosition}
@@ -71,7 +71,7 @@ function Sheet({ open, onOpenChange, title, description, children, footer, side 
             {side === "bottom" && <div className="mx-auto mt-2 h-1 w-11 rounded-full bg-[#D1D1D5]" />}
             <div className="flex items-start gap-4 border-b border-[#172B3F]/8 px-5 py-5 sm:px-7 sm:py-6">
               <div className="min-w-0 flex-1">
-                <h2 id={titleId} className="text-xl font-semibold tracking-[-0.035em] text-[#172B3F]">{title}</h2>
+                <h2 id={titleId} className="text-xl font-semibold tracking-[-0.035em] text-[#111827]">{title}</h2>
                 {description && <p id={descriptionId} className="mt-1.5 text-xs leading-5 text-[#5F6C7B]">{description}</p>}
               </div>
               <Button ref={closeRef} size="icon" variant="ghost" className="-mr-2 -mt-2" onClick={() => onOpenChange(false)} aria-label="Close">
@@ -88,3 +88,4 @@ function Sheet({ open, onOpenChange, title, description, children, footer, side 
 }
 
 export { Sheet };
+export type { SheetProps };

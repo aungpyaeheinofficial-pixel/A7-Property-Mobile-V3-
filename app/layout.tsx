@@ -6,7 +6,14 @@ import "@fontsource/noto-sans-myanmar/600.css";
 import "leaflet/dist/leaflet.css";
 import { LanguageProvider } from "@/components/i18n/language-provider";
 import { AuthProvider } from "@/components/auth/auth-provider";
+import { ComparisonTray } from "@/components/compare/comparison-tray";
+import { MobileBottomNav } from "@/components/layout/mobile-bottom-nav";
 import "./globals.css";
+import { Geist } from "next/font/google";
+import { cn } from "@/lib/utils";
+
+const geist = Geist({subsets:['latin'],variable:'--font-sans'});
+
 
 export async function generateMetadata(): Promise<Metadata> {
   const requestHeaders = await headers();
@@ -38,8 +45,8 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body><LanguageProvider><AuthProvider>{children}</AuthProvider></LanguageProvider></body>
+    <html lang="en" suppressHydrationWarning className={cn("font-sans", geist.variable)}>
+      <body><LanguageProvider><AuthProvider>{children}<ComparisonTray /><MobileBottomNav /></AuthProvider></LanguageProvider></body>
     </html>
   );
 }

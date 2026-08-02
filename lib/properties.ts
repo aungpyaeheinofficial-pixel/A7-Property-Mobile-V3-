@@ -50,7 +50,7 @@ export interface SearchFilters {
   parking: boolean;
 }
 
-export type PropertySort = "recommended" | "newest" | "price-asc";
+export type PropertySort = "recommended" | "newest" | "price-asc" | "price-desc";
 
 export const allProperties: Property[] = rawProperties.map((raw, index) => {
   const coords = getCoordinatesForProperty(index, raw.township);
@@ -148,6 +148,7 @@ export function filterProperties(properties: Property[], filters: SearchFilters)
 export function sortProperties(properties: Property[], sort: PropertySort) {
   const sorted = [...properties];
   if (sort === "price-asc") return sorted.sort((a, b) => a.price - b.price);
+  if (sort === "price-desc") return sorted.sort((a, b) => b.price - a.price);
   if (sort === "newest") return sorted.sort((a, b) => b.year_built - a.year_built || b.id.localeCompare(a.id));
   return sorted.sort((a, b) => {
     const verification = Number(b.verification_status === "verified") - Number(a.verification_status === "verified");

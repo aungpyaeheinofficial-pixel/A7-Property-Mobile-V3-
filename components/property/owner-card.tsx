@@ -1,7 +1,7 @@
-import { Clock3, MessageCircle, Phone, ShieldCheck, Star } from "lucide-react";
+import { CalendarDays, Clock3, MessageCircle, ShieldCheck, Star } from "lucide-react";
 
+import { Avatar } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
 import type { PropertyOwner } from "@/lib/properties";
 
 interface OwnerCardProps {
@@ -13,19 +13,22 @@ interface OwnerCardProps {
 function OwnerCard({ owner, onContact, onSchedule }: OwnerCardProps) {
   const initials = owner.name.split(" ").map((part) => part[0]).slice(0, 2).join("");
   return (
-    <Card className="overflow-hidden rounded-[22px] border-[#172B3F]/9 shadow-[0_18px_45px_rgba(23,43,63,.11)]">
-      <div className="h-1 bg-[linear-gradient(90deg,#006AFF,#78A9FF,#B7D3FF)]" />
-      <CardContent className="p-5">
-        <div className="flex items-center gap-3">
-          <span className="grid size-12 place-items-center rounded-2xl bg-[linear-gradient(135deg,#EAF2FF,#D6E6FF)] text-sm font-semibold text-[#006AFF] shadow-inner">{initials}</span>
-          <div className="min-w-0 flex-1"><span className="text-[10px] font-semibold uppercase tracking-[.11em] text-[#667486]">{owner.type === "agent" ? "Listing agent" : "Property owner"}</span><h3 className="mt-1 truncate text-[15px] font-semibold text-[#172B3F]">{owner.name}</h3></div>
-          {owner.phone_verified && <ShieldCheck className="size-5 text-[#2D7D46]" aria-label="Verified contact" />}
+    <section className="rounded-[20px] border border-[#E1E5EC] bg-white p-5 shadow-[0_4px_20px_rgba(15,27,45,.07)]" aria-labelledby="owner-card-title">
+      <div className="flex items-center gap-4">
+        <Avatar initials={initials} className="size-16 bg-[#F0F5FF] text-lg text-[#0057D9]" />
+        <div className="min-w-0 flex-1">
+          <h2 id="owner-card-title" className="truncate text-[17px] font-semibold tracking-[-0.025em] text-[#0F1B2D]">{owner.name}</h2>
+          <span className="mt-1 inline-flex items-center gap-1 text-[10px] font-semibold text-[#0057D9]"><ShieldCheck className="size-3.5" />{owner.type === "agent" ? "Verified Agent" : "Verified Owner"}</span>
+          <div className="mt-1.5 flex items-center gap-1 text-[9px] text-[#667085]"><Star className="size-3 fill-[#0057D9] text-[#0057D9]" />4.9 · 24 successful viewings</div>
         </div>
-        <div className="mt-4 grid grid-cols-2 gap-2 rounded-xl border border-[#172B3F]/6 bg-[#F7F9FC] p-3 text-[11px] text-[#5F6C7B]"><span className="flex items-center gap-1.5"><Clock3 className="size-3.5 text-[#006AFF]" />Replies in {owner.response_time_minutes} min</span><span className="flex items-center justify-end gap-1.5"><Star className="size-3.5 fill-[#78A9FF] text-[#78A9FF]" />4.9 rating</span></div>
-        <div className="mt-4 grid gap-2"><Button onClick={onContact}><MessageCircle className="size-4" />Contact {owner.type}</Button><Button variant="outline" onClick={onSchedule}><Phone className="size-4" />Schedule a viewing</Button></div>
-        <p className="mt-4 text-center text-[10px] leading-4 text-[#667486]">Your contact details stay private until you send an inquiry.</p>
-      </CardContent>
-    </Card>
+      </div>
+      <div className="mt-4 flex items-start gap-2 rounded-[16px] bg-[#FAF8F5] p-3 text-[10px] leading-5 text-[#526074]"><Clock3 className="mt-0.5 size-4 shrink-0 text-[#0057D9]" /><span>Usually replies within <strong className="font-semibold text-[#0F1B2D]">{owner.response_time_minutes} minutes</strong></span></div>
+      <div className="mt-4 grid grid-cols-2 gap-2">
+        <Button variant="outline" onClick={onContact} className="h-12 rounded-[14px] border-[#C9D8ED] bg-white text-[11px] !text-[#0057D9]"><MessageCircle className="size-4" />Message</Button>
+        <Button onClick={onSchedule} className="h-12 rounded-[14px] bg-[#0057D9] px-3 text-[11px] !text-white hover:bg-[#0048B5]"><CalendarDays className="size-4" />Schedule viewing</Button>
+      </div>
+      <p className="mt-3 text-center text-[9px] leading-4 text-[#667085]">Your contact details stay private until you send an inquiry.</p>
+    </section>
   );
 }
 

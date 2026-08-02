@@ -14,6 +14,18 @@ interface PropertyMapProps {
   className?: string;
   compact?: boolean;
   markerLabel?: (property: Property) => string;
+  showPrivacyNotice?: boolean;
+  showLiveLabel?: boolean;
+  drawArea?: boolean;
+  drawnBounds?: MapSearchBounds | null;
+  onDrawArea?: (bounds: MapSearchBounds) => void;
+}
+
+interface MapSearchBounds {
+  north: number;
+  south: number;
+  east: number;
+  west: number;
 }
 
 type LeafletModule = typeof import("leaflet");
@@ -35,13 +47,13 @@ function loadLeaflet() {
 }
 
 function makePriceIcon(L: LeafletModule, label: string, selected: boolean) {
-  const bg = selected ? "#2A2A33" : "#006AFF";
+  const bg = selected ? "#2A2A33" : "#014BAA";
   const html = `<div style="background:${bg};color:#fff;border:2px solid #fff;border-radius:999px;padding:4px 10px;font-size:10px;font-weight:700;font-family:inherit;white-space:nowrap;box-shadow:0 3px 12px rgba(42,42,51,.25)">${label}</div>`;
   return L.divIcon({ html, className: "a7-price-marker", iconSize: [0, 0], iconAnchor: [0, 0] });
 }
 
 function makeSingleIcon(L: LeafletModule) {
-  const html = `<div style="filter:drop-shadow(0 4px 10px rgba(0,106,255,.35))"><svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="#006AFF" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 4.99-5.54 10.19-7.4 11.8a1 1 0 0 1-1.2 0C9.54 20.19 4 14.99 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3" fill="#fff"/></svg></div>`;
+  const html = `<div style="filter:drop-shadow(0 4px 10px rgba(1,75,170,.35))"><svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="#014BAA" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 4.99-5.54 10.19-7.4 11.8a1 1 0 0 1-1.2 0C9.54 20.19 4 14.99 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3" fill="#fff"/></svg></div>`;
   return L.divIcon({ html, className: "a7-single-marker", iconSize: [36, 36], iconAnchor: [18, 36] });
 }
 
@@ -68,7 +80,44 @@ function FitBounds({ L, RL, properties, selectedId }: { L: LeafletModule; RL: Re
   return null;
 }
 
-function PropertyMap({ properties, selectedId, onSelect, className, compact = false, markerLabel }: PropertyMapProps) {
+function DrawSearchArea({ RL, onDrawArea }: { RL: ReactLeafletModule; onDrawArea?: (bounds: MapSearchBounds) => void }) {
+  const [start, setStart] = useState<[number, number] | null>(null);
+  const minimumSpan = 0.0005;
+
+  RL.useMapEvents({
+    click(event) {
+      const point: [number, number] = [event.latlng.lat, event.latlng.lng];
+      if (!start) {
+        setStart(point);
+        return;
+      }
+
+      // Ignore an accidental double-tap on the same spot. A real search area
+      // needs two visibly separate corners to avoid a zero-result point query.
+      if (
+        Math.abs(start[0] - point[0]) < minimumSpan
+        && Math.abs(start[1] - point[1]) < minimumSpan
+      ) {
+        setStart(point);
+        return;
+      }
+
+      onDrawArea?.({
+        north: Math.max(start[0], point[0]),
+        south: Math.min(start[0], point[0]),
+        east: Math.max(start[1], point[1]),
+        west: Math.min(start[1], point[1]),
+      });
+      setStart(null);
+    },
+  });
+
+  return (
+    start ? <RL.CircleMarker center={start} radius={7} pathOptions={{ color: "#FFFFFF", weight: 3, fillColor: "#0057D9", fillOpacity: 1 }} /> : null
+  );
+}
+
+function PropertyMap({ properties, selectedId, onSelect, className, compact = false, markerLabel, showPrivacyNotice = true, showLiveLabel = true, drawArea = false, drawnBounds, onDrawArea }: PropertyMapProps) {
   const { isMyanmar } = useLanguage();
   const [modules, setModules] = useState<{ L: LeafletModule; RL: ReactLeafletModule } | null>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -95,7 +144,7 @@ function PropertyMap({ properties, selectedId, onSelect, className, compact = fa
   return (
     <section
       className={cn(
-        "relative isolate overflow-hidden rounded-[22px] border border-[#2A2A33]/10 bg-[#F1F6FF]",
+        "relative isolate overflow-hidden rounded-[20px] border border-[#2A2A33]/10 bg-[#F1F6FF]",
         compact ? "min-h-[300px]" : "min-h-[420px]",
         className,
       )}
@@ -126,29 +175,32 @@ function PropertyMap({ properties, selectedId, onSelect, className, compact = fa
                 <div className="min-w-[180px]">
                   <strong className="block text-xs font-semibold leading-snug">{property.title}</strong>
                   <span className="mt-1 block text-[10px] text-gray-500">{property.township}, {property.city}</span>
-                  <span className="mt-1.5 block text-xs font-bold text-[#006AFF]">{priceLabel}{property.purpose === "rent" ? "/mo" : ""}</span>
+                  <span className="mt-1.5 block text-xs font-bold text-[#014BAA]">{priceLabel}{property.purpose === "rent" ? "/mo" : ""}</span>
                 </div>
               </modules.RL.Popup>
             </modules.RL.Marker>
           ))}
+          {drawnBounds && <modules.RL.Rectangle bounds={[[drawnBounds.south, drawnBounds.west], [drawnBounds.north, drawnBounds.east]]} pathOptions={{ color: "#0057D9", weight: 2, fillColor: "#0057D9", fillOpacity: 0.12 }} />}
+          {drawArea && <DrawSearchArea RL={modules.RL} onDrawArea={onDrawArea} />}
           <FitBounds L={modules.L} RL={modules.RL} properties={markers.map((m) => m.property)} selectedId={selectedId} />
         </modules.RL.MapContainer>
       ) : (
         <div className="flex h-full min-h-[420px] items-center justify-center">
           <div className="flex flex-col items-center gap-3 text-[#59616A]">
-            <div className="h-8 w-8 animate-spin rounded-full border-2 border-[#006AFF] border-t-transparent" />
+            <div className="h-8 w-8 animate-spin rounded-full border-2 border-[#014BAA] border-t-transparent" />
             <span className="text-xs font-medium">Loading map…</span>
           </div>
         </div>
       )}
-      <div className="pointer-events-none absolute right-4 top-4 z-[500] flex items-center gap-2 rounded-full border border-white/80 bg-white/90 px-3 py-2 text-[10px] font-medium text-[#59616A] shadow-sm backdrop-blur">
-        <Navigation className="size-3.5 text-[#006AFF]" /> Live map
-      </div>
-      <div className="pointer-events-none absolute bottom-4 left-4 z-[500] flex max-w-[250px] items-start gap-2 rounded-xl border border-white/80 bg-white/90 p-3 text-[9px] leading-4 text-[#59616A] shadow-sm backdrop-blur">
-        <MapPin className="mt-0.5 size-3.5 shrink-0 text-[#006AFF]" /> Exact addresses remain private until an owner confirms your inquiry.
-      </div>
+      {showLiveLabel && <div className="pointer-events-none absolute right-4 top-4 z-[500] flex items-center gap-2 rounded-full border border-white/80 bg-white/90 px-3 py-2 text-[10px] font-medium text-[#59616A] shadow-sm backdrop-blur">
+        <Navigation className="size-3.5 text-[#014BAA]" /> Live map
+      </div>}
+      {showPrivacyNotice && <div className="pointer-events-none absolute bottom-4 left-4 z-[500] flex max-w-[250px] items-start gap-2 rounded-xl border border-white/80 bg-white/90 p-3 text-[9px] leading-4 text-[#59616A] shadow-sm backdrop-blur">
+        <MapPin className="mt-0.5 size-3.5 shrink-0 text-[#014BAA]" /> Exact addresses remain private until an owner confirms your inquiry.
+      </div>}
     </section>
   );
 }
 
 export { PropertyMap };
+export type { MapSearchBounds };

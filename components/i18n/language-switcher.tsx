@@ -58,9 +58,9 @@ function LanguageSwitcher({ className, compact = false, menuAlign = "right" }: L
         aria-expanded={open}
         onClick={() => setOpen((value) => !value)}
         className={cn(
-          "inline-flex h-10 items-center justify-center rounded-full text-[#526172] transition-[background-color,color,box-shadow] hover:bg-[#EEF3F9] hover:text-[#006AFF] focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-[#006AFF]/18",
-          compact ? "w-10" : "gap-1.5 px-3",
-          open && "bg-[#EEF3F9] text-[#006AFF]",
+          "inline-flex h-11 items-center justify-center rounded-full text-[#526172] transition-[background-color,color,box-shadow] hover:bg-[#EEF5FC] hover:text-[#014BAA] focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-[#014BAA]/18",
+          compact ? "w-11" : "gap-1.5 px-3",
+          open && "bg-[#EEF5FC] text-[#014BAA]",
         )}
       >
         <Globe2 className="size-[18px]" strokeWidth={2} />
@@ -82,7 +82,7 @@ function LanguageSwitcher({ className, compact = false, menuAlign = "right" }: L
             exit={reduceMotion ? { opacity: 0 } : { opacity: 0, y: -5, scale: 0.98 }}
             transition={{ duration: reduceMotion ? 0 : 0.16, ease: [0.22, 1, 0.36, 1] }}
             className={cn(
-              "absolute top-[calc(100%+10px)] z-[90] w-[210px] overflow-hidden rounded-2xl border border-[#172B3F]/10 bg-white p-2 shadow-[0_20px_50px_rgba(23,43,63,.18)]",
+              "absolute top-[calc(100%+10px)] z-[90] w-[210px] overflow-hidden rounded-[20px] border border-[#172B3F]/10 bg-white p-2 shadow-[0_4px_20px_rgba(0,0,0,.08)]",
               menuAlign === "right" ? "right-0" : "left-0",
             )}
           >
@@ -100,8 +100,8 @@ function LanguageSwitcher({ className, compact = false, menuAlign = "right" }: L
                   aria-checked={selected}
                   onClick={() => chooseLanguage(option.value)}
                   className={cn(
-                    "flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left transition-colors",
-                    selected ? "bg-[#EEF5FF] text-[#005ED8]" : "text-[#29445F] hover:bg-[#F5F7FA]",
+                    "flex min-h-11 w-full items-center gap-3 rounded-[14px] px-3 py-2.5 text-left transition-colors",
+                    selected ? "bg-[#EEF5FC] text-[#014BAA]" : "text-[#33495E] hover:bg-[#F5F6F2]",
                   )}
                 >
                   <span className="grid size-8 place-items-center rounded-lg bg-white text-[11px] font-bold shadow-sm ring-1 ring-[#172B3F]/8">{option.value === "en" ? "EN" : "မြန်"}</span>
@@ -109,7 +109,7 @@ function LanguageSwitcher({ className, compact = false, menuAlign = "right" }: L
                     <strong lang={option.value === "my" ? "my" : "en"} className="block text-[12px] font-semibold">{option.nativeLabel}</strong>
                     <small className="mt-0.5 block text-[9px] font-normal text-[#7A8794]">{option.label}</small>
                   </span>
-                  {selected && <Check className="size-4 text-[#006AFF]" strokeWidth={2.5} />}
+                  {selected && <Check className="size-4 text-[#014BAA]" strokeWidth={2.5} />}
                 </button>
               );
             })}

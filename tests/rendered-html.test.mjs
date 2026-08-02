@@ -22,8 +22,8 @@ test("server-renders the A7 Property discovery homepage", async () => {
   const html = await response.text();
   assert.match(html, /<title>A7 Property — Find a place you can call home<\/title>/i);
   assert.match(html, /Find a home that feels/);
-  assert.match(html, /Verified homes/);
-  assert.match(html, /AI home assistant/i);
+  assert.match(html, /Verified property/);
+  assert.match(html, /Ask A7 assistant/i);
   assert.doesNotMatch(html, /codex-preview|Your site is taking shape|react-loading-skeleton/i);
 });
 
@@ -31,12 +31,14 @@ test("server-renders every production product route", async () => {
   const routes = [
     ["/search?purpose=rent&location=Yangon", /Search verified homes in Myanmar/i],
     ["/properties/MM-PROP-001", /Light-filled 1-bed condo in Bahan/i],
-    ["/dashboard", /Welcome back, Thiri/i],
-    ["/profile", /Verification center/i],
-    ["/owner", /Property performance/i],
-    ["/agent", /Agency workspace/i],
+    ["/saved", /Homes you love/i],
+    ["/compare", /Build your comparison/i],
+    ["/messages", /Stay connected/i],
+    ["/profile", /Home preferences/i],
+    ["/owner", /Owner dashboard/i],
+    ["/agent", /Agent workspace/i],
     ["/assistant", /A7 property consultant/i],
-    ["/sign-in", /Welcome back/i],
+    ["/sign-in", /How would you like to use A7/i],
   ];
 
   for (const [pathname, expected] of routes) {

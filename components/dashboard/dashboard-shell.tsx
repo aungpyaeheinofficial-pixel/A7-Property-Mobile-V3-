@@ -60,8 +60,8 @@ function DashboardShell({ role, name, initials, title, description, primaryActio
   const nav = role === "user" ? userNav : crmNav(role);
 
   return (
-    <div className="min-h-screen bg-[radial-gradient(circle_at_78%_-10%,rgba(0,106,255,.08),transparent_28rem),#F5F7FB] text-[#172B3F]">
-      <aside className="fixed inset-y-0 left-0 z-50 hidden w-[260px] flex-col border-r border-white/10 bg-[linear-gradient(180deg,#172B3F_0%,#102236_100%)] text-white shadow-[12px_0_36px_rgba(23,43,63,.08)] lg:flex">
+    <div className="min-h-screen bg-[radial-gradient(circle_at_78%_-10%,rgba(1,75,170,.08),transparent_28rem),#F5F7FB] text-[#172B3F]">
+      <aside className="fixed inset-y-0 left-0 z-50 hidden w-[260px] flex-col border-r border-white/10 bg-[linear-gradient(180deg,#172B3F_0%,#111827_100%)] text-white shadow-[12px_0_36px_rgba(23,43,63,.08)] lg:flex">
         <Link href="/" className="flex h-[76px] items-center gap-2.5 border-b border-white/10 px-6">
           <A7Brand inverted />
           {role !== "user" && <span className="ml-auto rounded-full bg-white/10 px-2 py-1 text-[8px] font-semibold uppercase tracking-wider">{role}</span>}
@@ -80,7 +80,7 @@ function DashboardShell({ role, name, initials, title, description, primaryActio
           <Link href="/search?purpose=rent" className="mt-auto flex h-11 items-center gap-3 rounded-xl px-3 text-sm text-white/68 hover:bg-white/8 hover:text-white"><Search className="size-[18px]" />Browse marketplace</Link>
         </nav>
         <Link href={role === "user" ? "/profile" : `/${role}?section=settings`} className="m-4 flex items-center gap-3 rounded-2xl border border-white/10 bg-white/6 p-3 transition-colors hover:bg-white/10">
-          <span className="grid size-10 place-items-center rounded-full bg-[#EAF2FF] text-sm font-semibold text-[#2A2A33]">{initials}</span>
+          <span className="grid size-10 place-items-center rounded-full bg-[#EEF5FC] text-sm font-semibold text-[#2A2A33]">{initials}</span>
           <span className="min-w-0"><strong className="block truncate text-xs">{name}</strong><small className="mt-1 block text-[9px] text-white/55">View account</small></span>
         </Link>
       </aside>
@@ -93,8 +93,8 @@ function DashboardShell({ role, name, initials, title, description, primaryActio
             {primaryAction && <div className="hidden sm:block"><Button className="h-10 rounded-xl text-xs" onClick={primaryAction.onClick}><Plus className="size-4" />{primaryAction.label}</Button></div>}
             <LanguageSwitcher className="hidden sm:block" />
             <LanguageSwitcher compact className="sm:hidden" />
-            <Button size="icon" variant="ghost" className="relative rounded-xl" aria-label="Notifications" onClick={onNotifications}><Bell className="size-5" /><span className="absolute right-2.5 top-2.5 size-2 rounded-full border-2 border-white bg-[#006AFF]" /></Button>
-            <span className="grid size-9 place-items-center rounded-full bg-[#EAF2FF] text-xs font-semibold text-[#006AFF]">{initials}</span>
+            <Button size="icon" variant="ghost" className="relative rounded-xl" aria-label="Notifications" onClick={onNotifications}><Bell className="size-5" /><span className="absolute right-2.5 top-2.5 size-2 rounded-full border-2 border-white bg-[#014BAA]" /></Button>
+            <span className="grid size-9 place-items-center rounded-full bg-[#EEF5FC] text-xs font-semibold text-[#014BAA]">{initials}</span>
           </div>
         </header>
 
@@ -112,7 +112,7 @@ function DashboardShell({ role, name, initials, title, description, primaryActio
           const Icon = item.icon;
           const section = new URL(item.href, "https://a7.local").searchParams.get("section") ?? "overview";
           const active = section === activeSection;
-          return <Link key={item.label} href={item.href} aria-current={active ? "page" : undefined} className={cn("flex flex-col items-center justify-center gap-1 rounded-2xl text-[10px] font-medium transition-colors", active ? "bg-[#EAF2FF] text-[#006AFF]" : "text-[#667486] hover:bg-[#F3F6FA] hover:text-[#006AFF]")}><Icon className="size-[19px]" />{item.label}</Link>;
+          return <Link key={item.label} href={item.href} aria-current={active ? "page" : undefined} className={cn("flex flex-col items-center justify-center gap-1 rounded-2xl text-[10px] font-medium transition-colors", active ? "bg-[#EEF5FC] text-[#014BAA]" : "text-[#667486] hover:bg-[#F3F6FA] hover:text-[#014BAA]")}><Icon className="size-[19px]" />{item.label}</Link>;
         })}
       </nav>
     </div>

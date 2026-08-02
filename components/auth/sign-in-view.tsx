@@ -143,18 +143,18 @@ function RoleOption({ selected, onSelect, icon, title, desc, label, reduceMotion
       whileHover={reduceMotion ? undefined : { y: -2 }}
       whileTap={reduceMotion ? undefined : { scale: 0.98 }}
       transition={{ type: "spring", stiffness: 400, damping: 25 }}
-      className={`flex w-full items-start gap-4 rounded-2xl border-2 p-5 text-left transition-[border-color,box-shadow,background-color] ${selected ? "border-[#006AFF] bg-[#F5F8FD] shadow-[0_0_0_4px_rgba(0,106,255,.08)]" : "border-[#E1E6ED] bg-white hover:border-[#B7C2D0]"}`}
+      className={`flex w-full items-start gap-4 rounded-2xl border-2 p-5 text-left transition-[border-color,box-shadow,background-color] ${selected ? "border-[#014BAA] bg-[#F5F8FD] shadow-[0_0_0_4px_rgba(1,75,170,.08)]" : "border-[#E1E6ED] bg-white hover:border-[#B7C2D0]"}`}
       aria-pressed={selected}
     >
       <motion.span
         animate={{ rotate: selected ? 0 : 0, scale: selected ? 1.05 : 1 }}
         transition={{ type: "spring", stiffness: 300, damping: 20 }}
-        className={`grid size-11 shrink-0 place-items-center rounded-xl transition-colors ${selected ? "bg-[#006AFF] text-white" : "bg-[#F1F6FF] text-[#006AFF]"}`}
+        className={`grid size-11 shrink-0 place-items-center rounded-xl transition-colors ${selected ? "bg-[#014BAA] text-white" : "bg-[#F1F6FF] text-[#014BAA]"}`}
       >{icon}</motion.span>
       <span className="min-w-0 flex-1">
         <strong className="block text-[14px] font-semibold text-[#172133]">{title}</strong>
         <span className="mt-1 block text-[12px] leading-5 text-[#687385]">{desc}</span>
-        <span className={`mt-2 inline-flex rounded-full px-2.5 py-1 text-[10px] font-semibold transition-colors ${selected ? "bg-[#006AFF] text-white" : "bg-[#F1F6FF] text-[#59616A]"}`}>{label}</span>
+        <span className={`mt-2 inline-flex rounded-full px-2.5 py-1 text-[10px] font-semibold transition-colors ${selected ? "bg-[#014BAA] text-white" : "bg-[#F1F6FF] text-[#59616A]"}`}>{label}</span>
       </span>
       <AnimatePresence>
         {selected && (
@@ -164,7 +164,7 @@ function RoleOption({ selected, onSelect, icon, title, desc, label, reduceMotion
             exit={{ opacity: 0, scale: 0.5 }}
             transition={{ type: "spring", stiffness: 400, damping: 25 }}
           >
-            <CheckCircle2 className="mt-1 size-5 shrink-0 text-[#006AFF]" />
+            <CheckCircle2 className="mt-1 size-5 shrink-0 text-[#014BAA]" />
           </motion.span>
         )}
       </AnimatePresence>
@@ -267,10 +267,10 @@ function SignInView() {
           className="relative z-10 order-2 -mt-7 flex min-h-[calc(100svh-165px)] flex-col rounded-t-[28px] bg-white px-5 pb-7 pt-6 sm:px-9 lg:order-1 lg:mt-0 lg:min-h-0 lg:rounded-none lg:px-[clamp(44px,5vw,86px)] lg:py-10"
         >
           <div className="flex items-center justify-between">
-            <Link href="/" aria-label={text.back} className="rounded-xl focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#006AFF]/20">
+            <Link href="/" aria-label={text.back} className="rounded-xl focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#014BAA]/20">
               <A7Brand />
             </Link>
-            <Link href="/" className="grid size-10 place-items-center rounded-full border border-[#DCE2EA] text-[#596473] transition-colors hover:bg-[#F6F8FC] lg:hidden" aria-label={text.back}>
+            <Link href="/" className="grid size-10 place-items-center rounded-full border border-[#DCE2EA] text-[#596473] transition-colors hover:bg-[#F8F3F0] lg:hidden" aria-label={text.back}>
               <ArrowLeft className="size-[18px]" />
             </Link>
           </div>
@@ -312,7 +312,7 @@ function SignInView() {
                     label={text.lister}
                     reduceMotion={reduceMotion}
                   />
-                  <Button type="submit" className="mt-4 h-[54px] w-full rounded-xl text-[15px] shadow-[0_10px_24px_rgba(0,106,255,.22)] hover:-translate-y-0.5 hover:shadow-[0_14px_30px_rgba(0,106,255,.28)]">
+                  <Button type="submit" className="mt-4 h-[54px] w-full rounded-xl text-[15px] shadow-[0_10px_24px_rgba(1,75,170,.22)] hover:-translate-y-0.5 hover:shadow-[0_14px_30px_rgba(1,75,170,.28)]">
                     {text.continueRole}
                     <ArrowRight className="size-[18px]" aria-hidden="true" />
                   </Button>
@@ -322,7 +322,7 @@ function SignInView() {
               {(step === "email" || step === "reset") && (
                 <motion.div key="email-step" initial={reduceMotion ? false : { opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={reduceMotion ? undefined : { opacity: 0, x: -20 }} transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}>
                   <label htmlFor="email" className="text-[13px] font-semibold text-[#222B3A]">{text.email}</label>
-                  <div className={`mt-2 flex h-[54px] items-center gap-3 rounded-xl border bg-white px-4 transition-[border-color,box-shadow] ${hasError ? "border-[#D92D20] shadow-[0_0_0_3px_rgba(217,45,32,.10)]" : "border-[#CCD4DE] focus-within:border-[#006AFF] focus-within:shadow-[0_0_0_4px_rgba(0,106,255,.12)]"}`}>
+                  <div className={`mt-2 flex h-[54px] items-center gap-3 rounded-xl border bg-white px-4 transition-[border-color,box-shadow] ${hasError ? "border-[#D92D20] shadow-[0_0_0_3px_rgba(217,45,32,.10)]" : "border-[#CCD4DE] focus-within:border-[#014BAA] focus-within:shadow-[0_0_0_4px_rgba(1,75,170,.12)]"}`}>
                     <Mail className={`size-5 shrink-0 ${hasError ? "text-[#D92D20]" : "text-[#7B8798]"}`} aria-hidden="true" />
                     <input
                       id="email"
@@ -349,7 +349,7 @@ function SignInView() {
               {step === "email" && mode === "create" && (
                 <>
                   <label htmlFor="full-name" className="text-[13px] font-semibold text-[#222B3A]">{text.fullName || "Full name"}</label>
-                  <div className="mt-2 mb-3 flex h-[54px] items-center gap-3 rounded-xl border border-[#CCD4DE] bg-white px-4 focus-within:border-[#006AFF] focus-within:shadow-[0_0_0_4px_rgba(0,106,255,.12)]">
+                  <div className="mt-2 mb-3 flex h-[54px] items-center gap-3 rounded-xl border border-[#CCD4DE] bg-white px-4 focus-within:border-[#014BAA] focus-within:shadow-[0_0_0_4px_rgba(1,75,170,.12)]">
                     <Home className="size-5 shrink-0 text-[#7B8798]" aria-hidden="true" />
                     <input
                       id="full-name"
@@ -367,9 +367,9 @@ function SignInView() {
 
               {step === "password" && (
                 <motion.div key="password-step" initial={reduceMotion ? false : { opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={reduceMotion ? undefined : { opacity: 0, x: -20 }} transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}>
-                  <button type="button" onClick={() => { setStep("email"); setTouched(false); setNotice(""); }} className="mb-5 inline-flex items-center gap-1 text-[12px] font-semibold text-[#006AFF]"><ArrowLeft className="size-4" />Change email</button>
+                  <button type="button" onClick={() => { setStep("email"); setTouched(false); setNotice(""); }} className="mb-5 inline-flex items-center gap-1 text-[12px] font-semibold text-[#014BAA]"><ArrowLeft className="size-4" />Change email</button>
                   <label htmlFor="password" className="text-[13px] font-semibold text-[#222B3A]">{text.password}</label>
-                  <div className={`mt-2 flex h-[54px] items-center gap-3 rounded-xl border bg-white px-4 ${passwordError ? "border-[#D92D20]" : "border-[#CCD4DE] focus-within:border-[#006AFF] focus-within:shadow-[0_0_0_4px_rgba(0,106,255,.12)]"}`}>
+                  <div className={`mt-2 flex h-[54px] items-center gap-3 rounded-xl border bg-white px-4 ${passwordError ? "border-[#D92D20]" : "border-[#CCD4DE] focus-within:border-[#014BAA] focus-within:shadow-[0_0_0_4px_rgba(1,75,170,.12)]"}`}>
                     <LockKeyhole className="size-5 shrink-0 text-[#7B8798]" />
                     <input id="password" type={showPassword ? "text" : "password"} value={password} onChange={(event) => setPassword(event.target.value)} autoComplete={mode === "create" ? "new-password" : "current-password"} className="h-full min-w-0 flex-1 bg-transparent text-[15px] outline-none" />
                     <button type="button" onClick={() => setShowPassword((current) => !current)} className="grid size-9 place-items-center rounded-full text-[#7B8798] hover:bg-[#F3F5F8]" aria-label={showPassword ? "Hide password" : "Show password"}>{showPassword ? <EyeOff className="size-[18px]" /> : <Eye className="size-[18px]" />}</button>
@@ -377,7 +377,7 @@ function SignInView() {
                   {mode === "create" && (
                     <>
                       <label htmlFor="confirm-password" className="mt-4 block text-[13px] font-semibold text-[#222B3A]">{text.confirmPassword}</label>
-                      <div className="mt-2 flex h-[54px] items-center gap-3 rounded-xl border border-[#CCD4DE] bg-white px-4 focus-within:border-[#006AFF] focus-within:shadow-[0_0_0_4px_rgba(0,106,255,.12)]">
+                      <div className="mt-2 flex h-[54px] items-center gap-3 rounded-xl border border-[#CCD4DE] bg-white px-4 focus-within:border-[#014BAA] focus-within:shadow-[0_0_0_4px_rgba(1,75,170,.12)]">
                         <LockKeyhole className="size-5 shrink-0 text-[#7B8798]" />
                         <input id="confirm-password" type={showPassword ? "text" : "password"} value={confirmPassword} onChange={(event) => setConfirmPassword(event.target.value)} autoComplete="new-password" className="h-full min-w-0 flex-1 bg-transparent text-[15px] outline-none" />
                       </div>
@@ -385,22 +385,22 @@ function SignInView() {
                   )}
                   <div className="flex min-h-9 items-start justify-between gap-3 pt-2">
                     <p className={`text-xs ${passwordError ? "text-[#C4322B]" : "text-[#8A93A1]"}`} role={passwordError ? "alert" : undefined}>{passwordError || text.passwordHint}</p>
-                    {mode === "sign-in" && <button type="button" onClick={() => { setStep("reset"); setTouched(false); setNotice(""); }} className="shrink-0 text-xs font-semibold text-[#006AFF] hover:underline">{text.forgot}</button>}
+                    {mode === "sign-in" && <button type="button" onClick={() => { setStep("reset"); setTouched(false); setNotice(""); }} className="shrink-0 text-xs font-semibold text-[#014BAA] hover:underline">{text.forgot}</button>}
                   </div>
                 </motion.div>
               )}
 
-              {notice && <div role="status" className="mb-4 flex items-center gap-2 rounded-xl bg-[#EDF7F0] px-4 py-3 text-xs text-[#27714D]"><CheckCircle2 className="size-4" />{notice}</div>}
+              {notice && <div role="status" className="mb-4 flex items-center gap-2 rounded-xl bg-[#EEF5FC] px-4 py-3 text-xs text-[#27714D]"><CheckCircle2 className="size-4" />{notice}</div>}
 
               {step !== "role" && (
                 <motion.div initial={reduceMotion ? false : { opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.2 }}>
-                <Button type="submit" disabled={!email.trim() || submitting || (step === "password" && (password.length < 8 || (mode === "create" && password !== confirmPassword)))} className="h-[54px] w-full rounded-xl text-[15px] shadow-[0_10px_24px_rgba(0,106,255,.22)] hover:-translate-y-0.5 hover:shadow-[0_14px_30px_rgba(0,106,255,.28)]">
+                <Button type="submit" disabled={!email.trim() || submitting || (step === "password" && (password.length < 8 || (mode === "create" && password !== confirmPassword)))} className="h-[54px] w-full rounded-xl text-[15px] shadow-[0_10px_24px_rgba(1,75,170,.22)] hover:-translate-y-0.5 hover:shadow-[0_14px_30px_rgba(1,75,170,.28)]">
                   {submitting ? <Loader2 className="size-[18px] animate-spin" aria-hidden="true" /> : <ArrowRight className="size-[18px]" aria-hidden="true" />}
                   {step === "reset" ? text.sendReset : step === "password" ? (mode === "sign-in" ? text.signInButton : text.create) : text.continue}
                 </Button>
                 </motion.div>
               )}
-              {step === "reset" && <button type="button" onClick={() => { setStep("email"); setNotice(""); setTouched(false); }} className="mt-4 w-full text-center text-xs font-semibold text-[#006AFF]">{text.backToSignIn}</button>}
+              {step === "reset" && <button type="button" onClick={() => { setStep("email"); setNotice(""); setTouched(false); }} className="mt-4 w-full text-center text-xs font-semibold text-[#014BAA]">{text.backToSignIn}</button>}
               </AnimatePresence>
             </form>
 
@@ -418,7 +418,7 @@ function SignInView() {
                       key={provider}
                       type="button"
                       onClick={() => handleSocial(provider)}
-                      className="relative flex h-[52px] w-full items-center justify-center rounded-xl border border-[#D6DDE6] bg-white px-5 text-[14px] font-medium text-[#202938] shadow-[0_1px_2px_rgba(16,35,61,.04)] transition-[background-color,border-color,transform,box-shadow] hover:-translate-y-px hover:border-[#B7C2D0] hover:bg-[#FAFBFD] hover:shadow-sm focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#006AFF]/15"
+                      className="relative flex h-[52px] w-full items-center justify-center rounded-xl border border-[#D6DDE6] bg-white px-5 text-[14px] font-medium text-[#202938] shadow-[0_1px_2px_rgba(16,35,61,.04)] transition-[background-color,border-color,transform,box-shadow] hover:-translate-y-px hover:border-[#B7C2D0] hover:bg-[#FAFBFD] hover:shadow-sm focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#014BAA]/15"
                     >
                       <span className="absolute left-5 grid size-6 place-items-center"><SocialMark provider={provider} /></span>
                       {provider === "Google" ? text.google : provider === "Apple" ? text.apple : text.facebook}
@@ -436,7 +436,7 @@ function SignInView() {
 
             {step === "email" && <p className="mt-8 text-center text-[13px] text-[#737E8E]">
               {mode === "sign-in" ? text.noAccount : text.hasAccount}{" "}
-              <button type="button" onClick={() => changeMode(mode === "sign-in" ? "create" : "sign-in")} className="font-semibold text-[#006AFF] hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#006AFF]/25">
+              <button type="button" onClick={() => changeMode(mode === "sign-in" ? "create" : "sign-in")} className="font-semibold text-[#014BAA] hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#014BAA]/25">
                 {mode === "sign-in" ? text.createAccount : text.signIn}
               </button>
             </p>}
@@ -444,9 +444,9 @@ function SignInView() {
 
           <p className="mx-auto max-w-[430px] text-center text-[11px] leading-5 text-[#838D9C]">
             {text.legalStart}{" "}
-            <Link href="/terms" className="font-medium text-[#006AFF] hover:underline">{text.terms}</Link>{" "}
+            <Link href="/terms" className="font-medium text-[#014BAA] hover:underline">{text.terms}</Link>{" "}
             {text.and}{" "}
-            <Link href="/privacy" className="font-medium text-[#006AFF] hover:underline">{text.privacy}</Link>
+            <Link href="/privacy" className="font-medium text-[#014BAA] hover:underline">{text.privacy}</Link>
           </p>
         </motion.section>
 

@@ -45,7 +45,7 @@ function DiscoveryToolbar({ count, location, purpose, sort, onSortChange, mapOpe
           <Button variant="outline" className="h-11 px-4 text-xs" onClick={onMapToggle}>{mapOpen ? <Rows3 className="size-[18px]" /> : <Map className="size-[18px]" />}{mapOpen ? tx("List", "စာရင်း") : tx("Map", "မြေပုံ")}<span className="hidden sm:inline"> {tx("view", "ပုံစံ")}</span></Button>
           <label>
             <span className="sr-only">{tx("Sort homes", "အိမ်များအစီအစဉ်ပြောင်းရန်")}</span>
-            <select value={sort} onChange={(event) => onSortChange(event.target.value as PropertySort)} className="h-11 w-full rounded-xl border border-[#D7E0EA] bg-white px-3 text-xs font-semibold text-[#29445F] shadow-sm focus:border-[#006AFF] focus-visible:!outline-none sm:w-auto">
+            <select value={sort} onChange={(event) => onSortChange(event.target.value as PropertySort)} className="h-11 w-full rounded-xl border border-[#D7E0EA] bg-white px-3 text-xs font-semibold text-[#29445F] shadow-sm focus:border-[#014BAA] focus-visible:!outline-none sm:w-auto">
               <option value="recommended">{tx("Recommended", "အကြံပြုထားသည်")}</option>
               <option value="newest">{tx("Newest", "အသစ်ဆုံး")}</option>
               <option value="price-asc">{tx("Price low–high", "ဈေးနည်းမှများ")}</option>

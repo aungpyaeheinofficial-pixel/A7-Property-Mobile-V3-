@@ -42,10 +42,10 @@ function SearchNavbar({ savedCount = 0 }: { savedCount?: number }) {
             <A7AssistantPopover labelClassName="hidden min-[400px]:inline" />
             <LanguageSwitcher className="hidden sm:block" />
             <LanguageSwitcher compact className="sm:hidden" />
-            <Link href="/dashboard?section=saved" className="hidden h-10 items-center gap-2 rounded-xl px-3 text-xs font-medium text-[#526172] hover:bg-[#EEF3F9] hover:text-[#006AFF] sm:flex">
+            <Link href="/dashboard?section=saved" className="hidden h-10 items-center gap-2 rounded-xl px-3 text-xs font-medium text-[#526172] hover:bg-[#EEF3F9] hover:text-[#014BAA] sm:flex">
               <Heart className="size-[18px]" />
               {tx("Saved", "သိမ်းထားသည်")}
-              {savedCount > 0 && <span data-type="number" className="grid h-6 min-w-6 place-items-center rounded-full bg-[#006AFF] px-1.5 text-[10px] font-bold text-white shadow-[0_4px_10px_rgba(0,106,255,.28)]">{savedCount}</span>}
+              {savedCount > 0 && <span data-type="number" className="grid h-6 min-w-6 place-items-center rounded-full bg-[#014BAA] px-1.5 text-[10px] font-bold text-white shadow-[0_4px_10px_rgba(1,75,170,.28)]">{savedCount}</span>}
             </Link>
             <Link href="/sign-in" className="grid size-10 place-items-center rounded-xl border border-[#DCE4ED] bg-white text-[#29445F] shadow-sm" aria-label={tx("Sign in", "အကောင့်ဝင်ရန်")}><UserRound className="size-5" /></Link>
           </div>
@@ -63,7 +63,7 @@ function SearchNavbar({ savedCount = 0 }: { savedCount?: number }) {
               aria-current={active ? "page" : undefined}
               className={cn(
                 "flex flex-col items-center justify-center gap-1 rounded-2xl text-[10px] font-medium transition-[transform,background-color,color] duration-200 ease-out active:scale-[.94]",
-                active ? "bg-[#EAF2FF] text-[#006AFF]" : "text-[#667486]",
+                active ? "bg-[#EEF5FC] text-[#014BAA]" : "text-[#667486]",
               )}
             >
               <Icon className="size-[18px]" />

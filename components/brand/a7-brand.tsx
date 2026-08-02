@@ -12,7 +12,7 @@ interface A7BrandProps {
 function A7Brand({ compact = false, inverted = false, showMyanmar = false, className }: A7BrandProps) {
   return (
     <span className={cn("inline-flex items-center gap-2.5", className)}>
-      <span className="relative grid size-10 shrink-0 place-items-center overflow-hidden rounded-[12px] border border-[#1384c8]/10 bg-white shadow-[0_4px_14px_rgba(11,55,104,.12)]">
+      <span className="relative grid size-10 shrink-0 place-items-center overflow-hidden rounded-[13px] border border-[#014BAA]/10 bg-white shadow-[0_5px_16px_rgba(1,75,170,.12)]">
         <Image
           src="/images/brand/a7-property-logo.jpg"
           alt=""
@@ -23,11 +23,11 @@ function A7Brand({ compact = false, inverted = false, showMyanmar = false, class
         />
       </span>
       {!compact && (
-        <span className={cn("whitespace-nowrap text-[20px] font-semibold tracking-[-0.045em]", inverted ? "text-white" : "text-[#172b3f]")}>
-          A7 <span className={inverted ? "text-[#72d2f2]" : "text-[#1384c8]"}>Property</span>
+        <span className={cn("whitespace-nowrap text-[20px] font-semibold tracking-[-0.045em]", inverted ? "text-white" : "text-[#111827]")}>
+          A7 <span className={inverted ? "text-[#E8C39B]" : "text-[#014BAA]"}>Property</span>
         </span>
       )}
-      {showMyanmar && !compact && <span className={cn("hidden whitespace-nowrap border-l pl-3 text-[11px] sm:inline", inverted ? "border-white/15 text-white/55" : "border-[#e3eaf1] text-[#728396]")} lang="my">အိမ်ခြံမြေ</span>}
+      {showMyanmar && !compact && <span className={cn("hidden whitespace-nowrap border-l pl-3 text-[11px] sm:inline", inverted ? "border-white/15 text-white/55" : "border-[#E5E2DB] text-[#707A76]")} lang="my">အိမ်ခြံမြေ</span>}
     </span>
   );
 }

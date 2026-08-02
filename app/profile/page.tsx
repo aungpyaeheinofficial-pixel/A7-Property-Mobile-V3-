@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import { UserProfile } from "@/components/profile/user-profile";
+import { ProfileExperience } from "@/components/mobile/profile-experience";
 
 export const metadata: Metadata = {
   title: "My profile | A7 Property",
@@ -9,5 +9,5 @@ export const metadata: Metadata = {
 };
 
 export default function ProfilePage() {
-  return <UserProfile />;
+  return <ProfileExperience />;
 }

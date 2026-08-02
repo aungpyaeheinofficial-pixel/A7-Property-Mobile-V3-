@@ -119,7 +119,7 @@ function SavedHomeCard({ property, saved, onToggle, priority = false }: HomeCard
               {formatPropertyPrice(property, isMyanmar ? "my" : "en")}
               {property.purpose === "rent" && <span className="ml-1 text-[11px] font-normal tracking-normal text-[#76808C]">/ {tx("month", "လ")}</span>}
             </p>
-            <Link href={`/properties/${property.id}`} className="mt-2 line-clamp-1 block text-[15px] font-medium text-[#26364A] transition-colors hover:text-[#006AFF]">
+            <Link href={`/properties/${property.id}`} className="mt-2 line-clamp-1 block text-[15px] font-medium text-[#26364A] transition-colors hover:text-[#014BAA]">
               {property.title}
             </Link>
           </div>
@@ -313,7 +313,7 @@ function UserDashboard() {
                   <Icon className="size-[17px]" />
                   {isMyanmar ? item.labelMy : item.label}
                   {item.id === "saved" && (
-                    <span data-type="number" className="grid h-6 min-w-6 place-items-center rounded-full bg-[#006AFF] px-1.5 text-[10px] font-bold text-white shadow-[0_4px_10px_rgba(0,106,255,.25)]">
+                    <span data-type="number" className="grid h-6 min-w-6 place-items-center rounded-full bg-[#014BAA] px-1.5 text-[10px] font-bold text-white shadow-[0_4px_10px_rgba(1,75,170,.25)]">
                       {savedProperties.length}
                     </span>
                   )}
@@ -323,17 +323,17 @@ function UserDashboard() {
           </nav>
 
           <div className="ml-auto flex items-center gap-1.5 sm:gap-2">
-            <Link href="/search?purpose=rent" className="hidden size-10 place-items-center rounded-full text-[#526171] transition-colors hover:bg-white hover:text-[#006AFF] sm:grid" aria-label={tx("Find homes", "အိမ်ရှာရန်")}>
+            <Link href="/search?purpose=rent" className="hidden size-10 place-items-center rounded-full text-[#526171] transition-colors hover:bg-white hover:text-[#014BAA] sm:grid" aria-label={tx("Find homes", "အိမ်ရှာရန်")}>
               <Search className="size-[19px]" />
             </Link>
             <A7AssistantPopover labelClassName="hidden min-[400px]:inline" />
             <LanguageSwitcher className="hidden sm:block" />
             <LanguageSwitcher compact className="sm:hidden" />
-            <Link href="/dashboard#price-alerts" className="relative grid size-10 place-items-center rounded-full text-[#526171] transition-colors hover:bg-white hover:text-[#006AFF]" aria-label={tx("Price alerts", "ဈေးနှုန်းအသိပေးချက်များ")}>
+            <Link href="/dashboard#price-alerts" className="relative grid size-10 place-items-center rounded-full text-[#526171] transition-colors hover:bg-white hover:text-[#014BAA]" aria-label={tx("Price alerts", "ဈေးနှုန်းအသိပေးချက်များ")}>
               <Bell className="size-[19px]" />
               <span className="absolute right-2 top-2 size-2 rounded-full border-2 border-[#FBFBF9] bg-[#E07B52]" />
             </Link>
-            <Link href="/profile" className="ml-1 grid size-10 place-items-center rounded-full bg-[#17304A] text-[11px] font-semibold text-white transition-transform hover:scale-105 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#006AFF]/20" aria-label={`Open ${mockUser.name} profile`}>{mockUser.initials}</Link>
+            <Link href="/profile" className="ml-1 grid size-10 place-items-center rounded-full bg-[#17304A] text-[11px] font-semibold text-white transition-transform hover:scale-105 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#014BAA]/20" aria-label={`Open ${mockUser.name} profile`}>{mockUser.initials}</Link>
           </div>
         </div>
       </header>
@@ -357,7 +357,7 @@ function UserDashboard() {
             <div>
               <div className="flex items-center gap-3">
                 <h2 className="text-[28px] font-semibold tracking-[-0.045em] sm:text-[34px]">{tx("Saved homes", "သိမ်းထားသောအိမ်များ")}</h2>
-                <span data-type="number" className="grid h-7 min-w-7 place-items-center rounded-full bg-[#006AFF] px-2 text-[11px] font-bold text-white shadow-[0_5px_14px_rgba(0,106,255,.28)]">{savedProperties.length}</span>
+                <span data-type="number" className="grid h-7 min-w-7 place-items-center rounded-full bg-[#014BAA] px-2 text-[11px] font-bold text-white shadow-[0_5px_14px_rgba(1,75,170,.28)]">{savedProperties.length}</span>
               </div>
               <p className="mt-2 text-[13px] text-[#697582]">{tx("Your shortlist of places that could feel like home.", "ကိုယ့်အိမ်လို ခံစားရနိုင်သောနေရာများ၏ စိတ်ကြိုက်စာရင်း။")}</p>
             </div>
@@ -520,11 +520,11 @@ function UserDashboard() {
           const Icon = item.icon;
           const active = activeSection === item.id;
           return (
-            <Link key={item.id} href={item.href} aria-current={active ? "page" : undefined} className={cn("flex flex-col items-center justify-center gap-1 rounded-2xl text-[10px] font-medium", active ? "bg-[#EAF2FF] text-[#006AFF]" : "text-[#687481]")}>
+            <Link key={item.id} href={item.href} aria-current={active ? "page" : undefined} className={cn("flex flex-col items-center justify-center gap-1 rounded-2xl text-[10px] font-medium", active ? "bg-[#EEF5FC] text-[#014BAA]" : "text-[#687481]")}>
               <Icon className="size-[18px]" />
               <span className="inline-flex items-center gap-1">
                 {isMyanmar ? item.labelMy : item.label.replace(" homes", "")}
-                {item.id === "saved" && <span data-type="number" className="grid min-w-4 place-items-center rounded-full bg-[#006AFF] px-1 text-[8px] font-bold leading-4 text-white">{savedProperties.length}</span>}
+                {item.id === "saved" && <span data-type="number" className="grid min-w-4 place-items-center rounded-full bg-[#014BAA] px-1 text-[8px] font-bold leading-4 text-white">{savedProperties.length}</span>}
               </span>
             </Link>
           );
@@ -545,7 +545,7 @@ function UserDashboard() {
               value={reply}
               onChange={(event) => setReply(event.target.value)}
               placeholder="Write a message…"
-              className="h-11 min-w-0 flex-1 rounded-full border border-[#D6DEE7] bg-[#F8FAFC] px-4 text-xs outline-none focus:border-[#006AFF] focus:ring-4 focus:ring-[#006AFF]/10"
+              className="h-11 min-w-0 flex-1 rounded-full border border-[#D6DEE7] bg-[#F8FAFC] px-4 text-xs outline-none focus:border-[#014BAA] focus:ring-4 focus:ring-[#014BAA]/10"
             />
             <Button type="submit" size="icon" className="size-11 shrink-0 rounded-full" disabled={!reply.trim()} aria-label="Send reply">
               <Send className="size-4" />
@@ -556,7 +556,7 @@ function UserDashboard() {
         {activeConversation && (
           <div className="flex min-h-full flex-col p-5 sm:p-7">
             <Link href={`/properties/${activeConversation.propertyId}`} className="mb-6 flex items-center justify-between rounded-2xl bg-[#F2F6FA] p-4 text-xs font-semibold text-[#17304A]">
-              View property details <ChevronRight className="size-4 text-[#006AFF]" />
+              View property details <ChevronRight className="size-4 text-[#014BAA]" />
             </Link>
             <div className="space-y-4" aria-live="polite">
               {activeConversation.thread.map((message) => (
@@ -564,7 +564,7 @@ function UserDashboard() {
                   <div className={cn(
                     "max-w-[84%] rounded-[18px] px-4 py-3 text-[12px] leading-5",
                     message.sender === "user"
-                      ? "rounded-br-md bg-[#006AFF] text-white"
+                      ? "rounded-br-md bg-[#014BAA] text-white"
                       : "rounded-bl-md bg-[#EEF2F6] text-[#33465A]",
                   )}>
                     <p>{message.text}</p>

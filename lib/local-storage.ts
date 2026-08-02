@@ -1,5 +1,7 @@
 const STORAGE_KEYS = {
   saved: "a7-property-saved-homes",
+  savedSearches: "a7-property-saved-searches",
+  compare: "a7-property-compare-homes",
   recent: "a7-property-recent-homes",
   conversations: "a7-property-conversations",
   viewings: "a7-property-viewings",

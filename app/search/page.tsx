@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import { PropertySearch } from "@/components/search/property-search";
+import { MobilePropertySearch } from "@/components/mobile/mobile-property-search";
 import { allProperties } from "@/lib/properties";
 
 interface SearchPageProps {
@@ -18,5 +18,5 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
   const location = typeof params.location === "string" ? params.location : "All Myanmar";
   const journey = params.journey === "sell" ? "sell" : purpose === "sale" ? "buy" : "rent";
 
-  return <PropertySearch key={`${journey}:${purpose}:${location}`} properties={allProperties} />;
+  return <MobilePropertySearch key={`${journey}:${purpose}:${location}`} properties={allProperties} />;
 }

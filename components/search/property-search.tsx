@@ -141,7 +141,7 @@ function PropertySearch({ properties }: { properties: Property[] }) {
   const cardTransition = { duration: reduceMotion ? 0 : 0.22 };
 
   return (
-    <div className="min-h-screen bg-[radial-gradient(circle_at_82%_-5%,rgba(0,106,255,.075),transparent_28rem),#F5F7FB] pb-20 md:pb-0">
+    <div className="min-h-screen bg-[radial-gradient(circle_at_82%_-5%,rgba(1,75,170,.075),transparent_28rem),#F5F7FB] pb-20 md:pb-0">
       <SearchNavbar savedCount={saved.length} />
       <PersistentSearchBar value={filters} onChange={setFilters} onSearch={runSearch} />
 
@@ -228,13 +228,13 @@ function SearchEmptyState({ location, onClear, onLocation }: { location: string;
   const nearby = ["Kamayut", "Bahan", "Sanchaung"].filter((item) => item !== location);
   return (
     <div className="mx-auto mt-10 max-w-xl rounded-2xl border border-dashed border-[#9FC4FF] bg-white p-8 text-center shadow-[0_8px_26px_rgba(42,42,51,.06)] sm:p-10">
-      <div className="mx-auto grid size-14 place-items-center rounded-2xl bg-[#F1F6FF] text-[#006AFF]"><SearchX className="size-6" /></div>
+      <div className="mx-auto grid size-14 place-items-center rounded-2xl bg-[#F1F6FF] text-[#014BAA]"><SearchX className="size-6" /></div>
       <h2 className="mt-5 text-xl font-semibold tracking-[-0.03em]">{tx("No exact matches yet", "အတိအကျကိုက်ညီသောအိမ် မတွေ့သေးပါ")}</h2>
       <p className="mx-auto mt-2 max-w-md text-sm leading-6 text-[#59616A]">{tx("Try a nearby township or remove one filter. We’ll keep your Rent/Buy choice unchanged.", "အနီးအနားမြို့နယ်တစ်ခုကို စမ်းကြည့်ပါ သို့မဟုတ် စစ်ထုတ်မှုတစ်ခုဖယ်ပါ။ ငှားရန်/ဝယ်ရန် ရွေးချယ်မှုကို မပြောင်းဘဲထားမည်။")}</p>
       <div className="mt-5 flex flex-wrap justify-center gap-2">
-        {nearby.map((item) => <button key={item} type="button" onClick={() => onLocation(item)} className="inline-flex h-10 items-center gap-1.5 rounded-full border border-[#B9BEC4] bg-white px-4 text-xs font-semibold hover:border-[#006AFF] hover:text-[#006AFF]"><MapPin className="size-4" />{item}</button>)}
+        {nearby.map((item) => <button key={item} type="button" onClick={() => onLocation(item)} className="inline-flex h-10 items-center gap-1.5 rounded-full border border-[#B9BEC4] bg-white px-4 text-xs font-semibold hover:border-[#014BAA] hover:text-[#014BAA]"><MapPin className="size-4" />{item}</button>)}
       </div>
-      <button type="button" onClick={onClear} className="mt-5 inline-flex items-center gap-2 text-xs font-semibold text-[#006AFF] hover:text-[#0057D9]"><RotateCcw className="size-4" />{tx("Clear filters", "စစ်ထုတ်မှုများ ရှင်းရန်")}</button>
+      <button type="button" onClick={onClear} className="mt-5 inline-flex items-center gap-2 text-xs font-semibold text-[#014BAA] hover:text-[#003F91]"><RotateCcw className="size-4" />{tx("Clear filters", "စစ်ထုတ်မှုများ ရှင်းရန်")}</button>
     </div>
   );
 }
