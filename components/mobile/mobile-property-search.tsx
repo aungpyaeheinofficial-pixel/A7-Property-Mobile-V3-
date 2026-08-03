@@ -1,9 +1,9 @@
 "use client";
 
-import { ArrowLeft, BellPlus, Check, ChevronDown, List, Map, MapPin, ScanSearch, SlidersHorizontal, X } from "lucide-react";
+import { ArrowLeft, Check, ChevronDown, List, Map, MapPin, ScanSearch, SlidersHorizontal, X } from "lucide-react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { useEffect, useId, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 import { useLanguage } from "@/components/i18n/language-provider";
 import { MobilePropertyCard } from "@/components/mobile/a7-mobile-ui";
@@ -16,7 +16,6 @@ import { usePropertyComparison } from "@/hooks/use-property-comparison";
 import { readStoredIds, STORAGE_KEYS, writeStoredIds } from "@/lib/local-storage";
 import { mockUser } from "@/lib/mock-users";
 import { filterProperties, propertyTypeLabels, searchLocations, sortProperties, type Property, type PropertySort, type SearchFilters } from "@/lib/properties";
-import { upsertSavedSearch } from "@/lib/saved-searches";
 import { cn } from "@/lib/utils";
 
 const SEARCH_RESTORE_KEY = "a7:search-journey";
@@ -89,7 +88,6 @@ function MobilePropertySearch({ properties }: { properties: Property[] }) {
   const [view, setView] = useState<"list" | "map">(initialView === "map" ? "map" : "list");
   const [filtersOpen, setFiltersOpen] = useState(false);
   const [filterFocus, setFilterFocus] = useState<FilterFocus>("all");
-  const [searchSaved, setSearchSaved] = useState(false);
   const [saved, setSaved] = useState(mockUser.savedPropertyIds);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [visibleCount, setVisibleCount] = useState(12);
@@ -229,13 +227,7 @@ function MobilePropertySearch({ properties }: { properties: Property[] }) {
 
   function openFilters(focus: FilterFocus) {
     setFilterFocus(focus);
-    setSearchSaved(false);
     setFiltersOpen(true);
-  }
-
-  function toggleAmenity(id: AmenityId) {
-    setAmenities((current) => current.includes(id) ? current.filter((item) => item !== id) : [...current, id]);
-    resetResultWindow();
   }
 
   function clearFilters() {
@@ -249,27 +241,6 @@ function MobilePropertySearch({ properties }: { properties: Property[] }) {
     setAmenities([]);
     setMapBounds(null);
     setDrawingArea(false);
-    resetResultWindow();
-  }
-
-  function clearFocusedFilters() {
-    if (filterFocus === "all") {
-      clearFilters();
-      return;
-    }
-    if (filterFocus === "location") {
-      setLocation("All Myanmar");
-      setQuery("");
-    }
-    if (filterFocus === "price") {
-      setMinPrice(null);
-      setMaxPrice(null);
-    }
-    if (filterFocus === "beds") {
-      setBedrooms(null);
-      setBathrooms(null);
-    }
-    if (filterFocus === "type") setPropertyTypes([]);
     resetResultWindow();
   }
 
@@ -294,22 +265,6 @@ function MobilePropertySearch({ properties }: { properties: Property[] }) {
       scrollY: window.scrollY,
     };
     window.sessionStorage.setItem(SEARCH_RESTORE_KEY, JSON.stringify(state));
-  }
-
-  function saveCurrentSearch() {
-    const currentUrl = `${window.location.pathname}${window.location.search}`;
-    const priceLabel = formatPriceRange(minPrice, maxPrice, tx);
-    const detailParts = [priceLabel, bedrooms ? tx(`${bedrooms}+ beds`, `အိပ်ခန်း ${bedrooms}+`) : "", bathrooms ? tx(`${bathrooms}+ baths`, `ရေချိုးခန်း ${bathrooms}+`) : "", propertyTypes.length ? propertyTypes.map((type) => propertyTypeLabels[type]).join(", ") : ""].filter(Boolean);
-    upsertSavedSearch({
-      id: `saved-${Date.now()}`,
-      title: location === "All Myanmar" ? tx(`${purpose === "rent" ? "Rentals" : "Homes for sale"} across Myanmar`, purpose === "rent" ? "မြန်မာနိုင်ငံတစ်ဝန်း ငှားရန်အိမ်များ" : "မြန်မာနိုင်ငံတစ်ဝန်း ရောင်းရန်အိမ်များ") : tx(`${purpose === "rent" ? "Rentals" : "Homes for sale"} in ${location}`, `${location} ရှိ ${purpose === "rent" ? "ငှားရန်" : "ရောင်းရန်"}အိမ်များ`),
-      detail: detailParts.join(" · ") || tx("Any price · Any home type", "ဈေးနှုန်းမရွေး · အိမ်အမျိုးအစားမရွေး"),
-      count: results.length,
-      href: currentUrl,
-      notificationsEnabled: true,
-      createdAt: new Date().toISOString(),
-    });
-    setSearchSaved(true);
   }
 
   function handleCarouselScroll() {
@@ -354,8 +309,6 @@ function MobilePropertySearch({ properties }: { properties: Property[] }) {
     propertyTypes,
     bedrooms,
     bathrooms,
-    amenities,
-    isMyanmar,
     tx,
     focus: filterFocus,
     searchTab,
@@ -367,7 +320,6 @@ function MobilePropertySearch({ properties }: { properties: Property[] }) {
     onPropertyTypesClear: () => { setPropertyTypes([]); resetResultWindow(); },
     onBedroomsChange: (value) => { setBedrooms(value); resetResultWindow(); },
     onBathroomsChange: (value) => { setBathrooms(value); resetResultWindow(); },
-    onAmenityToggle: toggleAmenity,
   };
 
   return (
@@ -481,8 +433,17 @@ function MobilePropertySearch({ properties }: { properties: Property[] }) {
         )}
       </main>
 
-      <FilterSheet open={filtersOpen} onOpenChange={setFiltersOpen} title={filterSheetCopy[filterFocus].title} description={filterSheetCopy[filterFocus].description} className="max-h-[94svh]" footer={<div><div className="mb-3 flex items-center justify-between gap-3"><button type="button" onClick={clearFocusedFilters} className="h-10 px-1 text-[11px] font-semibold text-a7-muted hover:text-a7-navy">{filterFocus === "all" ? tx("Reset all", "အားလုံးပြန်ရှင်းရန်") : tx("Clear", "ရှင်းရန်")}</button>{filterFocus === "all" && <button type="button" onClick={saveCurrentSearch} className={cn("inline-flex h-10 items-center gap-1.5 rounded-full px-3 text-[10px] font-semibold transition-colors", searchSaved ? "bg-[#F1F8F3] text-[#287A4B]" : "bg-[#EDF4FF] text-a7-blue")} aria-pressed={searchSaved}>{searchSaved ? <Check className="size-3.5" /> : <BellPlus className="size-3.5" />}{searchSaved ? tx("Alerts on", "အသိပေးမှုဖွင့်ပြီး") : tx("Save search", "ရှာဖွေမှုသိမ်းရန်")}</button>}</div><Button className="h-12 w-full rounded-full bg-a7-blue !text-white shadow-[var(--shadow-action)] hover:bg-[#0049B8]" onClick={() => setFiltersOpen(false)}>{tx(`Apply filters · ${results.length} homes`, `စစ်ထုတ်မည် · အိမ် ${results.length} လုံး`)}</Button></div>}>
-        <div className="p-5 pb-8 sm:px-7"><FilterControls {...filterControlProps} /></div>
+      <FilterSheet
+        open={filtersOpen}
+        onOpenChange={setFiltersOpen}
+        title={filterSheetCopy[filterFocus].title}
+        description={filterFocus === "all" ? undefined : filterSheetCopy[filterFocus].description}
+        className="!inset-x-3 !bottom-3 max-h-[calc(100svh-24px)] !rounded-[28px] border after:pointer-events-none after:absolute after:inset-x-3 after:-bottom-3 after:-z-10 after:h-8 after:rounded-b-[28px] after:bg-a7-blue sm:!left-[calc(50%-240px)] sm:!right-[calc(50%-240px)]"
+        headerClassName="border-b-0 px-4 pb-2 pt-3 sm:px-5 sm:py-3"
+        footerClassName="border-0 bg-white px-4 pb-4 pt-2 backdrop-blur-none sm:px-5"
+        footer={<Button className="h-12 w-full rounded-full bg-a7-blue !text-white shadow-[var(--shadow-action)] hover:bg-[#0049B8]" onClick={() => setFiltersOpen(false)}>{tx("Apply Filters", "စစ်ထုတ်မည်")}</Button>}
+      >
+        <div className="px-4 pb-7 pt-2 sm:px-5"><FilterControls {...filterControlProps} /></div>
       </FilterSheet>
     </div>
   );
@@ -519,7 +480,7 @@ function ActiveFilterChip({ label, onRemove }: { label: string; onRemove: () => 
 }
 
 function FilterGroup({ title, description, children }: { title: string; description?: string; children: React.ReactNode }) {
-  return <section className="border-b border-[#ECE9E2] pb-7 last:border-b-0 last:pb-0"><div className="mb-3"><h3 className="text-[12px] font-semibold text-a7-navy">{title}</h3>{description && <p className="mt-1 text-[9px] leading-4 text-[#7B837F]">{description}</p>}</div>{children}</section>;
+  return <section><div className="mb-2.5"><h3 className="text-[12px] font-semibold text-a7-navy">{title}</h3>{description && <p className="mt-1 text-[9px] leading-4 text-[#7B837F]">{description}</p>}</div>{children}</section>;
 }
 
 function ChoiceButton({ selected, onClick, children, compact = false, className }: { selected: boolean; onClick: () => void; children: React.ReactNode; compact?: boolean; className?: string }) {
@@ -535,8 +496,6 @@ interface FilterControlsProps {
   propertyTypes: Property["property_type"][];
   bedrooms: number | null;
   bathrooms: number | null;
-  amenities: AmenityId[];
-  isMyanmar: boolean;
   tx: (english: string, myanmar: string) => string;
   focus: FilterFocus;
   onSearchTabChange: (value: PropertySearchTab) => void;
@@ -547,44 +506,43 @@ interface FilterControlsProps {
   onPropertyTypesClear: () => void;
   onBedroomsChange: (value: number | null) => void;
   onBathroomsChange: (value: number | null) => void;
-  onAmenityToggle: (value: AmenityId) => void;
 }
 
 function LocationPicker({ value, onChange, tx }: { value: string; onChange: (value: string) => void; tx: FilterControlsProps["tx"] }) {
-  const listId = useId();
-  const [draft, setDraft] = useState(value === "All Myanmar" ? "" : value);
-
-  function commit(nextDraft: string) {
-    const match = searchLocations.find((item) => item.toLowerCase() === nextDraft.trim().toLowerCase());
-    if (match) onChange(match);
-    else if (!nextDraft.trim()) onChange("All Myanmar");
-  }
-
   return (
-    <div>
-      <input
-        list={listId}
-        value={draft}
-        onChange={(event) => { setDraft(event.target.value); commit(event.target.value); }}
-        onBlur={() => { const match = searchLocations.find((item) => item.toLowerCase() === draft.trim().toLowerCase()); if (!match && draft) setDraft(value === "All Myanmar" ? "" : value); }}
-        placeholder={tx("Search city or township", "မြို့ သို့မဟုတ် မြို့နယ်ရှာရန်")}
-        className="h-12 w-full rounded-[14px] border border-[#DCD9D1] bg-white px-4 text-[13px] outline-none placeholder:text-[#98A09C] focus:border-[#0057D9]"
-        autoComplete="off"
-      />
-      <datalist id={listId}>{searchLocations.filter((item) => item !== "All Myanmar").map((item) => <option key={item} value={item} />)}</datalist>
-      <div className="mt-2 flex gap-2 overflow-x-auto pb-1">
-        {["Yangon", "Kamayut", "Sanchaung"].map((item) => <ChoiceButton key={item} selected={value === item} onClick={() => onChange(item)} compact>{item}</ChoiceButton>)}
-      </div>
+    <div className="grid grid-cols-2 gap-2.5">
+      <label className="block"><span className="mb-1.5 block text-[10px] font-semibold text-a7-navy">{tx("City", "မြို့")}</span><span className="relative block"><select value={value} onChange={(event) => onChange(event.target.value)} className="h-11 w-full appearance-none rounded-full border border-a7-line bg-white pl-3.5 pr-8 text-[10px] font-medium text-[#515D58] outline-none focus:border-a7-blue"><option value="All Myanmar">{tx("All cities", "မြို့အားလုံး")}</option>{searchLocations.filter((item) => item !== "All Myanmar").map((item) => <option key={item} value={item}>{item}</option>)}</select><ChevronDown className="pointer-events-none absolute right-3 top-1/2 size-3 -translate-y-1/2 text-a7-muted" /></span></label>
+      <label className="block"><span className="mb-1.5 block text-[10px] font-semibold text-a7-navy">{tx("Country", "နိုင်ငံ")}</span><span className="relative block"><select value="Myanmar" disabled className="h-11 w-full appearance-none rounded-full border border-a7-line bg-white pl-3.5 pr-8 text-[10px] font-medium text-[#515D58] opacity-100 outline-none"><option>Myanmar</option></select><ChevronDown className="pointer-events-none absolute right-3 top-1/2 size-3 -translate-y-1/2 text-a7-muted" /></span></label>
     </div>
   );
 }
 
-function FilterControls({ location, purpose, searchTab, minPrice, maxPrice, propertyTypes, bedrooms, bathrooms, amenities, isMyanmar, tx, focus, onSearchTabChange, onLocationChange, onMinPriceChange, onMaxPriceChange, onPropertyTypeToggle, onPropertyTypesClear, onBedroomsChange, onBathroomsChange, onAmenityToggle }: FilterControlsProps) {
-  const budgetOptions = purpose === "rent" ? [300000, 500000, 800000, 1500000, 3000000] : [60000000, 120000000, 300000000, 500000000, 800000000];
+function PriceRangeControl({ purpose, minPrice, maxPrice, onMinPriceChange, onMaxPriceChange, tx }: Pick<FilterControlsProps, "purpose" | "minPrice" | "maxPrice" | "onMinPriceChange" | "onMaxPriceChange" | "tx">) {
+  const options = purpose === "rent" ? [200000, 300000, 500000, 800000, 1500000, 3000000, 5000000] : [50000000, 80000000, 120000000, 300000000, 500000000, 800000000, 1200000000];
+  const minIndex = minPrice === null ? 0 : Math.max(0, options.indexOf(minPrice));
+  const maxIndex = maxPrice === null ? options.length - 1 : Math.max(0, options.indexOf(maxPrice));
+  const minPercent = (minIndex / (options.length - 1)) * 100;
+  const maxPercent = (maxIndex / (options.length - 1)) * 100;
+  const rangeClassName = "pointer-events-none absolute inset-x-0 top-2 h-5 w-full appearance-none bg-transparent outline-none [&::-moz-range-thumb]:pointer-events-auto [&::-moz-range-thumb]:size-4 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:border-2 [&::-moz-range-thumb]:border-white [&::-moz-range-thumb]:bg-a7-blue [&::-moz-range-thumb]:shadow-sm [&::-moz-range-track]:bg-transparent [&::-webkit-slider-runnable-track]:h-1 [&::-webkit-slider-runnable-track]:bg-transparent [&::-webkit-slider-thumb]:pointer-events-auto [&::-webkit-slider-thumb]:mt-[-6px] [&::-webkit-slider-thumb]:size-4 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-white [&::-webkit-slider-thumb]:bg-a7-blue [&::-webkit-slider-thumb]:shadow-sm";
+
+  return (
+    <div>
+      <div className="relative h-8">
+        <div className="absolute inset-x-0 top-[17px] h-px bg-[#CDD3D9]" />
+        <div className="absolute top-[16px] h-[3px] rounded-full bg-a7-blue" style={{ left: `${minPercent}%`, right: `${100 - maxPercent}%` }} />
+        <input type="range" min={0} max={options.length - 1} value={minIndex} onChange={(event) => { const next = Math.min(Number(event.target.value), maxIndex - 1); onMinPriceChange(next === 0 ? null : options[next]); }} className={rangeClassName} aria-label={tx("Minimum price", "အနည်းဆုံးဈေးနှုန်း")} />
+        <input type="range" min={0} max={options.length - 1} value={maxIndex} onChange={(event) => { const next = Math.max(Number(event.target.value), minIndex + 1); onMaxPriceChange(next === options.length - 1 ? null : options[next]); }} className={rangeClassName} aria-label={tx("Maximum price", "အများဆုံးဈေးနှုန်း")} />
+      </div>
+      <div className="flex items-center justify-between text-[9px] font-medium text-[#667085]"><span>{minPrice === null ? formatFilterPrice(options[0]) : formatFilterPrice(minPrice)} MMK</span><span>{maxPrice === null ? formatFilterPrice(options.at(-1)!) : formatFilterPrice(maxPrice)} MMK</span></div>
+    </div>
+  );
+}
+
+function FilterControls({ location, purpose, searchTab, minPrice, maxPrice, propertyTypes, bedrooms, bathrooms, tx, focus, onSearchTabChange, onLocationChange, onMinPriceChange, onMaxPriceChange, onPropertyTypeToggle, onPropertyTypesClear, onBedroomsChange, onBathroomsChange }: FilterControlsProps) {
   const show = (section: Exclude<FilterFocus, "all">) => focus === "all" || focus === section;
   return (
-    <div className="space-y-6">
-      {focus === "all" && <FilterGroup title={tx("Property purpose", "အိမ်ခြံမြေ ရည်ရွယ်ချက်")}>
+    <div className="space-y-5">
+      {focus === "all" && <FilterGroup title={tx("Purpose", "ရည်ရွယ်ချက်")}>
         <div role="tablist" aria-label={tx("Property purpose", "အိမ်ခြံမြေ ရည်ရွယ်ချက်")} className="grid grid-cols-3 gap-1 rounded-full border border-a7-line bg-[#F7F7F5] p-1">
           {([
             { id: "sale", label: tx("For Sale", "ရောင်းရန်") },
@@ -593,16 +551,10 @@ function FilterControls({ location, purpose, searchTab, minPrice, maxPrice, prop
           ] as Array<{ id: PropertySearchTab; label: string }>).map((option) => <button key={option.id} type="button" role="tab" aria-selected={searchTab === option.id} onClick={() => onSearchTabChange(option.id)} className={cn("min-h-11 rounded-full px-2 text-[10px] font-semibold transition-[background-color,color,box-shadow]", searchTab === option.id ? "bg-a7-blue text-white shadow-[0_4px_12px_rgba(0,87,217,.2)]" : "text-a7-muted hover:bg-white hover:text-a7-navy")}>{option.label}</button>)}
         </div>
       </FilterGroup>}
-      {show("location") && <FilterGroup title={tx("City or township", "မြို့ သို့မဟုတ် မြို့နယ်")} description={tx("Type or use a recent location.", "ရိုက်ထည့်ပါ သို့မဟုတ် မကြာသေးမီနေရာရွေးပါ။")}><LocationPicker key={location} value={location} onChange={onLocationChange} tx={tx} /></FilterGroup>}
-      {show("type") && <FilterGroup title={tx("Property type", "အိမ်အမျိုးအစား")} description={tx("Select all types you would consider.", "စိတ်ဝင်စားသည့်အမျိုးအစားအားလုံးရွေးနိုင်သည်။")}><div className="flex flex-wrap gap-2"><ChoiceButton selected={propertyTypes.length === 0} onClick={onPropertyTypesClear} compact>{tx("Any property", "အမျိုးအစားမရွေး")}</ChoiceButton>{(["condo", "mini_condo", "apartment", "house", "villa"] as const).map((type) => <ChoiceButton key={type} selected={propertyTypes.includes(type)} onClick={() => onPropertyTypeToggle(type)} compact>{propertyTypeLabels[type]}</ChoiceButton>)}</div></FilterGroup>}
-      {show("price") && <FilterGroup title={purpose === "rent" ? tx("Monthly rent", "လစဉ်ငှားရမ်းခ") : tx("Purchase price", "ဝယ်ယူဈေးနှုန်း")} description={tx("Set a minimum and maximum price.", "အနည်းဆုံးနှင့် အများဆုံးဈေးနှုန်းရွေးပါ။")}>
-        <div className="grid grid-cols-2 gap-2">
-          <label className="block"><span className="mb-1.5 block text-[9px] font-semibold text-[#68726D]">{tx("Minimum", "အနည်းဆုံး")}</span><select value={minPrice ?? ""} onChange={(event) => onMinPriceChange(event.target.value ? Number(event.target.value) : null)} className="h-12 w-full rounded-[12px] border border-[#DCD9D1] bg-white px-3 text-[11px] font-semibold text-[#334155] outline-none focus:border-[#0057D9]"><option value="">{tx("No minimum", "အနည်းဆုံးမရွေး")}</option>{budgetOptions.map((amount) => <option key={amount} value={amount}>{formatFilterPrice(amount)} MMK</option>)}</select></label>
-          <label className="block"><span className="mb-1.5 block text-[9px] font-semibold text-[#68726D]">{tx("Maximum", "အများဆုံး")}</span><select value={maxPrice ?? ""} onChange={(event) => onMaxPriceChange(event.target.value ? Number(event.target.value) : null)} className="h-12 w-full rounded-[12px] border border-[#DCD9D1] bg-white px-3 text-[11px] font-semibold text-[#334155] outline-none focus:border-[#0057D9]"><option value="">{tx("No maximum", "အများဆုံးမရွေး")}</option>{budgetOptions.map((amount) => <option key={amount} value={amount}>{formatFilterPrice(amount)} MMK</option>)}</select></label>
-        </div>
-      </FilterGroup>}
+      {show("location") && <LocationPicker value={location} onChange={onLocationChange} tx={tx} />}
+      {show("type") && <FilterGroup title={tx("Select Category", "အမျိုးအစားရွေးရန်")}><div className="flex flex-wrap gap-2"><ChoiceButton selected={propertyTypes.length === 0} onClick={onPropertyTypesClear} compact>{tx("All property", "အားလုံး")}</ChoiceButton>{(["condo", "apartment", "house", "villa", "mini_condo"] as const).map((type) => <ChoiceButton key={type} selected={propertyTypes.includes(type)} onClick={() => onPropertyTypeToggle(type)} compact>{propertyTypeLabels[type]}</ChoiceButton>)}</div></FilterGroup>}
+      {show("price") && <FilterGroup title={tx("Price Range", "ဈေးနှုန်းအပိုင်းအခြား")}><PriceRangeControl purpose={purpose} minPrice={minPrice} maxPrice={maxPrice} onMinPriceChange={onMinPriceChange} onMaxPriceChange={onMaxPriceChange} tx={tx} /></FilterGroup>}
       {show("beds") && <FilterGroup title={tx("Beds & baths", "အိပ်ခန်းနှင့် ရေချိုးခန်း")}><div className="grid grid-cols-2 gap-2"><label className="block"><span className="mb-1.5 block text-[9px] font-semibold text-[#68726D]">{tx("Bedrooms", "အိပ်ခန်း")}</span><select value={bedrooms ?? ""} onChange={(event) => onBedroomsChange(event.target.value ? Number(event.target.value) : null)} className="h-12 w-full rounded-[12px] border border-[#DCD9D1] bg-white px-3 text-[11px] font-semibold text-[#334155] outline-none focus:border-a7-blue"><option value="">{tx("Any rooms", "အခန်းမရွေး")}</option>{[1, 2, 3, 4].map((value) => <option key={value} value={value}>{tx(`${value}+ rooms`, `${value}+ ခန်း`)}</option>)}</select></label><label className="block"><span className="mb-1.5 block text-[9px] font-semibold text-[#68726D]">{tx("Bathrooms", "ရေချိုးခန်း")}</span><select value={bathrooms ?? ""} onChange={(event) => onBathroomsChange(event.target.value ? Number(event.target.value) : null)} className="h-12 w-full rounded-[12px] border border-[#DCD9D1] bg-white px-3 text-[11px] font-semibold text-[#334155] outline-none focus:border-a7-blue"><option value="">{tx("Any baths", "ရေချိုးခန်းမရွေး")}</option>{[1, 2, 3, 4].map((value) => <option key={value} value={value}>{tx(`${value}+ baths`, `${value}+ ခန်း`)}</option>)}</select></label></div></FilterGroup>}
-      {focus === "all" && <FilterGroup title={tx("Amenities", "ဝန်ဆောင်မှုများ")}><div className="flex flex-wrap gap-2">{amenityOptions.map((item) => <ChoiceButton key={item.id} selected={amenities.includes(item.id)} onClick={() => onAmenityToggle(item.id)} compact>{isMyanmar ? item.labelMy : item.label}</ChoiceButton>)}</div></FilterGroup>}
     </div>
   );
 }

@@ -17,9 +17,12 @@ interface SheetProps {
   footer?: ReactNode;
   side?: "right" | "bottom";
   className?: string;
+  headerClassName?: string;
+  contentClassName?: string;
+  footerClassName?: string;
 }
 
-function Sheet({ open, onOpenChange, title, description, children, footer, side = "right", className }: SheetProps) {
+function Sheet({ open, onOpenChange, title, description, children, footer, side = "right", className, headerClassName, contentClassName, footerClassName }: SheetProps) {
   const titleId = useId();
   const descriptionId = useId();
   const closeRef = useRef<HTMLButtonElement>(null);
@@ -71,7 +74,7 @@ function Sheet({ open, onOpenChange, title, description, children, footer, side 
             transition={reduceMotion ? { duration: 0 } : a7Motion.slow}
           >
             {side === "bottom" && <div className="mx-auto mt-2 h-1 w-11 rounded-full bg-[#D1D1D5]" />}
-            <div className="flex items-start gap-4 border-b border-a7-line px-5 py-5 sm:px-7 sm:py-6">
+            <div className={cn("flex items-start gap-4 border-b border-a7-line px-5 py-5 sm:px-7 sm:py-6", headerClassName)}>
               <div className="min-w-0 flex-1">
                 <h2 id={titleId} className="text-xl font-semibold tracking-[-0.035em] text-a7-navy">{title}</h2>
                 {description && <p id={descriptionId} className="mt-1.5 text-xs leading-5 text-a7-muted">{description}</p>}
@@ -80,8 +83,8 @@ function Sheet({ open, onOpenChange, title, description, children, footer, side 
                 <X className="size-5" />
               </Button>
             </div>
-            <div className="min-h-0 flex-1 overflow-y-auto">{children}</div>
-            {footer && <div className="a7-glass border-x-0 border-b-0 px-5 py-4 sm:px-7">{footer}</div>}
+            <div className={cn("min-h-0 flex-1 overflow-y-auto", contentClassName)}>{children}</div>
+            {footer && <div className={cn("a7-glass border-x-0 border-b-0 px-5 py-4 sm:px-7", footerClassName)}>{footer}</div>}
           </motion.div>
         </div>
       )}

@@ -162,9 +162,9 @@ function HomeDiscovery() {
               <SectionHeading eyebrow={tx("Chosen for you", "သင့်အတွက် ရွေးချယ်ထားသည်")} title={tx("Homes worth seeing", "ကြည့်သင့်တဲ့အိမ်များ")} />
               <SegmentedControl value={purpose} onChange={setPurpose} ariaLabel={tx("Property purpose", "အိမ်အမျိုးအစား")} options={[{ value: "rent", label: tx("Rent", "ငှားရန်") }, { value: "sale", label: tx("Buy", "ဝယ်ရန်") }]} className="w-full max-w-[240px]" />
             </div>
-            <div className="-mx-4 mt-7 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-5 sm:mx-0 sm:grid sm:grid-cols-2 sm:px-0 lg:grid-cols-3">
+            <div className="-mx-4 mt-7 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-5 md:mx-0 md:grid md:grid-cols-3 md:px-0">
               {recommended.slice(0, 3).map((property, index) => (
-                <motion.div key={property.id} initial={reduceMotion ? false : { opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ amount: 0.5, margin: "0px -12% 0px -12%" }} transition={reduceMotion ? { duration: 0 } : { ...a7Motion.slow, delay: index * 0.035 }} className="min-w-[86vw] snap-center sm:min-w-0">
+                <motion.div key={property.id} initial={reduceMotion ? false : { opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ amount: 0.5, margin: "0px -12% 0px -12%" }} transition={reduceMotion ? { duration: 0 } : { ...a7Motion.slow, delay: index * 0.035 }} className="min-w-[86vw] snap-center md:min-w-0">
                   <MobilePropertyCard property={property} saved={saved.includes(property.id)} onToggleSaved={toggleSaved} priority={index === 0} className="min-w-0" />
                 </motion.div>
               ))}
