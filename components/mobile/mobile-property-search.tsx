@@ -9,9 +9,9 @@ import { useLanguage } from "@/components/i18n/language-provider";
 import { MobilePropertyCard } from "@/components/mobile/a7-mobile-ui";
 import { MobileSearchCard } from "@/components/mobile/mobile-search-card";
 import { PropertyMap, type MapSearchBounds } from "@/components/property/property-map";
+import { PropertySearchBar, type PropertySearchTab } from "@/components/search/property-search-bar";
 import { Button } from "@/components/ui/button";
 import { FilterSheet } from "@/components/ui/filter-sheet";
-import { SearchBar } from "@/components/ui/search-bar";
 import { usePropertyComparison } from "@/hooks/use-property-comparison";
 import { readStoredIds, STORAGE_KEYS, writeStoredIds } from "@/lib/local-storage";
 import { mockUser } from "@/lib/mock-users";
@@ -37,6 +37,7 @@ interface SearchRestoreState {
   query: string;
   location: string;
   purpose: "rent" | "sale";
+  searchTab?: PropertySearchTab;
   minPrice: number | null;
   maxPrice: number | null;
   propertyTypes: Property["property_type"][];
@@ -63,6 +64,7 @@ function MobilePropertySearch({ properties }: { properties: Property[] }) {
   const locationParam = params.get("location") ?? "";
   const recognizedLocation = searchLocations.includes(locationParam as (typeof searchLocations)[number]);
   const initialPurpose = params.get("purpose") === "sale" ? "sale" : "rent";
+  const initialSearchTab: PropertySearchTab = initialPurpose === "rent" ? "rent" : params.get("mode") === "sale" ? "sale" : "buy";
   const initialType = params.get("type");
   const initialTypes = (params.get("types") ?? initialType ?? "").split(",").filter((type): type is Property["property_type"] => Object.prototype.hasOwnProperty.call(propertyTypeLabels, type));
   const initialSort = params.get("sort");
@@ -70,6 +72,7 @@ function MobilePropertySearch({ properties }: { properties: Property[] }) {
   const initialAmenities = (params.get("amenities") ?? "").split(",").filter((id): id is AmenityId => amenityOptions.some((option) => option.id === id));
 
   const [purpose, setPurpose] = useState<"rent" | "sale">(initialPurpose);
+  const [searchTab, setSearchTab] = useState<PropertySearchTab>(initialSearchTab);
   const [query, setQuery] = useState(params.get("q") ?? locationParam);
   const [location, setLocation] = useState(recognizedLocation ? locationParam : "All Myanmar");
   const [minPrice, setMinPrice] = useState<number | null>(params.get("min") ? Number(params.get("min")) : null);
@@ -108,6 +111,7 @@ function MobilePropertySearch({ properties }: { properties: Property[] }) {
         setQuery(state.query);
         setLocation(state.location);
         setPurpose(state.purpose);
+        setSearchTab(state.searchTab ?? (state.purpose === "rent" ? "rent" : "buy"));
         setMinPrice(state.minPrice ?? null);
         setMaxPrice(state.maxPrice);
         setPropertyTypes(state.propertyTypes ?? []);
@@ -150,6 +154,7 @@ function MobilePropertySearch({ properties }: { properties: Property[] }) {
   useEffect(() => {
     const next = new URLSearchParams();
     next.set("purpose", purpose);
+    if (purpose === "sale") next.set("mode", searchTab === "sale" ? "sale" : "buy");
     if (location !== "All Myanmar") next.set("location", location);
     else if (query.trim()) next.set("q", query.trim());
     if (minPrice !== null) next.set("min", String(minPrice));
@@ -162,7 +167,7 @@ function MobilePropertySearch({ properties }: { properties: Property[] }) {
     if (sort !== "recommended") next.set("sort", sort);
     if (view === "map") next.set("view", "map");
     window.history.replaceState(window.history.state, "", `/search?${next.toString()}`);
-  }, [amenities, bathrooms, bedrooms, location, mapBounds, maxPrice, minPrice, propertyTypes, purpose, query, sort, view]);
+  }, [amenities, bathrooms, bedrooms, location, mapBounds, maxPrice, minPrice, propertyTypes, purpose, query, searchTab, sort, view]);
 
   const filters: SearchFilters = useMemo(() => ({
     purpose,
@@ -220,11 +225,16 @@ function MobilePropertySearch({ properties }: { properties: Property[] }) {
     setVisibleCount(12);
   }
 
-  function setPurposeAndReset(value: "rent" | "sale") {
+  function setPurposeAndReset(value: "rent" | "sale", tab: PropertySearchTab = value === "rent" ? "rent" : "buy") {
     setPurpose(value);
+    setSearchTab(tab);
     setMinPrice(null);
     setMaxPrice(null);
     resetResultWindow();
+  }
+
+  function selectSearchTab(tab: PropertySearchTab) {
+    setPurposeAndReset(tab === "rent" ? "rent" : "sale", tab);
   }
 
   function togglePropertyType(type: Property["property_type"]) {
@@ -284,6 +294,7 @@ function MobilePropertySearch({ properties }: { properties: Property[] }) {
       query,
       location,
       purpose,
+      searchTab,
       minPrice,
       maxPrice,
       propertyTypes,
@@ -377,27 +388,31 @@ function MobilePropertySearch({ properties }: { properties: Property[] }) {
     <div className="a7-page pb-28 lg:pb-10">
       <header className="a7-glass sticky top-0 z-50 border-x-0 border-t-0">
         <div className="mx-auto max-w-[1280px] px-4 py-3 sm:px-6 lg:px-8">
-          <div className="flex items-center gap-2.5 sm:gap-3">
-            <Link href="/" className="grid size-11 shrink-0 place-items-center rounded-[var(--radius-control)] border border-a7-line bg-white text-a7-navy shadow-[var(--shadow-hairline)] transition-colors hover:border-[#B8C8DB] hover:text-a7-blue" aria-label={tx("Back home", "ပင်မသို့ပြန်ရန်")}><ArrowLeft className="size-[18px]" /></Link>
-            <SearchBar
+          <div className="flex items-start gap-2.5 sm:gap-3">
+            <Link href="/" className="mt-0.5 grid size-11 shrink-0 place-items-center rounded-full border border-a7-line bg-white text-a7-navy shadow-[var(--shadow-hairline)] transition-colors hover:border-[#B8C8DB] hover:text-a7-blue" aria-label={tx("Back home", "ပင်မသို့ပြန်ရန်")}><ArrowLeft className="size-[18px]" /></Link>
+            <PropertySearchBar
               value={query}
               onValueChange={(value) => { setQuery(value); if (location !== "All Myanmar") setLocation("All Myanmar"); resetResultWindow(); }}
-              label={tx("Search by location or property", "နေရာ သို့မဟုတ် အိမ်ဖြင့် ရှာရန်")}
-              placeholder={tx("Township or landmark", "မြို့နယ် သို့မဟုတ် နေရာ")}
-              className="min-w-0 flex-1"
-              trailing={query ? <button type="button" onClick={() => { setQuery(""); setLocation("All Myanmar"); resetResultWindow(); }} className="-mr-2 grid size-11 place-items-center rounded-full bg-[#F0EEE8] text-[#707873]" aria-label={tx("Clear search", "ရှာဖွေမှုရှင်းရန်")}><X className="size-3.5" /></button> : undefined}
+              onSubmit={resetResultWindow}
+              onClear={() => { setQuery(""); setLocation("All Myanmar"); resetResultWindow(); }}
+              activeTab={searchTab}
+              onTabChange={selectSearchTab}
+              placeholder={tx("Search your location…", "ရှာလိုသောနေရာ…")}
+              searchLabel={tx("Search properties", "အိမ်ခြံမြေရှာရန်")}
+              clearLabel={tx("Clear location search", "နေရာရှာဖွေမှုရှင်းရန်")}
+              compact={compactHeader}
+              tabs={[
+                { id: "sale", label: tx("For Sale", "ရောင်းရန်") },
+                { id: "rent", label: tx("For Rent", "ငှားရန်") },
+                { id: "buy", label: tx("For Buy", "ဝယ်မည်") },
+              ]}
+              className="min-w-0 flex-1 lg:max-w-[680px]"
             />
-            <button type="button" onClick={() => openFilters("all")} className="relative grid size-12 shrink-0 place-items-center rounded-[var(--radius-control)] bg-a7-blue text-white shadow-[var(--shadow-action)] transition-[background-color,box-shadow] duration-[var(--duration-base)] hover:bg-[#0049B8]" aria-label={tx("Open all filters", "စစ်ထုတ်မှုအားလုံးဖွင့်ရန်")}><SlidersHorizontal className="size-[19px]" />{activeFilters.length > 0 && <span className="absolute -right-1 -top-1 grid size-5 place-items-center rounded-full border-2 border-[#FAF8F5] bg-white text-[8px] font-bold text-a7-blue">{activeFilters.length}</span>}</button>
+            <button type="button" onClick={() => openFilters("all")} className="relative mt-0.5 grid size-11 shrink-0 place-items-center rounded-full bg-a7-blue text-white shadow-[var(--shadow-action)] transition-[background-color,box-shadow] duration-[var(--duration-base)] hover:bg-[#0049B8]" aria-label={tx("Open all filters", "စစ်ထုတ်မှုအားလုံးဖွင့်ရန်")}><SlidersHorizontal className="size-[18px]" />{activeFilters.length > 0 && <span className="absolute -right-1 -top-1 grid size-5 place-items-center rounded-full border-2 border-[#FAF8F5] bg-white text-[8px] font-bold text-a7-blue">{activeFilters.length}</span>}</button>
           </div>
 
           <div className={cn("relative -mx-4 overflow-hidden sm:-mx-6 lg:-mx-8", compactHeader ? "hidden" : "mt-3 block")}>
             <div className="hide-scrollbar flex w-full items-center gap-2 overflow-x-auto px-4 pb-0.5 sm:px-6 lg:px-8">
-              <div role="tablist" aria-label={tx("Rent or buy", "ငှားရန် သို့မဟုတ် ဝယ်ရန်")} className="flex h-11 shrink-0 items-center rounded-[12px] bg-[#EFEEEB] p-1">
-                {(["rent", "sale"] as const).map((option) => {
-                  const selected = purpose === option;
-                  return <button key={option} type="button" role="tab" aria-selected={selected} onClick={() => setPurposeAndReset(option)} className={cn("h-9 min-w-[62px] rounded-[9px] px-3.5 text-[10px] font-semibold transition-[background-color,color,box-shadow] duration-200", selected ? "bg-white text-a7-blue shadow-[var(--shadow-hairline)]" : "text-[#68716D] hover:text-a7-navy")}>{option === "rent" ? tx("Rent", "ငှားရန်") : tx("Buy", "ဝယ်ရန်")}</button>;
-                })}
-              </div>
               <FilterChip icon={<MapPin className="size-3.5" />} active={location !== "All Myanmar"} onClick={() => openFilters("location")}>{location === "All Myanmar" ? tx("Location", "နေရာ") : location}</FilterChip>
               <FilterChip icon={<Banknote className="size-3.5" />} active={minPrice !== null || maxPrice !== null} onClick={() => openFilters("price")}>{minPrice !== null || maxPrice !== null ? formatPriceRangeCompact(minPrice, maxPrice) : tx("Price", "ဈေးနှုန်း")}</FilterChip>
               <FilterChip icon={<BedDouble className="size-3.5" />} active={bedrooms !== null || bathrooms !== null} onClick={() => openFilters("beds")}>{bedrooms || bathrooms ? [bedrooms ? `${bedrooms}+ bd` : "", bathrooms ? `${bathrooms}+ ba` : ""].filter(Boolean).join(" · ") : tx("Beds & baths", "အိပ်ခန်း · ရေချိုးခန်း")}</FilterChip>
