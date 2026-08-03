@@ -37,7 +37,7 @@ function ComparisonTray() {
                   <button type="button" onClick={() => removeProperty(property.id)} className="absolute inset-0 grid place-items-center text-white" aria-label={tx(`Remove ${property.title} from comparison`, `${property.title} ကို နှိုင်းယှဉ်မှုမှဖယ်ရန်`)}><span className="absolute right-0 top-0 grid size-4 place-items-center rounded-full bg-[#0F1B2D]/88 shadow-sm"><X className="size-2.5" /></span></button>
                 </span>
               ))}
-              {comparisonProperties.length > 3 && <span className="relative grid size-11 place-items-center rounded-full border-2 border-white bg-[#EEF5FC] text-[9px] font-bold text-[#014BAA]">+{comparisonProperties.length - 3}</span>}
+              {comparisonProperties.length > 3 && <span className="relative grid size-11 place-items-center rounded-full border-2 border-white bg-[#EEF5FC] text-[9px] font-bold text-[#0057D9]">+{comparisonProperties.length - 3}</span>}
             </div>
             <div className="min-w-0 flex-1">
               <p className="truncate text-[11px] font-semibold text-[#172033]">{tx(`${comparisonProperties.length} of ${maxComparisonHomes} homes selected`, `အိမ် ${comparisonProperties.length}/${maxComparisonHomes} လုံး ရွေးထားသည်`)}</p>
@@ -45,7 +45,7 @@ function ComparisonTray() {
             </div>
             <button type="button" onClick={clearComparison} className="grid size-11 shrink-0 place-items-center rounded-[12px] text-[#6B7470] hover:bg-[#F3F1EC]" aria-label={tx("Clear comparison", "နှိုင်းယှဉ်မှုရှင်းရန်")}><Trash2 className="size-4" /></button>
             {ready ? (
-              <Link href="/compare" className="inline-flex h-11 shrink-0 items-center gap-1.5 rounded-[12px] bg-[#014BAA] px-4 text-[10px] font-semibold text-white shadow-sm"><Scale className="size-4" />{tx("Compare", "နှိုင်းယှဉ်")}</Link>
+              <Link href="/compare" className="inline-flex h-11 shrink-0 items-center gap-1.5 rounded-[12px] bg-[#0057D9] px-4 text-[10px] font-semibold text-white shadow-sm"><Scale className="size-4" />{tx("Compare", "နှိုင်းယှဉ်")}</Link>
             ) : (
               <span className="inline-flex h-11 shrink-0 items-center gap-1.5 rounded-[12px] bg-[#EEF5FC] px-3 text-[9px] font-semibold text-[#5E7794]"><Check className="size-3.5" />{tx("1 more", "၁ အိမ်လို")}</span>
             )}

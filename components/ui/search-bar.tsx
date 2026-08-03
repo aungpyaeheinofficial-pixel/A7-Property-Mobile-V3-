@@ -16,20 +16,20 @@ function SearchBar({ value, onValueChange, onSubmit, label, placeholder, trailin
   return (
     <form
       role="search"
-      className={cn("flex min-h-12 min-w-0 items-center gap-2 rounded-[12px] border border-[#DCD9D2] bg-white px-4 transition-colors focus-within:border-[#014BAA]", className)}
+      className={cn("flex min-h-12 min-w-0 items-center gap-2 rounded-[var(--radius-control)] border border-a7-line bg-white px-4 shadow-[var(--shadow-hairline)] transition-[border-color,box-shadow] duration-[var(--duration-base)] focus-within:border-a7-blue focus-within:shadow-[0_0_0_3px_rgba(0,87,217,.1)]", className)}
       onSubmit={(event) => {
         event.preventDefault();
         onSubmit?.();
       }}
       {...props}
     >
-      <Search className="size-[18px] shrink-0 text-[#014BAA]" aria-hidden="true" />
+      <Search className="size-[18px] shrink-0 text-a7-blue" aria-hidden="true" />
       <input
         value={value}
         onChange={(event) => onValueChange(event.target.value)}
         aria-label={label}
         placeholder={placeholder}
-        className="min-h-11 min-w-0 flex-1 bg-transparent text-[14px] text-[#111827] outline-none placeholder:text-[#969D99]"
+        className="min-h-11 min-w-0 flex-1 bg-transparent text-[14px] text-a7-navy outline-none placeholder:text-[#969D99]"
       />
       {trailing}
     </form>

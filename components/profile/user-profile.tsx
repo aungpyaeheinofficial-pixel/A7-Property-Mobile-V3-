@@ -111,8 +111,8 @@ function Toggle({ checked, onChange, label }: { checked: boolean; onChange: () =
       aria-label={label}
       onClick={onChange}
       className={cn(
-        "relative h-7 w-12 shrink-0 rounded-full transition-colors focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#014BAA]/20",
-        checked ? "bg-[#014BAA]" : "bg-[#CCD3DB]",
+        "relative h-7 w-12 shrink-0 rounded-full transition-colors focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#0057D9]/20",
+        checked ? "bg-[#0057D9]" : "bg-[#CCD3DB]",
       )}
     >
       <span className={cn("absolute top-1 size-5 rounded-full bg-white shadow-sm transition-transform", checked ? "translate-x-6" : "translate-x-1")} />
@@ -267,13 +267,13 @@ function UserProfile() {
             <Link href="/dashboard?section=saved" className="inline-flex h-10 items-center gap-2 rounded-full px-4 text-[12px] font-medium text-[#5F6B78] transition-colors hover:bg-white hover:text-[#17263A]">
               <Heart className="size-[17px]" />
               {tx("Saved homes", "သိမ်းထားသောအိမ်များ")}
-              {savedCount > 0 && <span data-type="number" className="grid h-6 min-w-6 place-items-center rounded-full bg-[#014BAA] px-1.5 text-[10px] font-bold text-white">{savedCount}</span>}
+              {savedCount > 0 && <span data-type="number" className="grid h-6 min-w-6 place-items-center rounded-full bg-[#0057D9] px-1.5 text-[10px] font-bold text-white">{savedCount}</span>}
             </Link>
             <Link href="/dashboard?section=messages#conversations" className="inline-flex h-10 items-center gap-2 rounded-full px-4 text-[12px] font-medium text-[#5F6B78] transition-colors hover:bg-white hover:text-[#17263A]"><MessageCircle className="size-[17px]" />{tx("Messages", "မက်ဆေ့ချ်များ")}</Link>
             <Link href="/dashboard?section=viewings#viewings" className="inline-flex h-10 items-center gap-2 rounded-full px-4 text-[12px] font-medium text-[#5F6B78] transition-colors hover:bg-white hover:text-[#17263A]"><CalendarDays className="size-[17px]" />{tx("Viewings", "အိမ်ကြည့်ချိန်များ")}</Link>
           </nav>
           <div className="ml-auto flex items-center gap-2">
-            <Link href="/search?purpose=rent" className="hidden size-10 place-items-center rounded-full text-[#526171] transition-colors hover:bg-white hover:text-[#014BAA] sm:grid" aria-label={tx("Find homes", "အိမ်ရှာရန်")}><Search className="size-[19px]" /></Link>
+            <Link href="/search?purpose=rent" className="hidden size-10 place-items-center rounded-full text-[#526171] transition-colors hover:bg-white hover:text-[#0057D9] sm:grid" aria-label={tx("Find homes", "အိမ်ရှာရန်")}><Search className="size-[19px]" /></Link>
             <A7AssistantPopover labelClassName="hidden min-[400px]:inline" />
             <LanguageSwitcher className="hidden sm:block" />
             <LanguageSwitcher compact className="sm:hidden" />
@@ -293,7 +293,7 @@ function UserProfile() {
               <p className="text-[10px] font-semibold uppercase tracking-[0.15em] text-[#79838E]">{tx("Your A7 profile", "သင့် A7 ကိုယ်ရေးအချက်အလက်")}</p>
               <h1 className="mt-2 text-[32px] font-semibold tracking-[-0.05em] text-[#16263A] sm:text-[42px]">{profile.name}</h1>
               <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2 text-[12px] text-[#64717E]">
-                <span className="inline-flex items-center gap-1.5"><MapPin className="size-4 text-[#014BAA]" />{profile.city}, Myanmar</span>
+                <span className="inline-flex items-center gap-1.5"><MapPin className="size-4 text-[#0057D9]" />{profile.city}, Myanmar</span>
                 <span className="inline-flex items-center gap-1.5 text-[#2B704F]"><ShieldCheck className="size-4" />{tx("Phone & email verified", "ဖုန်းနှင့် အီးမေးလ် အတည်ပြုပြီး")}</span>
               </div>
               <p className="mt-4 max-w-xl text-[13px] leading-6 text-[#707A85]">{tx("Your profile helps trusted owners understand who they’re welcoming into their home.", "သင့်ကိုယ်ရေးအချက်အလက်က စိစစ်ပြီးအိမ်ရှင်များအား သူတို့အိမ်သို့ ဘယ်သူကိုကြိုဆိုနေလဲ နားလည်စေသည်။")}</p>
@@ -322,11 +322,11 @@ function UserProfile() {
                   <span className="inline-flex items-center gap-1 rounded-full bg-[#EEF5FC] px-3 py-1.5 text-[9px] font-semibold text-[#27714D]"><Check className="size-3.5" />{tx("Verified", "အတည်ပြုပြီး")}</span>
                 </div>
                 <div className="flex items-center gap-4 py-4">
-                  <span className={cn("grid size-11 place-items-center rounded-full", identityStarted ? "bg-[#EEF5FC] text-[#014BAA]" : "bg-[#F2F3F1] text-[#64707C]")}><CircleUserRound className="size-[19px]" /></span>
+                  <span className={cn("grid size-11 place-items-center rounded-full", identityStarted ? "bg-[#EEF5FC] text-[#0057D9]" : "bg-[#F2F3F1] text-[#64707C]")}><CircleUserRound className="size-[19px]" /></span>
                   <span className="min-w-0 flex-1"><strong className="block text-[13px]">{tx("Identity verification", "အထောက်အထား စိစစ်ခြင်း")}</strong><small className="mt-1 block text-[10px] text-[#737E89]">{identityStarted ? tx("We’re reviewing your submitted details.", "သင်ပေးပို့ထားသောအချက်အလက်များကို စိစစ်နေသည်။") : tx("Add an extra layer of trust for owners.", "အိမ်ရှင်များအတွက် ယုံကြည်မှုတစ်ဆင့် ထပ်တိုးပါ။")}</small></span>
                   {identityStarted
-                    ? <span className="rounded-full bg-[#EEF5FC] px-3 py-1.5 text-[9px] font-semibold text-[#014BAA]">{tx("In review", "စိစစ်နေသည်")}</span>
-                    : <button type="button" onClick={() => setIdentityStarted(true)} className="rounded-full border border-[#B9D3FA] bg-white px-3 py-2 text-[9px] font-semibold text-[#014BAA] hover:bg-[#F4F8FF]">{tx("Verify identity", "အထောက်အထား စိစစ်ရန်")}</button>}
+                    ? <span className="rounded-full bg-[#EEF5FC] px-3 py-1.5 text-[9px] font-semibold text-[#0057D9]">{tx("In review", "စိစစ်နေသည်")}</span>
+                    : <button type="button" onClick={() => setIdentityStarted(true)} className="rounded-full border border-[#B9D3FA] bg-white px-3 py-2 text-[9px] font-semibold text-[#0057D9] hover:bg-[#F4F8FF]">{tx("Verify identity", "အထောက်အထား စိစစ်ရန်")}</button>}
                 </div>
               </div>
             </section>
@@ -338,10 +338,10 @@ function UserProfile() {
                   <h2 className="mt-2 text-[23px] font-semibold tracking-[-0.04em]">{tx("Home preferences", "အိမ်အကြိုက်များ")}</h2>
                   <p className="mt-2 text-[12px] leading-5 text-[#6A7581]">{tx("We’ll use these to keep your recommendations relevant.", "ကိုက်ညီသောအကြံပြုချက်များပေးရန် ဤအချက်များကို အသုံးပြုမည်။")}</p>
                 </div>
-                <button type="button" onClick={openPreferenceEditor} className="inline-flex h-9 shrink-0 items-center gap-1.5 rounded-full bg-[#F1F5F8] px-3 text-[10px] font-semibold text-[#29445F] hover:bg-[#E9F2FF] hover:text-[#014BAA]"><SlidersHorizontal className="size-3.5" />{tx("Edit", "ပြင်ရန်")}</button>
+                <button type="button" onClick={openPreferenceEditor} className="inline-flex h-9 shrink-0 items-center gap-1.5 rounded-full bg-[#F1F5F8] px-3 text-[10px] font-semibold text-[#29445F] hover:bg-[#E9F2FF] hover:text-[#0057D9]"><SlidersHorizontal className="size-3.5" />{tx("Edit", "ပြင်ရန်")}</button>
               </div>
               <dl className="mt-5 grid gap-x-8 sm:grid-cols-2">
-                <PreferenceValue label={tx("Looking for", "ရှာဖွေနေသည်")}><span className="inline-flex rounded-full bg-[#EEF5FC] px-3 py-1 text-[10px] font-semibold text-[#014BAA]">{preferences.journey === "rent" ? tx("Rent", "ငှားရန်") : tx("Buy", "ဝယ်ရန်")}</span></PreferenceValue>
+                <PreferenceValue label={tx("Looking for", "ရှာဖွေနေသည်")}><span className="inline-flex rounded-full bg-[#EEF5FC] px-3 py-1 text-[10px] font-semibold text-[#0057D9]">{preferences.journey === "rent" ? tx("Rent", "ငှားရန်") : tx("Buy", "ဝယ်ရန်")}</span></PreferenceValue>
                 <PreferenceValue label={tx("Budget", "ဘတ်ဂျက်")}>{preferences.budget}</PreferenceValue>
                 <PreferenceValue label={tx("Preferred locations", "နှစ်သက်သောနေရာများ")}><span className="flex flex-wrap gap-1.5">{preferences.locations.map((location) => <span key={location} className="rounded-full bg-[#F2F4F6] px-2.5 py-1 text-[10px]">{location}</span>)}</span></PreferenceValue>
                 <PreferenceValue label={tx("Property type", "အိမ်အမျိုးအစား")}>{preferences.propertyTypes.join(" · ") || tx("Any property", "မည်သည့်အိမ်မဆို")}</PreferenceValue>
@@ -356,7 +356,7 @@ function UserProfile() {
                   <h2 className="mt-2 text-[23px] font-semibold tracking-[-0.04em]">{tx("Saved searches", "သိမ်းထားသောရှာဖွေမှုများ")}</h2>
                   <p className="mt-2 text-[12px] leading-5 text-[#6A7581]">{tx("Get notified when a matching home is added or changes price.", "ကိုက်ညီသောအိမ်အသစ်တင်သည့်အခါ သို့မဟုတ် ဈေးပြောင်းသည့်အခါ အသိပေးမည်။")}</p>
                 </div>
-                <Link href="/search?purpose=rent" className="hidden text-[10px] font-semibold text-[#014BAA] hover:underline sm:block">{tx("Create new search", "ရှာဖွေမှုအသစ်ဖန်တီးရန်")}</Link>
+                <Link href="/search?purpose=rent" className="hidden text-[10px] font-semibold text-[#0057D9] hover:underline sm:block">{tx("Create new search", "ရှာဖွေမှုအသစ်ဖန်တီးရန်")}</Link>
               </div>
               <div className="mt-6 divide-y divide-[#E8EAED]">
                 {savedSearches.map((search) => (
@@ -365,7 +365,7 @@ function UserProfile() {
                     <span className="min-w-0 flex-1">
                       <strong className="block truncate text-[13px] text-[#223246]">{search.title}</strong>
                       <small className="mt-1.5 block truncate text-[10px] text-[#737E89]">{search.details}</small>
-                      <small className="mt-1.5 block text-[9px] font-medium text-[#014BAA]">{search.timing} {tx("alerts", "အသိပေးချက်များ")}</small>
+                      <small className="mt-1.5 block text-[9px] font-medium text-[#0057D9]">{search.timing} {tx("alerts", "အသိပေးချက်များ")}</small>
                     </span>
                     <Toggle
                       checked={search.alerts}
@@ -388,7 +388,7 @@ function UserProfile() {
                 const Icon = item.icon;
                 return (
                   <button key={item.id} type="button" onClick={() => openSetting(item.id)} className="group flex w-full items-center gap-3 rounded-[18px] px-3 py-4 text-left transition-colors hover:bg-[#F6F7F5]">
-                    <span className="grid size-10 shrink-0 place-items-center rounded-full bg-[#F1F3F5] text-[#526171] transition-colors group-hover:bg-white group-hover:text-[#014BAA]"><Icon className="size-[18px]" /></span>
+                    <span className="grid size-10 shrink-0 place-items-center rounded-full bg-[#F1F3F5] text-[#526171] transition-colors group-hover:bg-white group-hover:text-[#0057D9]"><Icon className="size-[18px]" /></span>
                     <span className="min-w-0 flex-1"><strong className="block text-[12px] text-[#26364A]">{isMyanmar ? accountSettingsMyanmar[item.id].label : item.label}</strong><small className="mt-1 block truncate text-[9px] text-[#7A848E]">{item.id === "language" ? (language === "my" ? "မြန်မာ" : "English") : isMyanmar ? accountSettingsMyanmar[item.id].detail : item.detail}</small></span>
                     <ChevronRight className="size-4 text-[#A0A7AE] transition-transform group-hover:translate-x-0.5" />
                   </button>
@@ -403,7 +403,7 @@ function UserProfile() {
         <Link href="/search?purpose=rent" className="flex flex-col items-center justify-center gap-1 rounded-2xl text-[10px] font-medium text-[#687481]"><Search className="size-[18px]" />{tx("Explore", "ရှာဖွေ")}</Link>
         <Link href="/dashboard?section=saved" className="flex flex-col items-center justify-center gap-1 rounded-2xl text-[10px] font-medium text-[#687481]"><Heart className="size-[18px]" />{tx("Saved", "သိမ်းထား")}</Link>
         <Link href="/dashboard?section=messages#conversations" className="flex flex-col items-center justify-center gap-1 rounded-2xl text-[10px] font-medium text-[#687481]"><MessageCircle className="size-[18px]" />{tx("Messages", "မက်ဆေ့ချ်")}</Link>
-        <Link href="/profile" aria-current="page" className="flex flex-col items-center justify-center gap-1 rounded-2xl bg-[#EEF5FC] text-[10px] font-medium text-[#014BAA]"><UserRound className="size-[18px]" />{tx("Profile", "ကိုယ်ရေးအချက်အလက်")}</Link>
+        <Link href="/profile" aria-current="page" className="flex flex-col items-center justify-center gap-1 rounded-2xl bg-[#EEF5FC] text-[10px] font-medium text-[#0057D9]"><UserRound className="size-[18px]" />{tx("Profile", "ကိုယ်ရေးအချက်အလက်")}</Link>
       </nav>
 
       <Sheet
@@ -416,8 +416,8 @@ function UserProfile() {
       >
         <div className="space-y-5 p-5 sm:p-7">
           <div className="grid size-20 place-items-center rounded-full bg-[#17304A] text-xl font-semibold text-white">{mockUser.initials}</div>
-          <label className="block"><span className="text-[11px] font-semibold text-[#3D4B5B]">Full name</span><input value={profileDraft.name} onChange={(event) => setProfileDraft({ ...profileDraft, name: event.target.value })} className="mt-2 h-12 w-full rounded-xl border border-[#CCD5DF] bg-white px-4 text-sm outline-none focus:border-[#014BAA]" /></label>
-          <label className="block"><span className="text-[11px] font-semibold text-[#3D4B5B]">Location</span><select value={profileDraft.city} onChange={(event) => setProfileDraft({ ...profileDraft, city: event.target.value })} className="mt-2 h-12 w-full rounded-xl border border-[#CCD5DF] bg-white px-4 text-sm outline-none focus:border-[#014BAA]"><option>Yangon</option><option>Mandalay</option></select></label>
+          <label className="block"><span className="text-[11px] font-semibold text-[#3D4B5B]">Full name</span><input value={profileDraft.name} onChange={(event) => setProfileDraft({ ...profileDraft, name: event.target.value })} className="mt-2 h-12 w-full rounded-xl border border-[#CCD5DF] bg-white px-4 text-sm outline-none focus:border-[#0057D9]" /></label>
+          <label className="block"><span className="text-[11px] font-semibold text-[#3D4B5B]">Location</span><select value={profileDraft.city} onChange={(event) => setProfileDraft({ ...profileDraft, city: event.target.value })} className="mt-2 h-12 w-full rounded-xl border border-[#CCD5DF] bg-white px-4 text-sm outline-none focus:border-[#0057D9]"><option>Yangon</option><option>Mandalay</option></select></label>
           <div className="rounded-2xl bg-[#F4F6F8] p-4 text-[11px] leading-5 text-[#66717E]">Your phone number and email stay private until you choose to contact an owner.</div>
         </div>
       </Sheet>
@@ -431,11 +431,11 @@ function UserProfile() {
         footer={<Button className="w-full rounded-full" onClick={savePreferences}>Save preferences</Button>}
       >
         <div className="space-y-7 p-5 sm:p-7">
-          <div><p className="text-[11px] font-semibold">Looking for</p><div className="mt-3 grid grid-cols-2 rounded-xl bg-[#EEF1F4] p-1">{(["rent", "buy"] as const).map((journey) => <button key={journey} type="button" onClick={() => setPreferenceDraft({ ...preferenceDraft, journey })} className={cn("h-10 rounded-lg text-xs font-semibold capitalize", preferenceDraft.journey === journey ? "bg-white text-[#014BAA] shadow-sm" : "text-[#66717E]")}>{journey}</button>)}</div></div>
-          <div><p className="text-[11px] font-semibold">Preferred locations</p><div className="mt-3 flex flex-wrap gap-2">{locationOptions.map((location) => <button key={location} type="button" onClick={() => toggleDraftLocation(location)} className={cn("rounded-full border px-3 py-2 text-[10px] font-semibold", preferenceDraft.locations.includes(location) ? "border-[#014BAA] bg-[#EEF5FC] text-[#014BAA]" : "border-[#D4DAE1] bg-white text-[#596675]")}>{location}</button>)}</div></div>
-          <label className="block"><span className="text-[11px] font-semibold">Budget</span><select value={preferenceDraft.budget} onChange={(event) => setPreferenceDraft({ ...preferenceDraft, budget: event.target.value })} className="mt-3 h-12 w-full rounded-xl border border-[#CCD5DF] bg-white px-4 text-xs outline-none focus:border-[#014BAA]"><option>300,000 – 800,000 MMK / month</option><option>500,000 – 1,500,000 MMK / month</option><option>1,500,000 – 3,000,000 MMK / month</option><option>Up to 300M MMK</option></select></label>
-          <div><p className="text-[11px] font-semibold">Property type</p><div className="mt-3 grid grid-cols-2 gap-2">{propertyTypeOptions.map((type) => <button key={type} type="button" onClick={() => toggleDraftPropertyType(type)} className={cn("h-11 rounded-xl border text-[10px] font-semibold", preferenceDraft.propertyTypes.includes(type) ? "border-[#014BAA] bg-[#EEF5FC] text-[#014BAA]" : "border-[#D4DAE1] bg-white text-[#596675]")}>{type}</button>)}</div></div>
-          <div><p className="text-[11px] font-semibold">Bedrooms</p><div className="mt-3 flex gap-2">{["Studio", "1+", "2+", "3+"].map((bedrooms) => <button key={bedrooms} type="button" onClick={() => setPreferenceDraft({ ...preferenceDraft, bedrooms: bedrooms === "Studio" ? bedrooms : `${bedrooms} bedrooms` })} className={cn("grid size-11 place-items-center rounded-full border text-[10px] font-semibold", preferenceDraft.bedrooms.startsWith(bedrooms) ? "border-[#014BAA] bg-[#014BAA] text-white" : "border-[#D4DAE1] bg-white text-[#596675]")}>{bedrooms}</button>)}</div></div>
+          <div><p className="text-[11px] font-semibold">Looking for</p><div className="mt-3 grid grid-cols-2 rounded-xl bg-[#EEF1F4] p-1">{(["rent", "buy"] as const).map((journey) => <button key={journey} type="button" onClick={() => setPreferenceDraft({ ...preferenceDraft, journey })} className={cn("h-10 rounded-lg text-xs font-semibold capitalize", preferenceDraft.journey === journey ? "bg-white text-[#0057D9] shadow-sm" : "text-[#66717E]")}>{journey}</button>)}</div></div>
+          <div><p className="text-[11px] font-semibold">Preferred locations</p><div className="mt-3 flex flex-wrap gap-2">{locationOptions.map((location) => <button key={location} type="button" onClick={() => toggleDraftLocation(location)} className={cn("rounded-full border px-3 py-2 text-[10px] font-semibold", preferenceDraft.locations.includes(location) ? "border-[#0057D9] bg-[#EEF5FC] text-[#0057D9]" : "border-[#D4DAE1] bg-white text-[#596675]")}>{location}</button>)}</div></div>
+          <label className="block"><span className="text-[11px] font-semibold">Budget</span><select value={preferenceDraft.budget} onChange={(event) => setPreferenceDraft({ ...preferenceDraft, budget: event.target.value })} className="mt-3 h-12 w-full rounded-xl border border-[#CCD5DF] bg-white px-4 text-xs outline-none focus:border-[#0057D9]"><option>300,000 – 800,000 MMK / month</option><option>500,000 – 1,500,000 MMK / month</option><option>1,500,000 – 3,000,000 MMK / month</option><option>Up to 300M MMK</option></select></label>
+          <div><p className="text-[11px] font-semibold">Property type</p><div className="mt-3 grid grid-cols-2 gap-2">{propertyTypeOptions.map((type) => <button key={type} type="button" onClick={() => toggleDraftPropertyType(type)} className={cn("h-11 rounded-xl border text-[10px] font-semibold", preferenceDraft.propertyTypes.includes(type) ? "border-[#0057D9] bg-[#EEF5FC] text-[#0057D9]" : "border-[#D4DAE1] bg-white text-[#596675]")}>{type}</button>)}</div></div>
+          <div><p className="text-[11px] font-semibold">Bedrooms</p><div className="mt-3 flex gap-2">{["Studio", "1+", "2+", "3+"].map((bedrooms) => <button key={bedrooms} type="button" onClick={() => setPreferenceDraft({ ...preferenceDraft, bedrooms: bedrooms === "Studio" ? bedrooms : `${bedrooms} bedrooms` })} className={cn("grid size-11 place-items-center rounded-full border text-[10px] font-semibold", preferenceDraft.bedrooms.startsWith(bedrooms) ? "border-[#0057D9] bg-[#0057D9] text-white" : "border-[#D4DAE1] bg-white text-[#596675]")}>{bedrooms}</button>)}</div></div>
         </div>
       </Sheet>
 
@@ -454,7 +454,7 @@ function UserProfile() {
       >
         <div className="p-5 sm:p-7">
           {settingAction && (
-            <button type="button" onClick={() => { setSettingAction(null); setSettingNotice(""); }} className="mb-5 inline-flex items-center gap-1 text-[11px] font-semibold text-[#014BAA]">
+            <button type="button" onClick={() => { setSettingAction(null); setSettingNotice(""); }} className="mb-5 inline-flex items-center gap-1 text-[11px] font-semibold text-[#0057D9]">
               ← Back to {activeSettingMeta?.label.toLowerCase()}
             </button>
           )}
@@ -482,8 +482,8 @@ function UserProfile() {
           )}
           {activeSetting === "security" && settingAction === "password" && (
             <div className="space-y-4">
-              <label className="block"><span className="text-[11px] font-semibold">New password</span><input type="password" value={passwordDraft.password} onChange={(event) => setPasswordDraft({ ...passwordDraft, password: event.target.value })} autoComplete="new-password" className="mt-2 h-12 w-full rounded-xl border border-[#CCD5DF] px-4 text-sm outline-none focus:border-[#014BAA]" /></label>
-              <label className="block"><span className="text-[11px] font-semibold">Confirm password</span><input type="password" value={passwordDraft.confirm} onChange={(event) => setPasswordDraft({ ...passwordDraft, confirm: event.target.value })} autoComplete="new-password" className="mt-2 h-12 w-full rounded-xl border border-[#CCD5DF] px-4 text-sm outline-none focus:border-[#014BAA]" /></label>
+              <label className="block"><span className="text-[11px] font-semibold">New password</span><input type="password" value={passwordDraft.password} onChange={(event) => setPasswordDraft({ ...passwordDraft, password: event.target.value })} autoComplete="new-password" className="mt-2 h-12 w-full rounded-xl border border-[#CCD5DF] px-4 text-sm outline-none focus:border-[#0057D9]" /></label>
+              <label className="block"><span className="text-[11px] font-semibold">Confirm password</span><input type="password" value={passwordDraft.confirm} onChange={(event) => setPasswordDraft({ ...passwordDraft, confirm: event.target.value })} autoComplete="new-password" className="mt-2 h-12 w-full rounded-xl border border-[#CCD5DF] px-4 text-sm outline-none focus:border-[#0057D9]" /></label>
               <Button className="w-full rounded-full" onClick={savePassword}>Update password</Button>
             </div>
           )}
@@ -512,7 +512,7 @@ function UserProfile() {
           {activeSetting === "language" && (
             <div className="space-y-3">
               {([{ value: "en", label: "English" }, { value: "my", label: "မြန်မာ" }] as const).map((option) => (
-                <button key={option.value} type="button" onClick={() => setLanguage(option.value)} className={cn("flex w-full items-center justify-between rounded-2xl border p-4 text-left text-sm font-semibold", language === option.value ? "border-[#014BAA] bg-[#F3F7FF] text-[#014BAA]" : "border-[#E0E4E8]")}>
+                <button key={option.value} type="button" onClick={() => setLanguage(option.value)} className={cn("flex w-full items-center justify-between rounded-2xl border p-4 text-left text-sm font-semibold", language === option.value ? "border-[#0057D9] bg-[#F3F7FF] text-[#0057D9]" : "border-[#E0E4E8]")}>
                   {option.label}{language === option.value && <Check className="size-5" />}
                 </button>
               ))}
@@ -534,7 +534,7 @@ function UserProfile() {
           )}
           {activeSetting === "privacy" && settingAction === "download" && (
             <div className="rounded-2xl border border-[#E0E4E8] p-5">
-              <Download className="size-6 text-[#014BAA]" />
+              <Download className="size-6 text-[#0057D9]" />
               <h3 className="mt-4 text-sm font-semibold">Download your A7 data</h3>
               <p className="mt-2 text-[11px] leading-5 text-[#6E7985]">Includes your profile, preferences, notifications, and saved searches as a JSON file.</p>
               <Button className="mt-5 w-full rounded-full" onClick={downloadProfileData}>Prepare download</Button>
@@ -558,7 +558,7 @@ function UserProfile() {
           )}
           {activeSetting === "help" && settingAction === "safety" && (
             <div>
-              <label className="block"><span className="text-[11px] font-semibold">Tell our trust team what happened</span><textarea value={safetyReport} onChange={(event) => setSafetyReport(event.target.value)} className="mt-2 min-h-36 w-full resize-none rounded-2xl border border-[#CCD5DF] p-4 text-xs leading-5 outline-none focus:border-[#014BAA]" placeholder="Include the listing, person, and anything that made you feel unsafe." /></label>
+              <label className="block"><span className="text-[11px] font-semibold">Tell our trust team what happened</span><textarea value={safetyReport} onChange={(event) => setSafetyReport(event.target.value)} className="mt-2 min-h-36 w-full resize-none rounded-2xl border border-[#CCD5DF] p-4 text-xs leading-5 outline-none focus:border-[#0057D9]" placeholder="Include the listing, person, and anything that made you feel unsafe." /></label>
               <Button className="mt-4 w-full rounded-full" onClick={submitSafetyReport}><Send className="size-4" />Send report</Button>
             </div>
           )}

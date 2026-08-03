@@ -40,6 +40,11 @@
   --color-card: var(--card);
   --color-foreground: var(--foreground);
   --color-background: var(--background);
+  --color-a7-blue: var(--a7-blue);
+  --color-a7-cream: var(--a7-cream);
+  --color-a7-navy: var(--a7-navy);
+  --color-a7-muted: var(--text-secondary);
+  --color-a7-line: var(--border-subtle);
   --radius-sm: calc(var(--radius) * 0.6);
   --radius-md: calc(var(--radius) * 0.8);
   --radius-lg: var(--radius);
@@ -54,42 +59,91 @@
   --type-display: "SF Pro Display", "SF Pro Icons", -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Noto Sans Myanmar", sans-serif;
   --type-text: "SF Pro Text", "SF Pro Icons", -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Noto Sans Myanmar", sans-serif;
   --type-myanmar: "Noto Sans Myanmar", "Myanmar Text", sans-serif;
-  --brand-blue: #014baa;
-  --brand-blue-hover: #003f91;
-  --brand-blue-soft: #eef5fc;
-  --brand-cream: #f8f3f0;
-  --brand-ink: #111827;
-  --brand-muted: #64748b;
-  --brand-canvas: #f8f3f0;
+
+  /* A7's three fixed brand anchors. Do not alter these values. */
+  --a7-blue: #0057d9;
+  --a7-cream: #faf8f5;
+  --a7-navy: #0f1b2d;
+  --brand-blue: var(--a7-blue);
+  --brand-blue-hover: #0049b8;
+  --brand-blue-soft: #edf4ff;
+  --brand-cream: var(--a7-cream);
+  --brand-ink: var(--a7-navy);
+  --brand-muted: #667085;
+  --brand-canvas: var(--a7-cream);
   --brand-surface: #ffffff;
-  --brand-line: #dfe5ec;
+  --brand-line: #e4e1dc;
   --brand-success: #287a4b;
-  --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.08);
-  --shadow-lifted: 0 8px 28px rgba(15, 23, 42, 0.1);
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: #014baa;
+
+  /* Neutral surfaces keep the brand calm; blue remains an action color. */
+  --surface: #ffffff;
+  --surface-subtle: #f4f2ee;
+  --surface-raised: #ffffff;
+  --text-primary: var(--a7-navy);
+  --text-secondary: #667085;
+  --text-tertiary: #858c98;
+  --border-subtle: #e5e2dd;
+  --border-strong: #d4d0ca;
+
+  /* Apple-inspired 4/8 spacing rhythm. */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+
+  --radius-xs: 0.5rem;
+  --radius-sm: 0.75rem;
+  --radius-control: 0.875rem;
+  --radius-card: 1.25rem;
+  --radius-sheet: 1.75rem;
+  --radius-pill: 999px;
+
+  --shadow-hairline: 0 1px 2px rgba(15, 27, 45, 0.04);
+  --shadow-soft: 0 1px 2px rgba(15, 27, 45, 0.035), 0 8px 24px rgba(15, 27, 45, 0.055);
+  --shadow-lifted: 0 2px 5px rgba(15, 27, 45, 0.05), 0 16px 40px rgba(15, 27, 45, 0.09);
+  --shadow-overlay: 0 24px 64px rgba(15, 27, 45, 0.16);
+  --shadow-action: 0 6px 18px rgba(0, 87, 217, 0.2);
+
+  --glass-background: rgba(255, 255, 255, 0.82);
+  --glass-border: rgba(255, 255, 255, 0.72);
+  --glass-blur: 18px;
+
+  --duration-fast: 120ms;
+  --duration-base: 180ms;
+  --duration-slow: 260ms;
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --ease-emphasized: cubic-bezier(0.22, 1, 0.36, 1);
+
+  --background: var(--a7-cream);
+  --foreground: var(--a7-navy);
+  --card: #ffffff;
+  --card-foreground: var(--a7-navy);
+  --popover: #ffffff;
+  --popover-foreground: var(--a7-navy);
+  --primary: var(--a7-blue);
   --primary-foreground: #ffffff;
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: #e9e7e2;
-  --muted-foreground: #64748b;
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
+  --secondary: #f2f0ec;
+  --secondary-foreground: var(--a7-navy);
+  --muted: #efede9;
+  --muted-foreground: var(--text-secondary);
+  --accent: var(--brand-blue-soft);
+  --accent-foreground: var(--a7-blue);
   --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
+  --border: var(--border-subtle);
+  --input: var(--border-strong);
+  --ring: var(--a7-blue);
   --chart-1: oklch(0.87 0 0);
   --chart-2: oklch(0.556 0 0);
   --chart-3: oklch(0.439 0 0);
   --chart-4: oklch(0.371 0 0);
   --chart-5: oklch(0.269 0 0);
-  --radius: 0.625rem;
+  --radius: var(--radius-control);
   --sidebar: oklch(0.985 0 0);
   --sidebar-foreground: oklch(0.145 0 0);
   --sidebar-primary: oklch(0.205 0 0);
@@ -113,14 +167,12 @@ html {
 body {
   min-width: 320px;
   margin: 0;
-  background:
-    radial-gradient(circle at 8% -8%, rgba(1, 75, 170, 0.045), transparent 24rem),
-    linear-gradient(180deg, #ffffff 0, var(--brand-canvas) 42rem);
+  background: var(--brand-canvas);
   color: var(--brand-ink);
   font-family: var(--type-text);
   font-size: 16px;
   font-weight: 400;
-  line-height: 1.47;
+  line-height: 1.5;
   letter-spacing: -0.006em;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -134,8 +186,8 @@ h2,
 h3 {
   font-family: var(--type-display);
   font-weight: 600;
-  line-height: 1.08;
-  letter-spacing: -0.035em;
+  line-height: 1.12;
+  letter-spacing: -0.032em;
   text-wrap: balance;
 }
 
@@ -163,10 +215,6 @@ input,
 select,
 textarea {
   font: inherit;
-}
-
-button {
-  font-weight: 500 !important;
 }
 
 input,
@@ -257,7 +305,7 @@ a {
 }
 
 ::selection {
-  background: rgba(1,75,170, 0.18);
+  background: rgba(0, 87, 217, 0.18);
 }
 
 ::-webkit-scrollbar {
@@ -277,17 +325,57 @@ a {
 }
 
 .premium-surface {
-  border: 1px solid rgba(23, 43, 63, 0.08);
-  background: rgba(255, 255, 255, 0.94);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-card);
+  background: var(--surface);
   box-shadow: var(--shadow-soft);
-  backdrop-filter: blur(20px);
 }
 
 .premium-grid {
-  background-image:
-    linear-gradient(rgba(1,75,170, 0.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(1,75,170, 0.035) 1px, transparent 1px);
-  background-size: 32px 32px;
+  background: var(--brand-canvas);
+}
+
+.a7-page {
+  min-height: 100vh;
+  background: var(--brand-canvas);
+  color: var(--text-primary);
+}
+
+.a7-content {
+  width: min(100% - 2rem, 77.5rem);
+  margin-inline: auto;
+}
+
+.a7-card {
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-card);
+  background: var(--surface);
+  box-shadow: var(--shadow-soft);
+}
+
+.a7-glass {
+  border: 1px solid var(--glass-border);
+  background: var(--glass-background);
+  box-shadow: var(--shadow-hairline);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(1.12);
+  backdrop-filter: blur(var(--glass-blur)) saturate(1.12);
+}
+
+.a7-section {
+  padding-block: clamp(2.5rem, 6vw, 4rem);
+}
+
+.a7-section-title {
+  color: var(--text-primary);
+  font-family: var(--type-display);
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.035em;
+}
+
+.a7-secondary-text {
+  color: var(--text-secondary);
 }
 
 .eyebrow {
@@ -329,7 +417,7 @@ a:focus-visible,
 select:focus-visible,
 input:focus-visible,
 textarea:focus-visible {
-  outline: 3px solid rgba(1,75,170, 0.28);
+  outline: 3px solid rgba(0, 87, 217, 0.26);
   outline-offset: 3px;
 }
 
@@ -354,14 +442,6 @@ input[data-focus-ring="parent"]:focus-visible {
   display: inline-flex;
   min-height: 44px;
   align-items: center;
-}
-
-@media (max-width: 639px) {
-  body {
-    background:
-      radial-gradient(circle at 15% -5%, rgba(1,75,170, 0.05), transparent 18rem),
-      var(--brand-canvas);
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {

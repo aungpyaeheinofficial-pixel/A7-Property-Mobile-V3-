@@ -58,9 +58,9 @@ function LanguageSwitcher({ className, compact = false, menuAlign = "right" }: L
         aria-expanded={open}
         onClick={() => setOpen((value) => !value)}
         className={cn(
-          "inline-flex h-11 items-center justify-center rounded-full text-[#526172] transition-[background-color,color,box-shadow] hover:bg-[#EEF5FC] hover:text-[#014BAA] focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-[#014BAA]/18",
+          "inline-flex h-11 items-center justify-center rounded-full text-[#526172] transition-[background-color,color,box-shadow] hover:bg-[#EEF5FC] hover:text-[#0057D9] focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-[#0057D9]/18",
           compact ? "w-11" : "gap-1.5 px-3",
-          open && "bg-[#EEF5FC] text-[#014BAA]",
+          open && "bg-[#EEF5FC] text-[#0057D9]",
         )}
       >
         <Globe2 className="size-[18px]" strokeWidth={2} />
@@ -101,7 +101,7 @@ function LanguageSwitcher({ className, compact = false, menuAlign = "right" }: L
                   onClick={() => chooseLanguage(option.value)}
                   className={cn(
                     "flex min-h-11 w-full items-center gap-3 rounded-[14px] px-3 py-2.5 text-left transition-colors",
-                    selected ? "bg-[#EEF5FC] text-[#014BAA]" : "text-[#33495E] hover:bg-[#F5F6F2]",
+                    selected ? "bg-[#EEF5FC] text-[#0057D9]" : "text-[#33495E] hover:bg-[#F5F6F2]",
                   )}
                 >
                   <span className="grid size-8 place-items-center rounded-lg bg-white text-[11px] font-bold shadow-sm ring-1 ring-[#172B3F]/8">{option.value === "en" ? "EN" : "မြန်"}</span>
@@ -109,7 +109,7 @@ function LanguageSwitcher({ className, compact = false, menuAlign = "right" }: L
                     <strong lang={option.value === "my" ? "my" : "en"} className="block text-[12px] font-semibold">{option.nativeLabel}</strong>
                     <small className="mt-0.5 block text-[9px] font-normal text-[#7A8794]">{option.label}</small>
                   </span>
-                  {selected && <Check className="size-4 text-[#014BAA]" strokeWidth={2.5} />}
+                  {selected && <Check className="size-4 text-[#0057D9]" strokeWidth={2.5} />}
                 </button>
               );
             })}

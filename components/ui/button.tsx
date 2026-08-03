@@ -13,12 +13,12 @@ function Button({ className, variant = "default", size = "default", type = "butt
       data-slot="button"
       type={type}
       className={cn(
-        "inline-flex items-center justify-center gap-2 font-medium tracking-[-0.005em] transition-[color,background-color,border-color,box-shadow,transform] duration-200 outline-none focus-visible:ring-4 focus-visible:ring-[#014BAA]/20 active:translate-y-px disabled:pointer-events-none disabled:opacity-45",
-        variant === "default" && "bg-[#014BAA] !text-white shadow-[0_4px_20px_rgba(0,0,0,.08)] hover:bg-[#003F91]",
-        variant === "ghost" && "bg-transparent hover:bg-[#EEF5FC]",
-        variant === "outline" && "border border-[#D7E0EA] bg-white text-[#014BAA] shadow-[0_1px_2px_rgba(15,23,42,.04)] hover:border-[#93B4F5] hover:bg-[#F7FAFF] hover:text-[#003F91]",
-        size === "default" && "h-11 rounded-[14px] px-4 text-sm",
-        size === "icon" && "size-11 rounded-[14px]",
+        "inline-flex min-h-11 items-center justify-center gap-2 font-semibold tracking-[-0.005em] transition-[color,background-color,border-color,box-shadow,transform] duration-[var(--duration-base)] ease-[var(--ease-standard)] outline-none focus-visible:ring-4 focus-visible:ring-a7-blue/20 active:scale-[.985] disabled:pointer-events-none disabled:opacity-45",
+        variant === "default" && "bg-a7-blue text-white shadow-[var(--shadow-action)] hover:bg-[#0049B8] hover:shadow-[0_8px_22px_rgba(0,87,217,.22)]",
+        variant === "ghost" && "bg-transparent text-a7-navy hover:bg-[#F0EEEA]",
+        variant === "outline" && "border border-a7-line bg-white text-a7-navy shadow-[var(--shadow-hairline)] hover:border-[#B8C8DE] hover:bg-[#F8FAFD] hover:text-a7-blue",
+        size === "default" && "h-11 rounded-[var(--radius-control)] px-4 text-sm",
+        size === "icon" && "size-11 rounded-[var(--radius-control)]",
         className,
       )}
       {...props}

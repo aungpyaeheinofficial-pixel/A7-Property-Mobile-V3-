@@ -76,7 +76,7 @@ function PropertyCard({
     <Card
       className={cn(
         "group h-full overflow-hidden rounded-[20px] border-[#2A2A33]/15 shadow-[0_4px_20px_rgba(0,0,0,.08)]",
-        "transition-[box-shadow,border-color] duration-300 ease-out hover:border-[#014BAA]/40 hover:shadow-[0_6px_22px_rgba(17,24,39,.1)]",
+        "transition-[box-shadow,border-color] duration-300 ease-out hover:border-[#0057D9]/40 hover:shadow-[0_6px_22px_rgba(17,24,39,.1)]",
         className,
       )}
     >
@@ -90,13 +90,13 @@ function PropertyCard({
             className="object-cover transition-transform duration-300 ease-out group-hover:scale-[1.025]"
           />
         ) : (
-          <div className="grid h-full place-items-center text-[#014BAA]" aria-label="Property image unavailable">
+          <div className="grid h-full place-items-center text-[#0057D9]" aria-label="Property image unavailable">
             <House className="size-9" aria-hidden="true" />
           </div>
         )}
 
         {isVerified && (
-          <Badge className="absolute left-3 top-3 border border-white/70 bg-white/90 text-[#014BAA] shadow-sm backdrop-blur-md">
+          <Badge className="absolute left-3 top-3 border border-white/70 bg-white/90 text-[#0057D9] shadow-sm backdrop-blur-md">
             <ShieldCheck className="size-3.5" aria-hidden="true" />
             Verified
           </Badge>
@@ -107,7 +107,7 @@ function PropertyCard({
           size="icon"
           className={cn(
             "absolute right-3 top-3 size-11 border border-white/70 bg-white/90 shadow-sm backdrop-blur-md hover:bg-white",
-            isFavorite ? "text-[#014BAA]" : "text-[#2A2A33]",
+            isFavorite ? "text-[#0057D9]" : "text-[#2A2A33]",
           )}
           aria-label={isFavorite ? `Remove ${property.title} from favorites` : `Add ${property.title} to favorites`}
           aria-pressed={isFavorite}
@@ -120,18 +120,18 @@ function PropertyCard({
       <CardContent className="flex flex-1 flex-col p-4 sm:p-5">
         <div className="mb-2 flex items-center gap-2 text-[11px] font-medium text-[#6B7078]">
           <span className="truncate">{property.township}, {property.city}</span>
-          <span className="ml-auto shrink-0 rounded-full bg-[#F8F3F0] px-2 py-1 text-[9px] font-semibold uppercase tracking-[0.08em] text-[#014BAA]">
+          <span className="ml-auto shrink-0 rounded-full bg-[#FAF8F5] px-2 py-1 text-[9px] font-semibold uppercase tracking-[0.08em] text-[#0057D9]">
             For {property.purpose === "rent" ? "rent" : "sale"}
           </span>
         </div>
 
         {href ? (
-          <Link className="line-clamp-2 min-h-11 text-[15px] font-semibold leading-[1.4] tracking-[-0.02em] hover:text-[#014BAA] sm:text-base" href={href}>
+          <Link className="line-clamp-2 min-h-11 text-[15px] font-semibold leading-[1.4] tracking-[-0.02em] hover:text-[#0057D9] sm:text-base" href={href}>
             {property.title}
           </Link>
         ) : onSelect ? (
           <button
-            className="line-clamp-2 min-h-11 text-left text-[15px] font-semibold leading-[1.4] tracking-[-0.02em] hover:text-[#014BAA] sm:text-base"
+            className="line-clamp-2 min-h-11 text-left text-[15px] font-semibold leading-[1.4] tracking-[-0.02em] hover:text-[#0057D9] sm:text-base"
             onClick={() => onSelect(property)}
           >
             {property.title}
@@ -178,8 +178,8 @@ function PropertyCardSkeleton({ className }: { className?: string }) {
 
 function PropertyCardEmpty({ className, onAction }: { className?: string; onAction?: () => void }) {
   return (
-    <Card className={cn("min-h-[390px] items-center justify-center rounded-xl border-dashed border-[#014BAA]/30 bg-[#F8F3F0] p-6 text-center", className)}>
-      <div className="grid size-14 place-items-center rounded-2xl bg-white text-[#014BAA] shadow-sm">
+    <Card className={cn("min-h-[390px] items-center justify-center rounded-xl border-dashed border-[#0057D9]/30 bg-[#FAF8F5] p-6 text-center", className)}>
+      <div className="grid size-14 place-items-center rounded-2xl bg-white text-[#0057D9] shadow-sm">
         <House className="size-6" aria-hidden="true" />
       </div>
       <h3 className="mt-5 text-base font-semibold">No homes found</h3>

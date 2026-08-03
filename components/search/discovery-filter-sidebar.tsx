@@ -50,19 +50,19 @@ function DiscoveryFilterSidebar({ value, onChange, className }: DiscoveryFilterS
           <h2 className="text-sm font-semibold tracking-[-0.01em]">{tx("More filters", "နောက်ထပ်စစ်ထုတ်ရန်")}</h2>
           <p className="mt-1 text-xs text-[#6B7078]">{tx("Home features and daily lifestyle", "အိမ်အင်္ဂါရပ်များနှင့် နေ့စဉ်နေထိုင်မှုပုံစံ")}</p>
         </div>
-        <button type="button" className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#014BAA] hover:text-[#003F91]" onClick={() => onChange(clearAdvancedFilters(value))}>
+        <button type="button" className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#0057D9] hover:text-[#003F91]" onClick={() => onChange(clearAdvancedFilters(value))}>
           <RotateCcw className="size-4" />{tx("Reset", "ပြန်လည်သတ်မှတ်ရန်")}
         </button>
       </div>
 
       <FilterGroup title={tx("Furniture & parking", "ပရိဘောဂနှင့် ကားပါကင်")}>
-        <select className="h-12 w-full rounded-xl border border-[#B9BEC4] bg-white px-3 text-xs focus:border-[#014BAA] focus-visible:!outline-none" value={value.furniture} onChange={(event) => set("furniture", event.target.value as DiscoveryFilters["furniture"])} aria-label={tx("Furniture", "ပရိဘောဂ")}>
+        <select className="h-12 w-full rounded-xl border border-[#B9BEC4] bg-white px-3 text-xs focus:border-[#0057D9] focus-visible:!outline-none" value={value.furniture} onChange={(event) => set("furniture", event.target.value as DiscoveryFilters["furniture"])} aria-label={tx("Furniture", "ပရိဘောဂ")}>
           <option value="all">{tx("Any furniture", "ပရိဘောဂမရွေး")}</option>
           {(Object.entries(furnitureLabels) as Array<[Property["furniture"], string]>).map(([key, label]) => <option key={key} value={key}>{isMyanmar ? ({ unfurnished: "ပရိဘောဂမပါ", partly_furnished: "ပရိဘောဂအချို့ပါ", fully_furnished: "ပရိဘောဂအပြည့်အစုံပါ" } as Record<string, string>)[key] : label}</option>)}
         </select>
         <label className="mt-2 flex cursor-pointer items-center justify-between rounded-lg border border-[#D1D1D5] bg-white p-3">
-          <span className="flex items-center gap-2 text-xs font-medium"><CarFront className="size-[18px] text-[#014BAA]" />{tx("Parking required", "ကားပါကင်လိုအပ်သည်")}</span>
-          <input type="checkbox" className="size-4 accent-[#014BAA]" checked={value.parking} onChange={(event) => set("parking", event.target.checked)} />
+          <span className="flex items-center gap-2 text-xs font-medium"><CarFront className="size-[18px] text-[#0057D9]" />{tx("Parking required", "ကားပါကင်လိုအပ်သည်")}</span>
+          <input type="checkbox" className="size-4 accent-[#0057D9]" checked={value.parking} onChange={(event) => set("parking", event.target.checked)} />
         </label>
       </FilterGroup>
 
@@ -93,8 +93,8 @@ function FilterGroup({ title, description, children }: { title: string; descript
 
 function CheckRow({ label, selected, onClick }: { label: string; selected: boolean; onClick: () => void }) {
   return (
-    <button type="button" onClick={onClick} aria-pressed={selected} className="flex w-full items-center gap-2.5 rounded-lg px-1 py-2.5 text-left text-xs text-[#4A4A4F] hover:bg-[#F8F3F0]">
-      <span className={cn("grid size-[18px] place-items-center rounded border", selected ? "border-[#014BAA] bg-[#014BAA] text-white" : "border-[#B9BEC4] bg-white")}>{selected && <Check className="size-3.5" />}</span>
+    <button type="button" onClick={onClick} aria-pressed={selected} className="flex w-full items-center gap-2.5 rounded-lg px-1 py-2.5 text-left text-xs text-[#4A4A4F] hover:bg-[#FAF8F5]">
+      <span className={cn("grid size-[18px] place-items-center rounded border", selected ? "border-[#0057D9] bg-[#0057D9] text-white" : "border-[#B9BEC4] bg-white")}>{selected && <Check className="size-3.5" />}</span>
       {label}
     </button>
   );

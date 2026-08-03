@@ -17,10 +17,10 @@ const sizeMap: Record<IconSize, { icon: string; box: string }> = {
 
 const variantStyles: Record<IconVariant, { wrapper: string; icon: string }> = {
   default: { wrapper: "", icon: "" },
-  gradient: { wrapper: "bg-gradient-to-br from-[#014BAA] to-[#003F91] text-white shadow-[0_4px_14px_rgba(1,75,170,.25)]", icon: "" },
-  solid: { wrapper: "bg-[#EEF5FC] text-[#014BAA]", icon: "" },
+  gradient: { wrapper: "bg-gradient-to-br from-[#0057D9] to-[#003F91] text-white shadow-[0_4px_14px_rgba(0, 87, 217,.25)]", icon: "" },
+  solid: { wrapper: "bg-[#EEF5FC] text-[#0057D9]", icon: "" },
   ghost: { wrapper: "bg-white/10 text-white backdrop-blur", icon: "" },
-  glow: { wrapper: "bg-[#014BAA]/10 text-[#014BAA] shadow-[0_0_20px_rgba(1,75,170,.15)]", icon: "" },
+  glow: { wrapper: "bg-[#0057D9]/10 text-[#0057D9] shadow-[0_0_20px_rgba(0, 87, 217,.15)]", icon: "" },
 };
 
 interface AnimatedIconProps {

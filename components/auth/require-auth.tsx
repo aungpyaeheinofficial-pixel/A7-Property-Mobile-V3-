@@ -32,7 +32,7 @@ function RequireAuth({ children, requireRole, fallback }: RequireAuthProps) {
   if (status === "loading") {
     return (
       <div className="flex min-h-[60vh] items-center justify-center">
-        <div className="h-8 w-8 animate-spin rounded-full border-2 border-[#014BAA] border-t-transparent" />
+        <div className="h-8 w-8 animate-spin rounded-full border-2 border-[#0057D9] border-t-transparent" />
       </div>
     );
   }
@@ -41,7 +41,7 @@ function RequireAuth({ children, requireRole, fallback }: RequireAuthProps) {
     return fallback ?? (
       <div className="flex min-h-[60vh] flex-col items-center justify-center gap-4 px-6 text-center">
         <p className="text-[15px] font-medium text-[#172B3F]">Please sign in to continue.</p>
-        <a href="/sign-in" className="inline-flex h-11 items-center rounded-xl bg-[#014BAA] px-5 text-sm font-semibold text-white">Sign in</a>
+        <a href="/sign-in" className="inline-flex h-11 items-center rounded-xl bg-[#0057D9] px-5 text-sm font-semibold text-white">Sign in</a>
       </div>
     );
   }
@@ -50,7 +50,7 @@ function RequireAuth({ children, requireRole, fallback }: RequireAuthProps) {
     return (
       <div className="flex min-h-[60vh] flex-col items-center justify-center gap-4 px-6 text-center">
         <p className="text-[15px] font-medium text-[#172B3F]">This page is for {requireRole === "lister" ? "property listers" : "home seekers"} only.</p>
-        <a href={user?.accountType === "lister" ? "/owner" : "/dashboard"} className="inline-flex h-11 items-center rounded-xl bg-[#014BAA] px-5 text-sm font-semibold text-white">Go to your dashboard</a>
+        <a href={user?.accountType === "lister" ? "/owner" : "/dashboard"} className="inline-flex h-11 items-center rounded-xl bg-[#0057D9] px-5 text-sm font-semibold text-white">Go to your dashboard</a>
       </div>
     );
   }

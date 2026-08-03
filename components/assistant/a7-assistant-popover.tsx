@@ -110,8 +110,8 @@ function A7AssistantPopover({ className, labelClassName }: A7AssistantPopoverPro
         aria-label={tx("Ask A7 home assistant", "A7 AI အိမ်ရှာဖွေရေးအကူကို မေးရန်")}
         onClick={() => setOpen((current) => !current)}
         className={cn(
-          "inline-flex h-10 items-center gap-2 rounded-full px-3 text-xs font-medium text-[#014BAA] transition-[background-color,box-shadow,transform] duration-200 hover:bg-[#F1F6FF] active:scale-[.97]",
-          open && "bg-[#EEF5FC] shadow-[inset_0_0_0_1px_rgba(1,75,170,.12)]",
+          "inline-flex h-10 items-center gap-2 rounded-full px-3 text-xs font-medium text-[#0057D9] transition-[background-color,box-shadow,transform] duration-200 hover:bg-[#F1F6FF] active:scale-[.97]",
+          open && "bg-[#EEF5FC] shadow-[inset_0_0_0_1px_rgba(0, 87, 217,.12)]",
         )}
       >
         <span className="relative grid size-[18px] place-items-center">
@@ -172,11 +172,11 @@ function A7AssistantPopover({ className, labelClassName }: A7AssistantPopoverPro
                     className="mb-4 rounded-[18px] border border-[#CFE0FA] bg-[#F4F8FF] p-4"
                   >
                     <div className="flex gap-3">
-                      <span className="mt-0.5 grid size-7 shrink-0 place-items-center rounded-full bg-[#014BAA] text-white">
+                      <span className="mt-0.5 grid size-7 shrink-0 place-items-center rounded-full bg-[#0057D9] text-white">
                         <Check className="size-3.5" strokeWidth={2.5} />
                       </span>
                       <div>
-                        <p className="text-[10px] font-medium uppercase tracking-[0.08em] text-[#014BAA]">{tx("A7 starting point", "A7 ၏ စတင်အကြံပြုချက်")}</p>
+                        <p className="text-[10px] font-medium uppercase tracking-[0.08em] text-[#0057D9]">{tx("A7 starting point", "A7 ၏ စတင်အကြံပြုချက်")}</p>
                         <p className="mt-1.5 text-[12px] leading-5 text-[#33495E]">{answer}</p>
                       </div>
                     </div>
@@ -199,7 +199,7 @@ function A7AssistantPopover({ className, labelClassName }: A7AssistantPopoverPro
                           className="group flex min-h-10 items-center justify-between gap-3 rounded-[14px] border border-[#E1E7EF] bg-white px-3.5 py-2.5 text-left text-[11px] leading-4 text-[#33495E] transition-[border-color,background-color,transform] hover:border-[#AACBFF] hover:bg-[#F8FBFF] active:scale-[.99]"
                         >
                           <span>{prompt}</span>
-                          <ArrowRight className="size-3.5 shrink-0 text-[#8A98A8] transition-transform group-hover:translate-x-0.5 group-hover:text-[#014BAA]" />
+                          <ArrowRight className="size-3.5 shrink-0 text-[#8A98A8] transition-transform group-hover:translate-x-0.5 group-hover:text-[#0057D9]" />
                         </button>
                       ))}
                     </div>
@@ -208,7 +208,7 @@ function A7AssistantPopover({ className, labelClassName }: A7AssistantPopoverPro
               </AnimatePresence>
 
               <form onSubmit={submitQuestion}>
-                <div className="flex items-center gap-2 rounded-[16px] border border-[#C9D5E2] bg-white p-1.5 pl-3.5 shadow-[0_5px_16px_rgba(31,55,79,.06)] transition-[border-color,box-shadow] focus-within:border-[#75AEFF] focus-within:shadow-[0_0_0_3px_rgba(1,75,170,.1)]">
+                <div className="flex items-center gap-2 rounded-[16px] border border-[#C9D5E2] bg-white p-1.5 pl-3.5 shadow-[0_5px_16px_rgba(31,55,79,.06)] transition-[border-color,box-shadow] focus-within:border-[#75AEFF] focus-within:shadow-[0_0_0_3px_rgba(0, 87, 217,.1)]">
                   <input
                     ref={inputRef}
                     type="text"
@@ -223,7 +223,7 @@ function A7AssistantPopover({ className, labelClassName }: A7AssistantPopoverPro
                     type="submit"
                     aria-label={tx("Send question", "မေးခွန်းပို့ရန်")}
                     disabled={!question.trim()}
-                    className="grid size-10 shrink-0 place-items-center rounded-xl bg-[#014BAA] text-white shadow-[0_7px_16px_rgba(1,75,170,.22)] transition-[background-color,transform,opacity] hover:bg-[#005EE5] active:scale-[.95] disabled:cursor-not-allowed disabled:opacity-35"
+                    className="grid size-10 shrink-0 place-items-center rounded-xl bg-[#0057D9] text-white shadow-[0_7px_16px_rgba(0, 87, 217,.22)] transition-[background-color,transform,opacity] hover:bg-[#005EE5] active:scale-[.95] disabled:cursor-not-allowed disabled:opacity-35"
                   >
                     <Send className="size-4" />
                   </button>
@@ -235,7 +235,7 @@ function A7AssistantPopover({ className, labelClassName }: A7AssistantPopoverPro
                 <Link
                   href="/assistant"
                   onClick={() => setOpen(false)}
-                  className="inline-flex shrink-0 items-center gap-1 text-[10px] font-medium text-[#014BAA] hover:underline"
+                  className="inline-flex shrink-0 items-center gap-1 text-[10px] font-medium text-[#0057D9] hover:underline"
                 >
                   {tx("Full consultant", "အပြည့်အစုံမေးမယ်")}
                   <ArrowRight className="size-3" />

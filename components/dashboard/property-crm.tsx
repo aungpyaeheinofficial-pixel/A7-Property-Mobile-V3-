@@ -142,15 +142,15 @@ function PropertyCRM({ role }: { role: CRMRole }) {
       <div id="crm-overview" className="scroll-mt-24">
         <div className="premium-surface mb-6 flex flex-wrap items-center justify-between gap-3 rounded-[20px] p-3.5 sm:p-4">
           <div className="flex items-center gap-3">
-            <span className="grid size-11 place-items-center rounded-2xl bg-[linear-gradient(135deg,#EEF5FC,#D6E6FF)] text-xs font-semibold text-[#014BAA]">{profile.initials}</span>
+            <span className="grid size-11 place-items-center rounded-2xl bg-[linear-gradient(135deg,#EEF5FC,#D6E6FF)] text-xs font-semibold text-[#0057D9]">{profile.initials}</span>
             <span>
               <strong className="flex items-center gap-1.5 text-[13px] text-[#172B3F]">{profile.name}{profile.verified && <ShieldCheck className="size-4 text-[#287A4B]" />}</strong>
               <small className="mt-1 block text-[10px] text-[#667486]">{profile.role} · replies in {profile.responseTime}</small>
             </span>
           </div>
-          <Link href={role === "owner" ? "/agent" : "/owner"} className="flex items-center gap-1 text-[11px] font-semibold text-[#014BAA]">Switch to {role === "owner" ? "agent" : "owner"} view <ChevronRight className="size-3.5" /></Link>
+          <Link href={role === "owner" ? "/agent" : "/owner"} className="flex items-center gap-1 text-[11px] font-semibold text-[#0057D9]">Switch to {role === "owner" ? "agent" : "owner"} view <ChevronRight className="size-3.5" /></Link>
         </div>
-        {notice && <div className="mb-5 flex items-center gap-2 rounded-xl border border-[#2D7D46]/20 bg-[#F8F3F0] px-4 py-3 text-xs text-[#014BAA]" role="status"><Check className="size-4" />{notice}</div>}
+        {notice && <div className="mb-5 flex items-center gap-2 rounded-xl border border-[#2D7D46]/20 bg-[#FAF8F5] px-4 py-3 text-xs text-[#0057D9]" role="status"><Check className="size-4" />{notice}</div>}
       </div>
 
       <section id="crm-analytics" className="scroll-mt-24">
@@ -168,7 +168,7 @@ function PropertyCRM({ role }: { role: CRMRole }) {
               <div className="premium-grid mt-6 flex h-48 items-end gap-2 rounded-2xl border border-[#172B3F]/6 px-3 pt-4 sm:h-52 sm:gap-5 sm:px-5">
                 {weeklyViews.map((item) => (
                   <div key={item.day} className="flex h-full flex-1 flex-col justify-end gap-2">
-                    <div className="group relative rounded-t-xl bg-[linear-gradient(180deg,#D4A574_0%,#014BAA_100%)] shadow-[0_8px_16px_rgba(1,75,170,.12)] transition-all hover:brightness-105" style={{ height: `${Math.round((item.value / maxView) * 90)}%` }}><span className="absolute -top-6 left-1/2 hidden -translate-x-1/2 text-[10px] font-semibold group-hover:block">{item.value}</span></div>
+                    <div className="group relative rounded-t-xl bg-[linear-gradient(180deg,#D4A574_0%,#0057D9_100%)] shadow-[0_8px_16px_rgba(0, 87, 217,.12)] transition-all hover:brightness-105" style={{ height: `${Math.round((item.value / maxView) * 90)}%` }}><span className="absolute -top-6 left-1/2 hidden -translate-x-1/2 text-[10px] font-semibold group-hover:block">{item.value}</span></div>
                     <span className="pb-2 text-center text-[10px] text-[#667486]">{item.day}</span>
                   </div>
                 ))}
@@ -194,7 +194,7 @@ function PropertyCRM({ role }: { role: CRMRole }) {
         <section id="crm-properties" className="scroll-mt-24 overflow-hidden rounded-[22px] border border-[#2A2A33]/8 bg-white shadow-sm">
           <div className="flex items-end justify-between border-b border-[#2A2A33]/8 p-5 sm:p-6">
             <div><h2 className="text-lg font-semibold tracking-[-0.03em]">Properties</h2><p className="mt-1 text-[10px] text-[#6B7078]">Price, availability, and listing quality</p></div>
-            <button type="button" onClick={() => showAll ? setShowAll(false) : openProperties()} className="text-[10px] font-semibold text-[#014BAA]">{showAll ? "Show featured" : "View all"}</button>
+            <button type="button" onClick={() => showAll ? setShowAll(false) : openProperties()} className="text-[10px] font-semibold text-[#0057D9]">{showAll ? "Show featured" : "View all"}</button>
           </div>
           <div className="hidden max-h-[640px] overflow-auto md:block">
             <table className="w-full min-w-[700px] text-left">
@@ -205,7 +205,7 @@ function PropertyCRM({ role }: { role: CRMRole }) {
                     <td className="px-5 py-4"><strong className="block max-w-[260px] truncate text-[11px]">{property.title}</strong><small className="mt-1 block text-[9px] text-[#6B7078]">{property.township} · {property.id}</small></td>
                     <td className="px-4 py-4 text-[10px] font-semibold">{formatPropertyPrice(property, isMyanmar ? "my" : "en")}</td>
                     <td className="px-4 py-4 text-[10px]">{new Intl.NumberFormat("en-US").format(430 + index * 287)}</td>
-                    <td className="px-4 py-4"><Badge className={index === 3 ? "bg-[#F1F6FF] text-[#b77722]" : "bg-[#F8F3F0] text-[#2D7D46]"}>{index === 3 ? "Needs review" : "Active"}</Badge></td>
+                    <td className="px-4 py-4"><Badge className={index === 3 ? "bg-[#F1F6FF] text-[#b77722]" : "bg-[#FAF8F5] text-[#2D7D46]"}>{index === 3 ? "Needs review" : "Active"}</Badge></td>
                     <td className="px-4 py-4"><Button size="icon" variant="ghost" className="size-9" onClick={() => editListing(property)} aria-label={`Edit ${property.title}`}><Pencil className="size-4" /></Button></td>
                   </tr>
                 ))}
@@ -216,20 +216,20 @@ function PropertyCRM({ role }: { role: CRMRole }) {
             {displayedProperties.map((property, index) => (
               <div key={property.id} className="p-4">
                 <div className="flex items-start justify-between gap-3"><span className="min-w-0"><strong className="block truncate text-xs">{property.title}</strong><small className="mt-1 block text-[9px] text-[#6B7078]">{property.township} · {430 + index * 287} views</small></span><Button size="icon" variant="ghost" className="size-9 shrink-0" onClick={() => editListing(property)} aria-label={`Edit ${property.title}`}><Pencil className="size-4" /></Button></div>
-                <div className="mt-3 flex items-center justify-between"><span className="text-[10px] font-semibold">{formatPropertyPrice(property, isMyanmar ? "my" : "en")}</span><Badge className="bg-[#F8F3F0] text-[#2D7D46]">Active</Badge></div>
+                <div className="mt-3 flex items-center justify-between"><span className="text-[10px] font-semibold">{formatPropertyPrice(property, isMyanmar ? "my" : "en")}</span><Badge className="bg-[#FAF8F5] text-[#2D7D46]">Active</Badge></div>
               </div>
             ))}
           </div>
         </section>
 
         <section id="crm-messages" className="scroll-mt-24 rounded-[22px] border border-[#2A2A33]/8 bg-white p-5 shadow-sm sm:p-6">
-          <div className="flex items-start justify-between"><div><h2 className="text-lg font-semibold tracking-[-0.03em]">Recent leads</h2><p className="mt-1 text-[10px] text-[#6B7078]">Prioritized by intent</p></div><BarChart3 className="size-5 text-[#014BAA]" /></div>
+          <div className="flex items-start justify-between"><div><h2 className="text-lg font-semibold tracking-[-0.03em]">Recent leads</h2><p className="mt-1 text-[10px] text-[#6B7078]">Prioritized by intent</p></div><BarChart3 className="size-5 text-[#0057D9]" /></div>
           <div className="mt-4 divide-y divide-[#D1D1D5]">
             {crmLeads.map((lead) => (
               <button key={lead.id} type="button" onClick={() => openLead(lead)} className="flex w-full items-center gap-3 py-4 text-left">
                 <span className="grid size-9 shrink-0 place-items-center rounded-full bg-[#F1F6FF] text-[10px] font-semibold text-[#53606E]">{lead.name.split(" ").map((part) => part[0]).join("")}</span>
                 <span className="min-w-0 flex-1"><strong className="block truncate text-[11px]">{lead.name}</strong><small className="mt-1 block truncate text-[9px] text-[#6B7078]">{lead.intent} · {lead.time}</small></span>
-                <Badge className={lead.status === "New" ? "bg-[#EDF4FF] text-[#014BAA]" : "bg-[#F8F3F0] text-[#014BAA]"}>{lead.status}</Badge>
+                <Badge className={lead.status === "New" ? "bg-[#EDF4FF] text-[#0057D9]" : "bg-[#FAF8F5] text-[#0057D9]"}>{lead.status}</Badge>
               </button>
             ))}
           </div>
@@ -238,15 +238,15 @@ function PropertyCRM({ role }: { role: CRMRole }) {
       </div>
 
       <section id="crm-settings" className="scroll-mt-24 mt-5 rounded-[22px] border border-[#2A2A33]/8 bg-white p-5 shadow-sm sm:p-6">
-        <div className="flex items-start justify-between"><div><h2 className="text-lg font-semibold tracking-[-0.03em]">Workspace settings</h2><p className="mt-1 text-[10px] text-[#6B7078]">Contact details and notification preferences</p></div><Settings className="size-5 text-[#014BAA]" /></div>
+        <div className="flex items-start justify-between"><div><h2 className="text-lg font-semibold tracking-[-0.03em]">Workspace settings</h2><p className="mt-1 text-[10px] text-[#6B7078]">Contact details and notification preferences</p></div><Settings className="size-5 text-[#0057D9]" /></div>
         <div className="mt-5 grid gap-4 sm:grid-cols-3">
-          <label><span className="text-[10px] font-semibold text-[#5E6B79]">Display name</span><input value={settingsDraft.name} onChange={(event) => setSettingsDraft({ ...settingsDraft, name: event.target.value })} className="mt-2 h-11 w-full rounded-xl border border-[#D5DDE5] px-3 text-xs outline-none focus:border-[#014BAA]" /></label>
-          <label><span className="text-[10px] font-semibold text-[#5E6B79]">Email</span><input type="email" value={settingsDraft.email} onChange={(event) => setSettingsDraft({ ...settingsDraft, email: event.target.value })} className="mt-2 h-11 w-full rounded-xl border border-[#D5DDE5] px-3 text-xs outline-none focus:border-[#014BAA]" /></label>
-          <label><span className="text-[10px] font-semibold text-[#5E6B79]">Phone</span><input value={settingsDraft.phone} onChange={(event) => setSettingsDraft({ ...settingsDraft, phone: event.target.value })} className="mt-2 h-11 w-full rounded-xl border border-[#D5DDE5] px-3 text-xs outline-none focus:border-[#014BAA]" /></label>
+          <label><span className="text-[10px] font-semibold text-[#5E6B79]">Display name</span><input value={settingsDraft.name} onChange={(event) => setSettingsDraft({ ...settingsDraft, name: event.target.value })} className="mt-2 h-11 w-full rounded-xl border border-[#D5DDE5] px-3 text-xs outline-none focus:border-[#0057D9]" /></label>
+          <label><span className="text-[10px] font-semibold text-[#5E6B79]">Email</span><input type="email" value={settingsDraft.email} onChange={(event) => setSettingsDraft({ ...settingsDraft, email: event.target.value })} className="mt-2 h-11 w-full rounded-xl border border-[#D5DDE5] px-3 text-xs outline-none focus:border-[#0057D9]" /></label>
+          <label><span className="text-[10px] font-semibold text-[#5E6B79]">Phone</span><input value={settingsDraft.phone} onChange={(event) => setSettingsDraft({ ...settingsDraft, phone: event.target.value })} className="mt-2 h-11 w-full rounded-xl border border-[#D5DDE5] px-3 text-xs outline-none focus:border-[#0057D9]" /></label>
         </div>
         <div className="mt-5 flex flex-wrap items-center gap-5 border-t border-[#E5E9ED] pt-5">
           {[["instantLeads", "Instant lead alerts"], ["weeklyReports", "Weekly performance reports"]].map(([key, label]) => (
-            <label key={key} className="inline-flex items-center gap-2 text-[11px] font-medium"><input type="checkbox" checked={settingsDraft[key as "instantLeads" | "weeklyReports"]} onChange={(event) => setSettingsDraft({ ...settingsDraft, [key]: event.target.checked })} className="size-4 accent-[#014BAA]" />{label}</label>
+            <label key={key} className="inline-flex items-center gap-2 text-[11px] font-medium"><input type="checkbox" checked={settingsDraft[key as "instantLeads" | "weeklyReports"]} onChange={(event) => setSettingsDraft({ ...settingsDraft, [key]: event.target.checked })} className="size-4 accent-[#0057D9]" />{label}</label>
           ))}
           <Button className="ml-auto rounded-full px-5" onClick={saveWorkspaceSettings}>Save settings</Button>
         </div>
@@ -255,7 +255,7 @@ function PropertyCRM({ role }: { role: CRMRole }) {
       <ListingEditorSheet open={editorOpen} onOpenChange={handleEditorOpenChange} property={selectedProperty} onSave={saveListing} />
 
       <Sheet open={Boolean(selectedLead)} onOpenChange={(open) => { if (!open) setSelectedLead(null); }} title={selectedLead ? `${selectedLead.name} · ${selectedLead.intent}` : "Lead details"} description={selectedLeadProperty?.title} side="right" footer={selectedLead && (
-        <form onSubmit={sendLeadReply} className="flex items-center gap-2"><input value={leadReply} onChange={(event) => setLeadReply(event.target.value)} placeholder="Write a reply…" className="h-11 min-w-0 flex-1 rounded-full border border-[#D5DDE5] px-4 text-xs outline-none focus:border-[#014BAA]" /><Button type="submit" size="icon" className="size-11 rounded-full" disabled={!leadReply.trim()} aria-label="Send lead reply"><Send className="size-4" /></Button></form>
+        <form onSubmit={sendLeadReply} className="flex items-center gap-2"><input value={leadReply} onChange={(event) => setLeadReply(event.target.value)} placeholder="Write a reply…" className="h-11 min-w-0 flex-1 rounded-full border border-[#D5DDE5] px-4 text-xs outline-none focus:border-[#0057D9]" /><Button type="submit" size="icon" className="size-11 rounded-full" disabled={!leadReply.trim()} aria-label="Send lead reply"><Send className="size-4" /></Button></form>
       )}>
         {selectedLead && (
           <div className="space-y-5 p-5 sm:p-7">
@@ -282,14 +282,14 @@ function PropertyCRM({ role }: { role: CRMRole }) {
         ) : (
           <div className="space-y-4 p-5 sm:p-7">
             {portfolio.slice(3, 5).map((property) => <div key={property.id} className="rounded-2xl border border-[#E5D9C3] bg-[#FFFBF2] p-4"><div className="flex items-start gap-3"><CircleAlert className="mt-0.5 size-5 shrink-0 text-[#A16B13]" /><span><strong className="block text-xs">{property.title}</strong><small className="mt-1 block text-[10px] leading-4 text-[#776849]">Ownership or address evidence needs an update.</small></span></div></div>)}
-            <label className="flex min-h-36 cursor-pointer flex-col items-center justify-center rounded-2xl border border-dashed border-[#7DAFFF] bg-[#F5F8FD] p-5 text-center"><input type="file" multiple className="sr-only" /><Upload className="size-6 text-[#014BAA]" /><strong className="mt-3 text-xs">Choose verification documents</strong><small className="mt-1 text-[9px] text-[#73808C]">PDF, JPG, or PNG</small></label>
+            <label className="flex min-h-36 cursor-pointer flex-col items-center justify-center rounded-2xl border border-dashed border-[#7DAFFF] bg-[#F5F8FD] p-5 text-center"><input type="file" multiple className="sr-only" /><Upload className="size-6 text-[#0057D9]" /><strong className="mt-3 text-xs">Choose verification documents</strong><small className="mt-1 text-[9px] text-[#73808C]">PDF, JPG, or PNG</small></label>
           </div>
         )}
       </Sheet>
 
       <Sheet open={notificationsOpen} onOpenChange={setNotificationsOpen} title="Notifications" description="Important updates across your workspace." side="right">
         <div className="divide-y divide-[#E4E8EC] p-5 sm:p-7">
-          {notificationItems.map((item, index) => <button key={item.id} type="button" onClick={() => { if (item.id === "verification") { setNotificationsOpen(false); setVerificationOpen(true); } else if (item.id === "lead") { setNotificationsOpen(false); openLead(crmLeads[0]); } }} className="flex w-full items-start gap-3 py-4 text-left"><span className={cn("mt-1 size-2 shrink-0 rounded-full", index < 2 ? "bg-[#014BAA]" : "bg-[#C8D0D8]")} /><span className="min-w-0 flex-1"><strong className="block text-xs">{item.title}</strong><small className="mt-1.5 block text-[10px] leading-4 text-[#73808C]">{item.detail}</small></span><small className="shrink-0 text-[9px] text-[#8E98A2]">{item.time}</small></button>)}
+          {notificationItems.map((item, index) => <button key={item.id} type="button" onClick={() => { if (item.id === "verification") { setNotificationsOpen(false); setVerificationOpen(true); } else if (item.id === "lead") { setNotificationsOpen(false); openLead(crmLeads[0]); } }} className="flex w-full items-start gap-3 py-4 text-left"><span className={cn("mt-1 size-2 shrink-0 rounded-full", index < 2 ? "bg-[#0057D9]" : "bg-[#C8D0D8]")} /><span className="min-w-0 flex-1"><strong className="block text-xs">{item.title}</strong><small className="mt-1.5 block text-[10px] leading-4 text-[#73808C]">{item.detail}</small></span><small className="shrink-0 text-[9px] text-[#8E98A2]">{item.time}</small></button>)}
         </div>
       </Sheet>
     </DashboardShell>

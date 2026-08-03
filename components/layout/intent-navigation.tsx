@@ -69,9 +69,9 @@ function IntentNavigation({ className }: { className?: string }) {
             onClick={returnToTop}
             aria-current={active ? "page" : undefined}
             className={cn(
-              "inline-flex h-9 items-center gap-1.5 rounded-full px-4 transition-[transform,background-color,color,box-shadow] duration-200 ease-out hover:bg-white hover:text-[#014BAA] active:scale-[.96]",
+              "inline-flex h-9 items-center gap-1.5 rounded-full px-4 transition-[transform,background-color,color,box-shadow] duration-200 ease-out hover:bg-white hover:text-[#0057D9] active:scale-[.96]",
               active
-                ? "bg-white font-semibold text-[#014BAA] shadow-[0_2px_9px_rgba(23,43,63,.09)]"
+                ? "bg-white font-semibold text-[#0057D9] shadow-[0_2px_9px_rgba(23,43,63,.09)]"
                 : "text-[#526172]",
             )}
           >

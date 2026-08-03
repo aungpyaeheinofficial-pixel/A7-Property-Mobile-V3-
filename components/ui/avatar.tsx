@@ -20,7 +20,7 @@ function Avatar({ src, alt = "", initials, size = "md", className, children, ...
   return (
     <span
       data-slot="avatar"
-      className={cn("relative grid shrink-0 place-items-center overflow-hidden rounded-full bg-[#EEF5FC] font-semibold text-[#014BAA]", avatarSizes[size], className)}
+      className={cn("relative grid shrink-0 place-items-center overflow-hidden rounded-full bg-[#EEF5FC] font-semibold text-[#0057D9]", avatarSizes[size], className)}
       {...props}
     >
       {children ?? (src ? <AvatarImage src={src} alt={alt} /> : <AvatarFallback>{initials}</AvatarFallback>)}

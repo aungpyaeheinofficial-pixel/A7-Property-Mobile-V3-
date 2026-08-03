@@ -35,7 +35,7 @@ function AppHeader({ compact = false }: AppHeaderProps) {
   }
 
   return (
-    <header className={`sticky top-0 z-50 border-b border-[#172B3F]/8 bg-white/88 shadow-[0_1px_0_rgba(255,255,255,.7)] backdrop-blur-2xl ${compact ? "h-[68px]" : "h-[76px]"}`}>
+    <header className={`a7-glass sticky top-0 z-50 border-x-0 border-t-0 ${compact ? "h-[68px]" : "h-[76px]"}`}>
       <div className="mx-auto flex h-full w-full max-w-[1480px] items-center justify-between gap-5 px-4 sm:px-6 lg:px-8">
         <Link href="/" aria-label="A7 Property home"><A7Brand /></Link>
 
@@ -47,18 +47,18 @@ function AppHeader({ compact = false }: AppHeaderProps) {
           <A7AssistantPopover labelClassName="hidden min-[400px]:inline" />
           <LanguageSwitcher className="hidden sm:block" />
           <LanguageSwitcher compact className="sm:hidden" />
-          <Link href="/dashboard?section=saved" className="hidden size-10 place-items-center rounded-xl text-[#526172] transition-colors hover:bg-[#EEF3F9] hover:text-[#014BAA] sm:grid" aria-label={tx("Saved homes", "သိမ်းထားသောအိမ်များ")}>
+          <Link href="/dashboard?section=saved" className="hidden size-10 place-items-center rounded-xl text-[#526172] transition-colors hover:bg-[#EEF3F9] hover:text-[#0057D9] sm:grid" aria-label={tx("Saved homes", "သိမ်းထားသောအိမ်များ")}>
             <AnimatedIcon icon="ph:heart-bold" size="sm" hover="scale" />
           </Link>
           {user ? (
             <div className="flex items-center gap-2">
-              <Link href={user.accountType === "lister" ? "/owner" : "/dashboard"} className="hidden max-w-[140px] truncate rounded-xl bg-[#F1F6FF] px-3 py-2 text-xs font-semibold text-[#014BAA] sm:block">{user.fullName}</Link>
+              <Link href={user.accountType === "lister" ? "/owner" : "/dashboard"} className="hidden max-w-[140px] truncate rounded-xl bg-[#EDF4FF] px-3 py-2 text-xs font-semibold text-a7-blue sm:block">{user.fullName}</Link>
               <button type="button" onClick={handleSignOut} className="grid size-10 place-items-center rounded-xl border border-[#DCE4ED] bg-white text-[#29445F] shadow-sm transition-colors hover:border-[#FF6B6B] hover:text-[#D92D20]" aria-label={tx("Sign out", "အကောင့်ထွက်ရန်")}>
                 <AnimatedIcon icon="ph:sign-out-bold" size="sm" hover="scale" />
               </button>
             </div>
           ) : (
-            <Link href="/sign-in" className="grid size-10 place-items-center rounded-xl border border-[#DCE4ED] bg-white text-[#29445F] shadow-sm transition-colors hover:border-[#9FC4FF] hover:text-[#014BAA]" aria-label={tx("Sign in", "အကောင့်ဝင်ရန်")}>
+            <Link href="/sign-in" className="grid size-10 place-items-center rounded-xl border border-[#DCE4ED] bg-white text-[#29445F] shadow-sm transition-colors hover:border-[#9FC4FF] hover:text-[#0057D9]" aria-label={tx("Sign in", "အကောင့်ဝင်ရန်")}>
               <AnimatedIcon icon="ph:user-circle-bold" size="md" hover="scale" iconClassName="size-5" />
             </Link>
           )}
@@ -73,7 +73,7 @@ function AppHeader({ compact = false }: AppHeaderProps) {
           <div className="grid gap-2">
             {intentLinks.map((item) => {
               return (
-                <Link key={item.id} className="flex items-center gap-3 rounded-2xl border border-[#DCE4ED] bg-white p-3.5 shadow-sm transition-colors hover:border-[#9FC4FF] hover:bg-[#F7FAFF]" href={item.href} onClick={() => setMenuOpen(false)}>
+                <Link key={item.id} className="flex items-center gap-3 rounded-[var(--radius-control)] border border-a7-line bg-white p-3.5 shadow-[var(--shadow-hairline)] transition-colors hover:border-[#9FC4FF] hover:bg-[#F7FAFF]" href={item.href} onClick={() => setMenuOpen(false)}>
                   <AnimatedIcon icon={item.iconName ?? "ph:house-bold"} size="md" variant="solid" hover="scale" />
                   <span><strong className="block text-sm">{isMyanmar ? item.labelMy : item.label}</strong><small className="mt-1 block text-[10px] font-normal text-[#667486]">{intentDescriptions[item.id]}</small></span>
                 </Link>
