@@ -1,6 +1,8 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
+@import "framework7/components/searchbar/css";
+@import "framework7/components/sheet/css";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -376,6 +378,172 @@ a {
 
 .a7-secondary-text {
   color: var(--text-secondary);
+}
+
+/* Framework7 powers the Search/Filter interaction model; A7 owns the visual language. */
+.a7-f7-search-root.framework7-root {
+  --f7-theme-color: #0057d9;
+  --f7-theme-color-rgb: 0, 87, 217;
+  --f7-theme-color-shade: #0049b8;
+  --f7-theme-color-tint: #1a68dd;
+  --f7-safe-area-left: env(safe-area-inset-left, 0px);
+  --f7-safe-area-right: env(safe-area-inset-right, 0px);
+  --f7-safe-area-bottom: env(safe-area-inset-bottom, 0px);
+  --f7-device-pixel-ratio: 2;
+  --f7-font-family: var(--type-text);
+  --f7-text-color: var(--a7-navy);
+  --f7-bars-text-color: var(--a7-navy);
+  --f7-glass-bg-color: rgba(255, 255, 255, 0.84);
+  --f7-glass-shadow: var(--shadow-hairline);
+  position: relative;
+  min-height: 100svh;
+  overflow: visible;
+  background: var(--a7-cream);
+  color: var(--a7-navy);
+}
+
+.a7-f7-search-field .searchbar {
+  --f7-searchbar-input-height: 48px;
+  --f7-searchbar-inline-input-height: 48px;
+  --f7-searchbar-input-border-radius: var(--radius-control);
+  --f7-searchbar-inline-input-border-radius: var(--radius-control);
+  --f7-searchbar-input-padding-horizontal: 42px;
+  --f7-searchbar-inline-input-padding-horizontal: 42px;
+  --f7-searchbar-input-font-size: 14px;
+  --f7-searchbar-input-bg-color: #ffffff;
+  --f7-searchbar-input-text-color: var(--a7-navy);
+  --f7-searchbar-placeholder-color: #969d99;
+  height: 48px;
+}
+
+.a7-f7-search-field .searchbar input[type="search"] {
+  border: 1px solid var(--border-subtle);
+  box-shadow: var(--shadow-hairline);
+  padding-left: 44px;
+  padding-right: 44px;
+  font-weight: 400;
+  transition: border-color var(--duration-base) var(--ease-standard), box-shadow var(--duration-base) var(--ease-standard);
+}
+
+.a7-f7-search-field .searchbar input[type="search"]:focus {
+  border-color: var(--a7-blue);
+  box-shadow: 0 0 0 3px rgba(0, 87, 217, 0.1);
+}
+
+.a7-f7-search-field .searchbar-icon,
+.a7-f7-search-field .input-clear-button {
+  display: none;
+}
+
+.a7-f7-segmented.segmented {
+  --f7-button-height: 36px;
+  --f7-button-border-radius: 9px;
+  --f7-segmented-strong-padding: 4px;
+  --f7-segmented-strong-between-buttons: 2px;
+  --f7-segmented-strong-bg-color: #efeeeb;
+  display: flex;
+  min-width: 136px;
+  height: 44px;
+  align-items: center;
+  overflow: hidden;
+  border-radius: 12px;
+  background: var(--f7-segmented-strong-bg-color);
+  padding: 4px;
+}
+
+.a7-f7-segmented-wrap > .a7-f7-segmented {
+  width: 100%;
+}
+
+.a7-f7-segmented .button {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  min-width: 64px;
+  height: 36px;
+  flex: 1 1 0;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 9px;
+  background: transparent;
+  color: #68716d;
+  font-size: 10px;
+  font-weight: 600;
+  transition: color var(--duration-base) var(--ease-standard), background var(--duration-base) var(--ease-standard), box-shadow var(--duration-base) var(--ease-standard);
+}
+
+.a7-f7-segmented .button.button-active {
+  background: #ffffff;
+  color: var(--a7-blue);
+  box-shadow: var(--shadow-hairline);
+}
+
+.a7-f7-segmented .segmented-highlight {
+  display: none;
+}
+
+.a7-f7-choice.button {
+  display: inline-flex;
+  min-height: 48px;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  gap: 0.375rem;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-control);
+  background: #ffffff;
+  color: #66716c;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.2;
+  transition: border-color var(--duration-base) var(--ease-standard), background var(--duration-base) var(--ease-standard), color var(--duration-base) var(--ease-standard);
+}
+
+.a7-f7-choice.button.a7-f7-choice-compact {
+  min-height: 44px;
+  width: auto;
+  padding-inline: 0.875rem;
+  font-size: 10px;
+}
+
+.a7-f7-choice.button.button-active {
+  border-color: var(--a7-blue);
+  background: #edf4ff;
+  color: var(--a7-blue);
+}
+
+.a7-f7-filter-sheet.sheet-modal {
+  --f7-sheet-border-radius: var(--radius-sheet);
+  --f7-sheet-bg-color: #ffffff;
+  position: fixed;
+  z-index: 12500;
+  border: 1px solid rgba(255, 255, 255, 0.72);
+  background: #ffffff;
+  box-shadow: var(--shadow-overlay);
+}
+
+.a7-f7-filter-sheet .sheet-modal-inner {
+  height: 100%;
+}
+
+.a7-f7-search-root > .sheet-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 12000;
+  visibility: hidden;
+  width: 100%;
+  height: 100%;
+  background: rgba(15, 27, 45, 0.46);
+  opacity: 0;
+  -webkit-backdrop-filter: blur(2px);
+  backdrop-filter: blur(2px);
+  transition: opacity var(--duration-slow) var(--ease-standard), visibility var(--duration-slow) var(--ease-standard);
+}
+
+.a7-f7-search-root > .sheet-backdrop.backdrop-in {
+  visibility: visible;
+  opacity: 1;
 }
 
 .eyebrow {

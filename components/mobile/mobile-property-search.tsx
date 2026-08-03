@@ -7,11 +7,16 @@ import { useEffect, useId, useMemo, useRef, useState } from "react";
 
 import { useLanguage } from "@/components/i18n/language-provider";
 import { MobilePropertyCard } from "@/components/mobile/a7-mobile-ui";
+import {
+  Framework7ChoiceButton,
+  Framework7FilterSheet,
+  Framework7PurposeControl,
+  Framework7SearchField,
+  Framework7SearchRoot,
+} from "@/components/mobile/framework7-search-ui";
 import { MobileSearchCard } from "@/components/mobile/mobile-search-card";
 import { PropertyMap, type MapSearchBounds } from "@/components/property/property-map";
 import { Button } from "@/components/ui/button";
-import { FilterSheet } from "@/components/ui/filter-sheet";
-import { SearchBar } from "@/components/ui/search-bar";
 import { usePropertyComparison } from "@/hooks/use-property-comparison";
 import { readStoredIds, STORAGE_KEYS, writeStoredIds } from "@/lib/local-storage";
 import { mockUser } from "@/lib/mock-users";
@@ -374,30 +379,26 @@ function MobilePropertySearch({ properties }: { properties: Property[] }) {
   };
 
   return (
+    <Framework7SearchRoot>
     <div className="a7-page pb-28 lg:pb-10">
       <header className="a7-glass sticky top-0 z-50 border-x-0 border-t-0">
         <div className="mx-auto max-w-[1280px] px-4 py-3 sm:px-6 lg:px-8">
           <div className="flex items-center gap-2.5 sm:gap-3">
             <Link href="/" className="grid size-11 shrink-0 place-items-center rounded-[var(--radius-control)] border border-a7-line bg-white text-a7-navy shadow-[var(--shadow-hairline)] transition-colors hover:border-[#B8C8DB] hover:text-a7-blue" aria-label={tx("Back home", "ပင်မသို့ပြန်ရန်")}><ArrowLeft className="size-[18px]" /></Link>
-            <SearchBar
+            <Framework7SearchField
               value={query}
               onValueChange={(value) => { setQuery(value); if (location !== "All Myanmar") setLocation("All Myanmar"); resetResultWindow(); }}
               label={tx("Search by location or property", "နေရာ သို့မဟုတ် အိမ်ဖြင့် ရှာရန်")}
               placeholder={tx("Township or landmark", "မြို့နယ် သို့မဟုတ် နေရာ")}
+              onClear={() => { setQuery(""); setLocation("All Myanmar"); resetResultWindow(); }}
               className="min-w-0 flex-1"
-              trailing={query ? <button type="button" onClick={() => { setQuery(""); setLocation("All Myanmar"); resetResultWindow(); }} className="-mr-2 grid size-11 place-items-center rounded-full bg-[#F0EEE8] text-[#707873]" aria-label={tx("Clear search", "ရှာဖွေမှုရှင်းရန်")}><X className="size-3.5" /></button> : undefined}
             />
             <button type="button" onClick={() => openFilters("all")} className="relative grid size-12 shrink-0 place-items-center rounded-[var(--radius-control)] bg-a7-blue text-white shadow-[var(--shadow-action)] transition-[background-color,box-shadow] duration-[var(--duration-base)] hover:bg-[#0049B8]" aria-label={tx("Open all filters", "စစ်ထုတ်မှုအားလုံးဖွင့်ရန်")}><SlidersHorizontal className="size-[19px]" />{activeFilters.length > 0 && <span className="absolute -right-1 -top-1 grid size-5 place-items-center rounded-full border-2 border-[#FAF8F5] bg-white text-[8px] font-bold text-a7-blue">{activeFilters.length}</span>}</button>
           </div>
 
           <div className={cn("relative -mx-4 overflow-hidden sm:-mx-6 lg:-mx-8", compactHeader ? "hidden" : "mt-3 block")}>
             <div className="hide-scrollbar flex w-full items-center gap-2 overflow-x-auto px-4 pb-0.5 sm:px-6 lg:px-8">
-              <div role="tablist" aria-label={tx("Rent or buy", "ငှားရန် သို့မဟုတ် ဝယ်ရန်")} className="flex h-11 shrink-0 items-center rounded-[12px] bg-[#EFEEEB] p-1">
-                {(["rent", "sale"] as const).map((option) => {
-                  const selected = purpose === option;
-                  return <button key={option} type="button" role="tab" aria-selected={selected} onClick={() => setPurposeAndReset(option)} className={cn("h-9 min-w-[62px] rounded-[9px] px-3.5 text-[10px] font-semibold transition-[background-color,color,box-shadow] duration-200", selected ? "bg-white text-a7-blue shadow-[var(--shadow-hairline)]" : "text-[#68716D] hover:text-a7-navy")}>{option === "rent" ? tx("Rent", "ငှားရန်") : tx("Buy", "ဝယ်ရန်")}</button>;
-                })}
-              </div>
+              <Framework7PurposeControl value={purpose} onChange={setPurposeAndReset} rentLabel={tx("Rent", "ငှားရန်")} buyLabel={tx("Buy", "ဝယ်ရန်")} ariaLabel={tx("Rent or buy", "ငှားရန် သို့မဟုတ် ဝယ်ရန်")} className="shrink-0" />
               <FilterChip icon={<MapPin className="size-3.5" />} active={location !== "All Myanmar"} onClick={() => openFilters("location")}>{location === "All Myanmar" ? tx("Location", "နေရာ") : location}</FilterChip>
               <FilterChip icon={<Banknote className="size-3.5" />} active={minPrice !== null || maxPrice !== null} onClick={() => openFilters("price")}>{minPrice !== null || maxPrice !== null ? formatPriceRangeCompact(minPrice, maxPrice) : tx("Price", "ဈေးနှုန်း")}</FilterChip>
               <FilterChip icon={<BedDouble className="size-3.5" />} active={bedrooms !== null || bathrooms !== null} onClick={() => openFilters("beds")}>{bedrooms || bathrooms ? [bedrooms ? `${bedrooms}+ bd` : "", bathrooms ? `${bathrooms}+ ba` : ""].filter(Boolean).join(" · ") : tx("Beds & baths", "အိပ်ခန်း · ရေချိုးခန်း")}</FilterChip>
@@ -490,10 +491,11 @@ function MobilePropertySearch({ properties }: { properties: Property[] }) {
         )}
       </main>
 
-      <FilterSheet open={filtersOpen} onOpenChange={setFiltersOpen} title={filterSheetCopy[filterFocus].title} description={filterSheetCopy[filterFocus].description} footer={<div className="space-y-2.5">{filterFocus === "all" && <button type="button" onClick={saveCurrentSearch} className={cn("inline-flex h-11 w-full items-center justify-center gap-2 rounded-[12px] border text-[10px] font-semibold transition-colors", searchSaved ? "border-[#B9D8C4] bg-[#F1F8F3] text-[#287A4B]" : "border-[#C8D8EA] bg-[#F5F8FC] text-[#0057D9]")} aria-pressed={searchSaved}>{searchSaved ? <Check className="size-4" /> : <BellPlus className="size-4" />}{searchSaved ? tx("Search saved · alerts on", "ရှာဖွေမှုသိမ်းပြီး · အသိပေးမည်") : tx("Save search & get alerts", "ရှာဖွေမှုသိမ်းပြီး အသိပေးပါ")}</button>}<div className="grid grid-cols-[.8fr_1.2fr] gap-2"><Button variant="outline" className="h-12 rounded-[12px]" onClick={clearFocusedFilters}>{filterFocus === "all" ? tx("Reset", "ပြန်ရှင်းရန်") : tx("Clear", "ရှင်းရန်")}</Button><Button className="h-12 rounded-[12px] bg-[#0057D9] !text-white hover:bg-[#003F91]" onClick={() => setFiltersOpen(false)}>{tx(`Show ${results.length} homes`, `အိမ် ${results.length} လုံး ပြရန်`)}</Button></div></div>}>
+      <Framework7FilterSheet open={filtersOpen} onOpenChange={setFiltersOpen} title={filterSheetCopy[filterFocus].title} description={filterSheetCopy[filterFocus].description} footer={<div className="space-y-2.5">{filterFocus === "all" && <button type="button" onClick={saveCurrentSearch} className={cn("inline-flex h-11 w-full items-center justify-center gap-2 rounded-[12px] border text-[10px] font-semibold transition-colors", searchSaved ? "border-[#B9D8C4] bg-[#F1F8F3] text-[#287A4B]" : "border-[#C8D8EA] bg-[#F5F8FC] text-[#0057D9]")} aria-pressed={searchSaved}>{searchSaved ? <Check className="size-4" /> : <BellPlus className="size-4" />}{searchSaved ? tx("Search saved · alerts on", "ရှာဖွေမှုသိမ်းပြီး · အသိပေးမည်") : tx("Save search & get alerts", "ရှာဖွေမှုသိမ်းပြီး အသိပေးပါ")}</button>}<div className="grid grid-cols-[.8fr_1.2fr] gap-2"><Button variant="outline" className="h-12 rounded-[12px]" onClick={clearFocusedFilters}>{filterFocus === "all" ? tx("Reset", "ပြန်ရှင်းရန်") : tx("Clear", "ရှင်းရန်")}</Button><Button className="h-12 rounded-[12px] bg-[#0057D9] !text-white hover:bg-[#003F91]" onClick={() => setFiltersOpen(false)}>{tx(`Show ${results.length} homes`, `အိမ် ${results.length} လုံး ပြရန်`)}</Button></div></div>}>
         <div className="p-5 pb-8 sm:px-7"><FilterControls {...filterControlProps} /></div>
-      </FilterSheet>
+      </Framework7FilterSheet>
     </div>
+    </Framework7SearchRoot>
   );
 }
 
@@ -543,7 +545,7 @@ function FilterGroup({ title, description, children }: { title: string; descript
 }
 
 function ChoiceButton({ selected, onClick, children, compact = false, className }: { selected: boolean; onClick: () => void; children: React.ReactNode; compact?: boolean; className?: string }) {
-  return <button type="button" onClick={onClick} className={cn("inline-flex items-center justify-center gap-1.5 rounded-[14px] border font-semibold", compact ? "h-11 px-3 text-[10px]" : "h-12 px-4 text-[11px]", selected ? "border-[#0057D9] bg-[#EEF5FC] text-[#0057D9]" : "border-[#DCD9D1] bg-white text-[#66716C]", className)}>{selected && <Check className="size-3.5" />}{children}</button>;
+  return <Framework7ChoiceButton selected={selected} onClick={onClick} compact={compact} className={className}>{selected && <Check className="size-3.5" />}{children}</Framework7ChoiceButton>;
 }
 
 interface FilterControlsProps {
@@ -603,9 +605,7 @@ function FilterControls({ location, purpose, minPrice, maxPrice, propertyTypes, 
   return (
     <div className="space-y-7">
       {focus === "all" && <FilterGroup title={tx("I’m looking to", "ရှာဖွေလိုသည်")}>
-        <div role="radiogroup" aria-label={tx("Rent or buy", "ငှားရန် သို့မဟုတ် ဝယ်ရန်")} className="grid grid-cols-2 rounded-[14px] bg-[#ECEFEB] p-1">
-          {(["rent", "sale"] as const).map((option) => <button key={option} type="button" role="radio" aria-checked={purpose === option} onClick={() => onPurposeChange(option)} className={cn("h-11 rounded-[11px] text-[11px] font-semibold transition-[background-color,color,box-shadow]", purpose === option ? "bg-white text-[#0057D9] shadow-[0_1px_4px_rgba(15,23,42,.12)]" : "text-[#66716C]")}>{option === "rent" ? tx("Rent a home", "အိမ်ငှားမည်") : tx("Buy a home", "အိမ်ဝယ်မည်")}</button>)}
-        </div>
+        <Framework7PurposeControl value={purpose} onChange={onPurposeChange} rentLabel={tx("Rent a home", "အိမ်ငှားမည်")} buyLabel={tx("Buy a home", "အိမ်ဝယ်မည်")} ariaLabel={tx("Rent or buy", "ငှားရန် သို့မဟုတ် ဝယ်ရန်")} className="w-full" />
       </FilterGroup>}
       {show("location") && <FilterGroup title={tx("City or township", "မြို့ သို့မဟုတ် မြို့နယ်")} description={tx("Type or use a recent location.", "ရိုက်ထည့်ပါ သို့မဟုတ် မကြာသေးမီနေရာရွေးပါ။")}><LocationPicker key={location} value={location} onChange={onLocationChange} tx={tx} /></FilterGroup>}
       {show("price") && <FilterGroup title={purpose === "rent" ? tx("Monthly rent", "လစဉ်ငှားရမ်းခ") : tx("Purchase price", "ဝယ်ယူဈေးနှုန်း")} description={tx("Set a minimum and maximum price.", "အနည်းဆုံးနှင့် အများဆုံးဈေးနှုန်းရွေးပါ။")}>
