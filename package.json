@@ -25,7 +25,6 @@
     "drizzle-orm": "0.45.2",
     "framer-motion": "^12.42.2",
     "framework7": "^9.1.2",
-    "framework7-react": "^9.1.2",
     "leaflet": "^1.9.4",
     "lucide-react": "^1.25.0",
     "next": "16.2.6",
