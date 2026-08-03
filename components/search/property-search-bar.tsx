@@ -55,9 +55,11 @@ function PropertySearchBar({
         <button type="submit" className="grid size-10 shrink-0 place-items-center rounded-full bg-a7-blue text-white shadow-[0_4px_12px_rgba(0,87,217,.2)] transition-[background-color,transform] duration-[var(--duration-base)] hover:bg-[#0049B8] active:scale-[.96]" aria-label={searchLabel}>
           <Search className="size-[17px]" />
         </button>
-        <button type="button" onClick={onClear} disabled={!value} className="ml-1 grid size-10 shrink-0 place-items-center rounded-full text-[#98A2B3] transition-colors hover:bg-[#F3F1ED] hover:text-a7-navy disabled:opacity-45" aria-label={clearLabel}>
-          <X className="size-[19px]" />
-        </button>
+        {value && (
+          <button type="button" onClick={onClear} className="ml-1 grid size-10 shrink-0 place-items-center rounded-full text-[#98A2B3] transition-colors hover:bg-[#F3F1ED] hover:text-a7-navy" aria-label={clearLabel}>
+            <X className="size-[19px]" />
+          </button>
+        )}
       </form>
 
       {!compact && (
