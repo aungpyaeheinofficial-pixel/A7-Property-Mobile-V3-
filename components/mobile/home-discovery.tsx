@@ -10,7 +10,7 @@ import { useAuth } from "@/components/auth/auth-provider";
 import { A7Brand } from "@/components/brand/a7-brand";
 import { useLanguage } from "@/components/i18n/language-provider";
 import { LanguageSwitcher } from "@/components/i18n/language-switcher";
-import { MobilePropertyCard, SectionHeading, SegmentedControl } from "@/components/mobile/a7-mobile-ui";
+import { MobilePropertyCard, SectionHeading } from "@/components/mobile/a7-mobile-ui";
 import { ProgressiveImage } from "@/components/ui/progressive-image";
 import { useToast } from "@/components/ui/toast-provider";
 import { readStoredIds, STORAGE_KEYS, writeStoredIds } from "@/lib/local-storage";
@@ -174,10 +174,7 @@ function HomeDiscovery() {
 
         <section className="border-y border-a7-line bg-[#F3F1ED] py-12 lg:py-16">
           <div className="mx-auto max-w-[1240px] px-4 sm:px-6 lg:px-8">
-            <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
-              <SectionHeading eyebrow={tx("Chosen for you", "သင့်အတွက် ရွေးချယ်ထားသည်")} title={tx("Homes worth seeing", "ကြည့်သင့်တဲ့အိမ်များ")} />
-              <SegmentedControl value={purpose} onChange={setPurpose} ariaLabel={tx("Property purpose", "အိမ်အမျိုးအစား")} options={[{ value: "rent", label: tx("Rent", "ငှားရန်") }, { value: "sale", label: tx("Buy", "ဝယ်ရန်") }]} className="w-full max-w-[240px]" />
-            </div>
+            <SectionHeading eyebrow={tx("Chosen for you", "သင့်အတွက် ရွေးချယ်ထားသည်")} title={tx("Homes worth seeing", "ကြည့်သင့်တဲ့အိမ်များ")} />
             <div className="-mx-4 mt-7 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-5 md:mx-0 md:grid md:grid-cols-3 md:px-0">
               {recommended.slice(0, 3).map((property, index) => (
                 <motion.div key={property.id} initial={reduceMotion ? false : { opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ amount: 0.5, margin: "0px -12% 0px -12%" }} transition={reduceMotion ? { duration: 0 } : { ...a7Motion.slow, delay: index * 0.035 }} className="min-w-[86vw] snap-center md:min-w-0">
