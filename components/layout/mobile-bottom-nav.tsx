@@ -53,9 +53,9 @@ function MobileBottomNav() {
               active ? "text-[#0A67FF]" : "text-[#7D8BA0] hover:text-[#0A67FF]",
             )}
           >
-            <motion.span animate={reduceMotion ? undefined : { scale: active ? 1.06 : 1, y: active ? -1 : 0 }} transition={reduceMotion ? { duration: 0 } : a7Motion.base} className="relative z-10 flex h-9 w-11 items-center justify-center rounded-[18px] transition-colors duration-200 group-hover:bg-white/28">
-              {active && <motion.span layoutId="a7-mobile-nav-active" className="absolute -inset-x-1.5 -inset-y-1 rounded-[22px] border border-white/85 bg-[rgba(10,103,255,.14)] shadow-[0_6px_18px_rgba(10,103,255,.18),inset_0_1px_0_rgba(255,255,255,.94),inset_0_-1px_0_rgba(145,185,255,.16)] backdrop-blur-[20px] backdrop-saturate-[1.8]" transition={reduceMotion ? { duration: 0 } : a7Motion.spring} aria-hidden="true" />}
-              <Icon className={cn("relative z-10 size-5 transition-[color,fill] duration-200", active ? "text-[#0A67FF]" : "text-[#7D8BA0]", active && item.id === "saved" && "fill-current")} strokeWidth={active ? 2.3 : 1.9} />
+            <motion.span animate={reduceMotion ? undefined : { scale: active ? 1.06 : 1, y: active ? -2 : 0 }} transition={reduceMotion ? { duration: 0 } : a7Motion.base} className="relative z-10 flex h-9 w-11 items-center justify-center rounded-[18px] transition-colors duration-200 group-hover:bg-white/28">
+              {active && <motion.span layoutId="a7-mobile-nav-active" className="absolute -inset-x-2.5 -inset-y-1.5 -translate-y-0.5 rounded-[24px] border border-white/90 bg-[rgba(10,103,255,.15)] shadow-[0_8px_22px_rgba(10,103,255,.2),inset_0_1px_0_rgba(255,255,255,.96),inset_0_-1px_0_rgba(145,185,255,.18)] backdrop-blur-[22px] backdrop-saturate-[1.85]" transition={reduceMotion ? { duration: 0 } : a7Motion.spring} aria-hidden="true" />}
+              <Icon className={cn("relative z-10 transition-[color,fill,width,height] duration-200", active ? "size-[22px] text-[#0A67FF]" : "size-5 text-[#7D8BA0]", active && item.id === "saved" && "fill-current")} strokeWidth={active ? 2.3 : 1.9} />
             </motion.span>
             <span className={cn("relative z-10 max-w-full truncate px-0.5 leading-none", active ? "font-semibold text-[#243247]" : "text-[#7D8BA0]")}>{isMyanmar ? item.labelMy : item.label}</span>
             {item.id === "messages" && <span className="absolute right-[26%] top-2 z-20 size-[7px] rounded-full bg-[#0A67FF] shadow-[0_0_0_2px_rgba(255,255,255,.8)]" aria-hidden="true" />}
