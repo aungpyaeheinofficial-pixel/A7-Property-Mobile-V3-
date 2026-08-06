@@ -11,7 +11,7 @@ import { cn } from "@/lib/utils";
 
 const items = [
   { id: "home", href: "/", label: "Home", labelMy: "ပင်မ", icon: Home },
-  { id: "search", href: "/search?purpose=rent", label: "Search", labelMy: "ရှာဖွေ", icon: Search },
+  { id: "search", href: "/search?purpose=rent", label: "Explore", labelMy: "လေ့လာ", icon: Search },
   { id: "saved", href: "/saved", label: "Saved", labelMy: "သိမ်းထား", icon: Heart },
   { id: "messages", href: "/messages", label: "Messages", labelMy: "စာများ", icon: MessageCircle },
   { id: "profile", href: "/profile", label: "Profile", labelMy: "ပရိုဖိုင်", icon: UserRound },
