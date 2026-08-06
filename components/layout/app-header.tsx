@@ -47,18 +47,18 @@ function AppHeader({ compact = false }: AppHeaderProps) {
           <A7AssistantPopover labelClassName="hidden min-[400px]:inline" />
           <LanguageSwitcher className="hidden sm:block" />
           <LanguageSwitcher compact className="sm:hidden" />
-          <Link href="/dashboard?section=saved" className="hidden size-10 place-items-center rounded-xl text-[#526172] transition-colors hover:bg-[#EEF3F9] hover:text-[#0057D9] sm:grid" aria-label={tx("Saved homes", "သိမ်းထားသောအိမ်များ")}>
+          <Link href="/dashboard?section=saved" className="hidden size-11 place-items-center rounded-xl text-[#526172] transition-colors hover:bg-[#EEF3F9] hover:text-[#0057D9] sm:grid" aria-label={tx("Saved homes", "သိမ်းထားသောအိမ်များ")}>
             <AnimatedIcon icon="ph:heart-bold" size="sm" hover="scale" />
           </Link>
           {user ? (
             <div className="flex items-center gap-2">
               <Link href={user.accountType === "lister" ? "/owner" : "/dashboard"} className="hidden max-w-[140px] truncate rounded-xl bg-[#EDF4FF] px-3 py-2 text-xs font-semibold text-a7-blue sm:block">{user.fullName}</Link>
-              <button type="button" onClick={handleSignOut} className="grid size-10 place-items-center rounded-xl border border-[#DCE4ED] bg-white text-[#29445F] shadow-sm transition-colors hover:border-[#FF6B6B] hover:text-[#D92D20]" aria-label={tx("Sign out", "အကောင့်ထွက်ရန်")}>
+              <button type="button" onClick={handleSignOut} className="grid size-11 place-items-center rounded-xl border border-[#DCE4ED] bg-white text-[#29445F] shadow-sm transition-colors hover:border-[#FF6B6B] hover:text-[#D92D20]" aria-label={tx("Sign out", "အကောင့်ထွက်ရန်")}>
                 <AnimatedIcon icon="ph:sign-out-bold" size="sm" hover="scale" />
               </button>
             </div>
           ) : (
-            <Link href="/sign-in" className="grid size-10 place-items-center rounded-xl border border-[#DCE4ED] bg-white text-[#29445F] shadow-sm transition-colors hover:border-[#9FC4FF] hover:text-[#0057D9]" aria-label={tx("Sign in", "အကောင့်ဝင်ရန်")}>
+            <Link href="/sign-in" className="grid size-11 place-items-center rounded-xl border border-[#DCE4ED] bg-white text-[#29445F] shadow-sm transition-colors hover:border-[#9FC4FF] hover:text-[#0057D9]" aria-label={tx("Sign in", "အကောင့်ဝင်ရန်")}>
               <AnimatedIcon icon="ph:user-circle-bold" size="md" hover="scale" iconClassName="size-5" />
             </Link>
           )}

@@ -52,11 +52,11 @@ function PropertySearchBar({
           aria-label={searchLabel}
           className="min-h-9 min-w-0 flex-1 appearance-none bg-transparent text-[13px] text-a7-navy outline-none placeholder:text-[#98A2B3] [&::-webkit-search-cancel-button]:hidden"
         />
-        <button type="submit" className="grid size-10 shrink-0 place-items-center rounded-full bg-a7-blue text-white shadow-[0_4px_12px_rgba(0,87,217,.2)] transition-[background-color,transform] duration-[var(--duration-base)] hover:bg-[#0049B8] active:scale-[.96]" aria-label={searchLabel}>
+        <button type="submit" className="grid size-11 shrink-0 place-items-center rounded-full bg-a7-blue text-white shadow-[0_4px_12px_rgba(0,87,217,.2)] transition-[background-color,transform] duration-[var(--duration-base)] hover:bg-[#0049B8] active:scale-[.96]" aria-label={searchLabel}>
           <Search className="size-[17px]" />
         </button>
         {value && (
-          <button type="button" onClick={onClear} className="ml-1 grid size-10 shrink-0 place-items-center rounded-full text-[#98A2B3] transition-colors hover:bg-[#F3F1ED] hover:text-a7-navy" aria-label={clearLabel}>
+          <button type="button" onClick={onClear} className="ml-1 grid size-11 shrink-0 place-items-center rounded-full text-[#98A2B3] transition-colors hover:bg-[#F3F1ED] hover:text-a7-navy" aria-label={clearLabel}>
             <X className="size-[19px]" />
           </button>
         )}
@@ -74,7 +74,7 @@ function PropertySearchBar({
                 aria-selected={selected}
                 onClick={() => onTabChange(tab.id)}
                 className={cn(
-                  "min-h-10 rounded-full px-2 text-[10px] font-semibold transition-[background-color,color,box-shadow,transform] duration-[var(--duration-base)]",
+                  "min-h-11 rounded-full px-2 text-[10px] font-semibold transition-[background-color,color,box-shadow,transform] duration-[var(--duration-base)]",
                   selected
                     ? "bg-a7-blue text-white shadow-[0_4px_12px_rgba(0,87,217,.2)]"
                     : "bg-[#F5F6F7] text-a7-muted hover:bg-[#EDF4FF] hover:text-a7-blue",

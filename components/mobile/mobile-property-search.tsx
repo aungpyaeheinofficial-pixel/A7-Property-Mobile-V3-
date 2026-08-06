@@ -12,6 +12,7 @@ import { PropertyMap, type MapSearchBounds } from "@/components/property/propert
 import { PropertySearchBar, type PropertySearchTab } from "@/components/search/property-search-bar";
 import { Button } from "@/components/ui/button";
 import { FilterSheet } from "@/components/ui/filter-sheet";
+import { useToast } from "@/components/ui/toast-provider";
 import { usePropertyComparison } from "@/hooks/use-property-comparison";
 import { readStoredIds, STORAGE_KEYS, writeStoredIds } from "@/lib/local-storage";
 import { mockUser } from "@/lib/mock-users";
@@ -60,6 +61,7 @@ interface ActiveFilter {
 function MobilePropertySearch({ properties }: { properties: Property[] }) {
   const params = useSearchParams();
   const { tx, isMyanmar } = useLanguage();
+  const { toast } = useToast();
   const locationParam = params.get("location") ?? "";
   const recognizedLocation = searchLocations.includes(locationParam as (typeof searchLocations)[number]);
   const initialPurpose = params.get("purpose") === "sale" ? "sale" : "rent";
@@ -89,6 +91,7 @@ function MobilePropertySearch({ properties }: { properties: Property[] }) {
   const [filtersOpen, setFiltersOpen] = useState(false);
   const [filterFocus, setFilterFocus] = useState<FilterFocus>("all");
   const [saved, setSaved] = useState(mockUser.savedPropertyIds);
+  const [recentIds, setRecentIds] = useState(mockUser.recentlyViewedIds);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [visibleCount, setVisibleCount] = useState(12);
   const { comparisonIds, toggleProperty, maxComparisonHomes } = usePropertyComparison();
@@ -98,6 +101,8 @@ function MobilePropertySearch({ properties }: { properties: Property[] }) {
   useEffect(() => {
     const stored = readStoredIds(STORAGE_KEYS.saved, STORAGE_KEYS.legacySaved, mockUser.savedPropertyIds);
     queueMicrotask(() => setSaved(stored));
+    const storedRecent = readStoredIds(STORAGE_KEYS.recent, STORAGE_KEYS.legacyRecent, mockUser.recentlyViewedIds);
+    queueMicrotask(() => setRecentIds(storedRecent));
 
     const persisted = window.sessionStorage.getItem(SEARCH_RESTORE_KEY);
     if (!persisted) return;
@@ -184,6 +189,11 @@ function MobilePropertySearch({ properties }: { properties: Property[] }) {
     return sortProperties(next, sort);
   }, [amenities, filters, location, mapBounds, properties, query, sort]);
 
+  const recentlyViewed = useMemo(
+    () => recentIds.map((id) => properties.find((property) => property.id === id)).filter((property): property is Property => Boolean(property)).slice(0, 4),
+    [properties, recentIds],
+  );
+
   useEffect(() => {
     if (results.length && !results.some((property) => property.id === selectedId)) queueMicrotask(() => setSelectedId(results[0].id));
   }, [results, selectedId]);
@@ -199,9 +209,25 @@ function MobilePropertySearch({ properties }: { properties: Property[] }) {
   }, []);
 
   function toggleSaved(property: Property) {
-    const next = saved.includes(property.id) ? saved.filter((id) => id !== property.id) : [...saved, property.id];
+    const wasSaved = saved.includes(property.id);
+    const next = wasSaved ? saved.filter((id) => id !== property.id) : [...saved, property.id];
     setSaved(next);
     writeStoredIds(STORAGE_KEYS.saved, next);
+    toast({
+      tone: "success",
+      title: wasSaved ? tx("Removed from Saved Homes", "သိမ်းထားသောအိမ်မှ ဖယ်ပြီး") : tx("Saved for later", "နောက်မှကြည့်ရန် သိမ်းပြီး"),
+      description: property.title,
+    });
+  }
+
+  function toggleCompared(property: Property) {
+    const wasCompared = comparisonIds.includes(property.id);
+    toggleProperty(property);
+    toast({
+      tone: "info",
+      title: wasCompared ? tx("Removed from comparison", "နှိုင်းယှဉ်မှုမှ ဖယ်ပြီး") : tx("Added to comparison", "နှိုင်းယှဉ်ရန် ထည့်ပြီး"),
+      description: property.title,
+    });
   }
 
   function resetResultWindow() {
@@ -419,7 +445,7 @@ function MobilePropertySearch({ properties }: { properties: Property[] }) {
         ) : results.length ? (
           <>
             <div className="mt-5 grid gap-x-4 gap-y-6 sm:grid-cols-2 xl:grid-cols-3">
-              {results.slice(0, visibleCount).map((property, index) => <div key={property.id} data-search-property-id={property.id}><MobileSearchCard property={property} saved={saved.includes(property.id)} onToggleSaved={toggleSaved} onOpen={() => rememberJourneyState(property.id)} priority={index < 2} compared={comparisonIds.includes(property.id)} compareDisabled={!comparisonIds.includes(property.id) && comparisonIds.length >= maxComparisonHomes} onToggleCompare={toggleProperty} /></div>)}
+              {results.slice(0, visibleCount).map((property, index) => <div key={property.id} data-search-property-id={property.id}><MobileSearchCard property={property} saved={saved.includes(property.id)} onToggleSaved={toggleSaved} onOpen={() => rememberJourneyState(property.id)} priority={index < 2} compared={comparisonIds.includes(property.id)} compareDisabled={!comparisonIds.includes(property.id) && comparisonIds.length >= maxComparisonHomes} onToggleCompare={toggleCompared} /></div>)}
             </div>
             {visibleCount < results.length && (
               <div className="mt-7 text-center">
@@ -430,6 +456,23 @@ function MobilePropertySearch({ properties }: { properties: Property[] }) {
           </>
         ) : (
           <div className="mt-10 rounded-[20px] border border-dashed border-[#B9D3FA] bg-white px-6 py-12 text-center"><MapPin className="mx-auto size-8 text-[#0057D9]" /><h2 className="mt-4 text-xl font-semibold">{tx("No exact matches yet", "အတိအကျကိုက်ညီသောအိမ် မတွေ့သေးပါ")}</h2><p className="mx-auto mt-2 max-w-md text-[12px] leading-6 text-[#707A75]">{tx("Try a nearby township or clear one filter.", "အနီးအနားမြို့နယ်ကို စမ်းကြည့်ပါ သို့မဟုတ် စစ်ထုတ်မှုတစ်ခုရှင်းပါ။")}</p><button type="button" onClick={clearFilters} className="mt-5 h-11 rounded-[14px] bg-[#0057D9] px-5 text-[12px] font-semibold text-white">{tx("Clear filters", "စစ်ထုတ်မှုရှင်းရန်")}</button></div>
+        )}
+
+        {view === "list" && recentlyViewed.length > 0 && (
+          <section className="mt-12 border-t border-a7-line pt-8" aria-labelledby="recently-viewed-title">
+            <div className="flex items-end justify-between gap-4">
+              <div>
+                <p className="text-[10px] font-semibold uppercase tracking-[.14em] text-a7-blue">{tx("Continue your home journey", "အိမ်ရှာဖွေမှုကို ဆက်လုပ်ပါ")}</p>
+                <h2 id="recently-viewed-title" className="mt-1.5 text-[23px] font-semibold tracking-[-0.04em] text-a7-navy">{tx("Recently viewed", "မကြာသေးမီက ကြည့်ခဲ့သည်")}</h2>
+              </div>
+              <Link href="/saved" className="inline-flex min-h-11 shrink-0 items-center text-[10px] font-semibold text-a7-blue">{tx("Saved homes", "သိမ်းထားသောအိမ်များ")}</Link>
+            </div>
+            <div className="hide-scrollbar -mx-4 mt-5 flex snap-x gap-3 overflow-x-auto px-4 pb-3 sm:mx-0 sm:grid sm:grid-cols-2 sm:px-0 lg:grid-cols-4">
+              {recentlyViewed.map((property) => (
+                <MobilePropertyCard key={property.id} property={property} variant="compact" saved={saved.includes(property.id)} onToggleSaved={toggleSaved} onOpen={() => rememberJourneyState(property.id)} className="w-[82vw] shrink-0 snap-start sm:w-auto" />
+              ))}
+            </div>
+          </section>
         )}
       </main>
 

@@ -270,7 +270,7 @@ function SignInView() {
             <Link href="/" aria-label={text.back} className="rounded-xl focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#0057D9]/20">
               <A7Brand />
             </Link>
-            <Link href="/" className="grid size-10 place-items-center rounded-full border border-[#DCE2EA] text-[#596473] transition-colors hover:bg-[#FAF8F5] lg:hidden" aria-label={text.back}>
+            <Link href="/" className="grid size-11 place-items-center rounded-full border border-[#DCE2EA] text-[#596473] transition-colors hover:bg-[#FAF8F5] lg:hidden" aria-label={text.back}>
               <ArrowLeft className="size-[18px]" />
             </Link>
           </div>

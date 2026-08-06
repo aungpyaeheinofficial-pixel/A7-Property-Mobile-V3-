@@ -8,6 +8,7 @@ import { LanguageProvider } from "@/components/i18n/language-provider";
 import { AuthProvider } from "@/components/auth/auth-provider";
 import { ComparisonTray } from "@/components/compare/comparison-tray";
 import { MobileBottomNav } from "@/components/layout/mobile-bottom-nav";
+import { ToastProvider } from "@/components/ui/toast-provider";
 import "./globals.css";
 
 
@@ -42,7 +43,18 @@ export async function generateMetadata(): Promise<Metadata> {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" suppressHydrationWarning className="font-sans">
-      <body><LanguageProvider><AuthProvider>{children}<ComparisonTray /><MobileBottomNav /></AuthProvider></LanguageProvider></body>
+      <body>
+        <a href="#main-content" className="fixed left-4 top-3 z-[200] -translate-y-24 rounded-[12px] bg-a7-navy px-4 py-3 text-sm font-semibold text-white shadow-lg transition-transform focus:translate-y-0">Skip to main content</a>
+        <LanguageProvider>
+          <AuthProvider>
+            <ToastProvider>
+              <div id="main-content" tabIndex={-1}>{children}</div>
+              <ComparisonTray />
+              <MobileBottomNav />
+            </ToastProvider>
+          </AuthProvider>
+        </LanguageProvider>
+      </body>
     </html>
   );
 }

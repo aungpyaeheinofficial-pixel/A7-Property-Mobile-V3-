@@ -18,7 +18,7 @@ function Button({ className, variant = "default", size = "default", type = "butt
         variant === "ghost" && "bg-transparent text-a7-navy hover:bg-[#F0EEEA]",
         variant === "outline" && "border border-a7-line bg-white text-a7-navy shadow-[var(--shadow-hairline)] hover:border-[#B8C8DE] hover:bg-[#F8FAFD] hover:text-a7-blue",
         size === "default" && "h-11 rounded-[var(--radius-control)] px-4 text-sm",
-        size === "icon" && "size-11 rounded-[var(--radius-control)]",
+        size === "icon" && "size-11 min-w-11 rounded-[var(--radius-control)]",
         className,
       )}
       {...props}

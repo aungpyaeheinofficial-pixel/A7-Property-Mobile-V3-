@@ -9,6 +9,7 @@ import { InquirySheet, type InquiryMode } from "@/components/property/inquiry-sh
 import { OwnerCard } from "@/components/property/owner-card";
 import { AIAssistantCard, AmenitiesGrid, BottomActionBar, DescriptionSection, FactsCard, LocationCard, NearbyPlaces, PriceCard, SimilarProperties, TrustMeta, VerificationCard } from "@/components/property/property-detail-sections";
 import { PropertyGallery } from "@/components/property/property-gallery";
+import { useToast } from "@/components/ui/toast-provider";
 import { usePropertyComparison } from "@/hooks/use-property-comparison";
 import { readStoredIds, STORAGE_KEYS, writeStoredIds } from "@/lib/local-storage";
 import { mockUser } from "@/lib/mock-users";
@@ -17,11 +18,11 @@ import { cn } from "@/lib/utils";
 
 function PropertyDetailView({ property }: { property: Property }) {
   const { tx } = useLanguage();
+  const { toast } = useToast();
   const router = useRouter();
   const [favorite, setFavorite] = useState(false);
   const [inquiryOpen, setInquiryOpen] = useState(false);
   const [inquiryMode, setInquiryMode] = useState<InquiryMode>("contact");
-  const [shareNotice, setShareNotice] = useState("");
   const [compactHeader, setCompactHeader] = useState(false);
   const { comparisonIds, toggleProperty, maxComparisonHomes } = usePropertyComparison();
   const compared = comparisonIds.includes(property.id);
@@ -60,6 +61,11 @@ function PropertyDetailView({ property }: { property: Property }) {
     const next = favorite ? saved.filter((id) => id !== property.id) : [...saved, property.id];
     writeStoredIds(STORAGE_KEYS.saved, next);
     setFavorite(!favorite);
+    toast({
+      tone: "success",
+      title: favorite ? tx("Removed from Saved Homes", "သိမ်းထားသောအိမ်မှ ဖယ်ပြီး") : tx("Saved for later", "နောက်မှကြည့်ရန် သိမ်းပြီး"),
+      description: property.title,
+    });
   }
 
   function openInquiry(mode: InquiryMode) {
@@ -81,8 +87,7 @@ function PropertyDetailView({ property }: { property: Property }) {
       if (navigator.share) await navigator.share(shareData);
       else {
         await navigator.clipboard.writeText(window.location.href);
-        setShareNotice(tx("Link copied", "လင့်ခ်ကူးပြီး"));
-        window.setTimeout(() => setShareNotice(""), 1800);
+        toast({ tone: "success", title: tx("Link copied", "လင့်ခ်ကူးပြီး"), description: tx("Ready to share with family or friends.", "မိသားစု သို့မဟုတ် သူငယ်ချင်းများထံ မျှဝေနိုင်ပါပြီ။") });
       }
     } catch {
       // Native sharing can be dismissed without changing the page.
@@ -101,8 +106,6 @@ function PropertyDetailView({ property }: { property: Property }) {
           <button type="button" onClick={shareProperty} className="grid size-11 shrink-0 place-items-center rounded-full border border-[#DEE2E8] bg-white text-[#0057D9] shadow-sm" aria-label={tx("Share property", "အိမ်ကိုမျှဝေရန်")}><Share2 className="size-[17px]" /></button>
         </div>
       </header>
-
-      {shareNotice && <div className="fixed left-1/2 top-20 z-[90] -translate-x-1/2 rounded-full bg-[#0F1B2D] px-4 py-2 text-[10px] font-semibold text-white shadow-lg" role="status">{shareNotice}</div>}
 
       <main className="mx-auto max-w-[1280px] sm:px-6 sm:py-6 lg:px-8">
         <PropertyGallery images={property.images} title={property.title} verified={property.verification_status === "verified"} favorite={favorite} onToggleFavorite={toggleFavorite} />
@@ -125,7 +128,10 @@ function PropertyDetailView({ property }: { property: Property }) {
               <div className="mt-4"><TrustMeta property={property} tx={tx} /></div>
               <button
                 type="button"
-                onClick={() => toggleProperty(property)}
+                onClick={() => {
+                  toggleProperty(property);
+                  toast({ tone: "info", title: compared ? tx("Removed from comparison", "နှိုင်းယှဉ်မှုမှ ဖယ်ပြီး") : tx("Added to comparison", "နှိုင်းယှဉ်ရန် ထည့်ပြီး"), description: property.title });
+                }}
                 disabled={compareDisabled}
                 className={cn("mt-4 inline-flex h-11 items-center gap-2 rounded-[14px] border border-[#C9D8E7] bg-white px-4 text-[10px] font-semibold text-[#0057D9] transition-colors disabled:cursor-not-allowed disabled:opacity-45", compared && "border-[#173B66] bg-[#173B66] text-white")}
                 aria-pressed={compared}

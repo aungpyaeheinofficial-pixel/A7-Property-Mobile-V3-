@@ -12,6 +12,7 @@ import { useLanguage } from "@/components/i18n/language-provider";
 import { LanguageSwitcher } from "@/components/i18n/language-switcher";
 import { MobilePropertyCard, SectionHeading, SegmentedControl } from "@/components/mobile/a7-mobile-ui";
 import { ProgressiveImage } from "@/components/ui/progressive-image";
+import { useToast } from "@/components/ui/toast-provider";
 import { readStoredIds, STORAGE_KEYS, writeStoredIds } from "@/lib/local-storage";
 import { mockUser } from "@/lib/mock-users";
 import { a7Motion } from "@/lib/motion";
@@ -27,6 +28,7 @@ const townshipMeta = [
 function HomeDiscovery() {
   const { tx, isMyanmar } = useLanguage();
   const { user } = useAuth();
+  const { toast } = useToast();
   const router = useRouter();
   const reduceMotion = useReducedMotion();
   const heroRef = useRef<HTMLElement | null>(null);
@@ -58,9 +60,15 @@ function HomeDiscovery() {
   const greetingName = user?.fullName?.split(" ")[0] || "Thiri";
 
   function toggleSaved(property: Property) {
-    const next = saved.includes(property.id) ? saved.filter((id) => id !== property.id) : [...saved, property.id];
+    const wasSaved = saved.includes(property.id);
+    const next = wasSaved ? saved.filter((id) => id !== property.id) : [...saved, property.id];
     setSaved(next);
     writeStoredIds(STORAGE_KEYS.saved, next);
+    toast({
+      tone: "success",
+      title: wasSaved ? tx("Removed from Saved Homes", "သိမ်းထားသောအိမ်မှ ဖယ်ပြီး") : tx("Saved for later", "နောက်မှကြည့်ရန် သိမ်းပြီး"),
+      description: property.title,
+    });
   }
 
   function submitSearch(event: FormEvent) {
@@ -193,7 +201,7 @@ function HomeDiscovery() {
         ) : (
           <motion.aside key="ask-a7-panel" layoutId="ask-a7-home" initial={reduceMotion ? false : { opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 8 }} transition={{ duration: reduceMotion ? 0 : 0.28, ease: [0.22, 1, 0.36, 1] }} className="fixed bottom-[88px] left-4 right-4 z-[70] mx-auto max-w-[390px] rounded-[20px] border border-[#DCE4EC] bg-white p-4 shadow-[0_16px_40px_rgba(15,23,42,.16)] lg:bottom-6 lg:left-auto lg:right-6 lg:w-[360px]">
             <div className="flex items-start gap-3"><span className="grid size-9 shrink-0 place-items-center rounded-full bg-[#EEF5FC] text-[#0057D9]"><Sparkles className="size-4" /></span><div className="min-w-0 flex-1"><strong className="block text-[14px] font-semibold">Ask A7</strong><p className="mt-1 text-[10px] leading-4 text-[#69736F]">{tx("Describe the home you need in your own words.", "လိုချင်သောအိမ်ကို ကိုယ့်စကားဖြင့် ဖော်ပြပါ။")}</p></div><button type="button" onClick={() => setAssistantOpen(false)} className="grid size-11 shrink-0 place-items-center rounded-full bg-[#F4F2ED] text-[#66736F]" aria-label={tx("Close A7 assistant", "A7 အကူကိုပိတ်ရန်")}><X className="size-4" /></button></div>
-            <form onSubmit={submitAssistant} className="mt-3 flex min-h-12 items-center gap-2 rounded-[14px] border border-[#DCD9D1] bg-[#FAFAF8] p-1.5 pl-3"><input autoFocus value={assistantQuery} onChange={(event) => setAssistantQuery(event.target.value)} aria-label={tx("Ask A7 a question", "A7 ကိုမေးရန်")} placeholder={tx("Condo near Hledan under 800K…", "လှည်းတန်းအနီး ၈ သိန်းအောက်…")} className="min-w-0 flex-1 bg-transparent text-[12px] outline-none placeholder:text-[#969D99]" /><button type="submit" className="grid size-10 shrink-0 place-items-center rounded-[12px] bg-[#0057D9] text-white" aria-label={tx("Send to A7", "A7 ထံပို့ရန်")}><ArrowRight className="size-4" /></button></form>
+            <form onSubmit={submitAssistant} className="mt-3 flex min-h-12 items-center gap-2 rounded-[14px] border border-[#DCD9D1] bg-[#FAFAF8] p-1.5 pl-3"><input autoFocus value={assistantQuery} onChange={(event) => setAssistantQuery(event.target.value)} aria-label={tx("Ask A7 a question", "A7 ကိုမေးရန်")} placeholder={tx("Condo near Hledan under 800K…", "လှည်းတန်းအနီး ၈ သိန်းအောက်…")} className="min-w-0 flex-1 bg-transparent text-[12px] outline-none placeholder:text-[#969D99]" /><button type="submit" className="grid size-11 shrink-0 place-items-center rounded-[12px] bg-[#0057D9] text-white" aria-label={tx("Send to A7", "A7 ထံပို့ရန်")}><ArrowRight className="size-4" /></button></form>
             <Link href="/assistant" className="mt-2 inline-flex h-11 items-center gap-1 text-[10px] font-semibold text-[#0057D9]">{tx("Open full assistant", "အကူအပြည့်အစုံဖွင့်ရန်")}<ArrowRight className="size-3.5" /></Link>
           </motion.aside>
         )}
