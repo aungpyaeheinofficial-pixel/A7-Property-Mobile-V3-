@@ -37,7 +37,7 @@ function MobileBottomNav() {
 
   return (
     <nav
-      className="fixed inset-x-2.5 bottom-[max(.625rem,env(safe-area-inset-bottom))] z-[80] mx-auto grid h-[68px] max-w-[520px] grid-cols-5 rounded-[26px] border border-white/16 bg-[rgba(12,25,43,.78)] px-1.5 shadow-[0_10px_28px_rgba(15,23,42,.22),inset_0_1px_0_rgba(255,255,255,.12)] backdrop-blur-[22px] backdrop-saturate-[1.6] lg:hidden"
+      className="fixed inset-x-2 bottom-[max(.5rem,env(safe-area-inset-bottom))] z-[80] mx-auto grid h-[68px] max-w-[520px] grid-cols-5 rounded-[24px] border border-white/90 bg-[rgba(255,255,255,.84)] px-1.5 shadow-[0_8px_26px_rgba(20,40,70,.14),inset_0_1px_0_rgba(255,255,255,.95)] backdrop-blur-[24px] backdrop-saturate-[1.7] lg:hidden"
       aria-label={tx("Primary mobile navigation", "မိုဘိုင်းအဓိက လမ်းညွှန်")}
     >
       {items.map((item) => {
@@ -50,7 +50,7 @@ function MobileBottomNav() {
             aria-current={active ? "page" : undefined}
             className={cn(
               "relative flex min-w-0 flex-col items-center justify-center gap-0.5 rounded-[20px] px-0.5 text-[9px] font-semibold transition-[color,transform] duration-200 active:scale-[.96]",
-              active ? "text-white" : "text-[rgba(255,255,255,.58)] hover:text-white",
+              active ? "text-white" : "text-[#667085] hover:text-a7-blue",
             )}
           >
             {active && (
@@ -62,9 +62,9 @@ function MobileBottomNav() {
               />
             )}
             <motion.span animate={reduceMotion ? undefined : { y: active ? -8 : 0, scale: active ? 1.06 : 1 }} transition={reduceMotion ? { duration: 0 } : a7Motion.spring} className="relative z-10 grid place-items-center">
-              <Icon className={cn("size-[20px] transition-[color,fill] duration-200", active ? "text-[#4DA3FF]" : "text-[rgba(255,255,255,.58)]", active && item.id === "saved" && "fill-current")} strokeWidth={active ? 2.3 : 1.9} />
+              <Icon className={cn("size-[20px] transition-[color,fill] duration-200", active ? "text-[#4DA3FF]" : "text-[#667085]", active && item.id === "saved" && "fill-current")} strokeWidth={active ? 2.3 : 1.9} />
             </motion.span>
-            <motion.span animate={reduceMotion ? undefined : { y: active ? -6 : 0, opacity: 1 }} transition={reduceMotion ? { duration: 0 } : a7Motion.base} className={cn("relative z-10 max-w-full truncate px-0.5", active ? "text-white" : "text-[rgba(255,255,255,.58)]")}>{isMyanmar ? item.labelMy : item.label}</motion.span>
+            <motion.span animate={reduceMotion ? undefined : { y: active ? -6 : 0, opacity: 1 }} transition={reduceMotion ? { duration: 0 } : a7Motion.base} className={cn("relative z-10 max-w-full truncate px-0.5", active ? "text-white" : "text-[#667085]")}>{isMyanmar ? item.labelMy : item.label}</motion.span>
             {item.id === "messages" && <span className="absolute right-[25%] top-2 z-20 size-2 rounded-full border-2 border-[#181B22] bg-white" aria-hidden="true" />}
           </Link>
         );
