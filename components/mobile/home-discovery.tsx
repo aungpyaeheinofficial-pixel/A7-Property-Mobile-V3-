@@ -44,7 +44,8 @@ function HomeDiscovery() {
   const heroImageY = useTransform(heroProgress, [0, 1], [0, 88]);
 
   useMotionValueEvent(scrollY, "change", (latest) => {
-    const nextStickyState = latest > 470;
+    const heroHeight = heroRef.current?.offsetHeight ?? 552;
+    const nextStickyState = latest >= heroHeight - 12;
     if (nextStickyState === stickySearchRef.current) return;
     stickySearchRef.current = nextStickyState;
     setStickySearch(nextStickyState);
@@ -87,7 +88,7 @@ function HomeDiscovery() {
   const revealTransition = reduceMotion ? { duration: 0 } : a7Motion.slow;
 
   return (
-    <div className="a7-page overflow-hidden pb-28 lg:pb-0">
+    <div className="a7-page overflow-x-clip pb-28 lg:pb-0">
       <header className="a7-glass sticky top-0 z-50 border-x-0 border-t-0">
         <div className="mx-auto flex h-[70px] max-w-[1240px] items-center gap-3 px-4 sm:px-6 lg:h-[78px] lg:px-8">
           <motion.div initial={reduceMotion ? false : { opacity: 0, y: -4 }} animate={{ opacity: 1, y: 0 }} transition={reduceMotion ? { duration: 0 } : a7Motion.base}><Link href="/" aria-label="A7 Property home"><A7Brand /></Link></motion.div>
@@ -97,17 +98,24 @@ function HomeDiscovery() {
             <Link href={user ? "/profile" : "/sign-in"} className="grid size-11 place-items-center rounded-full border border-a7-line bg-white text-a7-blue shadow-[var(--shadow-hairline)]" aria-label={user ? tx("Open profile", "ပရိုဖိုင်ဖွင့်ရန်") : tx("Sign in", "အကောင့်ဝင်ရန်")}><UserRound className="size-[19px]" /></Link>
           </motion.div>
         </div>
+        <AnimatePresence initial={false}>
+          {stickySearch && (
+            <motion.div
+              initial={reduceMotion ? false : { height: 0, opacity: 0 }}
+              animate={{ height: 66, opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={reduceMotion ? { duration: 0 } : { duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
+              className="overflow-hidden lg:hidden"
+            >
+              <form onSubmit={submitSearch} className="mx-3 flex h-[54px] items-center gap-2 rounded-full border border-a7-line bg-white p-1.5 pl-4 shadow-[0_8px_24px_rgba(15,27,45,.1)] focus-within:border-[#9FC4FF] focus-within:ring-4 focus-within:ring-a7-blue/10 sm:mx-auto sm:max-w-[640px]" role="search">
+                <Search className="size-[18px] shrink-0 text-[#0057D9]" />
+                <input value={query} onChange={(event) => setQuery(event.target.value)} aria-label={tx("Sticky home search", "အမြဲမြင်ရသော အိမ်ရှာဖွေမှု")} placeholder={tx("Township or landmark", "မြို့နယ် သို့မဟုတ် နေရာ")} className="min-w-0 flex-1 bg-transparent text-[13px] text-a7-navy outline-none placeholder:text-[#969D99]" />
+                <button type="submit" className="grid size-11 shrink-0 place-items-center rounded-full bg-[#0057D9] text-white shadow-[0_5px_14px_rgba(0,87,217,.24)] transition-[background-color,transform] duration-200 hover:bg-[#0049B8] active:scale-[.96]" aria-label={tx("Search homes", "အိမ်များရှာရန်")}><ArrowRight className="size-4" /></button>
+              </form>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </header>
-
-      <AnimatePresence>
-        {stickySearch && (
-          <motion.form initial={reduceMotion ? false : { opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -6 }} transition={reduceMotion ? { duration: 0 } : a7Motion.base} onSubmit={submitSearch} className="a7-glass fixed inset-x-4 top-[78px] z-40 flex h-14 items-center gap-2 rounded-[var(--radius-control)] p-1.5 pl-4 shadow-[var(--shadow-lifted)] lg:hidden" role="search">
-            <Search className="size-[18px] shrink-0 text-[#0057D9]" />
-            <input value={query} onChange={(event) => setQuery(event.target.value)} aria-label={tx("Sticky home search", "အမြဲမြင်ရသော အိမ်ရှာဖွေမှု")} placeholder={tx("Township or landmark", "မြို့နယ် သို့မဟုတ် နေရာ")} className="min-w-0 flex-1 bg-transparent text-[13px] outline-none placeholder:text-[#969D99]" />
-            <button type="submit" className="grid size-11 shrink-0 place-items-center rounded-[13px] bg-[#0057D9] text-white" aria-label={tx("Search homes", "အိမ်များရှာရန်")}><ArrowRight className="size-4" /></button>
-          </motion.form>
-        )}
-      </AnimatePresence>
 
       <motion.main initial={reduceMotion ? false : { opacity: 0 }} animate={{ opacity: 1 }} transition={reduceMotion ? { duration: 0 } : a7Motion.slow}>
         <section ref={heroRef} className="relative mx-auto max-w-[1320px] px-3 pt-3 sm:px-6 sm:pt-6 lg:px-8">
