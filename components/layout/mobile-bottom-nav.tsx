@@ -37,7 +37,7 @@ function MobileBottomNav() {
 
   return (
     <nav
-      className="fixed inset-x-2 bottom-[max(.5rem,env(safe-area-inset-bottom))] z-[80] mx-auto grid h-[68px] max-w-[520px] grid-cols-5 rounded-[24px] border border-white/90 bg-[rgba(255,255,255,.84)] px-1.5 shadow-[0_8px_26px_rgba(20,40,70,.14),inset_0_1px_0_rgba(255,255,255,.95)] backdrop-blur-[24px] backdrop-saturate-[1.7] lg:hidden"
+      className="fixed inset-x-2.5 bottom-[max(.625rem,env(safe-area-inset-bottom))] z-[80] mx-auto grid h-[72px] max-w-[520px] grid-cols-5 rounded-[28px] border border-white/80 bg-[rgba(255,255,255,.55)] px-2.5 py-2 shadow-[0_8px_30px_rgba(31,71,136,.12),inset_0_1px_0_rgba(255,255,255,.92),inset_0_-1px_0_rgba(160,190,255,.12)] backdrop-blur-[22px] backdrop-saturate-[1.8] lg:hidden"
       aria-label={tx("Primary mobile navigation", "မိုဘိုင်းအဓိက လမ်းညွှန်")}
     >
       {items.map((item) => {
@@ -49,23 +49,16 @@ function MobileBottomNav() {
             href={item.href}
             aria-current={active ? "page" : undefined}
             className={cn(
-              "relative flex min-w-0 flex-col items-center justify-center gap-0.5 rounded-[20px] px-0.5 text-[9px] font-semibold transition-[color,transform] duration-200 active:scale-[.96]",
-              active ? "text-white" : "text-[#667085] hover:text-a7-blue",
+              "group relative flex min-w-0 flex-col items-center justify-center gap-1 rounded-[20px] px-0.5 text-[10px] font-medium transition-[color,transform] duration-200 active:scale-[.96]",
+              active ? "text-[#0A67FF]" : "text-[#7D8BA0] hover:text-[#0A67FF]",
             )}
           >
-            {active && (
-              <motion.span
-                layoutId="a7-mobile-nav-bubble"
-                className="absolute -top-2.5 left-[calc(50%-36px)] size-[72px] rounded-full border border-white/22 bg-[rgba(24,27,34,.88)] shadow-[0_10px_28px_rgba(0,0,0,.35),inset_0_2px_8px_rgba(255,255,255,.10)] backdrop-blur-[28px]"
-                transition={reduceMotion ? { duration: 0 } : { type: "spring", stiffness: 440, damping: 34, mass: 0.72 }}
-                aria-hidden="true"
-              />
-            )}
-            <motion.span animate={reduceMotion ? undefined : { y: active ? -8 : 0, scale: active ? 1.06 : 1 }} transition={reduceMotion ? { duration: 0 } : a7Motion.spring} className="relative z-10 grid place-items-center">
-              <Icon className={cn("size-[20px] transition-[color,fill] duration-200", active ? "text-[#4DA3FF]" : "text-[#667085]", active && item.id === "saved" && "fill-current")} strokeWidth={active ? 2.3 : 1.9} />
+            <motion.span animate={reduceMotion ? undefined : { scale: active ? 1.02 : 1 }} transition={reduceMotion ? { duration: 0 } : a7Motion.base} className="relative z-10 flex h-9 w-11 items-center justify-center rounded-[18px] transition-colors duration-200 group-hover:bg-white/28">
+              {active && <motion.span layoutId="a7-mobile-nav-active" className="absolute inset-0 rounded-[18px] border border-white/75 bg-[rgba(10,103,255,.12)] shadow-[0_4px_14px_rgba(10,103,255,.12),inset_0_1px_0_rgba(255,255,255,.88)] backdrop-blur-[18px]" transition={reduceMotion ? { duration: 0 } : a7Motion.spring} aria-hidden="true" />}
+              <Icon className={cn("relative z-10 size-5 transition-[color,fill] duration-200", active ? "text-[#0A67FF]" : "text-[#7D8BA0]", active && item.id === "saved" && "fill-current")} strokeWidth={active ? 2.3 : 1.9} />
             </motion.span>
-            <motion.span animate={reduceMotion ? undefined : { y: active ? -6 : 0, opacity: 1 }} transition={reduceMotion ? { duration: 0 } : a7Motion.base} className={cn("relative z-10 max-w-full truncate px-0.5", active ? "text-white" : "text-[#667085]")}>{isMyanmar ? item.labelMy : item.label}</motion.span>
-            {item.id === "messages" && <span className="absolute right-[25%] top-2 z-20 size-2 rounded-full border-2 border-[#181B22] bg-white" aria-hidden="true" />}
+            <span className={cn("relative z-10 max-w-full truncate px-0.5 leading-none", active ? "font-semibold text-[#243247]" : "text-[#7D8BA0]")}>{isMyanmar ? item.labelMy : item.label}</span>
+            {item.id === "messages" && <span className="absolute right-[26%] top-2 z-20 size-[7px] rounded-full bg-[#0A67FF] shadow-[0_0_0_2px_rgba(255,255,255,.8)]" aria-hidden="true" />}
           </Link>
         );
       })}
