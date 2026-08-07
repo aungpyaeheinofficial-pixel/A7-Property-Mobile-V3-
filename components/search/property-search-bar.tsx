@@ -1,6 +1,6 @@
 "use client";
 
-import { Search, X } from "lucide-react";
+import { Search, SlidersHorizontal, X } from "lucide-react";
 import type { FormEvent } from "react";
 
 import { cn } from "@/lib/utils";
@@ -18,6 +18,9 @@ interface PropertySearchBarProps {
   searchLabel: string;
   clearLabel: string;
   tabs: Array<{ id: PropertySearchTab; label: string }>;
+  onOpenFilters?: () => void;
+  filterCount?: number;
+  filterLabel?: string;
   compact?: boolean;
   className?: string;
 }
@@ -33,6 +36,9 @@ function PropertySearchBar({
   searchLabel,
   clearLabel,
   tabs,
+  onOpenFilters,
+  filterCount = 0,
+  filterLabel = "Open filters",
   compact = false,
   className,
 }: PropertySearchBarProps) {
@@ -43,21 +49,28 @@ function PropertySearchBar({
 
   return (
     <div className={cn("w-full space-y-2.5", className)}>
-      <form onSubmit={submit} role="search" className="flex min-h-12 items-center rounded-full border border-a7-line bg-white py-1.5 pl-4 pr-1.5 shadow-[var(--shadow-hairline)] transition-[border-color,box-shadow] duration-[var(--duration-base)] focus-within:border-a7-blue focus-within:shadow-[0_0_0_3px_rgba(0,87,217,.1)]">
+      <form onSubmit={submit} role="search" className="flex min-h-[60px] items-center rounded-full border border-[#DDE4EE] bg-white p-1.5 shadow-[0_10px_28px_rgba(24,48,86,.07)] transition-[border-color,box-shadow] duration-[var(--duration-base)] focus-within:border-[#9DBCE8] focus-within:shadow-[0_0_0_3px_rgba(0,87,217,.08),0_12px_30px_rgba(15,27,45,.08)]">
+        <button type="submit" className="grid size-11 shrink-0 place-items-center rounded-full text-[#243A60] transition-colors hover:bg-[#F2F6FC] hover:text-a7-blue" aria-label={searchLabel}>
+          <Search className="size-[21px]" />
+        </button>
         <input
+          data-focus-ring="parent"
           type="search"
           value={value}
           onChange={(event) => onValueChange(event.target.value)}
           placeholder={placeholder}
           aria-label={searchLabel}
-          className="min-h-9 min-w-0 flex-1 appearance-none bg-transparent text-[13px] text-a7-navy outline-none placeholder:text-[#98A2B3] [&::-webkit-search-cancel-button]:hidden"
+          className="min-h-10 min-w-0 flex-1 appearance-none bg-transparent px-2 text-[14px] text-a7-navy outline-none placeholder:text-[#8190A7] [&::-webkit-search-cancel-button]:hidden"
         />
-        <button type="submit" className="grid size-11 shrink-0 place-items-center rounded-full bg-a7-blue text-white shadow-[0_4px_12px_rgba(0,87,217,.2)] transition-[background-color,transform] duration-[var(--duration-base)] hover:bg-[#0049B8] active:scale-[.96]" aria-label={searchLabel}>
-          <Search className="size-[17px]" />
-        </button>
         {value && (
-          <button type="button" onClick={onClear} className="ml-1 grid size-11 shrink-0 place-items-center rounded-full text-[#98A2B3] transition-colors hover:bg-[#F3F1ED] hover:text-a7-navy" aria-label={clearLabel}>
-            <X className="size-[19px]" />
+          <button type="button" onClick={onClear} className="grid size-11 shrink-0 place-items-center rounded-full text-[#8A929E] transition-colors hover:bg-[#F3F1ED] hover:text-a7-navy" aria-label={clearLabel}>
+            <X className="size-[17px]" />
+          </button>
+        )}
+        {onOpenFilters && (
+          <button type="button" onClick={onOpenFilters} className="relative grid size-12 shrink-0 place-items-center rounded-[18px] bg-[#EEF3FF] text-[#0A4BB8] transition-[background-color,color,transform] hover:bg-[#E3EDFF] hover:text-a7-blue active:scale-[.96]" aria-label={filterLabel}>
+            <SlidersHorizontal className="size-[19px]" />
+            {filterCount > 0 && <span className="absolute -right-0.5 -top-0.5 grid size-[18px] place-items-center rounded-full border-2 border-white bg-a7-blue text-[8px] font-bold leading-none text-white">{filterCount}</span>}
           </button>
         )}
       </form>

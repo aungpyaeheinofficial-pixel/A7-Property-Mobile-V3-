@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 
+import { PropertyCardBody } from "@/components/property/property-card-system";
 import { PropertyMap } from "@/components/property/property-map";
 import { Button } from "@/components/ui/button";
 import type { Property } from "@/lib/properties";
@@ -169,10 +170,10 @@ function SimilarProperties({ properties, tx }: { properties: Property[]; tx: Tra
       <h2 id="similar-properties-title" className="text-[24px] font-semibold tracking-[-0.04em] text-[#0F1B2D]">{tx("You may also like", "သင်နှစ်သက်နိုင်သောအိမ်များ")}</h2>
       <div className="-mx-3 mt-4 flex snap-x gap-3 overflow-x-auto px-3 pb-4 sm:mx-0 sm:px-0">
         {properties.map((property) => (
-          <Link key={property.id} href={`/properties/${property.id}`} className="group min-w-[248px] snap-start overflow-hidden rounded-[20px] border border-[#E7E2DB] bg-white shadow-[0_4px_20px_rgba(15,27,45,.06)]">
-            <div className="relative h-[148px] overflow-hidden bg-[#ECEAE5]"><Image src={property.images[0]} alt={property.title} fill sizes="248px" className="object-cover transition-transform duration-300 group-hover:scale-[1.025]" /><span className="absolute left-3 top-3 inline-flex h-7 items-center gap-1 rounded-full bg-white/94 px-2.5 text-[8px] font-semibold text-[#0057D9]"><ShieldCheck className="size-3" />{tx("Verified", "စိစစ်ပြီး")}</span></div>
-            <div className="p-3.5"><p className="flex items-center gap-1 text-[9px] text-[#667085]"><MapPin className="size-3 text-[#0057D9]" />{property.township}, {property.city}</p><h3 className="mt-2 line-clamp-2 min-h-10 text-[13px] font-semibold leading-5 text-[#0F1B2D]">{property.title}</h3><div className="mt-3 flex items-end justify-between gap-2"><strong className="text-[14px] text-[#0057D9]">{formatDetailPrice(property)}</strong><span className="text-[9px] text-[#667085]">{property.bedrooms} {tx("beds", "ခန်း")}</span></div></div>
-          </Link>
+          <article key={property.id} className="group min-w-[248px] snap-start overflow-hidden rounded-[20px] border border-[#E7E2DB] bg-white shadow-[0_4px_20px_rgba(15,27,45,.06)]">
+            <Link href={`/properties/${property.id}`} className="relative block h-[148px] overflow-hidden bg-[#ECEAE5]" aria-label={tx(`View ${property.title}`, `${property.title} ကိုကြည့်ရန်`)}><Image src={property.images[0]} alt={property.title} fill sizes="248px" className="object-cover transition-transform duration-300 group-hover:scale-[1.025]" /><span className="absolute left-3 top-3 inline-flex h-7 items-center gap-1 rounded-full bg-white/94 px-2.5 text-[8px] font-semibold text-[#0057D9]"><ShieldCheck className="size-3" />{tx("Verified", "စိစစ်ပြီး")}</span></Link>
+            <PropertyCardBody property={property} variant="explore" className="p-3.5" />
+          </article>
         ))}
       </div>
     </section>

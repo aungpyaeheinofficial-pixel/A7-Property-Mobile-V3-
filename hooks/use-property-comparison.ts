@@ -11,9 +11,13 @@ type CompareToggleResult = "added" | "removed" | "limit";
 
 function usePropertyComparison() {
   const [comparisonIds, setComparisonIds] = useState<string[]>([]);
+  const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
-    queueMicrotask(() => setComparisonIds(readStoredIds(STORAGE_KEYS.compare).slice(0, MAX_COMPARISON_HOMES)));
+    queueMicrotask(() => {
+      setComparisonIds(readStoredIds(STORAGE_KEYS.compare).slice(0, MAX_COMPARISON_HOMES));
+      setIsReady(true);
+    });
 
     function handleStoredIds(event: Event) {
       const detail = (event as CustomEvent<{ key?: string; ids?: string[] }>).detail;
@@ -60,6 +64,7 @@ function usePropertyComparison() {
   return {
     comparisonIds,
     comparisonProperties,
+    isReady,
     maxComparisonHomes: MAX_COMPARISON_HOMES,
     isCompared: (propertyId: string) => comparisonIds.includes(propertyId),
     toggleProperty,

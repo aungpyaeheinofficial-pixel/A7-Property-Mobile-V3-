@@ -37,7 +37,12 @@ function MobileBottomNav() {
 
   return (
     <nav
-      className="fixed inset-x-2.5 bottom-[max(.625rem,env(safe-area-inset-bottom))] z-[80] mx-auto grid h-[72px] max-w-[520px] grid-cols-5 rounded-[28px] border border-white/80 bg-[rgba(255,255,255,.55)] px-2.5 py-2 shadow-[0_8px_30px_rgba(31,71,136,.12),inset_0_1px_0_rgba(255,255,255,.92),inset_0_-1px_0_rgba(160,190,255,.12)] backdrop-blur-[22px] backdrop-saturate-[1.8] lg:hidden"
+      className={cn(
+        "fixed inset-x-2.5 bottom-[max(.625rem,env(safe-area-inset-bottom))] z-[80] mx-auto grid h-[72px] max-w-[520px] grid-cols-5 rounded-[28px] border px-2.5 py-2 backdrop-blur-[24px] backdrop-saturate-[1.7] lg:hidden",
+        pathname === "/"
+          ? "border-white bg-[rgba(255,255,255,.9)] shadow-[0_12px_36px_rgba(24,55,98,.13),inset_0_1px_0_rgba(255,255,255,.98)]"
+          : "border-white/80 bg-[rgba(255,255,255,.55)] shadow-[0_8px_30px_rgba(31,71,136,.12),inset_0_1px_0_rgba(255,255,255,.92),inset_0_-1px_0_rgba(160,190,255,.12)]",
+      )}
       aria-label={tx("Primary mobile navigation", "မိုဘိုင်းအဓိက လမ်းညွှန်")}
     >
       {items.map((item) => {
@@ -50,14 +55,14 @@ function MobileBottomNav() {
             aria-current={active ? "page" : undefined}
             className={cn(
               "group relative flex min-w-0 flex-col items-center justify-center gap-1 rounded-[20px] px-0.5 text-[10px] font-medium transition-[color,transform] duration-200 active:scale-[.96]",
-              active ? "text-[#0A67FF]" : "text-[#7D8BA0] hover:text-[#0A67FF]",
+              pathname === "/" ? (active ? "text-[#0A67FF]" : "text-[#52617A] hover:text-[#0A67FF]") : (active ? "text-[#0A67FF]" : "text-[#7D8BA0] hover:text-[#0A67FF]"),
             )}
           >
             <motion.span animate={reduceMotion ? undefined : { scale: active ? 1.06 : 1, y: active ? -2 : 0 }} transition={reduceMotion ? { duration: 0 } : a7Motion.base} className="relative z-10 flex h-9 w-11 items-center justify-center rounded-[18px] transition-colors duration-200 group-hover:bg-white/28">
-              {active && <motion.span layoutId="a7-mobile-nav-active" className="absolute -inset-x-2.5 -inset-y-1.5 -translate-y-0.5 rounded-[24px] border border-white/90 bg-[rgba(10,103,255,.15)] shadow-[0_8px_22px_rgba(10,103,255,.2),inset_0_1px_0_rgba(255,255,255,.96),inset_0_-1px_0_rgba(145,185,255,.18)] backdrop-blur-[22px] backdrop-saturate-[1.85]" transition={reduceMotion ? { duration: 0 } : a7Motion.spring} aria-hidden="true" />}
-              <Icon className={cn("relative z-10 transition-[color,fill,width,height] duration-200", active ? "size-[22px] text-[#0A67FF]" : "size-5 text-[#7D8BA0]", active && item.id === "saved" && "fill-current")} strokeWidth={active ? 2.3 : 1.9} />
+              {active && <motion.span layoutId="a7-mobile-nav-active" className={cn("absolute -inset-x-2.5 -inset-y-1.5 -translate-y-0.5 rounded-[24px] border backdrop-blur-[22px] backdrop-saturate-[1.85]", pathname === "/" ? "border-[#DCEAFF] bg-[#EFF5FF] shadow-[0_8px_22px_rgba(10,103,255,.13),inset_0_1px_0_rgba(255,255,255,.95)]" : "border-white/90 bg-[rgba(10,103,255,.15)] shadow-[0_8px_22px_rgba(10,103,255,.2),inset_0_1px_0_rgba(255,255,255,.96),inset_0_-1px_0_rgba(145,185,255,.18)]")} transition={reduceMotion ? { duration: 0 } : a7Motion.spring} aria-hidden="true" />}
+              <Icon className={cn("relative z-10 transition-[color,fill,width,height] duration-200", pathname === "/" ? (active ? "size-[22px] text-[#0A67FF]" : "size-5 text-[#52617A]") : (active ? "size-[22px] text-[#0A67FF]" : "size-5 text-[#7D8BA0]"), active && item.id === "saved" && "fill-current", pathname === "/" && active && item.id === "home" && "fill-current")} strokeWidth={active ? 2.3 : 1.9} />
             </motion.span>
-            <span className={cn("relative z-10 max-w-full truncate px-0.5 leading-none", active ? "font-semibold text-[#243247]" : "text-[#7D8BA0]")}>{isMyanmar ? item.labelMy : item.label}</span>
+            <span className={cn("relative z-10 max-w-full truncate px-0.5 leading-none", pathname === "/" ? (active ? "font-semibold text-[#0A67FF]" : "text-[#52617A]") : (active ? "font-semibold text-[#243247]" : "text-[#7D8BA0]"))}>{isMyanmar ? item.labelMy : pathname === "/" && item.id === "search" ? "Search" : pathname === "/" && item.id === "messages" ? "Inbox" : item.label}</span>
             {item.id === "messages" && <span className="absolute right-[26%] top-2 z-20 size-[7px] rounded-full bg-[#0A67FF] shadow-[0_0_0_2px_rgba(255,255,255,.8)]" aria-hidden="true" />}
           </Link>
         );

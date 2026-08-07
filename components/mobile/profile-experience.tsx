@@ -1,62 +1,60 @@
 "use client";
 
-import { Bell, Check, ChevronRight, Globe2, HelpCircle, LockKeyhole, MapPin, Pencil, Search, ShieldCheck } from "lucide-react";
+import {
+  Bell,
+  Camera,
+  CalendarCheck2,
+  ChevronRight,
+  Eye,
+  Heart,
+  HelpCircle,
+  Info,
+  LockKeyhole,
+  LogOut,
+  MessageCircle,
+  Pencil,
+  Scale,
+  ShieldCheck,
+  UserRound,
+} from "lucide-react";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { useEffect, useState, type ElementType } from "react";
 
+import { useAuth } from "@/components/auth/auth-provider";
 import { A7Brand } from "@/components/brand/a7-brand";
 import { useLanguage } from "@/components/i18n/language-provider";
 import { LanguageSwitcher } from "@/components/i18n/language-switcher";
 import { Avatar } from "@/components/ui/avatar";
-import { BottomSheet } from "@/components/ui/bottom-sheet";
 import { Button } from "@/components/ui/button";
 import { Modal } from "@/components/ui/modal";
+import { ProgressiveImage } from "@/components/ui/progressive-image";
 import { Sheet } from "@/components/ui/sheet";
+import { useToast } from "@/components/ui/toast-provider";
 import { readStoredIds, readStoredJson, STORAGE_KEYS, writeStoredJson } from "@/lib/local-storage";
-import { mockUser } from "@/lib/mock-users";
+import { mockAppointments, mockMessages, mockUser } from "@/lib/mock-users";
 import { cn } from "@/lib/utils";
 
-type Journey = "rent" | "buy";
 type SettingId = "notifications" | "language" | "privacy" | "help";
-
-interface Preferences {
-  journey: Journey;
-  locations: string[];
-  budget: string;
-  propertyTypes: string[];
-}
-
-const defaultPreferences: Preferences = {
-  journey: "rent",
-  locations: ["Kamayut", "Sanchaung", "Hlaing"],
-  budget: "500,000 – 1,500,000 MMK / month",
-  propertyTypes: ["Condo", "Apartment"],
-};
-
-const locationOptions = ["Kamayut", "Sanchaung", "Hlaing", "Bahan", "Yankin", "Mayangone"];
-const propertyTypeOptions = ["Condo", "Apartment", "House", "Mini condo"];
 
 function ProfileExperience() {
   const { tx } = useLanguage();
+  const { signOut } = useAuth();
+  const { toast } = useToast();
+  const router = useRouter();
   const [profile, setProfile] = useState({ name: mockUser.name, city: mockUser.city });
   const [profileDraft, setProfileDraft] = useState(profile);
-  const [preferences, setPreferences] = useState(defaultPreferences);
-  const [preferenceDraft, setPreferenceDraft] = useState(defaultPreferences);
   const [profileOpen, setProfileOpen] = useState(false);
-  const [preferencesOpen, setPreferencesOpen] = useState(false);
   const [activeSetting, setActiveSetting] = useState<SettingId | null>(null);
   const [savedCount, setSavedCount] = useState(mockUser.savedPropertyIds.length);
   const [notifications, setNotifications] = useState({ saved: true, messages: true, viewings: true });
 
   useEffect(() => {
     const storedProfile = readStoredJson(STORAGE_KEYS.profile, { name: mockUser.name, city: mockUser.city });
-    const storedPreferences = readStoredJson(STORAGE_KEYS.preferences, defaultPreferences);
     const storedSaved = readStoredIds(STORAGE_KEYS.saved, STORAGE_KEYS.legacySaved, mockUser.savedPropertyIds);
     queueMicrotask(() => {
       setProfile(storedProfile);
       setProfileDraft(storedProfile);
-      setPreferences(storedPreferences);
-      setPreferenceDraft(storedPreferences);
       setSavedCount(storedSaved.length);
     });
   }, []);
@@ -65,84 +63,152 @@ function ProfileExperience() {
     setProfile(profileDraft);
     writeStoredJson(STORAGE_KEYS.profile, profileDraft);
     setProfileOpen(false);
+    toast({ tone: "success", title: tx("Profile updated", "ပရိုဖိုင် ပြင်ဆင်ပြီးပါပြီ") });
   }
 
-  function savePreferences() {
-    setPreferences(preferenceDraft);
-    writeStoredJson(STORAGE_KEYS.preferences, preferenceDraft);
-    setPreferencesOpen(false);
-  }
-
-  function toggleLocation(location: string) {
-    setPreferenceDraft((current) => ({ ...current, locations: current.locations.includes(location) ? current.locations.filter((item) => item !== location) : [...current.locations, location] }));
-  }
-
-  function toggleType(type: string) {
-    setPreferenceDraft((current) => ({ ...current, propertyTypes: current.propertyTypes.includes(type) ? current.propertyTypes.filter((item) => item !== type) : [...current.propertyTypes, type] }));
+  function handleSignOut() {
+    signOut();
+    toast({ tone: "info", title: tx("Signed out", "အကောင့်မှ ထွက်ပြီးပါပြီ") });
+    router.push("/sign-in");
   }
 
   return (
-    <div className="min-h-screen bg-[#FAF8F5] pb-28 text-[#111827] lg:pb-16">
-      <header className="sticky top-0 z-50 border-b border-[#E4E1DA] bg-[#FAF8F5]/94 backdrop-blur-2xl">
-        <div className="mx-auto flex h-[70px] max-w-[1120px] items-center px-4 sm:px-6 lg:px-8"><Link href="/" aria-label="A7 Property home"><A7Brand /></Link><div className="ml-auto flex items-center gap-2"><LanguageSwitcher compact /><Link href="/search?purpose=rent" className="grid size-11 place-items-center rounded-full border border-[#DDDAD2] bg-white text-[#0057D9]" aria-label={tx("Search homes", "အိမ်ရှာရန်")}><Search className="size-[18px]" /></Link></div></div>
-      </header>
+    <div className="min-h-screen bg-[#F8FAFE] pb-28 text-[#09193B] lg:pb-16">
+      <main className="mx-auto max-w-[760px] px-4 pb-8 pt-[max(1rem,env(safe-area-inset-top))] sm:px-6">
+        <section className="relative -mx-4 overflow-hidden px-4 pb-6 sm:-mx-6 sm:px-6" aria-labelledby="profile-title">
+          <div className="pointer-events-none absolute inset-x-0 top-0 h-full" aria-hidden="true">
+            <ProgressiveImage src="/images/properties/a7-yangon-daylight-hero.png" alt="" fill priority sizes="760px" className="object-cover object-[68%_center] opacity-50" />
+            <div className="absolute inset-0 bg-[linear-gradient(90deg,#F8FAFE_0%,rgba(248,250,254,.96)_38%,rgba(248,250,254,.68)_70%,rgba(248,250,254,.3)_100%)]" />
+            <div className="absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-[#F8FAFE] to-transparent" />
+          </div>
 
-      <main className="mx-auto max-w-[1120px] px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
-        <section className="rounded-[20px] border border-[#E2DFD8] bg-white px-6 py-8 shadow-[0_4px_20px_rgba(0,0,0,.08)] sm:px-8">
-          <div className="flex flex-col gap-6 sm:flex-row sm:items-center">
-            <div className="relative w-fit"><Avatar initials={mockUser.initials} size="lg" className="size-24 text-[25px]" /><span className="absolute bottom-0 right-0 grid size-7 place-items-center rounded-full border-[3px] border-white bg-[#0057D9] text-white"><Check className="size-3.5 stroke-[3]" /></span></div>
-            <div className="min-w-0 flex-1"><p className="text-[10px] font-semibold uppercase tracking-[.16em] text-[#0057D9]">{tx("Your A7 profile", "သင့် A7 ပရိုဖိုင်")}</p><h1 className="mt-2 text-[35px] font-semibold tracking-[-0.05em] sm:text-[40px]">{profile.name}</h1><div className="mt-3 flex flex-wrap items-center gap-3 text-[12px] text-[#64748B]"><span className="inline-flex items-center gap-1.5"><MapPin className="size-4 text-[#0057D9]" />{profile.city}, Myanmar</span><span className="inline-flex items-center gap-1.5"><ShieldCheck className="size-4 text-[#0057D9]" />{tx("Phone & email verified", "ဖုန်းနှင့် အီးမေးလ် အတည်ပြုပြီး")}</span><span>{savedCount} {tx("saved homes", "အိမ်သိမ်းထား")}</span></div></div>
-            <Button variant="outline" className="h-11 shrink-0 rounded-[14px] px-4" onClick={() => { setProfileDraft(profile); setProfileOpen(true); }}><Pencil className="size-4" />{tx("Edit profile", "ပရိုဖိုင်ပြင်ရန်")}</Button>
+          <div className="relative z-10">
+            <div className="flex min-h-[70px] items-center justify-between gap-4">
+              <Link href="/" aria-label={tx("A7 Property home", "A7 Property ပင်မစာမျက်နှာ")} className="w-fit"><A7Brand /></Link>
+              <button type="button" onClick={() => setActiveSetting("notifications")} aria-label={tx("Notification settings", "အသိပေးချက်ဆက်တင်များ")} className="relative grid size-12 place-items-center rounded-full border border-white/90 bg-white/88 text-[#09193B] shadow-[0_8px_24px_rgba(24,53,96,.09)] backdrop-blur-xl"><Bell className="size-5" /><span className="absolute right-2.5 top-2.5 size-2 rounded-full bg-[#0866F5] ring-2 ring-white" /></button>
+            </div>
+
+            <div className="mt-7">
+              <h1 id="profile-title" className="text-[32px] font-semibold leading-none tracking-[-0.05em] sm:text-[38px]">{tx("Profile", "ပရိုဖိုင်")}</h1>
+              <p className="mt-2.5 text-[13px] font-medium text-[#65738F] sm:text-[15px]">{tx("Manage your account and activity", "သင့်အကောင့်နှင့် လှုပ်ရှားမှုများကို စီမံပါ")}</p>
+            </div>
+
+            <div className="mt-6 flex items-center gap-4 sm:gap-6">
+              <button type="button" onClick={() => { setProfileDraft(profile); setProfileOpen(true); }} className="group relative shrink-0 rounded-full focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#0866F5]/20" aria-label={tx("Edit profile photo and information", "ပရိုဖိုင်ဓာတ်ပုံနှင့် အချက်အလက်ပြင်ရန်")}>
+                <span className="block rounded-full bg-white p-1 shadow-[0_12px_30px_rgba(17,48,91,.14)] ring-1 ring-white"><Avatar src="/images/profile/thiri-win.jpg" alt={tx("Thiri Win profile photo", "သီရိဝင်း ပရိုဖိုင်ဓာတ်ပုံ")} initials={mockUser.initials} size="lg" className="size-[112px] bg-[#E9EEF5] sm:size-[132px]" /></span>
+                <span className="absolute bottom-0 right-0 z-20 grid size-10 place-items-center rounded-full border-4 border-[#F8FAFE] bg-white text-[#0866F5] shadow-[0_6px_16px_rgba(23,54,95,.12)]"><Camera className="size-[19px]" /></span>
+              </button>
+
+              <div className="min-w-0 flex-1">
+                <h2 id="profile-name" className="truncate text-[24px] font-semibold tracking-[-0.04em] sm:text-[30px]">{profile.name}</h2>
+                <span className="mt-2 inline-flex h-8 items-center gap-1.5 rounded-full bg-[#EAF2FF] px-3 text-[11px] font-semibold text-[#0866F5]"><ShieldCheck className="size-[17px] fill-[#0866F5] text-white" />{tx("Verified Seeker", "စိစစ်ပြီးသော အိမ်ရှာသူ")}</span>
+                <p className="mt-3 text-[11px] font-medium text-[#62718A] sm:text-[12px]">{tx("Member since May 2023", "၂၀၂၃ မေလမှ အဖွဲ့ဝင်")}</p>
+              </div>
+
+              <button type="button" onClick={() => { setProfileDraft(profile); setProfileOpen(true); }} className="hidden h-12 shrink-0 items-center gap-2 rounded-full border border-white bg-white/90 px-5 text-[12px] font-semibold shadow-[0_8px_22px_rgba(24,53,96,.08)] backdrop-blur-xl min-[520px]:inline-flex"><Pencil className="size-4 text-[#0866F5]" />{tx("Edit Profile", "ပရိုဖိုင်ပြင်ရန်")}</button>
+            </div>
+
+            <button type="button" onClick={() => { setProfileDraft(profile); setProfileOpen(true); }} className="mt-4 inline-flex h-11 w-full items-center justify-center gap-2 rounded-full border border-white bg-white/88 text-[11px] font-semibold shadow-sm backdrop-blur-xl min-[520px]:hidden"><Pencil className="size-4 text-[#0866F5]" />{tx("Edit Profile", "ပရိုဖိုင်ပြင်ရန်")}</button>
           </div>
         </section>
 
-        <div className="mt-7 grid items-start gap-6 lg:grid-cols-[minmax(0,1fr)_360px]">
-          <section className="rounded-[20px] border border-[#E2DFD8] bg-white p-5 shadow-[0_4px_20px_rgba(0,0,0,.08)] sm:p-7">
-            <div className="flex items-start justify-between gap-4"><div><p className="text-[10px] font-semibold uppercase tracking-[.15em] text-[#64748B]">{tx("Made personal", "သင့်အတွက်ကိုယ်ပိုင်")}</p><h2 className="mt-2 text-[27px] font-semibold tracking-[-0.045em]">{tx("Home preferences", "အိမ်အကြိုက်များ")}</h2><p className="mt-2 text-[11px] leading-5 text-[#707A75]">{tx("A7 uses these choices to keep recommendations useful.", "အသုံးဝင်သောအကြံပြုချက်များအတွက် ဤရွေးချယ်မှုများကို အသုံးပြုသည်။")}</p></div><button type="button" onClick={() => { setPreferenceDraft(preferences); setPreferencesOpen(true); }} className="grid size-11 shrink-0 place-items-center rounded-full bg-[#EEF5FC] text-[#0057D9]" aria-label={tx("Edit preferences", "အကြိုက်များပြင်ရန်")}><Pencil className="size-4" /></button></div>
-            <dl className="mt-5 divide-y divide-[#ECE9E3]">
-              <PreferenceRow label={tx("Looking for", "ရှာဖွေနေသည်")}><span className="rounded-full bg-[#EEF5FC] px-3 py-1.5 text-[10px] font-semibold text-[#0057D9]">{preferences.journey === "rent" ? tx("Rent", "ငှားရန်") : tx("Buy", "ဝယ်ရန်")}</span></PreferenceRow>
-              <PreferenceRow label={tx("Preferred locations", "နှစ်သက်သောနေရာများ")}><span className="flex flex-wrap justify-end gap-1.5">{preferences.locations.map((location) => <span key={location} className="rounded-full bg-[#F3F1EC] px-2.5 py-1 text-[9px]">{location}</span>)}</span></PreferenceRow>
-              <PreferenceRow label={tx("Budget", "ဘတ်ဂျက်")}><span className="text-right">{preferences.budget}</span></PreferenceRow>
-              <PreferenceRow label={tx("Property type", "အိမ်အမျိုးအစား")}><span className="text-right">{preferences.propertyTypes.join(" · ") || tx("Any home", "မည်သည့်အိမ်မဆို")}</span></PreferenceRow>
-            </dl>
-          </section>
+        <section className="grid grid-cols-4 overflow-hidden rounded-[24px] border border-white bg-white/94 px-1 py-4 shadow-[0_12px_34px_rgba(25,57,102,.08)]" aria-label={tx("Account activity", "အကောင့်လှုပ်ရှားမှု")}>
+          <JourneyStat href="/saved" icon={Heart} value={savedCount} label={tx("Saved", "သိမ်းထား")} color="text-[#0866F5]" />
+          <JourneyStat href="/search?purpose=rent" icon={Eye} value={12} label={tx("Viewed", "ကြည့်ခဲ့")} color="text-[#13B979]" />
+          <JourneyStat href="/messages" icon={MessageCircle} value={mockMessages.length} label={tx("Inquiries", "စုံစမ်းမှု")} color="text-[#7C3AED]" />
+          <JourneyStat href="/dashboard?section=viewings" icon={CalendarCheck2} value={mockAppointments.length} label={tx("Appointments", "ချိန်းဆိုမှု")} color="text-[#F97316]" />
+        </section>
 
-          <section className="overflow-hidden rounded-[20px] border border-[#E2DFD8] bg-white p-2 shadow-[0_4px_20px_rgba(0,0,0,.08)]">
-            <div className="px-4 pb-3 pt-4"><p className="text-[10px] font-semibold uppercase tracking-[.15em] text-[#64748B]">{tx("Your account", "သင့်အကောင့်")}</p><h2 className="mt-2 text-[25px] font-semibold">{tx("Settings", "ဆက်တင်များ")}</h2></div>
-            <div className="divide-y divide-[#ECE9E3]">
-              <SettingRow icon={Bell} label={tx("Notifications", "အသိပေးချက်များ")} detail={tx("Saved homes, messages, viewings", "အိမ်၊ စာနှင့် အိမ်ကြည့်အသိပေးချက်")} onClick={() => setActiveSetting("notifications")} />
-              <SettingRow icon={Globe2} label={tx("Language", "ဘာသာစကား")} detail={tx("English / မြန်မာ", "မြန်မာ / English")} onClick={() => setActiveSetting("language")} />
-              <SettingRow icon={LockKeyhole} label={tx("Privacy", "ကိုယ်ရေးလုံခြုံမှု")} detail={tx("Data and contact preferences", "ဒေတာနှင့် ဆက်သွယ်မှုအကြိုက်") } onClick={() => setActiveSetting("privacy")} />
-              <SettingRow icon={HelpCircle} label={tx("Help", "အကူအညီ")} detail={tx("Support and safety", "အကူအညီနှင့် လုံခြုံရေး")} onClick={() => setActiveSetting("help")} />
-            </div>
-          </section>
-        </div>
+        <section className="mt-5 rounded-[24px] border border-white bg-white/94 p-4 shadow-[0_12px_34px_rgba(25,57,102,.07)]" aria-labelledby="quick-access-title">
+          <h2 id="quick-access-title" className="text-[15px] font-semibold tracking-[-0.025em]">{tx("Quick Access", "အမြန်သုံးရန်")}</h2>
+          <div className="mt-4 grid grid-cols-4 gap-2.5">
+            <ProfileQuickAccess href="/saved" icon={Heart} label={tx("Saved Homes", "သိမ်းထားသောအိမ်")} tone="blue" />
+            <ProfileQuickAccess href="/compare" icon={Scale} label={tx("Compare", "နှိုင်းယှဉ်")} tone="green" />
+            <ProfileQuickAccess href="/messages" icon={MessageCircle} label={tx("Messages", "စာများ")} tone="purple" />
+            <ProfileQuickAccess href="/dashboard?section=viewings" icon={CalendarCheck2} label={tx("My Appointments", "ကျွန်ုပ်၏ချိန်းဆိုမှု")} tone="orange" />
+          </div>
+        </section>
+
+        <section className="mt-5 overflow-hidden rounded-[24px] border border-white bg-white/94 px-4 shadow-[0_12px_34px_rgba(25,57,102,.07)]" aria-label={tx("Profile settings", "ပရိုဖိုင်ဆက်တင်များ")}>
+          <ProfileRow icon={UserRound} label={tx("Personal Information", "ကိုယ်ရေးအချက်အလက်")} onClick={() => { setProfileDraft(profile); setProfileOpen(true); }} />
+          <ProfileRow icon={Bell} label={tx("Notification Settings", "အသိပေးချက်ဆက်တင်များ")} onClick={() => setActiveSetting("notifications")} />
+          <ProfileRow icon={LockKeyhole} label={tx("Privacy & Security", "ကိုယ်ရေးနှင့် လုံခြုံရေး")} onClick={() => setActiveSetting("privacy")} />
+          <ProfileRow icon={HelpCircle} label={tx("Help & Support", "အကူအညီနှင့် ပံ့ပိုးမှု")} onClick={() => setActiveSetting("help")} />
+          <ProfileRow icon={Info} label={tx("About A7 Property", "A7 Property အကြောင်း")} href="/terms" />
+        </section>
+
+        <button type="button" onClick={handleSignOut} className="mt-5 flex h-16 w-full items-center justify-center gap-2.5 rounded-[22px] border border-white bg-white text-[14px] font-semibold text-[#F04452] shadow-[0_10px_28px_rgba(25,57,102,.06)]"><LogOut className="size-5" />{tx("Log Out", "အကောင့်ထွက်ရန်")}</button>
       </main>
 
-      <Modal open={profileOpen} onOpenChange={setProfileOpen} title={tx("Edit profile", "ပရိုဖိုင်ပြင်ရန်")} description={tx("Keep the details owners see accurate.", "အိမ်ရှင်များမြင်ရသောအချက်အလက်ကို မှန်ကန်စွာထားပါ။")} footer={<Button className="w-full" onClick={saveProfile}>{tx("Save changes", "ပြောင်းလဲမှုသိမ်းရန်")}</Button>}>
-        <div className="space-y-5 p-5 sm:p-7"><Avatar initials={mockUser.initials} size="lg" /><label className="block"><span className="text-[11px] font-semibold">{tx("Full name", "အမည်အပြည့်အစုံ")}</span><input value={profileDraft.name} onChange={(event) => setProfileDraft({ ...profileDraft, name: event.target.value })} className="mt-2 h-12 w-full rounded-[14px] border border-[#D9D6CF] bg-white px-4 text-[12px] outline-none focus:border-[#0057D9]" /></label><label className="block"><span className="text-[11px] font-semibold">{tx("Location", "နေရာ")}</span><select value={profileDraft.city} onChange={(event) => setProfileDraft({ ...profileDraft, city: event.target.value })} className="mt-2 h-12 w-full rounded-[14px] border border-[#D9D6CF] bg-white px-4 text-[12px] outline-none focus:border-[#0057D9]"><option>Yangon</option><option>Mandalay</option></select></label><p className="rounded-[14px] bg-[#FAF8F5] p-4 text-[10px] leading-5 text-[#637284]">{tx("Your phone and email stay private until you contact an owner.", "အိမ်ရှင်ကို ဆက်သွယ်သည့်အထိ ဖုန်းနှင့် အီးမေးလ်ကို လျှို့ဝှက်ထားသည်။")}</p></div>
+      <Modal
+        open={profileOpen}
+        onOpenChange={setProfileOpen}
+        title={tx("Personal information", "ကိုယ်ရေးအချက်အလက်")}
+        description={tx("Keep the details owners see accurate.", "အိမ်ရှင်များမြင်ရသော အချက်အလက်ကို မှန်ကန်စွာထားပါ။")}
+        footer={<Button className="w-full" onClick={saveProfile}>{tx("Save changes", "ပြောင်းလဲမှုသိမ်းရန်")}</Button>}
+      >
+        <div className="space-y-5 p-5 sm:p-7">
+          <div className="flex items-center gap-4">
+            <Avatar src="/images/profile/thiri-win.jpg" alt="" initials={mockUser.initials} size="lg" className="size-20 bg-[#EFE8DD] ring-4 ring-[#EEF5FC]" />
+            <div><p className="text-[12px] font-semibold">{profileDraft.name}</p><p className="mt-1 text-[10px] text-[#64748B]">{tx("A7 verified profile", "A7 အတည်ပြုပရိုဖိုင်")}</p></div>
+          </div>
+          <label className="block"><span className="text-[11px] font-semibold">{tx("Full name", "အမည်အပြည့်အစုံ")}</span><input value={profileDraft.name} onChange={(event) => setProfileDraft({ ...profileDraft, name: event.target.value })} className="mt-2 h-12 w-full rounded-[14px] border border-[#D9D6CF] bg-white px-4 text-[12px] outline-none focus:border-[#0057D9] focus:ring-3 focus:ring-[#0057D9]/12" /></label>
+          <label className="block"><span className="text-[11px] font-semibold">{tx("Location", "နေရာ")}</span><select value={profileDraft.city} onChange={(event) => setProfileDraft({ ...profileDraft, city: event.target.value })} className="mt-2 h-12 w-full rounded-[14px] border border-[#D9D6CF] bg-white px-4 text-[12px] outline-none focus:border-[#0057D9] focus:ring-3 focus:ring-[#0057D9]/12"><option>Yangon</option><option>Mandalay</option></select></label>
+          <div className="rounded-[14px] bg-[#F5F4EF] p-4 text-[10px] leading-5 text-[#5A6577]"><strong className="block text-[#0F1B2D]">{mockUser.email}</strong>{tx("Your phone and email stay private until you contact an owner.", "အိမ်ရှင်ကို ဆက်သွယ်သည့်အထိ ဖုန်းနှင့် အီးမေးလ်ကို လျှို့ဝှက်ထားသည်။")}</div>
+        </div>
       </Modal>
 
-      <BottomSheet open={preferencesOpen} onOpenChange={setPreferencesOpen} title={tx("Home preferences", "အိမ်အကြိုက်များ")} description={tx("A few choices make every recommendation better.", "ရွေးချယ်မှုအနည်းငယ်က အကြံပြုချက်များကို ပိုကောင်းစေသည်။")} footer={<Button className="w-full" onClick={savePreferences}>{tx("Save preferences", "အကြိုက်များသိမ်းရန်")}</Button>}>
-        <div className="space-y-7 p-5 sm:p-7"><div><p className="text-[11px] font-semibold">{tx("Looking for", "ရှာဖွေနေသည်")}</p><div className="mt-3 grid grid-cols-2 rounded-[14px] bg-[#EEF2F6] p-1">{(["rent", "buy"] as Journey[]).map((journey) => <button key={journey} type="button" onClick={() => setPreferenceDraft({ ...preferenceDraft, journey })} className={cn("h-10 rounded-[11px] text-[11px] font-semibold capitalize", preferenceDraft.journey === journey ? "bg-white text-[#0057D9] shadow-sm" : "text-[#6A7581]")}>{journey === "rent" ? tx("Rent", "ငှားရန်") : tx("Buy", "ဝယ်ရန်")}</button>)}</div></div><div><p className="text-[11px] font-semibold">{tx("Preferred locations", "နှစ်သက်သောနေရာများ")}</p><div className="mt-3 flex flex-wrap gap-2">{locationOptions.map((location) => <Choice key={location} selected={preferenceDraft.locations.includes(location)} onClick={() => toggleLocation(location)}>{location}</Choice>)}</div></div><label className="block"><span className="text-[11px] font-semibold">{tx("Budget", "ဘတ်ဂျက်")}</span><select value={preferenceDraft.budget} onChange={(event) => setPreferenceDraft({ ...preferenceDraft, budget: event.target.value })} className="mt-3 h-12 w-full rounded-[14px] border border-[#D9D6CF] bg-white px-4 text-[11px] outline-none focus:border-[#0057D9]"><option>300,000 – 800,000 MMK / month</option><option>500,000 – 1,500,000 MMK / month</option><option>1,500,000 – 3,000,000 MMK / month</option><option>Up to 300M MMK</option></select></label><div><p className="text-[11px] font-semibold">{tx("Property type", "အိမ်အမျိုးအစား")}</p><div className="mt-3 grid grid-cols-2 gap-2">{propertyTypeOptions.map((type) => <Choice key={type} selected={preferenceDraft.propertyTypes.includes(type)} onClick={() => toggleType(type)} block>{type}</Choice>)}</div></div></div>
-      </BottomSheet>
-
       <Sheet open={Boolean(activeSetting)} onOpenChange={(open) => !open && setActiveSetting(null)} title={settingTitle(activeSetting, tx)} description={settingDescription(activeSetting, tx)}>
-        <div className="p-5 sm:p-7">{activeSetting === "notifications" && <div className="divide-y divide-[#ECE9E3]">{([['saved', tx('Saved-home updates', 'သိမ်းထားသောအိမ်အသိပေးချက်')], ['messages', tx('New messages', 'စာအသစ်များ')], ['viewings', tx('Viewing reminders', 'အိမ်ကြည့်သတိပေးချက်')]] as const).map(([id, label]) => <div key={id} className="flex items-center gap-4 py-4"><span className="min-w-0 flex-1 text-[12px] font-medium">{label}</span><Toggle checked={notifications[id]} onChange={() => setNotifications({ ...notifications, [id]: !notifications[id] })} label={label} /></div>)}</div>}{activeSetting === "language" && <div className="rounded-[20px] bg-[#F3F6FA] p-5"><p className="mb-4 text-[11px] leading-5 text-[#65717E]">{tx("Choose the language used throughout A7 Property.", "A7 Property တစ်ခုလုံးတွင် အသုံးပြုမည့် ဘာသာစကားကို ရွေးပါ။")}</p><LanguageSwitcher /></div>}{activeSetting === "privacy" && <div className="space-y-3"><p className="rounded-[20px] bg-[#F3F6FA] p-4 text-[11px] leading-5 text-[#65717E]">{tx("A7 only shares your contact details after you choose to send an inquiry.", "သင်ကိုယ်တိုင် စုံစမ်းမေးမြန်းပြီးမှသာ A7 က ဆက်သွယ်ရန်အချက်အလက်ကို မျှဝေသည်။")}</p><Button variant="outline" className="w-full rounded-[14px]">{tx("Download my data", "ကျွန်ုပ်၏ဒေတာကို ရယူရန်")}</Button></div>}{activeSetting === "help" && <div className="space-y-3"><Link href="/help" className="flex items-center justify-between rounded-[20px] border border-[#E2DFD8] p-4 text-[12px] font-semibold">{tx("Help center", "အကူအညီစင်တာ")}<ChevronRight className="size-4" /></Link><button type="button" className="flex w-full items-center justify-between rounded-[20px] border border-[#E2DFD8] p-4 text-left text-[12px] font-semibold">{tx("Report a safety issue", "လုံခြုံရေးပြဿနာတင်ပြရန်")}<ChevronRight className="size-4" /></button></div>}</div>
+        <div className="p-5 sm:p-7">
+          {activeSetting === "notifications" && <div className="divide-y divide-[#ECE9E3]">{([["saved", tx("Saved-home updates", "သိမ်းထားသောအိမ်အသိပေးချက်")], ["messages", tx("New messages", "စာအသစ်များ")], ["viewings", tx("Viewing reminders", "အိမ်ကြည့်သတိပေးချက်")]] as const).map(([id, label]) => <div key={id} className="flex min-h-16 items-center gap-4 py-3"><span className="min-w-0 flex-1 text-[12px] font-medium">{label}</span><Toggle checked={notifications[id]} onChange={() => setNotifications({ ...notifications, [id]: !notifications[id] })} label={label} /></div>)}</div>}
+          {activeSetting === "language" && <div className="rounded-[18px] bg-[#F3F6FA] p-5"><p className="mb-4 text-[11px] leading-5 text-[#5A6577]">{tx("Choose the language used throughout A7 Property.", "A7 Property တစ်ခုလုံးတွင် အသုံးပြုမည့် ဘာသာစကားကို ရွေးပါ။")}</p><LanguageSwitcher /></div>}
+          {activeSetting === "privacy" && <div className="space-y-3"><p className="rounded-[18px] bg-[#F3F6FA] p-4 text-[11px] leading-5 text-[#5A6577]">{tx("A7 only shares your contact details after you choose to send an inquiry.", "သင်ကိုယ်တိုင် စုံစမ်းမေးမြန်းပြီးမှသာ A7 က ဆက်သွယ်ရန်အချက်အလက်ကို မျှဝေသည်။")}</p><Link href="/privacy" className="flex min-h-12 items-center justify-between rounded-[14px] border border-[#E2DFD8] px-4 text-[11px] font-semibold">{tx("Read privacy policy", "ကိုယ်ရေးလုံခြုံမှု မူဝါဒဖတ်ရန်")}<ChevronRight className="size-4" /></Link></div>}
+          {activeSetting === "help" && <div className="space-y-3"><Link href="/help" className="flex min-h-14 items-center justify-between rounded-[16px] border border-[#E2DFD8] px-4 text-[12px] font-semibold">{tx("Help center", "အကူအညီစင်တာ")}<ChevronRight className="size-4" /></Link><Link href="/help#safety" className="flex min-h-14 items-center justify-between rounded-[16px] border border-[#E2DFD8] px-4 text-[12px] font-semibold">{tx("Report a safety issue", "လုံခြုံရေးပြဿနာတင်ပြရန်")}<ChevronRight className="size-4" /></Link></div>}
+        </div>
       </Sheet>
     </div>
   );
 }
 
-function PreferenceRow({ label, children }: { label: string; children: React.ReactNode }) { return <div className="flex items-center justify-between gap-5 py-4"><dt className="shrink-0 text-[10px] font-semibold uppercase tracking-[.1em] text-[#838B87]">{label}</dt><dd className="text-[11px] font-medium leading-5 text-[#34403B]">{children}</dd></div>; }
+function JourneyStat({ href, icon: Icon, value, label, color }: { href: string; icon: ElementType; value: number; label: string; color: string }) {
+  return <Link href={href} className="group flex min-h-[92px] flex-col items-center justify-center border-r border-[#E6ECF4] px-1.5 text-center last:border-r-0 hover:bg-[#F8FAFD] focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-inset focus-visible:ring-[#0866F5]/18 sm:min-h-[108px]"><Icon className={cn("size-6 transition-transform group-hover:scale-105 sm:size-7", color)} /><strong className="mt-2 text-[18px] tracking-[-0.035em] sm:text-[21px]">{value}</strong><span className="mt-1 text-[8px] font-medium text-[#66748F] sm:text-[10px]">{label}</span></Link>;
+}
 
-function SettingRow({ icon: Icon, label, detail, onClick }: { icon: typeof Bell; label: string; detail: string; onClick: () => void }) { return <button type="button" onClick={onClick} className="group flex w-full items-center gap-3 rounded-[20px] px-3 py-4 text-left transition-colors hover:bg-[#F5F4EF]"><span className="grid size-10 shrink-0 place-items-center rounded-full bg-[#EEF3F9] text-[#53606E] group-hover:bg-[#EEF5FC] group-hover:text-[#0057D9]"><Icon className="size-[17px]" /></span><span className="min-w-0 flex-1"><strong className="block text-[12px]">{label}</strong><small className="mt-1 block truncate text-[9px] text-[#7C8580]">{detail}</small></span><ChevronRight className="size-4 text-[#A0A7AE]" /></button>; }
+function ProfileQuickAccess({ href, icon: Icon, label, tone }: { href: string; icon: ElementType; label: string; tone: "blue" | "green" | "purple" | "orange" }) {
+  const tones = {
+    blue: "bg-[#EEF5FF] text-[#0866F5] border-[#DFEAFB]",
+    green: "bg-[#ECFAF4] text-[#13A970] border-[#DDF3E9]",
+    purple: "bg-[#F5F0FF] text-[#7C3AED] border-[#EAE0FC]",
+    orange: "bg-[#FFF4EA] text-[#F97316] border-[#F9E6D6]",
+  };
+  return <Link href={href} className={cn("flex min-h-[106px] min-w-0 flex-col items-center justify-center gap-3 rounded-[18px] border px-1.5 text-center transition-transform active:scale-[.98] sm:min-h-[122px]", tones[tone])}><Icon className="size-7 sm:size-8" /><span className="line-clamp-2 text-[8px] font-semibold leading-3 text-[#0B1D41] sm:text-[10px] sm:leading-4">{label}</span></Link>;
+}
 
-function Choice({ selected, onClick, children, block = false }: { selected: boolean; onClick: () => void; children: React.ReactNode; block?: boolean }) { return <button type="button" onClick={onClick} className={cn("rounded-[14px] border px-3 py-2.5 text-[10px] font-semibold", block && "w-full", selected ? "border-[#0057D9] bg-[#EEF5FC] text-[#0057D9]" : "border-[#D9D6CF] bg-white text-[#64706B]")}>{selected && <Check className="mr-1 inline size-3" />}{children}</button>; }
+function ProfileRow({ icon: Icon, label, href, onClick }: { icon: ElementType; label: string; href?: string; onClick?: () => void }) {
+  const content = <><span className="grid size-10 shrink-0 place-items-center text-[#687895]"><Icon className="size-[21px]" /></span><span className="min-w-0 flex-1"><strong className="block truncate text-[13px] font-semibold">{label}</strong></span><ChevronRight className="size-[18px] shrink-0 text-[#71809B] transition-transform group-hover:translate-x-0.5" /></>;
+  const className = "group flex min-h-[68px] w-full items-center gap-2.5 border-b border-[#E7ECF3] px-1 text-left transition-colors last:border-b-0 hover:bg-[#FAFBFD] focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-inset focus-visible:ring-[#0866F5]/16 sm:min-h-[74px]";
+  if (href) return <Link href={href} className={className}>{content}</Link>;
+  return <button type="button" onClick={onClick} className={className}>{content}</button>;
+}
 
-function Toggle({ checked, onChange, label }: { checked: boolean; onChange: () => void; label: string }) { return <button type="button" role="switch" aria-checked={checked} aria-label={label} onClick={onChange} className="relative h-11 w-12 shrink-0"><span className={cn("absolute inset-x-0 top-2 h-7 rounded-full transition-colors", checked ? "bg-[#0057D9]" : "bg-[#D2D6D2]")} /><span className={cn("absolute top-3 size-5 rounded-full bg-white shadow-sm transition-transform", checked ? "translate-x-6" : "translate-x-1")} /></button>; }
+function Toggle({ checked, onChange, label }: { checked: boolean; onChange: () => void; label: string }) {
+  return <button type="button" role="switch" aria-checked={checked} aria-label={label} onClick={onChange} className="relative h-11 w-12 shrink-0 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#0057D9]/18"><span className={cn("absolute inset-x-0 top-2 h-7 rounded-full transition-colors", checked ? "bg-[#0057D9]" : "bg-[#D2D6D2]")} /><span className={cn("absolute top-3 size-5 rounded-full bg-white shadow-sm transition-transform", checked ? "translate-x-6" : "translate-x-1")} /></button>;
+}
 
-function settingTitle(setting: SettingId | null, tx: (english: string, myanmar: string) => string) { if (setting === "notifications") return tx("Notifications", "အသိပေးချက်များ"); if (setting === "language") return tx("Language", "ဘာသာစကား"); if (setting === "privacy") return tx("Privacy", "ကိုယ်ရေးလုံခြုံမှု"); if (setting === "help") return tx("Help", "အကူအညီ"); return tx("Settings", "ဆက်တင်များ"); }
-function settingDescription(setting: SettingId | null, tx: (english: string, myanmar: string) => string) { if (setting === "notifications") return tx("Choose the updates that help your home search.", "အိမ်ရှာဖွေရာတွင် အသုံးဝင်သောအသိပေးချက်များကို ရွေးပါ။"); if (setting === "language") return tx("A7 Property works in English and Myanmar.", "A7 Property ကို English နှင့် မြန်မာ နှစ်မျိုးသုံးနိုင်သည်။"); if (setting === "privacy") return tx("You stay in control of your personal information.", "သင့်ကိုယ်ရေးအချက်အလက်ကို သင်ကိုယ်တိုင် ထိန်းချုပ်နိုင်သည်။"); if (setting === "help") return tx("Support for your home journey.", "သင့်အိမ်ခရီးစဉ်အတွက် အကူအညီ။"); return undefined; }
+function settingTitle(setting: SettingId | null, tx: (english: string, myanmar: string) => string) {
+  if (setting === "notifications") return tx("Notifications", "အသိပေးချက်များ");
+  if (setting === "language") return tx("Language", "ဘာသာစကား");
+  if (setting === "privacy") return tx("Privacy & security", "ကိုယ်ရေးလုံခြုံမှု");
+  if (setting === "help") return tx("Help & support", "အကူအညီ");
+  return tx("Settings", "ဆက်တင်များ");
+}
+
+function settingDescription(setting: SettingId | null, tx: (english: string, myanmar: string) => string) {
+  if (setting === "notifications") return tx("Choose the updates that help your home search.", "အိမ်ရှာဖွေရာတွင် အသုံးဝင်သောအသိပေးချက်များကို ရွေးပါ။");
+  if (setting === "language") return tx("A7 Property works in English and Myanmar.", "A7 Property ကို English နှင့် မြန်မာ နှစ်မျိုးသုံးနိုင်သည်။");
+  if (setting === "privacy") return tx("You stay in control of your personal information.", "သင့်ကိုယ်ရေးအချက်အလက်ကို သင်ကိုယ်တိုင် ထိန်းချုပ်နိုင်သည်။");
+  if (setting === "help") return tx("Support for every step of your home journey.", "သင့်အိမ်ခရီးစဉ်အဆင့်တိုင်းအတွက် အကူအညီ။");
+  return undefined;
+}
 
 export { ProfileExperience };

@@ -25,6 +25,7 @@ function SearchBar({ value, onValueChange, onSubmit, label, placeholder, trailin
     >
       <Search className="size-[18px] shrink-0 text-a7-blue" aria-hidden="true" />
       <input
+        data-focus-ring="parent"
         value={value}
         onChange={(event) => onValueChange(event.target.value)}
         aria-label={label}

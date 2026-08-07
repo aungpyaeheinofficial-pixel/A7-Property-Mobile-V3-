@@ -1,19 +1,20 @@
 "use client";
 
-import { ArrowLeft, Check, Heart, MapPin, Scale, Share2, ShieldCheck, Star } from "lucide-react";
+import { ArrowLeft, Check, Heart, Scale, Share2, ShieldCheck, Star } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 
 import { useLanguage } from "@/components/i18n/language-provider";
 import { InquirySheet, type InquiryMode } from "@/components/property/inquiry-sheet";
 import { OwnerCard } from "@/components/property/owner-card";
-import { AIAssistantCard, AmenitiesGrid, BottomActionBar, DescriptionSection, FactsCard, LocationCard, NearbyPlaces, PriceCard, SimilarProperties, TrustMeta, VerificationCard } from "@/components/property/property-detail-sections";
+import { PropertyCardBody } from "@/components/property/property-card-system";
+import { AIAssistantCard, BottomActionBar, DescriptionSection, LocationCard, NearbyPlaces, SimilarProperties, TrustMeta, VerificationCard } from "@/components/property/property-detail-sections";
 import { PropertyGallery } from "@/components/property/property-gallery";
 import { useToast } from "@/components/ui/toast-provider";
 import { usePropertyComparison } from "@/hooks/use-property-comparison";
 import { readStoredIds, STORAGE_KEYS, writeStoredIds } from "@/lib/local-storage";
 import { mockUser } from "@/lib/mock-users";
-import { allProperties, propertyTypeLabels, type Property } from "@/lib/properties";
+import { allProperties, type Property } from "@/lib/properties";
 import { cn } from "@/lib/utils";
 
 function PropertyDetailView({ property }: { property: Property }) {
@@ -113,12 +114,7 @@ function PropertyDetailView({ property }: { property: Property }) {
         <div className="mt-6 grid items-start gap-10 px-4 sm:px-0 lg:grid-cols-[minmax(0,1fr)_360px] lg:gap-12">
           <div className="min-w-0">
             <section className="pb-5">
-              <div className="flex flex-wrap items-center gap-2">
-                <span className="inline-flex h-8 items-center rounded-full bg-[#F0F5FF] px-3 text-[9px] font-semibold text-[#0057D9]">{propertyTypeLabels[property.property_type]}</span>
-                <span className="inline-flex h-8 items-center rounded-full bg-white px-3 text-[9px] font-semibold text-[#667085]">{property.purpose === "rent" ? tx("For rent", "ငှားရန်") : tx("For sale", "ရောင်းရန်")}</span>
-              </div>
-              <h1 className="mt-4 max-w-[840px] text-[34px] font-semibold leading-[1.06] tracking-[-0.055em] text-[#0F1B2D] sm:text-[48px]">{property.title}</h1>
-              <p className="mt-3 flex items-center gap-1.5 text-[12px] font-medium text-[#667085]"><MapPin className="size-4 text-[#0057D9]" />{property.township}, {property.city}</p>
+              <PropertyCardBody property={property} variant="featured" updatedLabel={tx("Updated 2 hours ago", "၂ နာရီက ပြင်ထားသည်")} />
               <div className="mt-4 flex flex-wrap items-center gap-2">
                 <span className="inline-flex items-center gap-0.5 text-[#0057D9]" aria-label={`${property.rating} out of 5 stars`}>{Array.from({ length: 5 }, (_, index) => <Star key={index} className="size-3.5 fill-current" />)}</span>
                 <strong className="text-[11px] text-[#0F1B2D]">{property.rating.toFixed(1)}</strong>
@@ -142,14 +138,9 @@ function PropertyDetailView({ property }: { property: Property }) {
               </button>
             </section>
 
-            <div className="space-y-3">
-              <PriceCard property={property} tx={tx} />
-              <FactsCard property={property} tx={tx} />
-            </div>
             <div className="mt-5"><VerificationCard tx={tx} /></div>
 
             <DescriptionSection property={property} tx={tx} />
-            <AmenitiesGrid property={property} tx={tx} />
             <LocationCard property={property} tx={tx} />
             <NearbyPlaces tx={tx} />
 
