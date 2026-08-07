@@ -65,7 +65,7 @@ function Sheet({ open, onOpenChange, title, description, children, footer, side 
             aria-labelledby={titleId}
             aria-describedby={description ? descriptionId : undefined}
             className={cn(
-              "absolute flex border-a7-line bg-white shadow-[var(--shadow-overlay)]",
+              "absolute flex border-a7-line bg-[#F8FBFF] shadow-[var(--shadow-overlay)]",
               side === "right" && "inset-y-0 right-0 w-full max-w-[540px] flex-col border-l sm:rounded-l-[var(--radius-sheet)]",
               side === "bottom" && "inset-x-0 bottom-0 max-h-[92vh] flex-col rounded-t-[var(--radius-sheet)] border-t",
               className,
@@ -73,7 +73,7 @@ function Sheet({ open, onOpenChange, title, description, children, footer, side 
             {...motionPosition}
             transition={reduceMotion ? { duration: 0 } : a7Motion.slow}
           >
-            {side === "bottom" && <div className="mx-auto mt-2 h-1 w-11 rounded-full bg-[#D1D1D5]" />}
+            {side === "bottom" && <div className="mx-auto mt-2 h-1 w-11 rounded-full bg-[#B8CCE4]" />}
             <div className={cn("flex items-start gap-4 border-b border-a7-line px-5 py-5 sm:px-7 sm:py-6", headerClassName)}>
               <div className="min-w-0 flex-1">
                 <h2 id={titleId} className="text-xl font-semibold tracking-[-0.035em] text-a7-navy">{title}</h2>

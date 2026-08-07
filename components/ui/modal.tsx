@@ -49,7 +49,7 @@ function Modal({ open, onOpenChange, title, description, children, footer, class
             aria-modal="true"
             aria-labelledby={titleId}
             aria-describedby={description ? descriptionId : undefined}
-            className={cn("relative z-10 max-h-[90vh] w-full max-w-[560px] overflow-hidden rounded-[var(--radius-sheet)] border border-white/70 bg-white shadow-[var(--shadow-overlay)]", className)}
+            className={cn("relative z-10 max-h-[90vh] w-full max-w-[560px] overflow-hidden rounded-[var(--radius-sheet)] border border-white/70 bg-[#F8FBFF] shadow-[var(--shadow-overlay)]", className)}
             initial={reduceMotion ? false : { opacity: 0, y: 12, scale: 0.985 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 8, scale: 0.98 }}

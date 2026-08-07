@@ -4,14 +4,16 @@
  */
 const a7DesignTokens = {
   color: {
-    primary: "#0057D9",
-    primaryHover: "#0049B8",
-    primarySoft: "#EDF4FF",
-    cream: "#FAF8F5",
-    navy: "#0F1B2D",
-    surface: "#FFFFFF",
+    primary: "#123B73",
+    primaryHover: "#0E2F5C",
+    primarySoft: "#DCEBFF",
+    secondary: "#4DA3FF",
+    accent: "#DCEBFF",
+    cream: "#EAF4FF",
+    navy: "#101828",
+    surface: "#F8FBFF",
     textSecondary: "#667085",
-    border: "#E5E2DD",
+    border: "#D0DEF0",
   },
   spacing: {
     1: 4,

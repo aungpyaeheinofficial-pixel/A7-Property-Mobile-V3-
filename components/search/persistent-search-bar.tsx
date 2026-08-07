@@ -114,7 +114,7 @@ function PersistentSearchBar({ value, onChange, onSearch }: PersistentSearchBarP
         transition={{ duration: reduceMotion ? 0 : 0.38, ease: [0.22, 1, 0.36, 1] }}
       >
         <div ref={searchRef} className="relative">
-          <label className={`flex items-center gap-3 rounded-2xl border border-[#D5DEE8] bg-white px-4 shadow-[0_8px_24px_rgba(23,43,63,.075)] transition-[height,border-color,box-shadow] duration-200 focus-within:border-[#D4A574] focus-within:shadow-[0_0_0_4px_rgba(0, 87, 217,.12),0_12px_32px_rgba(23,43,63,.1)] sm:px-5 ${compact ? "h-[52px]" : "h-16"}`}>
+          <label className={`flex items-center gap-3 rounded-2xl border border-[#D5DEE8] bg-white px-4 shadow-[0_8px_24px_rgba(23,43,63,.075)] transition-[height,border-color,box-shadow] duration-200 focus-within:border-[#D4A574] focus-within:shadow-[0_0_0_4px_rgba(18,59,115,.12),0_12px_32px_rgba(23,43,63,.1)] sm:px-5 ${compact ? "h-[52px]" : "h-16"}`}>
             <span className="min-w-0 flex-1">
               <input
                 role="combobox"
@@ -132,8 +132,8 @@ function PersistentSearchBar({ value, onChange, onSearch }: PersistentSearchBarP
                 onKeyDown={handleInputKeyDown}
               />
             </span>
-            {query && <button type="button" className="grid size-9 shrink-0 place-items-center rounded-full text-[#6B7078] transition-colors hover:bg-[#F1F3F6] hover:text-[#2A2A33]" aria-label={tx("Clear location", "နေရာရှင်းရန်")} onClick={() => { setQuery(""); setActiveIndex(0); setSuggestionsOpen(true); onChange({ ...value, location: "All Myanmar" }); }}><X className="size-4" /></button>}
-            <motion.button type="button" className="grid size-11 shrink-0 place-items-center rounded-xl bg-[#172B3F] text-white shadow-[0_7px_18px_rgba(23,43,63,.18)] transition-colors hover:bg-[#0057D9]" aria-label={tx("Search homes", "အိမ်များရှာရန်")} onClick={submitSearch} whileTap={{ scale: 0.94 }} transition={{ type: "spring", stiffness: 520, damping: 30 }}><Search className="size-5" strokeWidth={2.4} /></motion.button>
+            {query && <button type="button" className="grid size-9 shrink-0 place-items-center rounded-full text-[#667085] transition-colors hover:bg-[#F1F3F6] hover:text-[#101828]" aria-label={tx("Clear location", "နေရာရှင်းရန်")} onClick={() => { setQuery(""); setActiveIndex(0); setSuggestionsOpen(true); onChange({ ...value, location: "All Myanmar" }); }}><X className="size-4" /></button>}
+            <motion.button type="button" className="grid size-11 shrink-0 place-items-center rounded-xl bg-[#172B3F] text-white shadow-[0_7px_18px_rgba(23,43,63,.18)] transition-colors hover:bg-[#123B73]" aria-label={tx("Search homes", "အိမ်များရှာရန်")} onClick={submitSearch} whileTap={{ scale: 0.94 }} transition={{ type: "spring", stiffness: 520, damping: 30 }}><Search className="size-5" strokeWidth={2.4} /></motion.button>
           </label>
 
           <AnimatePresence>
@@ -147,7 +147,7 @@ function PersistentSearchBar({ value, onChange, onSearch }: PersistentSearchBarP
                 exit={{ opacity: 0, y: -6, scale: 0.99 }}
                 transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
               >
-                <div className="flex items-center justify-between px-3 pb-2 pt-1 text-[10px] font-semibold uppercase tracking-[.1em] text-[#6B7078]">
+                <div className="flex items-center justify-between px-3 pb-2 pt-1 text-[10px] font-semibold uppercase tracking-[.1em] text-[#667085]">
                   <span>{query ? tx("Matching locations", "ကိုက်ညီသောနေရာများ") : tx("Popular locations", "လူကြိုက်များသောနေရာများ")}</span>
                   <span className="normal-case tracking-normal text-[#9A9EA4]">Yangon & Mandalay</span>
                 </div>
@@ -158,15 +158,15 @@ function PersistentSearchBar({ value, onChange, onSearch }: PersistentSearchBarP
                     type="button"
                     role="option"
                     aria-selected={index === activeIndex}
-                    className={`flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left transition-colors ${index === activeIndex ? "bg-[#F1F6FF]" : "hover:bg-[#FAF8F5]"}`}
+                    className={`flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left transition-colors ${index === activeIndex ? "bg-[#F1F6FF]" : "hover:bg-[#EAF4FF]"}`}
                     onMouseEnter={() => setActiveIndex(index)}
                     onClick={() => chooseLocation(location)}
                   >
-                    <span className="grid size-9 shrink-0 place-items-center rounded-lg bg-[#F1F6FF] text-[#0057D9]"><MapPin className="size-[18px]" /></span>
-                    <span><strong className="block text-sm font-semibold">{location.label}</strong><span className="mt-0.5 block text-[11px] text-[#6B7078]">{tx(location.detail, location.detail.replace("City", "မြို့").replace("Township", "မြို့နယ်").replace("Landmark", "အထင်ကရနေရာ"))}</span></span>
+                    <span className="grid size-9 shrink-0 place-items-center rounded-lg bg-[#F1F6FF] text-[#123B73]"><MapPin className="size-[18px]" /></span>
+                    <span><strong className="block text-sm font-semibold">{location.label}</strong><span className="mt-0.5 block text-[11px] text-[#667085]">{tx(location.detail, location.detail.replace("City", "မြို့").replace("Township", "မြို့နယ်").replace("Landmark", "အထင်ကရနေရာ"))}</span></span>
                   </button>
                 )) : (
-                  <div className="flex items-center gap-3 rounded-xl px-3 py-4 text-xs text-[#6B7078]"><LocateFixed className="size-5 text-[#0057D9]" />{tx("Try a township such as Kamayut or Bahan.", "ကမာရွတ် သို့မဟုတ် ဗဟန်းကဲ့သို့ မြို့နယ်တစ်ခုဖြင့် ရှာကြည့်ပါ။")}</div>
+                  <div className="flex items-center gap-3 rounded-xl px-3 py-4 text-xs text-[#667085]"><LocateFixed className="size-5 text-[#123B73]" />{tx("Try a township such as Kamayut or Bahan.", "ကမာရွတ် သို့မဟုတ် ဗဟန်းကဲ့သို့ မြို့နယ်တစ်ခုဖြင့် ရှာကြည့်ပါ။")}</div>
                 )}
               </motion.div>
             )}

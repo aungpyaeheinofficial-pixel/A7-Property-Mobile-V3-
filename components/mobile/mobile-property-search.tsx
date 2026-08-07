@@ -350,15 +350,15 @@ function MobilePropertySearch({ properties }: { properties: Property[] }) {
   };
 
   return (
-    <div className="min-h-screen bg-[#FBFCFE] pb-28 lg:pb-10">
-      <header className="relative z-30 bg-[#FBFCFE]">
+    <div className="min-h-screen bg-[#EAF4FF] pb-28 lg:pb-10">
+      <header className="relative z-30 bg-[#EAF4FF]">
         <div className="mx-auto max-w-[1280px] px-4 pb-3 pt-3 sm:px-6 lg:px-8">
           <div className="mb-3 flex h-12 items-center gap-3">
-            <Link href="/" className="grid size-11 shrink-0 place-items-center rounded-full text-a7-navy transition-colors hover:bg-white hover:text-a7-blue" aria-label={tx("Open main navigation", "အဓိကလမ်းညွှန်ဖွင့်ရန်")}><Menu className="size-[22px]" /></Link>
+            <Link href="/" className="grid size-11 shrink-0 place-items-center rounded-full text-a7-navy transition-colors hover:bg-[#F8FBFF] hover:text-a7-blue" aria-label={tx("Open main navigation", "အဓိကလမ်းညွှန်ဖွင့်ရန်")}><Menu className="size-[22px]" /></Link>
             <div className="min-w-0 flex-1">
               <h1 className="text-[26px] font-semibold tracking-[-0.045em] text-a7-navy sm:text-[29px]">{tx("Explore", "ရှာဖွေမည်")}</h1>
             </div>
-            <Link href="/messages" className="relative grid size-11 place-items-center rounded-full bg-white text-a7-navy shadow-[var(--shadow-hairline)] transition-colors hover:text-a7-blue" aria-label={tx("Messages and alerts", "မက်ဆေ့ချ်နှင့် အသိပေးချက်များ")}><Bell className="size-[17px]" /><span className="absolute right-2.5 top-2.5 size-2 rounded-full border-2 border-white bg-a7-blue" /></Link>
+            <Link href="/messages" className="relative grid size-11 place-items-center rounded-full bg-[#F8FBFF] text-a7-navy shadow-[var(--shadow-hairline)] transition-colors hover:text-a7-blue" aria-label={tx("Messages and alerts", "မက်ဆေ့ချ်နှင့် အသိပေးချက်များ")}><Bell className="size-[17px]" /><span className="absolute right-2.5 top-2.5 size-2 rounded-full border-2 border-white bg-a7-blue" /></Link>
             <Link href="/profile" aria-label={tx("Open profile", "ပရိုဖိုင်ဖွင့်ရန်")}><Avatar src="/images/profile/thiri-win.jpg" alt={mockUser.name} initials={mockUser.initials} size="sm" className="size-11 border-2 border-white bg-[#DCE9FA] text-[11px] shadow-[var(--shadow-hairline)]" /></Link>
           </div>
           <div>
@@ -399,12 +399,12 @@ function MobilePropertySearch({ properties }: { properties: Property[] }) {
         <div className={cn(view === "map" && "hidden lg:block")}>
           <div className="flex items-end justify-between gap-3 border-b border-a7-line pb-4">
             <div className="min-w-0">
-              <p className="mb-1.5 inline-flex items-center gap-1.5 text-[9px] font-semibold uppercase tracking-[.16em] text-a7-blue"><ShieldCheck className="size-4 fill-[#0A67FF] text-white" />{tx(`${results.length} verified homes`, `စိစစ်ထားသောအိမ် ${results.length} လုံး`)}</p>
+              <p className="mb-1.5 inline-flex items-center gap-1.5 text-[9px] font-semibold uppercase tracking-[.16em] text-a7-blue"><ShieldCheck className="size-4 fill-[#123B73] text-white" />{tx(`${results.length} verified homes`, `စိစစ်ထားသောအိမ် ${results.length} လုံး`)}</p>
               <h2 className="text-[24px] font-semibold tracking-[-0.04em] text-a7-navy sm:text-[30px]">{tx("Best matches", "အကောင်းဆုံးအိမ်များ")}</h2>
               <p className="mt-1 text-[10px] text-a7-muted">{location === "All Myanmar" ? tx("Homes across Myanmar", "မြန်မာနိုင်ငံတစ်ဝန်း") : `${location}, Myanmar`}</p>
             </div>
             <div className="flex shrink-0 items-center gap-1.5">
-              <label className="relative hidden h-11 w-[152px] items-center rounded-[14px] border border-a7-line bg-white shadow-[var(--shadow-hairline)] transition-[border-color,box-shadow] focus-within:border-[#9DBCE8] focus-within:shadow-[0_0_0_3px_rgba(0,87,217,.08)] min-[460px]:flex">
+              <label className="relative hidden h-11 w-[152px] items-center rounded-[14px] border border-a7-line bg-[#F8FBFF] shadow-[var(--shadow-hairline)] transition-[border-color,box-shadow] focus-within:border-[#4DA3FF] focus-within:shadow-[0_0_0_3px_rgba(18,59,115,.08)] min-[460px]:flex">
                 <span className="sr-only">{tx("Sort homes", "အိမ်များစီရန်")}</span>
                 <select data-focus-ring="parent" value={sort} onChange={(event) => { setSort(event.target.value as PropertySort); resetResultWindow(); }} className="h-11 min-w-0 flex-1 appearance-none bg-transparent pl-3.5 pr-9 text-[11px] font-medium text-[#334155] outline-none" aria-label={tx("Sort homes", "အိမ်များစီရန်")}>
                   <option value="recommended">{tx("Recommended", "အကြံပြုထားသည်")}</option>
@@ -412,9 +412,9 @@ function MobilePropertySearch({ properties }: { properties: Property[] }) {
                   <option value="price-asc">{tx("Price: low to high", "ဈေးနည်းမှများ")}</option>
                   <option value="price-desc">{tx("Price: high to low", "ဈေးများမှနည်း")}</option>
                 </select>
-                <ChevronDown className="pointer-events-none absolute right-3 size-3.5 text-[#64748B]" />
+                <ChevronDown className="pointer-events-none absolute right-3 size-3.5 text-[#667085]" />
               </label>
-              <label className="relative grid size-11 place-items-center rounded-full border border-a7-line bg-white text-a7-navy shadow-[var(--shadow-hairline)] min-[460px]:hidden">
+              <label className="relative grid size-11 place-items-center rounded-full border border-a7-line bg-[#F8FBFF] text-a7-navy shadow-[var(--shadow-hairline)] min-[460px]:hidden">
                 <span className="sr-only">{tx("Sort homes", "အိမ်များစီရန်")}</span>
                 <ArrowUpDown className="pointer-events-none size-4" />
                 <select value={sort} onChange={(event) => { setSort(event.target.value as PropertySort); resetResultWindow(); }} className="absolute inset-0 cursor-pointer opacity-0" aria-label={tx("Sort homes", "အိမ်များစီရန်")}>
@@ -424,7 +424,7 @@ function MobilePropertySearch({ properties }: { properties: Property[] }) {
                   <option value="price-desc">{tx("Price: high to low", "ဈေးများမှနည်း")}</option>
                 </select>
               </label>
-              <button type="button" onClick={() => setView(view === "list" ? "map" : "list")} className="inline-flex h-11 shrink-0 items-center justify-center gap-2 rounded-[14px] border border-[#CBD7E6] bg-white px-3.5 text-[10px] font-semibold text-a7-blue shadow-[var(--shadow-hairline)] transition-colors hover:bg-[#F6F9FD]" aria-label={view === "list" ? tx("Map view", "မြေပုံမြင်ကွင်း") : tx("List view", "စာရင်းမြင်ကွင်း")}>
+              <button type="button" onClick={() => setView(view === "list" ? "map" : "list")} className="inline-flex h-11 shrink-0 items-center justify-center gap-2 rounded-[14px] border border-[#CBD7E6] bg-[#F8FBFF] px-3.5 text-[10px] font-semibold text-a7-blue shadow-[var(--shadow-hairline)] transition-colors hover:bg-[#F6F9FD]" aria-label={view === "list" ? tx("Map view", "မြေပုံမြင်ကွင်း") : tx("List view", "စာရင်းမြင်ကွင်း")}>
                 {view === "list" ? <Map className="size-4" /> : <List className="size-4" />}
                 <span>{view === "list" ? tx("Map", "မြေပုံ") : tx("List", "စာရင်း")}</span>
               </button>
@@ -436,7 +436,7 @@ function MobilePropertySearch({ properties }: { properties: Property[] }) {
               <div className="hide-scrollbar -ml-4 flex min-w-0 flex-1 items-center gap-2 overflow-x-auto py-1 pl-4">
                 {activeFilters.map((filter) => <ActiveFilterChip key={filter.id} label={filter.label} onRemove={filter.remove} />)}
               </div>
-              <button type="button" onClick={clearFilters} className="h-11 shrink-0 rounded-[12px] px-2 text-[10px] font-semibold text-[#0057D9]">{tx("Clear", "ရှင်းရန်")}</button>
+              <button type="button" onClick={clearFilters} className="h-11 shrink-0 rounded-[12px] px-2 text-[10px] font-semibold text-[#123B73]">{tx("Clear", "ရှင်းရန်")}</button>
             </div>
           )}
         </div>
@@ -450,16 +450,16 @@ function MobilePropertySearch({ properties }: { properties: Property[] }) {
             <div className="relative h-full min-w-0">
               <PropertyMap properties={results} selectedId={selectedId} onSelect={setSelectedId} showPrivacyNotice={false} showLiveLabel={false} drawArea={drawingArea} drawnBounds={mapBounds} onDrawArea={(bounds) => { setMapBounds(bounds); setDrawingArea(false); resetResultWindow(); }} className="h-full min-h-0 rounded-none border-0 lg:h-[calc(100svh-230px)] lg:max-h-[720px] lg:min-h-[520px] lg:rounded-[20px] lg:border" />
               <div className="absolute inset-x-3 top-3 z-[600] flex items-center gap-2">
-                <span className="rounded-full border border-white/80 bg-white/94 px-3 py-2 text-[10px] font-semibold text-[#334155] shadow-sm backdrop-blur">{tx(`${results.length} homes`, `အိမ် ${results.length} လုံး`)}</span>
-                <button type="button" onClick={() => setDrawingArea((current) => !current)} className={cn("inline-flex h-11 items-center gap-1.5 rounded-full border px-3 text-[10px] font-semibold shadow-sm backdrop-blur", drawingArea ? "border-[#0057D9] bg-[#0057D9] text-white" : "border-white/80 bg-white/94 text-[#0057D9]")} aria-pressed={drawingArea}><ScanSearch className="size-4" />{mapBounds ? tx("Redraw", "ပြန်ဆွဲ") : tx("Draw area", "ဧရိယာဆွဲ")}</button>
-                <button type="button" onClick={() => setView("list")} className="ml-auto inline-flex h-11 items-center gap-1.5 rounded-full border border-white/80 bg-white/94 px-3 text-[10px] font-semibold text-[#0057D9] shadow-sm backdrop-blur"><List className="size-4" />{tx("List", "စာရင်း")}</button>
+                <span className="rounded-full border border-white/80 bg-[#F8FBFF]/94 px-3 py-2 text-[10px] font-semibold text-[#334155] shadow-sm backdrop-blur">{tx(`${results.length} homes`, `အိမ် ${results.length} လုံး`)}</span>
+                <button type="button" onClick={() => setDrawingArea((current) => !current)} className={cn("inline-flex h-11 items-center gap-1.5 rounded-full border px-3 text-[10px] font-semibold shadow-sm backdrop-blur", drawingArea ? "border-[#123B73] bg-[#123B73] text-white" : "border-white/80 bg-[#F8FBFF]/94 text-[#123B73]")} aria-pressed={drawingArea}><ScanSearch className="size-4" />{mapBounds ? tx("Redraw", "ပြန်ဆွဲ") : tx("Draw area", "ဧရိယာဆွဲ")}</button>
+                <button type="button" onClick={() => setView("list")} className="ml-auto inline-flex h-11 items-center gap-1.5 rounded-full border border-white/80 bg-[#F8FBFF]/94 px-3 text-[10px] font-semibold text-[#123B73] shadow-sm backdrop-blur"><List className="size-4" />{tx("List", "စာရင်း")}</button>
               </div>
-              {drawingArea && <div className="pointer-events-none absolute left-1/2 top-[66px] z-[600] -translate-x-1/2 whitespace-nowrap rounded-full bg-[#0F1B2D]/92 px-4 py-2 text-[9px] font-semibold text-white shadow-lg">{tx("Tap two map corners to set your area", "ဧရိယာသတ်မှတ်ရန် မြေပုံထောင့်နှစ်နေရာကို နှိပ်ပါ")}</div>}
-              {mapBounds && !drawingArea && <button type="button" onClick={() => { setMapBounds(null); resetResultWindow(); }} className="absolute bottom-[236px] left-1/2 z-[600] inline-flex h-11 -translate-x-1/2 items-center gap-1.5 rounded-full border border-white/80 bg-white/94 px-4 text-[10px] font-semibold text-[#0057D9] shadow-sm backdrop-blur lg:bottom-4"><X className="size-3.5" />{tx("Clear map area", "မြေပုံဧရိယာရှင်း")}</button>}
+              {drawingArea && <div className="pointer-events-none absolute left-1/2 top-[66px] z-[600] -translate-x-1/2 whitespace-nowrap rounded-full bg-[#101828]/92 px-4 py-2 text-[9px] font-semibold text-white shadow-lg">{tx("Tap two map corners to set your area", "ဧရိယာသတ်မှတ်ရန် မြေပုံထောင့်နှစ်နေရာကို နှိပ်ပါ")}</div>}
+              {mapBounds && !drawingArea && <button type="button" onClick={() => { setMapBounds(null); resetResultWindow(); }} className="absolute bottom-[236px] left-1/2 z-[600] inline-flex h-11 -translate-x-1/2 items-center gap-1.5 rounded-full border border-white/80 bg-[#F8FBFF]/94 px-4 text-[10px] font-semibold text-[#123B73] shadow-sm backdrop-blur lg:bottom-4"><X className="size-3.5" />{tx("Clear map area", "မြေပုံဧရိယာရှင်း")}</button>}
               <div ref={carouselRef} onScroll={handleCarouselScroll} className="hide-scrollbar absolute inset-x-0 bottom-0 z-[600] flex snap-x snap-mandatory gap-3 overflow-x-auto px-3 pb-3 lg:hidden">
                 {results.slice(0, 24).map((property) => (
                   <div key={property.id} data-property-id={property.id} onClick={() => setSelectedId(property.id)} className="w-[calc(100vw-40px)] max-w-[350px] shrink-0 snap-center">
-                    <MobilePropertyCard property={property} variant="compact" saved={saved.includes(property.id)} onToggleSaved={toggleSaved} onOpen={() => rememberJourneyState(property.id)} className={cn("w-full min-w-0 transition-[border-color,box-shadow] duration-200", selectedId === property.id && "border-[#0057D9] ring-2 ring-[#0057D9]/15")} />
+                    <MobilePropertyCard property={property} variant="compact" saved={saved.includes(property.id)} onToggleSaved={toggleSaved} onOpen={() => rememberJourneyState(property.id)} className={cn("w-full min-w-0 transition-[border-color,box-shadow] duration-200", selectedId === property.id && "border-[#123B73] ring-2 ring-[#123B73]/15")} />
                   </div>
                 ))}
               </div>
@@ -475,13 +475,13 @@ function MobilePropertySearch({ properties }: { properties: Property[] }) {
             </div>
             {visibleCount < results.length && (
               <div className="mt-7 text-center">
-                <Button variant="outline" className="h-12 rounded-[14px] bg-white px-6" onClick={() => setVisibleCount((count) => count + 12)}>{tx(`Show ${Math.min(12, results.length - visibleCount)} more homes`, `နောက်ထပ် ${Math.min(12, results.length - visibleCount)} လုံး ပြရန်`)}</Button>
+                <Button variant="outline" className="h-12 rounded-[14px] bg-[#F8FBFF] px-6" onClick={() => setVisibleCount((count) => count + 12)}>{tx(`Show ${Math.min(12, results.length - visibleCount)} more homes`, `နောက်ထပ် ${Math.min(12, results.length - visibleCount)} လုံး ပြရန်`)}</Button>
                 <p className="mt-2 text-[9px] text-[#7B837F]">{tx(`Showing ${Math.min(visibleCount, results.length)} of ${results.length}`, `${results.length} လုံးအနက် ${Math.min(visibleCount, results.length)} လုံးပြထားသည်`)}</p>
               </div>
             )}
           </>
         ) : (
-          <div className="mt-10 rounded-[20px] border border-dashed border-[#B9D3FA] bg-white px-6 py-12 text-center"><MapPin className="mx-auto size-8 text-[#0057D9]" /><h2 className="mt-4 text-xl font-semibold">{tx("No exact matches yet", "အတိအကျကိုက်ညီသောအိမ် မတွေ့သေးပါ")}</h2><p className="mx-auto mt-2 max-w-md text-[12px] leading-6 text-[#707A75]">{tx("Try a nearby township or clear one filter.", "အနီးအနားမြို့နယ်ကို စမ်းကြည့်ပါ သို့မဟုတ် စစ်ထုတ်မှုတစ်ခုရှင်းပါ။")}</p><button type="button" onClick={clearFilters} className="mt-5 h-11 rounded-[14px] bg-[#0057D9] px-5 text-[12px] font-semibold text-white">{tx("Clear filters", "စစ်ထုတ်မှုရှင်းရန်")}</button></div>
+          <div className="mt-10 rounded-[20px] border border-dashed border-[#4DA3FF] bg-[#F8FBFF] px-6 py-12 text-center"><MapPin className="mx-auto size-8 text-[#123B73]" /><h2 className="mt-4 text-xl font-semibold">{tx("No exact matches yet", "အတိအကျကိုက်ညီသောအိမ် မတွေ့သေးပါ")}</h2><p className="mx-auto mt-2 max-w-md text-[12px] leading-6 text-[#707A75]">{tx("Try a nearby township or clear one filter.", "အနီးအနားမြို့နယ်ကို စမ်းကြည့်ပါ သို့မဟုတ် စစ်ထုတ်မှုတစ်ခုရှင်းပါ။")}</p><button type="button" onClick={clearFilters} className="mt-5 h-11 rounded-[14px] bg-[#123B73] px-5 text-[12px] font-semibold text-white">{tx("Clear filters", "စစ်ထုတ်မှုရှင်းရန်")}</button></div>
         )}
 
         {view === "list" && recentlyViewed.length > 0 && (
@@ -509,8 +509,8 @@ function MobilePropertySearch({ properties }: { properties: Property[] }) {
         description={filterFocus === "all" ? undefined : filterSheetCopy[filterFocus].description}
         className="!inset-x-3 !bottom-3 max-h-[calc(100svh-24px)] !rounded-[28px] border after:pointer-events-none after:absolute after:inset-x-3 after:-bottom-3 after:-z-10 after:h-8 after:rounded-b-[28px] after:bg-a7-blue sm:!left-[calc(50%-240px)] sm:!right-[calc(50%-240px)]"
         headerClassName="border-b-0 px-4 pb-2 pt-3 sm:px-5 sm:py-3"
-        footerClassName="border-0 bg-white px-4 pb-4 pt-2 backdrop-blur-none sm:px-5"
-        footer={<Button className="h-12 w-full rounded-full bg-a7-blue !text-white shadow-[var(--shadow-action)] hover:bg-[#0049B8]" onClick={() => setFiltersOpen(false)}>{tx("Apply Filters", "စစ်ထုတ်မည်")}</Button>}
+        footerClassName="border-0 bg-[#F8FBFF] px-4 pb-4 pt-2 backdrop-blur-none sm:px-5"
+        footer={<Button className="h-12 w-full rounded-full bg-a7-blue !text-white shadow-[var(--shadow-action)] hover:bg-[#0E2F5C]" onClick={() => setFiltersOpen(false)}>{tx("Apply Filters", "စစ်ထုတ်မည်")}</Button>}
       >
         <div className="px-4 pb-7 pt-2 sm:px-5"><FilterControls {...filterControlProps} /></div>
       </FilterSheet>
@@ -545,7 +545,7 @@ function serializeMapBounds(bounds: MapSearchBounds) {
 }
 
 function ActiveFilterChip({ label, onRemove }: { label: string; onRemove: () => void }) {
-  return <button type="button" onClick={onRemove} className="inline-flex h-11 shrink-0 items-center gap-2 rounded-[10px] border border-[#C8D6E5] bg-[#F3F6F9] pl-3.5 pr-3 text-[10px] font-semibold text-[#0057D9]" aria-label={`Remove ${label} filter`}>{label}<X className="size-3" /></button>;
+  return <button type="button" onClick={onRemove} className="inline-flex h-11 shrink-0 items-center gap-2 rounded-[10px] border border-[#C8D6E5] bg-[#F3F6F9] pl-3.5 pr-3 text-[10px] font-semibold text-[#123B73]" aria-label={`Remove ${label} filter`}>{label}<X className="size-3" /></button>;
 }
 
 function QuickFilterChip({ selected, onClick, label, icon, selectedTone = "navy" }: { selected: boolean; onClick: () => void; label: string; icon?: React.ReactNode; selectedTone?: "navy" | "blue" }) {
@@ -558,9 +558,9 @@ function QuickFilterChip({ selected, onClick, label, icon, selectedTone = "navy"
         "inline-flex h-10 shrink-0 items-center justify-center gap-1.5 rounded-full border px-3 text-[10px] font-semibold transition-[background-color,border-color,color,box-shadow]",
         selected
           ? selectedTone === "blue"
-            ? "border-a7-blue bg-a7-blue text-white shadow-[0_5px_14px_rgba(0,87,217,.18)]"
-            : "border-a7-navy bg-a7-navy text-white shadow-[0_5px_14px_rgba(15,27,45,.15)]"
-          : "border-[#DEDCD7] bg-white/75 text-[#5F6873] hover:border-[#B8C8DB] hover:text-a7-blue",
+            ? "border-a7-blue bg-a7-blue text-white shadow-[0_5px_14px_rgba(18,59,115,.18)]"
+            : "border-a7-navy bg-a7-navy text-white shadow-[0_5px_14px_rgba(16,24,40,.15)]"
+          : "border-[#DEDCD7] bg-[#F8FBFF]/75 text-[#5F6873] hover:border-[#B8C8DB] hover:text-a7-blue",
       )}
     >
       {icon}{label}
@@ -573,7 +573,7 @@ function FilterGroup({ title, description, children }: { title: string; descript
 }
 
 function ChoiceButton({ selected, onClick, children, compact = false, className }: { selected: boolean; onClick: () => void; children: React.ReactNode; compact?: boolean; className?: string }) {
-  return <button type="button" onClick={onClick} className={cn("inline-flex items-center justify-center gap-1.5 rounded-[14px] border font-semibold transition-[background-color,border-color,color,box-shadow] duration-[var(--duration-base)]", compact ? "h-11 px-3 text-[10px]" : "h-12 px-4 text-[11px]", selected ? "border-a7-blue bg-a7-blue text-white shadow-[0_3px_10px_rgba(0,87,217,.16)]" : "border-[#DCD9D1] bg-white text-[#66716C] hover:border-[#B8C8DB] hover:text-a7-navy", className)}>{selected && <Check className="size-3.5" />}{children}</button>;
+  return <button type="button" onClick={onClick} className={cn("inline-flex items-center justify-center gap-1.5 rounded-[14px] border font-semibold transition-[background-color,border-color,color,box-shadow] duration-[var(--duration-base)]", compact ? "h-11 px-3 text-[10px]" : "h-12 px-4 text-[11px]", selected ? "border-a7-blue bg-a7-blue text-white shadow-[0_3px_10px_rgba(18,59,115,.16)]" : "border-[#D0DEF0] bg-[#F8FBFF] text-[#66716C] hover:border-[#B8C8DB] hover:text-a7-navy", className)}>{selected && <Check className="size-3.5" />}{children}</button>;
 }
 
 interface FilterControlsProps {
@@ -600,8 +600,8 @@ interface FilterControlsProps {
 function LocationPicker({ value, onChange, tx }: { value: string; onChange: (value: string) => void; tx: FilterControlsProps["tx"] }) {
   return (
     <div className="grid grid-cols-2 gap-2.5">
-      <label className="block"><span className="mb-1.5 block text-[10px] font-semibold text-a7-navy">{tx("City", "မြို့")}</span><span className="relative block"><select value={value} onChange={(event) => onChange(event.target.value)} className="h-11 w-full appearance-none rounded-full border border-a7-line bg-white pl-3.5 pr-8 text-[10px] font-medium text-[#515D58] outline-none focus:border-a7-blue"><option value="All Myanmar">{tx("All cities", "မြို့အားလုံး")}</option>{searchLocations.filter((item) => item !== "All Myanmar").map((item) => <option key={item} value={item}>{item}</option>)}</select><ChevronDown className="pointer-events-none absolute right-3 top-1/2 size-3 -translate-y-1/2 text-a7-muted" /></span></label>
-      <label className="block"><span className="mb-1.5 block text-[10px] font-semibold text-a7-navy">{tx("Country", "နိုင်ငံ")}</span><span className="relative block"><select value="Myanmar" disabled className="h-11 w-full appearance-none rounded-full border border-a7-line bg-white pl-3.5 pr-8 text-[10px] font-medium text-[#515D58] opacity-100 outline-none"><option>Myanmar</option></select><ChevronDown className="pointer-events-none absolute right-3 top-1/2 size-3 -translate-y-1/2 text-a7-muted" /></span></label>
+      <label className="block"><span className="mb-1.5 block text-[10px] font-semibold text-a7-navy">{tx("City", "မြို့")}</span><span className="relative block"><select value={value} onChange={(event) => onChange(event.target.value)} className="h-11 w-full appearance-none rounded-full border border-a7-line bg-[#F8FBFF] pl-3.5 pr-8 text-[10px] font-medium text-[#515D58] outline-none focus:border-a7-blue"><option value="All Myanmar">{tx("All cities", "မြို့အားလုံး")}</option>{searchLocations.filter((item) => item !== "All Myanmar").map((item) => <option key={item} value={item}>{item}</option>)}</select><ChevronDown className="pointer-events-none absolute right-3 top-1/2 size-3 -translate-y-1/2 text-a7-muted" /></span></label>
+      <label className="block"><span className="mb-1.5 block text-[10px] font-semibold text-a7-navy">{tx("Country", "နိုင်ငံ")}</span><span className="relative block"><select value="Myanmar" disabled className="h-11 w-full appearance-none rounded-full border border-a7-line bg-[#F8FBFF] pl-3.5 pr-8 text-[10px] font-medium text-[#515D58] opacity-100 outline-none"><option>Myanmar</option></select><ChevronDown className="pointer-events-none absolute right-3 top-1/2 size-3 -translate-y-1/2 text-a7-muted" /></span></label>
     </div>
   );
 }
@@ -632,18 +632,18 @@ function FilterControls({ location, purpose, searchTab, minPrice, maxPrice, prop
   return (
     <div className="space-y-5">
       {focus === "all" && <FilterGroup title={tx("Purpose", "ရည်ရွယ်ချက်")}>
-        <div role="tablist" aria-label={tx("Property purpose", "အိမ်ခြံမြေ ရည်ရွယ်ချက်")} className="grid grid-cols-3 gap-1 rounded-full border border-a7-line bg-[#F7F7F5] p-1">
+        <div role="tablist" aria-label={tx("Property purpose", "အိမ်ခြံမြေ ရည်ရွယ်ချက်")} className="grid grid-cols-3 gap-1 rounded-full border border-a7-line bg-[#F8FBFF] p-1">
           {([
             { id: "sale", label: tx("For Sale", "ရောင်းရန်") },
             { id: "rent", label: tx("For Rent", "ငှားရန်") },
             { id: "buy", label: tx("For Buy", "ဝယ်မည်") },
-          ] as Array<{ id: PropertySearchTab; label: string }>).map((option) => <button key={option.id} type="button" role="tab" aria-selected={searchTab === option.id} onClick={() => onSearchTabChange(option.id)} className={cn("min-h-11 rounded-full px-2 text-[10px] font-semibold transition-[background-color,color,box-shadow]", searchTab === option.id ? "bg-a7-blue text-white shadow-[0_4px_12px_rgba(0,87,217,.2)]" : "text-a7-muted hover:bg-white hover:text-a7-navy")}>{option.label}</button>)}
+          ] as Array<{ id: PropertySearchTab; label: string }>).map((option) => <button key={option.id} type="button" role="tab" aria-selected={searchTab === option.id} onClick={() => onSearchTabChange(option.id)} className={cn("min-h-11 rounded-full px-2 text-[10px] font-semibold transition-[background-color,color,box-shadow]", searchTab === option.id ? "bg-a7-blue text-white shadow-[0_4px_12px_rgba(18,59,115,.2)]" : "text-a7-muted hover:bg-[#F8FBFF] hover:text-a7-navy")}>{option.label}</button>)}
         </div>
       </FilterGroup>}
       {show("location") && <LocationPicker value={location} onChange={onLocationChange} tx={tx} />}
       {show("type") && <FilterGroup title={tx("Select Category", "အမျိုးအစားရွေးရန်")}><div className="flex flex-wrap gap-2"><ChoiceButton selected={propertyTypes.length === 0} onClick={onPropertyTypesClear} compact>{tx("All property", "အားလုံး")}</ChoiceButton>{(["condo", "apartment", "house", "villa", "mini_condo"] as const).map((type) => <ChoiceButton key={type} selected={propertyTypes.includes(type)} onClick={() => onPropertyTypeToggle(type)} compact>{propertyTypeLabels[type]}</ChoiceButton>)}</div></FilterGroup>}
       {show("price") && <FilterGroup title={tx("Price Range", "ဈေးနှုန်းအပိုင်းအခြား")}><PriceRangeControl purpose={purpose} minPrice={minPrice} maxPrice={maxPrice} onMinPriceChange={onMinPriceChange} onMaxPriceChange={onMaxPriceChange} tx={tx} /></FilterGroup>}
-      {show("beds") && <FilterGroup title={tx("Beds & baths", "အိပ်ခန်းနှင့် ရေချိုးခန်း")}><div className="grid grid-cols-2 gap-2"><label className="block"><span className="mb-1.5 block text-[9px] font-semibold text-[#68726D]">{tx("Bedrooms", "အိပ်ခန်း")}</span><select value={bedrooms ?? ""} onChange={(event) => onBedroomsChange(event.target.value ? Number(event.target.value) : null)} className="h-12 w-full rounded-[12px] border border-[#DCD9D1] bg-white px-3 text-[11px] font-semibold text-[#334155] outline-none focus:border-a7-blue"><option value="">{tx("Any rooms", "အခန်းမရွေး")}</option>{[1, 2, 3, 4].map((value) => <option key={value} value={value}>{tx(`${value}+ rooms`, `${value}+ ခန်း`)}</option>)}</select></label><label className="block"><span className="mb-1.5 block text-[9px] font-semibold text-[#68726D]">{tx("Bathrooms", "ရေချိုးခန်း")}</span><select value={bathrooms ?? ""} onChange={(event) => onBathroomsChange(event.target.value ? Number(event.target.value) : null)} className="h-12 w-full rounded-[12px] border border-[#DCD9D1] bg-white px-3 text-[11px] font-semibold text-[#334155] outline-none focus:border-a7-blue"><option value="">{tx("Any baths", "ရေချိုးခန်းမရွေး")}</option>{[1, 2, 3, 4].map((value) => <option key={value} value={value}>{tx(`${value}+ baths`, `${value}+ ခန်း`)}</option>)}</select></label></div></FilterGroup>}
+      {show("beds") && <FilterGroup title={tx("Beds & baths", "အိပ်ခန်းနှင့် ရေချိုးခန်း")}><div className="grid grid-cols-2 gap-2"><label className="block"><span className="mb-1.5 block text-[9px] font-semibold text-[#68726D]">{tx("Bedrooms", "အိပ်ခန်း")}</span><select value={bedrooms ?? ""} onChange={(event) => onBedroomsChange(event.target.value ? Number(event.target.value) : null)} className="h-12 w-full rounded-[12px] border border-[#D0DEF0] bg-[#F8FBFF] px-3 text-[11px] font-semibold text-[#334155] outline-none focus:border-a7-blue"><option value="">{tx("Any rooms", "အခန်းမရွေး")}</option>{[1, 2, 3, 4].map((value) => <option key={value} value={value}>{tx(`${value}+ rooms`, `${value}+ ခန်း`)}</option>)}</select></label><label className="block"><span className="mb-1.5 block text-[9px] font-semibold text-[#68726D]">{tx("Bathrooms", "ရေချိုးခန်း")}</span><select value={bathrooms ?? ""} onChange={(event) => onBathroomsChange(event.target.value ? Number(event.target.value) : null)} className="h-12 w-full rounded-[12px] border border-[#D0DEF0] bg-[#F8FBFF] px-3 text-[11px] font-semibold text-[#334155] outline-none focus:border-a7-blue"><option value="">{tx("Any baths", "ရေချိုးခန်းမရွေး")}</option>{[1, 2, 3, 4].map((value) => <option key={value} value={value}>{tx(`${value}+ baths`, `${value}+ ခန်း`)}</option>)}</select></label></div></FilterGroup>}
     </div>
   );
 }

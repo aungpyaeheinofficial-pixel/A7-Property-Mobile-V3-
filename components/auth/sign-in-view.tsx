@@ -143,18 +143,18 @@ function RoleOption({ selected, onSelect, icon, title, desc, label, reduceMotion
       whileHover={reduceMotion ? undefined : { y: -2 }}
       whileTap={reduceMotion ? undefined : { scale: 0.98 }}
       transition={{ type: "spring", stiffness: 400, damping: 25 }}
-      className={`flex w-full items-start gap-4 rounded-2xl border-2 p-5 text-left transition-[border-color,box-shadow,background-color] ${selected ? "border-[#0057D9] bg-[#F5F8FD] shadow-[0_0_0_4px_rgba(0, 87, 217,.08)]" : "border-[#E1E6ED] bg-white hover:border-[#B7C2D0]"}`}
+      className={`flex w-full items-start gap-4 rounded-2xl border-2 p-5 text-left transition-[border-color,box-shadow,background-color] ${selected ? "border-[#123B73] bg-[#DCEBFF] shadow-[0_0_0_4px_rgba(18,59,115,.08)]" : "border-[#E1E6ED] bg-[#F8FBFF] hover:border-[#B7C2D0]"}`}
       aria-pressed={selected}
     >
       <motion.span
         animate={{ rotate: selected ? 0 : 0, scale: selected ? 1.05 : 1 }}
         transition={{ type: "spring", stiffness: 300, damping: 20 }}
-        className={`grid size-11 shrink-0 place-items-center rounded-xl transition-colors ${selected ? "bg-[#0057D9] text-white" : "bg-[#F1F6FF] text-[#0057D9]"}`}
+        className={`grid size-11 shrink-0 place-items-center rounded-xl transition-colors ${selected ? "bg-[#123B73] text-white" : "bg-[#DCEBFF] text-[#123B73]"}`}
       >{icon}</motion.span>
       <span className="min-w-0 flex-1">
-        <strong className="block text-[14px] font-semibold text-[#172133]">{title}</strong>
+        <strong className="block text-[14px] font-semibold text-[#101828]">{title}</strong>
         <span className="mt-1 block text-[12px] leading-5 text-[#687385]">{desc}</span>
-        <span className={`mt-2 inline-flex rounded-full px-2.5 py-1 text-[10px] font-semibold transition-colors ${selected ? "bg-[#0057D9] text-white" : "bg-[#F1F6FF] text-[#59616A]"}`}>{label}</span>
+        <span className={`mt-2 inline-flex rounded-full px-2.5 py-1 text-[10px] font-semibold transition-colors ${selected ? "bg-[#123B73] text-white" : "bg-[#DCEBFF] text-[#59616A]"}`}>{label}</span>
       </span>
       <AnimatePresence>
         {selected && (
@@ -164,7 +164,7 @@ function RoleOption({ selected, onSelect, icon, title, desc, label, reduceMotion
             exit={{ opacity: 0, scale: 0.5 }}
             transition={{ type: "spring", stiffness: 400, damping: 25 }}
           >
-            <CheckCircle2 className="mt-1 size-5 shrink-0 text-[#0057D9]" />
+            <CheckCircle2 className="mt-1 size-5 shrink-0 text-[#123B73]" />
           </motion.span>
         )}
       </AnimatePresence>
@@ -258,19 +258,19 @@ function SignInView() {
   }
 
   return (
-    <main className="min-h-svh bg-[#F3F6FA] p-0 lg:p-3" lang={language === "my" ? "my" : "en"}>
-      <div className="mx-auto grid min-h-svh max-w-[1720px] overflow-hidden bg-white shadow-[0_24px_80px_rgba(16,35,61,.12)] lg:min-h-[calc(100svh-24px)] lg:grid-cols-[minmax(430px,36%)_1fr] lg:rounded-[28px] lg:border lg:border-[#E3E8EF]">
+    <main className="min-h-svh bg-[#F8FBFF] p-0 lg:p-3" lang={language === "my" ? "my" : "en"}>
+      <div className="mx-auto grid min-h-svh max-w-[1720px] overflow-hidden bg-[#F8FBFF] shadow-[0_24px_80px_rgba(16,35,61,.12)] lg:min-h-[calc(100svh-24px)] lg:grid-cols-[minmax(430px,36%)_1fr] lg:rounded-[28px] lg:border lg:border-[#E3E8EF]">
         <motion.section
           initial={reduceMotion ? false : { opacity: 0, x: -18 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-          className="relative z-10 order-2 -mt-7 flex min-h-[calc(100svh-165px)] flex-col rounded-t-[28px] bg-white px-5 pb-7 pt-6 sm:px-9 lg:order-1 lg:mt-0 lg:min-h-0 lg:rounded-none lg:px-[clamp(44px,5vw,86px)] lg:py-10"
+          className="relative z-10 order-2 -mt-7 flex min-h-[calc(100svh-165px)] flex-col rounded-t-[28px] bg-[#F8FBFF] px-5 pb-7 pt-6 sm:px-9 lg:order-1 lg:mt-0 lg:min-h-0 lg:rounded-none lg:px-[clamp(44px,5vw,86px)] lg:py-10"
         >
           <div className="flex items-center justify-between">
-            <Link href="/" aria-label={text.back} className="rounded-xl focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#0057D9]/20">
+            <Link href="/" aria-label={text.back} className="rounded-xl focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#123B73]/20">
               <A7Brand />
             </Link>
-            <Link href="/" className="grid size-11 place-items-center rounded-full border border-[#DCE2EA] text-[#596473] transition-colors hover:bg-[#FAF8F5] lg:hidden" aria-label={text.back}>
+            <Link href="/" className="grid size-11 place-items-center rounded-full border border-[#DCE2EA] text-[#596473] transition-colors hover:bg-[#EAF4FF] lg:hidden" aria-label={text.back}>
               <ArrowLeft className="size-[18px]" />
             </Link>
           </div>
@@ -282,7 +282,7 @@ function SignInView() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.28 }}
             >
-              <h1 className="text-[32px] font-semibold tracking-[-0.045em] text-[#172133] sm:text-[36px]">
+              <h1 className="text-[32px] font-semibold tracking-[-0.045em] text-[#101828] sm:text-[36px]">
                 {step === "reset" ? text.resetTitle : step === "role" ? text.roleTitle : mode === "sign-in" ? text.welcome : text.createTitle}
               </h1>
               <p className="mt-2.5 max-w-[390px] text-[15px] leading-6 text-[#687385]">
@@ -312,7 +312,7 @@ function SignInView() {
                     label={text.lister}
                     reduceMotion={reduceMotion}
                   />
-                  <Button type="submit" className="mt-4 h-[54px] w-full rounded-xl text-[15px] shadow-[0_10px_24px_rgba(0, 87, 217,.22)] hover:-translate-y-0.5 hover:shadow-[0_14px_30px_rgba(0, 87, 217,.28)]">
+                  <Button type="submit" className="mt-4 h-[54px] w-full rounded-xl text-[15px] shadow-[0_10px_24px_rgba(18,59,115,.22)] hover:-translate-y-0.5 hover:shadow-[0_14px_30px_rgba(18,59,115,.28)]">
                     {text.continueRole}
                     <ArrowRight className="size-[18px]" aria-hidden="true" />
                   </Button>
@@ -321,8 +321,8 @@ function SignInView() {
 
               {(step === "email" || step === "reset") && (
                 <motion.div key="email-step" initial={reduceMotion ? false : { opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={reduceMotion ? undefined : { opacity: 0, x: -20 }} transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}>
-                  <label htmlFor="email" className="text-[13px] font-semibold text-[#222B3A]">{text.email}</label>
-                  <div className={`mt-2 flex h-[54px] items-center gap-3 rounded-xl border bg-white px-4 transition-[border-color,box-shadow] ${hasError ? "border-[#D92D20] shadow-[0_0_0_3px_rgba(217,45,32,.10)]" : "border-[#CCD4DE] focus-within:border-[#0057D9] focus-within:shadow-[0_0_0_4px_rgba(0, 87, 217,.12)]"}`}>
+                  <label htmlFor="email" className="text-[13px] font-semibold text-[#101828]">{text.email}</label>
+                  <div className={`mt-2 flex h-[54px] items-center gap-3 rounded-xl border bg-[#F8FBFF] px-4 transition-[border-color,box-shadow] ${hasError ? "border-[#D92D20] shadow-[0_0_0_3px_rgba(217,45,32,.10)]" : "border-[#CCD4DE] focus-within:border-[#123B73] focus-within:shadow-[0_0_0_4px_rgba(18,59,115,.12)]"}`}>
                     <Mail className={`size-5 shrink-0 ${hasError ? "text-[#D92D20]" : "text-[#7B8798]"}`} aria-hidden="true" />
                     <input
                       id="email"
@@ -337,7 +337,7 @@ function SignInView() {
                       placeholder={text.placeholder}
                       aria-invalid={hasError}
                       aria-describedby={hasError ? "email-error" : undefined}
-                      className="h-full min-w-0 flex-1 appearance-none border-0 bg-transparent p-0 text-[15px] text-[#172133] outline-none ring-0 placeholder:text-[#9AA3B1] focus:outline-none focus:ring-0 focus-visible:outline-none focus-visible:ring-0"
+                      className="h-full min-w-0 flex-1 appearance-none border-0 bg-transparent p-0 text-[15px] text-[#101828] outline-none ring-0 placeholder:text-[#9AA3B1] focus:outline-none focus:ring-0 focus-visible:outline-none focus-visible:ring-0"
                     />
                   </div>
                   <div className="min-h-6 pt-1.5">
@@ -348,8 +348,8 @@ function SignInView() {
 
               {step === "email" && mode === "create" && (
                 <>
-                  <label htmlFor="full-name" className="text-[13px] font-semibold text-[#222B3A]">{text.fullName || "Full name"}</label>
-                  <div className="mt-2 mb-3 flex h-[54px] items-center gap-3 rounded-xl border border-[#CCD4DE] bg-white px-4 focus-within:border-[#0057D9] focus-within:shadow-[0_0_0_4px_rgba(0, 87, 217,.12)]">
+                  <label htmlFor="full-name" className="text-[13px] font-semibold text-[#101828]">{text.fullName || "Full name"}</label>
+                  <div className="mt-2 mb-3 flex h-[54px] items-center gap-3 rounded-xl border border-[#CCD4DE] bg-[#F8FBFF] px-4 focus-within:border-[#123B73] focus-within:shadow-[0_0_0_4px_rgba(18,59,115,.12)]">
                     <Home className="size-5 shrink-0 text-[#7B8798]" aria-hidden="true" />
                     <input
                       id="full-name"
@@ -359,7 +359,7 @@ function SignInView() {
                       value={fullName}
                       onChange={(event) => setFullName(event.target.value)}
                       placeholder={text.fullNamePlaceholder || "Enter your name"}
-                      className="h-full min-w-0 flex-1 appearance-none border-0 bg-transparent p-0 text-[15px] text-[#172133] outline-none ring-0 placeholder:text-[#9AA3B1] focus:outline-none"
+                      className="h-full min-w-0 flex-1 appearance-none border-0 bg-transparent p-0 text-[15px] text-[#101828] outline-none ring-0 placeholder:text-[#9AA3B1] focus:outline-none"
                     />
                   </div>
                 </>
@@ -367,17 +367,17 @@ function SignInView() {
 
               {step === "password" && (
                 <motion.div key="password-step" initial={reduceMotion ? false : { opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={reduceMotion ? undefined : { opacity: 0, x: -20 }} transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}>
-                  <button type="button" onClick={() => { setStep("email"); setTouched(false); setNotice(""); }} className="mb-5 inline-flex items-center gap-1 text-[12px] font-semibold text-[#0057D9]"><ArrowLeft className="size-4" />Change email</button>
-                  <label htmlFor="password" className="text-[13px] font-semibold text-[#222B3A]">{text.password}</label>
-                  <div className={`mt-2 flex h-[54px] items-center gap-3 rounded-xl border bg-white px-4 ${passwordError ? "border-[#D92D20]" : "border-[#CCD4DE] focus-within:border-[#0057D9] focus-within:shadow-[0_0_0_4px_rgba(0, 87, 217,.12)]"}`}>
+                  <button type="button" onClick={() => { setStep("email"); setTouched(false); setNotice(""); }} className="mb-5 inline-flex items-center gap-1 text-[12px] font-semibold text-[#123B73]"><ArrowLeft className="size-4" />Change email</button>
+                  <label htmlFor="password" className="text-[13px] font-semibold text-[#101828]">{text.password}</label>
+                  <div className={`mt-2 flex h-[54px] items-center gap-3 rounded-xl border bg-[#F8FBFF] px-4 ${passwordError ? "border-[#D92D20]" : "border-[#CCD4DE] focus-within:border-[#123B73] focus-within:shadow-[0_0_0_4px_rgba(18,59,115,.12)]"}`}>
                     <LockKeyhole className="size-5 shrink-0 text-[#7B8798]" />
                     <input id="password" type={showPassword ? "text" : "password"} value={password} onChange={(event) => setPassword(event.target.value)} autoComplete={mode === "create" ? "new-password" : "current-password"} className="h-full min-w-0 flex-1 bg-transparent text-[15px] outline-none" />
-                    <button type="button" onClick={() => setShowPassword((current) => !current)} className="grid size-9 place-items-center rounded-full text-[#7B8798] hover:bg-[#F3F5F8]" aria-label={showPassword ? "Hide password" : "Show password"}>{showPassword ? <EyeOff className="size-[18px]" /> : <Eye className="size-[18px]" />}</button>
+                    <button type="button" onClick={() => setShowPassword((current) => !current)} className="grid size-9 place-items-center rounded-full text-[#7B8798] hover:bg-[#F8FBFF]" aria-label={showPassword ? "Hide password" : "Show password"}>{showPassword ? <EyeOff className="size-[18px]" /> : <Eye className="size-[18px]" />}</button>
                   </div>
                   {mode === "create" && (
                     <>
-                      <label htmlFor="confirm-password" className="mt-4 block text-[13px] font-semibold text-[#222B3A]">{text.confirmPassword}</label>
-                      <div className="mt-2 flex h-[54px] items-center gap-3 rounded-xl border border-[#CCD4DE] bg-white px-4 focus-within:border-[#0057D9] focus-within:shadow-[0_0_0_4px_rgba(0, 87, 217,.12)]">
+                      <label htmlFor="confirm-password" className="mt-4 block text-[13px] font-semibold text-[#101828]">{text.confirmPassword}</label>
+                      <div className="mt-2 flex h-[54px] items-center gap-3 rounded-xl border border-[#CCD4DE] bg-[#F8FBFF] px-4 focus-within:border-[#123B73] focus-within:shadow-[0_0_0_4px_rgba(18,59,115,.12)]">
                         <LockKeyhole className="size-5 shrink-0 text-[#7B8798]" />
                         <input id="confirm-password" type={showPassword ? "text" : "password"} value={confirmPassword} onChange={(event) => setConfirmPassword(event.target.value)} autoComplete="new-password" className="h-full min-w-0 flex-1 bg-transparent text-[15px] outline-none" />
                       </div>
@@ -385,22 +385,22 @@ function SignInView() {
                   )}
                   <div className="flex min-h-9 items-start justify-between gap-3 pt-2">
                     <p className={`text-xs ${passwordError ? "text-[#C4322B]" : "text-[#8A93A1]"}`} role={passwordError ? "alert" : undefined}>{passwordError || text.passwordHint}</p>
-                    {mode === "sign-in" && <button type="button" onClick={() => { setStep("reset"); setTouched(false); setNotice(""); }} className="shrink-0 text-xs font-semibold text-[#0057D9] hover:underline">{text.forgot}</button>}
+                    {mode === "sign-in" && <button type="button" onClick={() => { setStep("reset"); setTouched(false); setNotice(""); }} className="shrink-0 text-xs font-semibold text-[#123B73] hover:underline">{text.forgot}</button>}
                   </div>
                 </motion.div>
               )}
 
-              {notice && <div role="status" className="mb-4 flex items-center gap-2 rounded-xl bg-[#EEF5FC] px-4 py-3 text-xs text-[#27714D]"><CheckCircle2 className="size-4" />{notice}</div>}
+              {notice && <div role="status" className="mb-4 flex items-center gap-2 rounded-xl bg-[#DCEBFF] px-4 py-3 text-xs text-[#27714D]"><CheckCircle2 className="size-4" />{notice}</div>}
 
               {step !== "role" && (
                 <motion.div initial={reduceMotion ? false : { opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.2 }}>
-                <Button type="submit" disabled={!email.trim() || submitting || (step === "password" && (password.length < 8 || (mode === "create" && password !== confirmPassword)))} className="h-[54px] w-full rounded-xl text-[15px] shadow-[0_10px_24px_rgba(0, 87, 217,.22)] hover:-translate-y-0.5 hover:shadow-[0_14px_30px_rgba(0, 87, 217,.28)]">
+                <Button type="submit" disabled={!email.trim() || submitting || (step === "password" && (password.length < 8 || (mode === "create" && password !== confirmPassword)))} className="h-[54px] w-full rounded-xl text-[15px] shadow-[0_10px_24px_rgba(18,59,115,.22)] hover:-translate-y-0.5 hover:shadow-[0_14px_30px_rgba(18,59,115,.28)]">
                   {submitting ? <Loader2 className="size-[18px] animate-spin" aria-hidden="true" /> : <ArrowRight className="size-[18px]" aria-hidden="true" />}
                   {step === "reset" ? text.sendReset : step === "password" ? (mode === "sign-in" ? text.signInButton : text.create) : text.continue}
                 </Button>
                 </motion.div>
               )}
-              {step === "reset" && <button type="button" onClick={() => { setStep("email"); setNotice(""); setTouched(false); }} className="mt-4 w-full text-center text-xs font-semibold text-[#0057D9]">{text.backToSignIn}</button>}
+              {step === "reset" && <button type="button" onClick={() => { setStep("email"); setNotice(""); setTouched(false); }} className="mt-4 w-full text-center text-xs font-semibold text-[#123B73]">{text.backToSignIn}</button>}
               </AnimatePresence>
             </form>
 
@@ -418,7 +418,7 @@ function SignInView() {
                       key={provider}
                       type="button"
                       onClick={() => handleSocial(provider)}
-                      className="relative flex h-[52px] w-full items-center justify-center rounded-xl border border-[#D6DDE6] bg-white px-5 text-[14px] font-medium text-[#202938] shadow-[0_1px_2px_rgba(16,35,61,.04)] transition-[background-color,border-color,transform,box-shadow] hover:-translate-y-px hover:border-[#B7C2D0] hover:bg-[#FAFBFD] hover:shadow-sm focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#0057D9]/15"
+                      className="relative flex h-[52px] w-full items-center justify-center rounded-xl border border-[#D6DDE6] bg-[#F8FBFF] px-5 text-[14px] font-medium text-[#101828] shadow-[0_1px_2px_rgba(16,35,61,.04)] transition-[background-color,border-color,transform,box-shadow] hover:-translate-y-px hover:border-[#B7C2D0] hover:bg-[#FAFBFD] hover:shadow-sm focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#123B73]/15"
                     >
                       <span className="absolute left-5 grid size-6 place-items-center"><SocialMark provider={provider} /></span>
                       {provider === "Google" ? text.google : provider === "Apple" ? text.apple : text.facebook}
@@ -426,8 +426,8 @@ function SignInView() {
                   ))}
                 </div>
                 {socialProvider && (
-                  <motion.div initial={reduceMotion ? false : { opacity: 0, y: 10, scale: 0.97 }} animate={{ opacity: 1, y: 0, scale: 1 }} transition={{ type: "spring", stiffness: 300, damping: 25 }} className="mt-4 rounded-2xl border border-[#BCD5FA] bg-[#F5F8FD] p-4">
-                    <div className="flex items-center gap-3"><span className="grid size-9 place-items-center rounded-full bg-white shadow-sm"><SocialMark provider={socialProvider} /></span><span><strong className="block text-xs">{socialProvider} connected</strong><small className="mt-1 block text-[10px] text-[#728091]">Continue to your private A7 home journey.</small></span></div>
+                  <motion.div initial={reduceMotion ? false : { opacity: 0, y: 10, scale: 0.97 }} animate={{ opacity: 1, y: 0, scale: 1 }} transition={{ type: "spring", stiffness: 300, damping: 25 }} className="mt-4 rounded-2xl border border-[#4DA3FF] bg-[#DCEBFF] p-4">
+                    <div className="flex items-center gap-3"><span className="grid size-9 place-items-center rounded-full bg-[#F8FBFF] shadow-sm"><SocialMark provider={socialProvider} /></span><span><strong className="block text-xs">{socialProvider} connected</strong><small className="mt-1 block text-[10px] text-[#728091]">Continue to your private A7 home journey.</small></span></div>
                     <Button className="mt-4 w-full rounded-xl" onClick={() => continueToDashboard(socialProvider)}>Continue with {socialProvider}</Button>
                   </motion.div>
                 )}
@@ -436,7 +436,7 @@ function SignInView() {
 
             {step === "email" && <p className="mt-8 text-center text-[13px] text-[#737E8E]">
               {mode === "sign-in" ? text.noAccount : text.hasAccount}{" "}
-              <button type="button" onClick={() => changeMode(mode === "sign-in" ? "create" : "sign-in")} className="font-semibold text-[#0057D9] hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0057D9]/25">
+              <button type="button" onClick={() => changeMode(mode === "sign-in" ? "create" : "sign-in")} className="font-semibold text-[#123B73] hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#123B73]/25">
                 {mode === "sign-in" ? text.createAccount : text.signIn}
               </button>
             </p>}
@@ -444,9 +444,9 @@ function SignInView() {
 
           <p className="mx-auto max-w-[430px] text-center text-[11px] leading-5 text-[#838D9C]">
             {text.legalStart}{" "}
-            <Link href="/terms" className="font-medium text-[#0057D9] hover:underline">{text.terms}</Link>{" "}
+            <Link href="/terms" className="font-medium text-[#123B73] hover:underline">{text.terms}</Link>{" "}
             {text.and}{" "}
-            <Link href="/privacy" className="font-medium text-[#0057D9] hover:underline">{text.privacy}</Link>
+            <Link href="/privacy" className="font-medium text-[#123B73] hover:underline">{text.privacy}</Link>
           </p>
         </motion.section>
 
@@ -465,12 +465,12 @@ function SignInView() {
             sizes="(min-width: 1024px) 64vw, 100vw"
             className="object-cover object-[50%_52%] lg:object-[48%_center]"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#132035]/45 via-transparent to-[#132035]/10 lg:from-[#132035]/52" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#101828]/45 via-transparent to-[#101828]/10 lg:from-[#101828]/52" />
 
           <button
             type="button"
             onClick={() => setLanguage(language === "en" ? "my" : "en")}
-            className="absolute right-4 top-4 flex h-11 items-center gap-2.5 rounded-xl border border-white/60 bg-white/92 px-3.5 text-[12px] font-medium text-[#202938] shadow-[0_8px_24px_rgba(15,27,44,.14)] backdrop-blur-xl transition-transform hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-white/60 lg:right-8 lg:top-8 lg:h-12 lg:px-4 lg:text-[13px]"
+            className="absolute right-4 top-4 flex h-11 items-center gap-2.5 rounded-xl border border-white/60 bg-[#F8FBFF]/92 px-3.5 text-[12px] font-medium text-[#101828] shadow-[0_8px_24px_rgba(15,27,44,.14)] backdrop-blur-xl transition-transform hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-white/60 lg:right-8 lg:top-8 lg:h-12 lg:px-4 lg:text-[13px]"
             aria-label={language === "en" ? "မြန်မာဘာသာသို့ ပြောင်းရန်" : "Switch to English"}
           >
             <Globe2 className="size-[18px]" aria-hidden="true" />
@@ -482,7 +482,7 @@ function SignInView() {
             <p className="text-[11px] font-semibold tracking-[0.18em] text-white/76">{text.imageEyebrow}</p>
             <h2 className="mt-3 text-[clamp(30px,3vw,52px)] font-semibold leading-[1.03] tracking-[-0.05em] text-white">{text.imageTitle}</h2>
             <p className="mt-4 max-w-[500px] text-[14px] leading-6 text-white/84">{text.imageBody}</p>
-            <div className="mt-6 inline-flex rounded-full border border-white/22 bg-[#10233A]/28 px-4 py-2 text-[11px] font-medium text-white/90 backdrop-blur-md">{text.trust}</div>
+            <div className="mt-6 inline-flex rounded-full border border-white/22 bg-[#101828]/28 px-4 py-2 text-[11px] font-medium text-white/90 backdrop-blur-md">{text.trust}</div>
           </div>
         </motion.aside>
       </div>

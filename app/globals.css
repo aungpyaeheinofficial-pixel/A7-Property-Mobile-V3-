@@ -60,30 +60,32 @@
   --type-text: "SF Pro Text", "SF Pro Icons", -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Noto Sans Myanmar", sans-serif;
   --type-myanmar: "Noto Sans Myanmar", "Myanmar Text", sans-serif;
 
-  /* A7's three fixed brand anchors. Do not alter these values. */
-  --a7-blue: #0057d9;
-  --a7-cream: #faf8f5;
-  --a7-navy: #0f1b2d;
+  /* Luxury Navy brand palette. */
+  --a7-blue: #123B73;
+  --a7-cream: #EAF4FF;
+  --a7-navy: #101828;
+  --a7-secondary: #4DA3FF;
+  --a7-accent: #DCEBFF;
   --brand-blue: var(--a7-blue);
-  --brand-blue-hover: #0049b8;
-  --brand-blue-soft: #edf4ff;
+  --brand-blue-hover: #0E2F5C;
+  --brand-blue-soft: #DCEBFF;
   --brand-cream: var(--a7-cream);
   --brand-ink: var(--a7-navy);
   --brand-muted: #667085;
   --brand-canvas: var(--a7-cream);
-  --brand-surface: #ffffff;
-  --brand-line: #e4e1dc;
+  --brand-surface: #F8FBFF;
+  --brand-line: #D0DEF0;
   --brand-success: #287a4b;
 
-  /* Neutral surfaces keep the brand calm; blue remains an action color. */
-  --surface: #ffffff;
-  --surface-subtle: #f4f2ee;
-  --surface-raised: #ffffff;
+  /* Clean navy surfaces with generous light space. */
+  --surface: #F8FBFF;
+  --surface-subtle: #EEF5FF;
+  --surface-raised: #F8FBFF;
   --text-primary: var(--a7-navy);
   --text-secondary: #667085;
   --text-tertiary: #858c98;
-  --border-subtle: #e5e2dd;
-  --border-strong: #d4d0ca;
+  --border-subtle: #D0DEF0;
+  --border-strong: #B8CCE4;
 
   /* Apple-inspired 4/8 spacing rhythm. */
   --space-1: 0.25rem;
@@ -104,14 +106,14 @@
   --radius-sheet: 1.75rem;
   --radius-pill: 999px;
 
-  --shadow-hairline: 0 1px 2px rgba(15, 27, 45, 0.04);
-  --shadow-soft: 0 1px 2px rgba(15, 27, 45, 0.035), 0 8px 24px rgba(15, 27, 45, 0.055);
-  --shadow-lifted: 0 2px 5px rgba(15, 27, 45, 0.05), 0 16px 40px rgba(15, 27, 45, 0.09);
-  --shadow-overlay: 0 24px 64px rgba(15, 27, 45, 0.16);
-  --shadow-action: 0 6px 18px rgba(0, 87, 217, 0.2);
+  --shadow-hairline: 0 1px 2px rgba(16, 24, 40, 0.04);
+  --shadow-soft: 0 1px 2px rgba(16, 24, 40, 0.035), 0 8px 24px rgba(16, 24, 40, 0.055);
+  --shadow-lifted: 0 2px 5px rgba(16, 24, 40, 0.05), 0 16px 40px rgba(16, 24, 40, 0.09);
+  --shadow-overlay: 0 24px 64px rgba(16, 24, 40, 0.16);
+  --shadow-action: 0 6px 18px rgba(18, 59, 115, 0.2);
 
-  --glass-background: rgba(255, 255, 255, 0.82);
-  --glass-border: rgba(255, 255, 255, 0.72);
+  --glass-background: rgba(248, 251, 255, 0.82);
+  --glass-border: rgba(248, 251, 255, 0.72);
   --glass-blur: 18px;
 
   --duration-fast: 120ms;
@@ -122,15 +124,15 @@
 
   --background: var(--a7-cream);
   --foreground: var(--a7-navy);
-  --card: #ffffff;
+  --card: #F8FBFF;
   --card-foreground: var(--a7-navy);
-  --popover: #ffffff;
+  --popover: #F8FBFF;
   --popover-foreground: var(--a7-navy);
   --primary: var(--a7-blue);
   --primary-foreground: #ffffff;
-  --secondary: #f2f0ec;
+  --secondary: #DCEBFF;
   --secondary-foreground: var(--a7-navy);
-  --muted: #efede9;
+  --muted: #E4EEFB;
   --muted-foreground: var(--text-secondary);
   --accent: var(--brand-blue-soft);
   --accent-foreground: var(--a7-blue);
@@ -144,14 +146,14 @@
   --chart-4: oklch(0.371 0 0);
   --chart-5: oklch(0.269 0 0);
   --radius: var(--radius-control);
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+  --sidebar: #F8FBFF;
+  --sidebar-foreground: #101828;
+  --sidebar-primary: #123B73;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #DCEBFF;
+  --sidebar-accent-foreground: #101828;
+  --sidebar-border: #D0DEF0;
+  --sidebar-ring: #4DA3FF;
 }
 
 * {
@@ -305,7 +307,7 @@ a {
 }
 
 ::selection {
-  background: rgba(0, 87, 217, 0.18);
+  background: rgba(18, 59, 115, 0.18);
 }
 
 ::-webkit-scrollbar {
@@ -407,7 +409,7 @@ a {
 
 .a7-image-skeleton {
   background:
-    linear-gradient(100deg, rgba(232, 230, 223, 0.72) 24%, rgba(250, 250, 248, 0.95) 38%, rgba(232, 230, 223, 0.72) 52%);
+    linear-gradient(100deg, rgba(208, 222, 240, 0.72) 24%, rgba(248, 251, 255, 0.95) 38%, rgba(208, 222, 240, 0.72) 52%);
   background-size: 220% 100%;
   animation: a7-shimmer 1.35s ease-in-out infinite;
 }
@@ -417,7 +419,7 @@ a:focus-visible,
 select:focus-visible,
 input:focus-visible,
 textarea:focus-visible {
-  outline: 3px solid rgba(0, 87, 217, 0.26);
+  outline: 3px solid rgba(18, 59, 115, 0.26);
   outline-offset: 3px;
 }
 
@@ -464,36 +466,4 @@ select[data-focus-ring="parent"]:focus-visible {
   }
 }
 
-.dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
-}
+/* No dark theme — Luxury Navy is light-only. */

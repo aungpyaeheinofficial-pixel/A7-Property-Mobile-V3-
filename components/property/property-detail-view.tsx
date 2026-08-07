@@ -96,15 +96,15 @@ function PropertyDetailView({ property }: { property: Property }) {
   }
 
   return (
-    <div className="min-h-screen bg-[#FAF8F5] pb-28 text-[#111827] lg:pb-12">
-      <header className="sticky top-0 z-50 border-b border-[#E5E2DC] bg-[#FAF8F5]/96 backdrop-blur-xl">
+    <div className="min-h-screen bg-[#EAF4FF] pb-28 text-[#101828] lg:pb-12">
+      <header className="sticky top-0 z-50 border-b border-[#D0DEF0] bg-[#EAF4FF]/96 backdrop-blur-xl">
         <div className="mx-auto flex h-16 max-w-[1280px] items-center gap-2 px-3 sm:px-6 lg:px-8">
-          <button type="button" onClick={returnToSearch} className="grid size-11 shrink-0 place-items-center rounded-full border border-[#DEE2E8] bg-white text-[#0057D9] shadow-sm" aria-label={tx("Back to search", "ရှာဖွေမှုသို့ပြန်ရန်")}><ArrowLeft className="size-[18px]" /></button>
+          <button type="button" onClick={returnToSearch} className="grid size-11 shrink-0 place-items-center rounded-full border border-[#D0DEF0] bg-[#F8FBFF] text-[#123B73] shadow-sm" aria-label={tx("Back to search", "ရှာဖွေမှုသို့ပြန်ရန်")}><ArrowLeft className="size-[18px]" /></button>
           <div className="min-w-0 flex-1 px-2 text-center">
-            <span className={cn("block truncate text-[11px] font-semibold text-[#0F1B2D] transition-opacity duration-200", compactHeader ? "opacity-100" : "opacity-0")}>{property.title}</span>
+            <span className={cn("block truncate text-[11px] font-semibold text-[#101828] transition-opacity duration-200", compactHeader ? "opacity-100" : "opacity-0")}>{property.title}</span>
           </div>
-          <button type="button" onClick={toggleFavorite} className="grid size-11 shrink-0 place-items-center rounded-full border border-[#DEE2E8] bg-white text-[#0057D9] shadow-sm" aria-label={favorite ? tx("Remove from saved", "သိမ်းထားမှုမှဖယ်ရန်") : tx("Save property", "အိမ်ကိုသိမ်းရန်")} aria-pressed={favorite}><Heart className={cn("size-[18px]", favorite && "fill-current")} /></button>
-          <button type="button" onClick={shareProperty} className="grid size-11 shrink-0 place-items-center rounded-full border border-[#DEE2E8] bg-white text-[#0057D9] shadow-sm" aria-label={tx("Share property", "အိမ်ကိုမျှဝေရန်")}><Share2 className="size-[17px]" /></button>
+          <button type="button" onClick={toggleFavorite} className="grid size-11 shrink-0 place-items-center rounded-full border border-[#D0DEF0] bg-[#F8FBFF] text-[#123B73] shadow-sm" aria-label={favorite ? tx("Remove from saved", "သိမ်းထားမှုမှဖယ်ရန်") : tx("Save property", "အိမ်ကိုသိမ်းရန်")} aria-pressed={favorite}><Heart className={cn("size-[18px]", favorite && "fill-current")} /></button>
+          <button type="button" onClick={shareProperty} className="grid size-11 shrink-0 place-items-center rounded-full border border-[#D0DEF0] bg-[#F8FBFF] text-[#123B73] shadow-sm" aria-label={tx("Share property", "အိမ်ကိုမျှဝေရန်")}><Share2 className="size-[17px]" /></button>
         </div>
       </header>
 
@@ -116,10 +116,10 @@ function PropertyDetailView({ property }: { property: Property }) {
             <section className="pb-5">
               <PropertyCardBody property={property} variant="featured" updatedLabel={tx("Updated 2 hours ago", "၂ နာရီက ပြင်ထားသည်")} />
               <div className="mt-4 flex flex-wrap items-center gap-2">
-                <span className="inline-flex items-center gap-0.5 text-[#0057D9]" aria-label={`${property.rating} out of 5 stars`}>{Array.from({ length: 5 }, (_, index) => <Star key={index} className="size-3.5 fill-current" />)}</span>
-                <strong className="text-[11px] text-[#0F1B2D]">{property.rating.toFixed(1)}</strong>
+                <span className="inline-flex items-center gap-0.5 text-[#123B73]" aria-label={`${property.rating} out of 5 stars`}>{Array.from({ length: 5 }, (_, index) => <Star key={index} className="size-3.5 fill-current" />)}</span>
+                <strong className="text-[11px] text-[#101828]">{property.rating.toFixed(1)}</strong>
                 <span className="text-[10px] text-[#667085]">12 {tx("reviews", "သုံးသပ်ချက်")}</span>
-                {property.verification_status === "verified" && <span className="ml-1 inline-flex items-center gap-1 text-[10px] font-semibold text-[#0057D9]"><ShieldCheck className="size-3.5" />{tx("A7 verified", "A7 စိစစ်ပြီး")}</span>}
+                {property.verification_status === "verified" && <span className="ml-1 inline-flex items-center gap-1 text-[10px] font-semibold text-[#123B73]"><ShieldCheck className="size-3.5" />{tx("A7 verified", "A7 စိစစ်ပြီး")}</span>}
               </div>
               <div className="mt-4"><TrustMeta property={property} tx={tx} /></div>
               <button
@@ -129,7 +129,7 @@ function PropertyDetailView({ property }: { property: Property }) {
                   toast({ tone: "info", title: compared ? tx("Removed from comparison", "နှိုင်းယှဉ်မှုမှ ဖယ်ပြီး") : tx("Added to comparison", "နှိုင်းယှဉ်ရန် ထည့်ပြီး"), description: property.title });
                 }}
                 disabled={compareDisabled}
-                className={cn("mt-4 inline-flex h-11 items-center gap-2 rounded-[14px] border border-[#C9D8E7] bg-white px-4 text-[10px] font-semibold text-[#0057D9] transition-colors disabled:cursor-not-allowed disabled:opacity-45", compared && "border-[#173B66] bg-[#173B66] text-white")}
+                className={cn("mt-4 inline-flex h-11 items-center gap-2 rounded-[14px] border border-[#D0DEF0] bg-[#F8FBFF] px-4 text-[10px] font-semibold text-[#123B73] transition-colors disabled:cursor-not-allowed disabled:opacity-45", compared && "border-[#101828] bg-[#101828] text-white")}
                 aria-pressed={compared}
                 aria-label={compared ? tx("Remove this home from comparison", "ဤအိမ်ကို နှိုင်းယှဉ်မှုမှဖယ်ရန်") : tx("Add this home to comparison", "ဤအိမ်ကို နှိုင်းယှဉ်ရန်ထည့်မည်")}
               >

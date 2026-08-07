@@ -33,7 +33,7 @@ function DiscoveryToolbar({ count, location, purpose, sort, onSortChange, mapOpe
           <p className="mt-2 text-[13px] leading-5 text-[#5F6C7B]">
             <span className="inline-flex items-center whitespace-nowrap">
               <AnimatePresence mode="popLayout" initial={false}>
-                <motion.strong key={count} className="mr-1 font-semibold text-[#2A2A33]" initial={{ opacity: 0, y: 5 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -5 }} transition={{ duration: 0.18 }}>{count}</motion.strong>
+                <motion.strong key={count} className="mr-1 font-semibold text-[#101828]" initial={{ opacity: 0, y: 5 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -5 }} transition={{ duration: 0.18 }}>{count}</motion.strong>
               </AnimatePresence>
               {isSale ? tx("homes for sale", "ရောင်းရန်အိမ်") : tx("rentals", "ငှားရန်အိမ်")}
             </span>
@@ -45,7 +45,7 @@ function DiscoveryToolbar({ count, location, purpose, sort, onSortChange, mapOpe
           <Button variant="outline" className="h-11 px-4 text-xs" onClick={onMapToggle}>{mapOpen ? <Rows3 className="size-[18px]" /> : <Map className="size-[18px]" />}{mapOpen ? tx("List", "စာရင်း") : tx("Map", "မြေပုံ")}<span className="hidden sm:inline"> {tx("view", "ပုံစံ")}</span></Button>
           <label>
             <span className="sr-only">{tx("Sort homes", "အိမ်များအစီအစဉ်ပြောင်းရန်")}</span>
-            <select value={sort} onChange={(event) => onSortChange(event.target.value as PropertySort)} className="h-11 w-full rounded-xl border border-[#D7E0EA] bg-white px-3 text-xs font-semibold text-[#29445F] shadow-sm focus:border-[#0057D9] focus-visible:!outline-none sm:w-auto">
+            <select value={sort} onChange={(event) => onSortChange(event.target.value as PropertySort)} className="h-11 w-full rounded-xl border border-[#D7E0EA] bg-white px-3 text-xs font-semibold text-[#29445F] shadow-sm focus:border-[#123B73] focus-visible:!outline-none sm:w-auto">
               <option value="recommended">{tx("Recommended", "အကြံပြုထားသည်")}</option>
               <option value="newest">{tx("Newest", "အသစ်ဆုံး")}</option>
               <option value="price-asc">{tx("Price low–high", "ဈေးနည်းမှများ")}</option>

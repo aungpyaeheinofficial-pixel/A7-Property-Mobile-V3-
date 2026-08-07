@@ -36,11 +36,11 @@ function SectionHeading({
       className="flex items-end justify-between gap-4"
     >
       <div>
-        {eyebrow && <p className="mb-1.5 text-[10px] font-semibold uppercase tracking-[0.18em] text-[#0057D9]">{eyebrow}</p>}
+        {eyebrow && <p className="mb-1.5 text-[10px] font-semibold uppercase tracking-[0.18em] text-[#123B73]">{eyebrow}</p>}
         <h2 className="text-[25px] font-semibold leading-[1.18] tracking-[-0.04em] text-a7-navy sm:text-[30px]">{title}</h2>
       </div>
       {action && href && (
-        <Link href={href} className="inline-flex h-11 shrink-0 items-center gap-1 text-[12px] font-semibold text-[#0057D9]">
+        <Link href={href} className="inline-flex h-11 shrink-0 items-center gap-1 text-[12px] font-semibold text-[#123B73]">
           {action}<ArrowRight className="size-4" />
         </Link>
       )}
@@ -70,7 +70,7 @@ function SegmentedControl<T extends string>({
   className?: string;
 }) {
   return (
-    <div role="tablist" aria-label={ariaLabel} className={cn("grid rounded-[var(--radius-control)] bg-[#EFEEEB] p-1", className)} style={{ gridTemplateColumns: `repeat(${options.length}, minmax(0, 1fr))` }}>
+    <div role="tablist" aria-label={ariaLabel} className={cn("grid rounded-[var(--radius-control)] bg-[#DCEBFF] p-1", className)} style={{ gridTemplateColumns: `repeat(${options.length}, minmax(0, 1fr))` }}>
       {options.map((option) => {
         const selected = option.value === value;
         return (
@@ -114,11 +114,11 @@ function MobilePropertyCard({ property, saved = false, onToggleSaved, variant = 
 
   if (variant === "compact") {
     return (
-      <motion.article initial={reduceMotion ? false : { opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-24px" }} whileHover={reduceMotion ? undefined : { y: -2 }} transition={reduceMotion ? { duration: 0 } : a7Motion.slow} className={cn("grid min-h-[205px] min-w-[320px] grid-cols-[42%_1fr] overflow-hidden rounded-[var(--radius-card)] border border-a7-line bg-white shadow-[var(--shadow-soft)] sm:min-w-0", className)}>
-        <div className="relative min-h-[205px] overflow-hidden bg-[#ECEBE6]">
+      <motion.article initial={reduceMotion ? false : { opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-24px" }} whileHover={reduceMotion ? undefined : { y: -2 }} transition={reduceMotion ? { duration: 0 } : a7Motion.slow} className={cn("grid min-h-[205px] min-w-[320px] grid-cols-[42%_1fr] overflow-hidden rounded-[var(--radius-card)] border border-a7-line bg-[#F8FBFF] shadow-[var(--shadow-soft)] sm:min-w-0", className)}>
+        <div className="relative min-h-[205px] overflow-hidden bg-[#D0DEF0]">
           <Link href={`/properties/${property.id}`} onClick={onOpen} className="absolute inset-0 z-10" aria-label={`View ${property.title}`} />
           <ProgressiveImage src={property.images[0]} alt={property.title} fill sizes="118px" className="object-cover" />
-          {onToggleSaved && <motion.button type="button" onClick={toggleFavorite} animate={reduceMotion ? undefined : saved ? { scale: [1, 1.25, 1] } : { scale: 1 }} transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }} className="absolute right-2.5 top-2.5 z-20 grid size-11 place-items-center rounded-full bg-white/92 text-[#0057D9] shadow-sm backdrop-blur" aria-label={saved ? `Remove ${property.title} from saved homes` : `Save ${property.title}`} aria-pressed={saved}><Heart className={cn("size-4", saved && "fill-current")} /></motion.button>}
+          {onToggleSaved && <motion.button type="button" onClick={toggleFavorite} animate={reduceMotion ? undefined : saved ? { scale: [1, 1.25, 1] } : { scale: 1 }} transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }} className="absolute right-2.5 top-2.5 z-20 grid size-11 place-items-center rounded-full bg-white/92 text-[#123B73] shadow-sm backdrop-blur" aria-label={saved ? `Remove ${property.title} from saved homes` : `Save ${property.title}`} aria-pressed={saved}><Heart className={cn("size-4", saved && "fill-current")} /></motion.button>}
         </div>
         <PropertyCardBody property={property} variant="explore" showTrust onOpen={onOpen} className="h-full p-3.5" />
       </motion.article>
@@ -130,13 +130,13 @@ function MobilePropertyCard({ property, saved = false, onToggleSaved, variant = 
       initial={reduceMotion ? false : { opacity: 0, y: 8 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-40px" }}
-      whileHover={reduceMotion ? undefined : { y: -2, boxShadow: "0 2px 5px rgba(15,27,45,.05), 0 16px 40px rgba(15,27,45,.09)" }}
+      whileHover={reduceMotion ? undefined : { y: -2, boxShadow: "0 2px 5px rgba(16,24,40,.05), 0 16px 40px rgba(16,24,40,.09)" }}
       whileTap={reduceMotion ? undefined : { scale: 0.998 }}
       transition={reduceMotion ? { duration: 0 } : a7Motion.slow}
       style={{ willChange: "transform" }}
-      className={cn("group relative min-w-[300px] overflow-hidden rounded-[var(--radius-card)] border border-a7-line bg-white shadow-[var(--shadow-soft)] sm:min-w-0", className)}
+      className={cn("group relative min-w-[300px] overflow-hidden rounded-[var(--radius-card)] border border-a7-line bg-[#F8FBFF] shadow-[var(--shadow-soft)] sm:min-w-0", className)}
     >
-      <div className="relative aspect-[16/10] overflow-hidden bg-[#ECEBE6]">
+      <div className="relative aspect-[16/10] overflow-hidden bg-[#D0DEF0]">
         <Link href={`/properties/${property.id}`} onClick={onOpen} className="absolute inset-0 z-10" aria-label={`View ${property.title}`} />
         <ProgressiveImage src={property.images[0]} alt={property.title} fill priority={priority} sizes="(max-width: 639px) 86vw, (max-width: 1023px) 46vw, 360px" className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.025]" />
         <div className="absolute inset-0 bg-gradient-to-t from-a7-navy/55 via-transparent to-black/5" />
@@ -155,7 +155,7 @@ function MobilePropertyCard({ property, saved = false, onToggleSaved, variant = 
           </motion.button>
         )}
         <div className="absolute inset-x-3.5 bottom-3.5 z-20 flex items-end justify-end gap-3 text-white">
-          <span className="rounded-full bg-[#0057D9]/88 px-2.5 py-1 text-[9px] font-semibold backdrop-blur-md">{property.purpose === "rent" ? tx("For rent", "ငှားရန်") : tx("For sale", "ရောင်းရန်")}</span>
+          <span className="rounded-full bg-[#123B73]/88 px-2.5 py-1 text-[9px] font-semibold backdrop-blur-md">{property.purpose === "rent" ? tx("For rent", "ငှားရန်") : tx("For sale", "ရောင်းရန်")}</span>
         </div>
       </div>
       <PropertyCardBody property={property} variant="explore" onOpen={onOpen} className="p-4 sm:p-5" />

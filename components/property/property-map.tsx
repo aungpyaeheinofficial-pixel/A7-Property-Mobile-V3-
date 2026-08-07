@@ -47,13 +47,13 @@ function loadLeaflet() {
 }
 
 function makePriceIcon(L: LeafletModule, label: string, selected: boolean) {
-  const bg = selected ? "#2A2A33" : "#0057D9";
-  const html = `<div style="background:${bg};color:#fff;border:2px solid #fff;border-radius:999px;padding:4px 10px;font-size:10px;font-weight:700;font-family:inherit;white-space:nowrap;box-shadow:0 3px 12px rgba(42,42,51,.25)">${label}</div>`;
+  const bg = selected ? "#101828" : "#123B73";
+  const html = `<div style="background:${bg};color:#fff;border:2px solid #fff;border-radius:999px;padding:4px 10px;font-size:10px;font-weight:700;font-family:inherit;white-space:nowrap;box-shadow:0 3px 12px rgba(16,24,40,.25)">${label}</div>`;
   return L.divIcon({ html, className: "a7-price-marker", iconSize: [0, 0], iconAnchor: [0, 0] });
 }
 
 function makeSingleIcon(L: LeafletModule) {
-  const html = `<div style="filter:drop-shadow(0 4px 10px rgba(0, 87, 217,.35))"><svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="#0057D9" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 4.99-5.54 10.19-7.4 11.8a1 1 0 0 1-1.2 0C9.54 20.19 4 14.99 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3" fill="#fff"/></svg></div>`;
+  const html = `<div style="filter:drop-shadow(0 4px 10px rgba(18,59,115,.35))"><svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="#4DA3FF" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 4.99-5.54 10.19-7.4 11.8a1 1 0 0 1-1.2 0C9.54 20.19 4 14.99 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3" fill="#fff"/></svg></div>`;
   return L.divIcon({ html, className: "a7-single-marker", iconSize: [36, 36], iconAnchor: [18, 36] });
 }
 
@@ -113,7 +113,7 @@ function DrawSearchArea({ RL, onDrawArea }: { RL: ReactLeafletModule; onDrawArea
   });
 
   return (
-    start ? <RL.CircleMarker center={start} radius={7} pathOptions={{ color: "#FFFFFF", weight: 3, fillColor: "#0057D9", fillOpacity: 1 }} /> : null
+    start ? <RL.CircleMarker center={start} radius={7} pathOptions={{ color: "#FFFFFF", weight: 3, fillColor: "#4DA3FF", fillOpacity: 1 }} /> : null
   );
 }
 
@@ -144,7 +144,7 @@ function PropertyMap({ properties, selectedId, onSelect, className, compact = fa
   return (
     <section
       className={cn(
-        "relative isolate overflow-hidden rounded-[20px] border border-[#2A2A33]/10 bg-[#F1F6FF]",
+        "relative isolate overflow-hidden rounded-[20px] border border-[#101828]/10 bg-[#DCEBFF]",
         compact ? "min-h-[300px]" : "min-h-[420px]",
         className,
       )}
@@ -157,7 +157,7 @@ function PropertyMap({ properties, selectedId, onSelect, className, compact = fa
           zoom={12}
           scrollWheelZoom
           className="absolute inset-0 z-0 h-full w-full"
-          style={{ background: "#F1F6FF" }}
+          style={{ background: "#DCEBFF" }}
         >
           <modules.RL.TileLayer
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
@@ -175,28 +175,28 @@ function PropertyMap({ properties, selectedId, onSelect, className, compact = fa
                 <div className="min-w-[180px]">
                   <strong className="block text-xs font-semibold leading-snug">{property.title}</strong>
                   <span className="mt-1 block text-[10px] text-gray-500">{property.township}, {property.city}</span>
-                  <span className="mt-1.5 block text-xs font-bold text-[#0057D9]">{priceLabel}{property.purpose === "rent" ? "/mo" : ""}</span>
+                  <span className="mt-1.5 block text-xs font-bold text-[#123B73]">{priceLabel}{property.purpose === "rent" ? "/mo" : ""}</span>
                 </div>
               </modules.RL.Popup>
             </modules.RL.Marker>
           ))}
-          {drawnBounds && <modules.RL.Rectangle bounds={[[drawnBounds.south, drawnBounds.west], [drawnBounds.north, drawnBounds.east]]} pathOptions={{ color: "#0057D9", weight: 2, fillColor: "#0057D9", fillOpacity: 0.12 }} />}
+          {drawnBounds && <modules.RL.Rectangle bounds={[[drawnBounds.south, drawnBounds.west], [drawnBounds.north, drawnBounds.east]]} pathOptions={{ color: "#4DA3FF", weight: 2, fillColor: "#4DA3FF", fillOpacity: 0.12 }} />}
           {drawArea && <DrawSearchArea RL={modules.RL} onDrawArea={onDrawArea} />}
           <FitBounds L={modules.L} RL={modules.RL} properties={markers.map((m) => m.property)} selectedId={selectedId} />
         </modules.RL.MapContainer>
       ) : (
         <div className="flex h-full min-h-[420px] items-center justify-center">
-          <div className="flex flex-col items-center gap-3 text-[#59616A]">
-            <div className="h-8 w-8 animate-spin rounded-full border-2 border-[#0057D9] border-t-transparent" />
+          <div className="flex flex-col items-center gap-3 text-[#667085]">
+            <div className="h-8 w-8 animate-spin rounded-full border-2 border-[#123B73] border-t-transparent" />
             <span className="text-xs font-medium">Loading map…</span>
           </div>
         </div>
       )}
-      {showLiveLabel && <div className="pointer-events-none absolute right-4 top-4 z-[500] flex items-center gap-2 rounded-full border border-white/80 bg-white/90 px-3 py-2 text-[10px] font-medium text-[#59616A] shadow-sm backdrop-blur">
-        <Navigation className="size-3.5 text-[#0057D9]" /> Live map
+      {showLiveLabel && <div className="pointer-events-none absolute right-4 top-4 z-[500] flex items-center gap-2 rounded-full border border-white/80 bg-white/90 px-3 py-2 text-[10px] font-medium text-[#667085] shadow-sm backdrop-blur">
+        <Navigation className="size-3.5 text-[#123B73]" /> Live map
       </div>}
-      {showPrivacyNotice && <div className="pointer-events-none absolute bottom-4 left-4 z-[500] flex max-w-[250px] items-start gap-2 rounded-xl border border-white/80 bg-white/90 p-3 text-[9px] leading-4 text-[#59616A] shadow-sm backdrop-blur">
-        <MapPin className="mt-0.5 size-3.5 shrink-0 text-[#0057D9]" /> Exact addresses remain private until an owner confirms your inquiry.
+      {showPrivacyNotice && <div className="pointer-events-none absolute bottom-4 left-4 z-[500] flex max-w-[250px] items-start gap-2 rounded-xl border border-white/80 bg-white/90 p-3 text-[9px] leading-4 text-[#667085] shadow-sm backdrop-blur">
+        <MapPin className="mt-0.5 size-3.5 shrink-0 text-[#123B73]" /> Exact addresses remain private until an owner confirms your inquiry.
       </div>}
     </section>
   );

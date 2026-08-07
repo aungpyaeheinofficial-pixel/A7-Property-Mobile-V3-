@@ -68,7 +68,7 @@ function SavedHomeCard({ property, saved, onToggle, priority = false }: HomeCard
   const priceDrop = priceDropByProperty[property.id];
 
   return (
-    <article className="group overflow-hidden rounded-[26px] bg-white shadow-[0_12px_36px_rgba(26,39,56,.08)] ring-1 ring-[#18263A]/7 transition-[transform,box-shadow] duration-300 hover:-translate-y-1 hover:shadow-[0_18px_48px_rgba(26,39,56,.13)]">
+    <article className="group overflow-hidden rounded-[26px] bg-[#F8FBFF] shadow-[0_12px_36px_rgba(26,39,56,.08)] ring-1 ring-[#101828]/7 transition-[transform,box-shadow] duration-300 hover:-translate-y-1 hover:shadow-[0_18px_48px_rgba(26,39,56,.13)]">
       <div className="relative aspect-[16/10] overflow-hidden bg-[#E8E9E5]">
         <Link href={`/properties/${property.id}`} className="absolute inset-0 z-10" aria-label={`View ${property.title}`} />
         <Image
@@ -83,7 +83,7 @@ function SavedHomeCard({ property, saved, onToggle, priority = false }: HomeCard
 
         <div className="absolute left-4 top-4 z-20 flex flex-wrap gap-2">
           {property.verification_status === "verified" && (
-            <span className="inline-flex h-8 items-center gap-1.5 rounded-full border border-white/60 bg-white/92 px-3 text-[10px] font-semibold text-[#276A4B] shadow-sm backdrop-blur-md">
+            <span className="inline-flex h-8 items-center gap-1.5 rounded-full border border-white/60 bg-[#F8FBFF]/92 px-3 text-[10px] font-semibold text-[#276A4B] shadow-sm backdrop-blur-md">
               <ShieldCheck className="size-3.5" aria-hidden="true" />
               {tx("Verified home", "စိစစ်ထားသောအိမ်")}
             </span>
@@ -99,14 +99,14 @@ function SavedHomeCard({ property, saved, onToggle, priority = false }: HomeCard
         <button
           type="button"
           onClick={() => onToggle(property)}
-          className="absolute right-4 top-4 z-20 grid size-11 place-items-center rounded-full border border-white/70 bg-white/94 text-[#17304A] shadow-[0_6px_18px_rgba(16,29,45,.16)] backdrop-blur-md transition-transform hover:scale-105 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-white/70"
+          className="absolute right-4 top-4 z-20 grid size-11 place-items-center rounded-full border border-white/70 bg-[#F8FBFF]/94 text-[#101828] shadow-[0_6px_18px_rgba(16,29,45,.16)] backdrop-blur-md transition-transform hover:scale-105 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-white/70"
           aria-label={saved ? tx(`Remove ${property.title} from saved homes`, `${property.title} ကို သိမ်းထားမှုမှဖယ်ရန်`) : tx(`Save ${property.title}`, `${property.title} ကို သိမ်းရန်`)}
           aria-pressed={saved}
         >
-          <Heart className={cn("size-[19px]", saved && "fill-[#0B6CF2] text-[#0B6CF2]")} aria-hidden="true" />
+          <Heart className={cn("size-[19px]", saved && "fill-[#123B73] text-[#123B73]")} aria-hidden="true" />
         </button>
 
-        <span className="absolute bottom-4 left-4 z-20 inline-flex items-center gap-1.5 rounded-full bg-[#10233A]/62 px-3 py-1.5 text-[10px] font-medium text-white backdrop-blur-md">
+        <span className="absolute bottom-4 left-4 z-20 inline-flex items-center gap-1.5 rounded-full bg-[#101828]/62 px-3 py-1.5 text-[10px] font-medium text-white backdrop-blur-md">
           <MapPin className="size-3.5" aria-hidden="true" />
           {property.township}, {property.city}
         </span>
@@ -115,15 +115,15 @@ function SavedHomeCard({ property, saved, onToggle, priority = false }: HomeCard
       <div className="p-5 sm:p-6">
         <div className="flex items-start justify-between gap-4">
           <div className="min-w-0">
-            <p data-type="number" className="text-[20px] font-semibold tracking-[-0.035em] text-[#17263A]">
+            <p data-type="number" className="text-[20px] font-semibold tracking-[-0.035em] text-[#101828]">
               {formatPropertyPrice(property, isMyanmar ? "my" : "en")}
-              {property.purpose === "rent" && <span className="ml-1 text-[11px] font-normal tracking-normal text-[#76808C]">/ {tx("month", "လ")}</span>}
+              {property.purpose === "rent" && <span className="ml-1 text-[11px] font-normal tracking-normal text-[#667085]">/ {tx("month", "လ")}</span>}
             </p>
-            <Link href={`/properties/${property.id}`} className="mt-2 line-clamp-1 block text-[15px] font-medium text-[#26364A] transition-colors hover:text-[#0057D9]">
+            <Link href={`/properties/${property.id}`} className="mt-2 line-clamp-1 block text-[15px] font-medium text-[#26364A] transition-colors hover:text-[#123B73]">
               {property.title}
             </Link>
           </div>
-          <span className="shrink-0 rounded-full bg-[#F2F5F8] px-3 py-1.5 text-[9px] font-semibold uppercase tracking-[0.1em] text-[#5F6B79]">
+          <span className="shrink-0 rounded-full bg-[#F8FBFF] px-3 py-1.5 text-[9px] font-semibold uppercase tracking-[0.1em] text-[#5F6B79]">
             {property.purpose === "rent" ? tx("For rent", "ငှားရန်") : tx("For sale", "ရောင်းရန်")}
           </span>
         </div>
@@ -131,7 +131,7 @@ function SavedHomeCard({ property, saved, onToggle, priority = false }: HomeCard
           <span className="inline-flex items-center gap-1.5"><BedDouble className="size-4" />{tx(`${property.bedrooms} ${property.bedrooms === 1 ? "bed" : "beds"}`, `အိပ်ခန်း ${property.bedrooms}`)}</span>
           <span className="inline-flex items-center gap-1.5"><Bath className="size-4" />{tx(`${property.bathrooms} ${property.bathrooms === 1 ? "bath" : "baths"}`, `ရေချိုးခန်း ${property.bathrooms}`)}</span>
           <span className="inline-flex items-center gap-1.5"><Maximize2 className="size-3.5" />{new Intl.NumberFormat("en-US").format(property.area_sqft)} sqft</span>
-          <Link href={`/properties/${property.id}`} className="ml-auto inline-flex items-center gap-1 font-semibold text-[#0B6CF2] hover:underline">
+          <Link href={`/properties/${property.id}`} className="ml-auto inline-flex items-center gap-1 font-semibold text-[#123B73] hover:underline">
             {tx("View home", "အိမ်ကိုကြည့်ရန်")} <ArrowRight className="size-3.5" />
           </Link>
         </div>
@@ -156,22 +156,22 @@ function HomeRailCard({ property, saved, onToggle }: HomeCardProps) {
         <button
           type="button"
           onClick={() => onToggle(property)}
-          className="absolute right-3 top-3 z-20 grid size-10 place-items-center rounded-full bg-white/94 text-[#17304A] shadow-md backdrop-blur-md"
+          className="absolute right-3 top-3 z-20 grid size-10 place-items-center rounded-full bg-[#F8FBFF]/94 text-[#101828] shadow-md backdrop-blur-md"
           aria-label={saved ? `Remove ${property.title} from saved homes` : `Save ${property.title}`}
           aria-pressed={saved}
         >
-          <Heart className={cn("size-[18px]", saved && "fill-[#0B6CF2] text-[#0B6CF2]")} />
+          <Heart className={cn("size-[18px]", saved && "fill-[#123B73] text-[#123B73]")} />
         </button>
       </div>
       <Link href={`/properties/${property.id}`} className="mt-4 block">
         <div className="flex items-start justify-between gap-3">
           <div className="min-w-0">
             <h3 className="truncate text-[14px] font-semibold text-[#1C2C40]">{property.township}, {property.city}</h3>
-            <p className="mt-1 truncate text-[12px] text-[#6D7783]">{property.title}</p>
+            <p className="mt-1 truncate text-[12px] text-[#667085]">{property.title}</p>
           </div>
           <p data-type="number" className="shrink-0 text-[13px] font-semibold text-[#1C2C40]">{formatPropertyPrice(property, isMyanmar ? "my" : "en")}</p>
         </div>
-        <p className="mt-2 text-[10px] text-[#7A838D]">{propertyMeta(property)}</p>
+        <p className="mt-2 text-[10px] text-[#667085]">{propertyMeta(property)}</p>
       </Link>
     </article>
   );
@@ -180,7 +180,7 @@ function HomeRailCard({ property, saved, onToggle }: HomeCardProps) {
 function RecentHomeCard({ property, saved, onToggle }: HomeCardProps) {
   const { isMyanmar } = useLanguage();
   return (
-    <article className="flex min-w-[286px] snap-start gap-4 rounded-[20px] bg-white p-3 shadow-[0_8px_28px_rgba(26,39,56,.06)] ring-1 ring-[#18263A]/6 sm:min-w-0">
+    <article className="flex min-w-[286px] snap-start gap-4 rounded-[20px] bg-[#F8FBFF] p-3 shadow-[0_8px_28px_rgba(26,39,56,.06)] ring-1 ring-[#101828]/6 sm:min-w-0">
       <Link href={`/properties/${property.id}`} className="relative h-[112px] w-[116px] shrink-0 overflow-hidden rounded-[15px] bg-[#E8E9E5]">
         <Image src={property.images[0]} alt={property.title} fill sizes="116px" className="object-cover transition-transform duration-500 hover:scale-105" />
       </Link>
@@ -188,14 +188,14 @@ function RecentHomeCard({ property, saved, onToggle }: HomeCardProps) {
         <div className="flex items-start gap-2">
           <Link href={`/properties/${property.id}`} className="min-w-0 flex-1">
             <h3 className="truncate text-[13px] font-semibold text-[#1C2C40]">{property.title}</h3>
-            <p className="mt-1 text-[10px] text-[#74808C]">{property.township}, {property.city}</p>
+            <p className="mt-1 text-[10px] text-[#667085]">{property.township}, {property.city}</p>
           </Link>
           <button type="button" onClick={() => onToggle(property)} className="text-[#617083]" aria-label={saved ? `Remove ${property.title} from saved homes` : `Save ${property.title}`} aria-pressed={saved}>
-            <Heart className={cn("size-[17px]", saved && "fill-[#0B6CF2] text-[#0B6CF2]")} />
+            <Heart className={cn("size-[17px]", saved && "fill-[#123B73] text-[#123B73]")} />
           </button>
         </div>
         <p data-type="number" className="mt-auto text-[13px] font-semibold text-[#1C2C40]">{formatPropertyPrice(property, isMyanmar ? "my" : "en")}</p>
-        <p className="mt-1 text-[9px] text-[#7A838D]">{propertyMeta(property)}</p>
+        <p className="mt-1 text-[9px] text-[#667085]">{propertyMeta(property)}</p>
       </div>
     </article>
   );
@@ -291,8 +291,8 @@ function UserDashboard() {
   }
 
   return (
-    <div className="min-h-screen bg-[#F7F7F4] text-[#17263A]">
-      <header className="sticky top-0 z-50 h-[72px] border-b border-[#17263A]/8 bg-[#FBFBF9]/92 backdrop-blur-2xl">
+    <div className="min-h-screen bg-[#EAF4FF] text-[#101828]">
+      <header className="sticky top-0 z-50 h-[72px] border-b border-[#101828]/8 bg-[#EAF4FF]/92 backdrop-blur-2xl">
         <div className="mx-auto flex h-full max-w-[1440px] items-center gap-7 px-4 sm:px-6 lg:px-10">
           <Link href="/" aria-label="A7 Property home"><A7Brand /></Link>
 
@@ -307,13 +307,13 @@ function UserDashboard() {
                   aria-current={active ? "page" : undefined}
                   className={cn(
                     "inline-flex h-10 items-center gap-2 rounded-full px-4 text-[12px] font-medium transition-colors",
-                    active ? "bg-[#E9F2FF] text-[#075FCB]" : "text-[#5F6B78] hover:bg-white hover:text-[#17263A]",
+                    active ? "bg-[#DCEBFF] text-[#123B73]" : "text-[#5F6B78] hover:bg-[#F8FBFF] hover:text-[#101828]",
                   )}
                 >
                   <Icon className="size-[17px]" />
                   {isMyanmar ? item.labelMy : item.label}
                   {item.id === "saved" && (
-                    <span data-type="number" className="grid h-6 min-w-6 place-items-center rounded-full bg-[#0057D9] px-1.5 text-[10px] font-bold text-white shadow-[0_4px_10px_rgba(0, 87, 217,.25)]">
+                    <span data-type="number" className="grid h-6 min-w-6 place-items-center rounded-full bg-[#123B73] px-1.5 text-[10px] font-bold text-white shadow-[0_4px_10px_rgba(18,59,115,.25)]">
                       {savedProperties.length}
                     </span>
                   )}
@@ -323,17 +323,17 @@ function UserDashboard() {
           </nav>
 
           <div className="ml-auto flex items-center gap-1.5 sm:gap-2">
-            <Link href="/search?purpose=rent" className="hidden size-10 place-items-center rounded-full text-[#526171] transition-colors hover:bg-white hover:text-[#0057D9] sm:grid" aria-label={tx("Find homes", "အိမ်ရှာရန်")}>
+            <Link href="/search?purpose=rent" className="hidden size-10 place-items-center rounded-full text-[#526171] transition-colors hover:bg-[#F8FBFF] hover:text-[#123B73] sm:grid" aria-label={tx("Find homes", "အိမ်ရှာရန်")}>
               <Search className="size-[19px]" />
             </Link>
             <A7AssistantPopover labelClassName="hidden min-[400px]:inline" />
             <LanguageSwitcher className="hidden sm:block" />
             <LanguageSwitcher compact className="sm:hidden" />
-            <Link href="/dashboard#price-alerts" className="relative grid size-10 place-items-center rounded-full text-[#526171] transition-colors hover:bg-white hover:text-[#0057D9]" aria-label={tx("Price alerts", "ဈေးနှုန်းအသိပေးချက်များ")}>
+            <Link href="/dashboard#price-alerts" className="relative grid size-10 place-items-center rounded-full text-[#526171] transition-colors hover:bg-[#F8FBFF] hover:text-[#123B73]" aria-label={tx("Price alerts", "ဈေးနှုန်းအသိပေးချက်များ")}>
               <Bell className="size-[19px]" />
-              <span className="absolute right-2 top-2 size-2 rounded-full border-2 border-[#FBFBF9] bg-[#E07B52]" />
+              <span className="absolute right-2 top-2 size-2 rounded-full border-2 border-[#EAF4FF] bg-[#E07B52]" />
             </Link>
-            <Link href="/profile" className="ml-1 grid size-10 place-items-center rounded-full bg-[#17304A] text-[11px] font-semibold text-white transition-transform hover:scale-105 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#0057D9]/20" aria-label={`Open ${mockUser.name} profile`}>{mockUser.initials}</Link>
+            <Link href="/profile" className="ml-1 grid size-10 place-items-center rounded-full bg-[#101828] text-[11px] font-semibold text-white transition-transform hover:scale-105 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#123B73]/20" aria-label={`Open ${mockUser.name} profile`}>{mockUser.initials}</Link>
           </div>
         </div>
       </header>
@@ -342,26 +342,26 @@ function UserDashboard() {
         <section className="flex flex-col gap-7 pb-9 pt-10 sm:pb-12 sm:pt-14 lg:flex-row lg:items-end lg:justify-between">
           <div>
             <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[#6B7580]">{tx("Your home journey", "သင့်အိမ်ခရီးစဉ်")}</p>
-            <h1 className="mt-3 text-[36px] font-semibold tracking-[-0.05em] text-[#142438] sm:text-[46px]">{tx("Welcome back, Thiri", "ပြန်လာတာ ကြိုဆိုပါတယ်၊ သီရိ")}</h1>
+            <h1 className="mt-3 text-[36px] font-semibold tracking-[-0.05em] text-[#101828] sm:text-[46px]">{tx("Welcome back, Thiri", "ပြန်လာတာ ကြိုဆိုပါတယ်၊ သီရိ")}</h1>
             <p className="mt-3 max-w-[580px] text-[15px] leading-7 text-[#65717E] sm:text-[16px]">
               {tx("The homes you love, the people you’re talking with, and what’s coming next—all in one calm place.", "သင်နှစ်သက်သောအိမ်များ၊ ဆက်သွယ်နေသူများနှင့် နောက်လာမည့်အစီအစဉ်များကို တည်ငြိမ်သောတစ်နေရာတည်းတွင် စီမံပါ။")}
             </p>
           </div>
-          <Link href="/search?purpose=rent" className="inline-flex h-12 w-fit items-center gap-2 rounded-full bg-[#17304A] px-5 text-[13px] font-semibold text-white shadow-[0_8px_22px_rgba(23,48,74,.18)] transition-transform hover:-translate-y-0.5">
+          <Link href="/search?purpose=rent" className="inline-flex h-12 w-fit items-center gap-2 rounded-full bg-[#101828] px-5 text-[13px] font-semibold text-white shadow-[0_8px_22px_rgba(23,48,74,.18)] transition-transform hover:-translate-y-0.5">
             {tx("Find more homes", "နောက်ထပ်အိမ်များ ရှာမယ်")} <ArrowRight className="size-4" />
           </Link>
         </section>
 
-        <section id="saved-homes" className="scroll-mt-24 border-t border-[#17263A]/8 pt-9 sm:pt-11">
+        <section id="saved-homes" className="scroll-mt-24 border-t border-[#101828]/8 pt-9 sm:pt-11">
           <div className="mb-6 flex items-end justify-between gap-5 sm:mb-8">
             <div>
               <div className="flex items-center gap-3">
                 <h2 className="text-[28px] font-semibold tracking-[-0.045em] sm:text-[34px]">{tx("Saved homes", "သိမ်းထားသောအိမ်များ")}</h2>
-                <span data-type="number" className="grid h-7 min-w-7 place-items-center rounded-full bg-[#0057D9] px-2 text-[11px] font-bold text-white shadow-[0_5px_14px_rgba(0, 87, 217,.28)]">{savedProperties.length}</span>
+                <span data-type="number" className="grid h-7 min-w-7 place-items-center rounded-full bg-[#123B73] px-2 text-[11px] font-bold text-white shadow-[0_5px_14px_rgba(18,59,115,.28)]">{savedProperties.length}</span>
               </div>
               <p className="mt-2 text-[13px] text-[#697582]">{tx("Your shortlist of places that could feel like home.", "ကိုယ့်အိမ်လို ခံစားရနိုင်သောနေရာများ၏ စိတ်ကြိုက်စာရင်း။")}</p>
             </div>
-            <Link href="/search?purpose=rent" className="hidden items-center gap-1 text-[12px] font-semibold text-[#0869DF] hover:underline sm:inline-flex">
+            <Link href="/search?purpose=rent" className="hidden items-center gap-1 text-[12px] font-semibold text-[#123B73] hover:underline sm:inline-flex">
               {tx("Browse all homes", "အိမ်အားလုံးကြည့်ရန်")} <ChevronRight className="size-4" />
             </Link>
           </div>
@@ -373,12 +373,12 @@ function UserDashboard() {
               ))}
             </div>
           ) : (
-            <div className="grid min-h-[300px] place-items-center rounded-[28px] bg-white px-6 text-center shadow-sm ring-1 ring-[#17263A]/7">
+            <div className="grid min-h-[300px] place-items-center rounded-[28px] bg-[#F8FBFF] px-6 text-center shadow-sm ring-1 ring-[#101828]/7">
               <div>
-                <span className="mx-auto grid size-14 place-items-center rounded-full bg-[#EEF4FB] text-[#0B6CF2]"><House className="size-6" /></span>
+                <span className="mx-auto grid size-14 place-items-center rounded-full bg-[#DCEBFF] text-[#123B73]"><House className="size-6" /></span>
                 <h3 className="mt-5 text-xl font-semibold">{tx("Start your shortlist", "စိတ်ကြိုက်စာရင်း စတင်ပါ")}</h3>
                 <p className="mt-2 text-sm text-[#6C7783]">{tx("Save the homes you love and they’ll stay together here.", "သင်နှစ်သက်သောအိမ်များကို သိမ်းထားပါ။ ဒီနေရာမှာ တစ်စုတစ်စည်းတည်း ရှိနေမည်။")}</p>
-                <Link href="/search?purpose=rent" className="mt-5 inline-flex h-11 items-center rounded-full bg-[#17304A] px-5 text-xs font-semibold text-white">{tx("Explore homes", "အိမ်များကြည့်မယ်")}</Link>
+                <Link href="/search?purpose=rent" className="mt-5 inline-flex h-11 items-center rounded-full bg-[#101828] px-5 text-xs font-semibold text-white">{tx("Explore homes", "အိမ်များကြည့်မယ်")}</Link>
               </div>
             </div>
           )}
@@ -390,7 +390,7 @@ function UserDashboard() {
               <h2 className="text-[24px] font-semibold tracking-[-0.04em] sm:text-[28px]">{tx("Recently viewed", "မကြာသေးမီက ကြည့်ခဲ့သောအိမ်များ")}</h2>
               <p className="mt-2 text-[12px] text-[#6D7884]">{tx("Pick up where you left off.", "နောက်ဆုံးကြည့်ခဲ့သည့်နေရာမှ ဆက်ကြည့်ပါ။")}</p>
             </div>
-            <Link href="/search?purpose=rent" className="text-[11px] font-semibold text-[#0869DF] hover:underline">{tx("See browsing history", "ကြည့်ရှုမှုမှတ်တမ်း")}</Link>
+            <Link href="/search?purpose=rent" className="text-[11px] font-semibold text-[#123B73] hover:underline">{tx("See browsing history", "ကြည့်ရှုမှုမှတ်တမ်း")}</Link>
           </div>
           <div className="hide-scrollbar -mx-4 flex snap-x gap-4 overflow-x-auto px-4 pb-2 sm:mx-0 sm:grid sm:grid-cols-2 sm:px-0 lg:grid-cols-3">
             {recentProperties.map((property) => (
@@ -399,13 +399,13 @@ function UserDashboard() {
           </div>
         </section>
 
-        <section className="mt-16 border-y border-[#17263A]/8 py-12 sm:mt-20 sm:py-16">
+        <section className="mt-16 border-y border-[#101828]/8 py-12 sm:mt-20 sm:py-16">
           <div className="mb-7 flex items-end justify-between">
             <div>
               <p className="text-[10px] font-semibold uppercase tracking-[0.15em] text-[#7A7166]">{tx("Inspired by your saves", "သိမ်းထားမှုအပေါ် အခြေခံထားသည်")}</p>
               <h2 className="mt-2 text-[24px] font-semibold tracking-[-0.04em] sm:text-[30px]">{tx("More homes you may love", "သင်နှစ်သက်နိုင်မည့် နောက်ထပ်အိမ်များ")}</h2>
             </div>
-            <Link href="/search?purpose=rent&sort=recommended" className="hidden items-center gap-1 text-[11px] font-semibold text-[#0869DF] hover:underline sm:inline-flex">{tx("See recommendations", "အကြံပြုအိမ်များကြည့်ရန်")} <ChevronRight className="size-4" /></Link>
+            <Link href="/search?purpose=rent&sort=recommended" className="hidden items-center gap-1 text-[11px] font-semibold text-[#123B73] hover:underline sm:inline-flex">{tx("See recommendations", "အကြံပြုအိမ်များကြည့်ရန်")} <ChevronRight className="size-4" /></Link>
           </div>
           <div className="hide-scrollbar -mx-4 flex snap-x gap-5 overflow-x-auto px-4 pb-3 sm:mx-0 sm:px-0">
             {recommendedProperties.map((property) => (
@@ -418,18 +418,18 @@ function UserDashboard() {
           <section id="price-alerts" className="scroll-mt-24 rounded-[26px] bg-[#EDF5EF] p-5 sm:p-7">
             <div className="flex items-start justify-between gap-4">
               <div>
-                <span className="grid size-10 place-items-center rounded-full bg-white text-[#26704D] shadow-sm"><Bell className="size-[18px]" /></span>
+                <span className="grid size-10 place-items-center rounded-full bg-[#F8FBFF] text-[#26704D] shadow-sm"><Bell className="size-[18px]" /></span>
                 <h2 className="mt-5 text-[22px] font-semibold tracking-[-0.035em]">{tx("Price change alerts", "ဈေးနှုန်းပြောင်းလဲမှု အသိပေးချက်များ")}</h2>
                 <p className="mt-2 text-[12px] leading-5 text-[#5E7166]">{tx("Good news from homes on your shortlist.", "သင်သိမ်းထားသောအိမ်များမှ သတင်းကောင်းများ။")}</p>
               </div>
-              <span className="rounded-full bg-white/80 px-3 py-1.5 text-[9px] font-semibold text-[#337457]">{tx("Alerts on", "အသိပေးချက်ဖွင့်ထားသည်")}</span>
+              <span className="rounded-full bg-[#F8FBFF]/80 px-3 py-1.5 text-[9px] font-semibold text-[#337457]">{tx("Alerts on", "အသိပေးချက်ဖွင့်ထားသည်")}</span>
             </div>
             <div className="mt-6 space-y-3">
               {priceAlerts.map((property) => {
                 const drop = priceDropByProperty[property.id];
                 const previousPrice = { ...property, price: property.price + drop };
                 return (
-                  <Link key={property.id} href={`/properties/${property.id}`} className="flex items-center gap-3 rounded-[18px] bg-white/88 p-3 transition-transform hover:-translate-y-0.5">
+                  <Link key={property.id} href={`/properties/${property.id}`} className="flex items-center gap-3 rounded-[18px] bg-[#F8FBFF]/88 p-3 transition-transform hover:-translate-y-0.5">
                     <span className="relative size-14 shrink-0 overflow-hidden rounded-[13px]">
                       <Image src={property.images[0]} alt="" fill sizes="56px" className="object-cover" />
                     </span>
@@ -441,17 +441,17 @@ function UserDashboard() {
                   </Link>
                 );
               })}
-              {!priceAlerts.length && <p className="rounded-[18px] bg-white/75 p-4 text-xs text-[#627269]">{tx("We’ll let you know when a saved home changes price.", "သိမ်းထားသောအိမ်၏ဈေးနှုန်း ပြောင်းလဲပါက အသိပေးပါမည်။")}</p>}
+              {!priceAlerts.length && <p className="rounded-[18px] bg-[#F8FBFF]/75 p-4 text-xs text-[#627269]">{tx("We’ll let you know when a saved home changes price.", "သိမ်းထားသောအိမ်၏ဈေးနှုန်း ပြောင်းလဲပါက အသိပေးပါမည်။")}</p>}
             </div>
           </section>
 
-          <section id="conversations" className="scroll-mt-24 rounded-[26px] bg-white p-5 shadow-[0_10px_36px_rgba(26,39,56,.06)] ring-1 ring-[#17263A]/7 sm:p-7">
+          <section id="conversations" className="scroll-mt-24 rounded-[26px] bg-[#F8FBFF] p-5 shadow-[0_10px_36px_rgba(26,39,56,.06)] ring-1 ring-[#101828]/7 sm:p-7">
             <div className="flex items-end justify-between">
               <div>
                 <h2 className="text-[22px] font-semibold tracking-[-0.035em]">{tx("Conversations with owners", "အိမ်ရှင်များနှင့် စကားပြောဆိုမှုများ")}</h2>
                 <p className="mt-2 text-[12px] text-[#6D7884]">{tx("Answers that help you decide with confidence.", "ယုံကြည်စိတ်ချစွာ ဆုံးဖြတ်နိုင်ရန် အထောက်အကူဖြစ်မည့်အဖြေများ။")}</p>
               </div>
-              <Link href="/dashboard?section=messages#conversations" className="text-[11px] font-semibold text-[#0869DF]">{tx("View all", "အားလုံးကြည့်ရန်")}</Link>
+              <Link href="/dashboard?section=messages#conversations" className="text-[11px] font-semibold text-[#123B73]">{tx("View all", "အားလုံးကြည့်ရန်")}</Link>
             </div>
             <div className="mt-5 divide-y divide-[#E8EAED]">
               {messages.map((message) => {
@@ -460,7 +460,7 @@ function UserDashboard() {
                   <button key={message.id} type="button" onClick={() => openConversation(message)} className="group flex w-full items-center gap-3 py-4 text-left">
                     <span className="relative grid size-11 shrink-0 place-items-center rounded-full bg-[#EEF3F7] text-[11px] font-semibold text-[#30465C]">
                       {message.contact.split(" ").map((part) => part[0]).join("")}
-                      {message.unread && <span className="absolute right-0 top-0 size-2.5 rounded-full border-2 border-white bg-[#0B6CF2]" />}
+                      {message.unread && <span className="absolute right-0 top-0 size-2.5 rounded-full border-2 border-white bg-[#123B73]" />}
                     </span>
                     <span className="min-w-0 flex-1">
                       <span className="flex items-center gap-2">
@@ -478,10 +478,10 @@ function UserDashboard() {
           </section>
         </div>
 
-        <section id="viewings" className="scroll-mt-24 mt-6 rounded-[28px] bg-[#17304A] p-5 text-white shadow-[0_16px_42px_rgba(23,48,74,.16)] sm:p-8">
+        <section id="viewings" className="scroll-mt-24 mt-6 rounded-[28px] bg-[#101828] p-5 text-white shadow-[0_16px_42px_rgba(23,48,74,.16)] sm:p-8">
           <div className="grid gap-7 lg:grid-cols-[0.72fr_1.28fr] lg:items-center">
             <div>
-              <span className="grid size-11 place-items-center rounded-full bg-white/10 text-[#A9CCFF]"><CalendarDays className="size-5" /></span>
+              <span className="grid size-11 place-items-center rounded-full bg-[#F8FBFF]/10 text-[#4DA3FF]"><CalendarDays className="size-5" /></span>
               <p className="mt-5 text-[10px] font-semibold uppercase tracking-[0.15em] text-white/55">{tx("Coming up", "မကြာမီလာမည်")}</p>
               <h2 className="mt-2 text-[25px] font-semibold tracking-[-0.04em] sm:text-[30px]">{tx("Upcoming viewings", "လာမည့်အိမ်ကြည့်ချိန်များ")}</h2>
               <p className="mt-3 max-w-sm text-[12px] leading-6 text-white/65">{tx("Everything you need for your next visit, in one place.", "နောက်လာမည့်အိမ်ကြည့်ခရီးအတွက် လိုအပ်သမျှကို တစ်နေရာတည်းမှာ။")}</p>
@@ -491,9 +491,9 @@ function UserDashboard() {
                 const property = allProperties.find((item) => item.id === appointment.propertyId);
                 const [weekday, date] = appointment.date.split(", ");
                 return (
-                  <Link key={appointment.id} href={`/properties/${appointment.propertyId}`} className="rounded-[20px] border border-white/10 bg-white/[.075] p-4 transition-colors hover:bg-white/[.11]">
+                  <Link key={appointment.id} href={`/properties/${appointment.propertyId}`} className="rounded-[20px] border border-white/10 bg-[#F8FBFF]/[.075] p-4 transition-colors hover:bg-[#F8FBFF]/[.11]">
                     <div className="flex items-start gap-4">
-                      <span className="grid size-12 shrink-0 place-items-center rounded-[15px] bg-white text-center text-[#17304A] shadow-lg">
+                      <span className="grid size-12 shrink-0 place-items-center rounded-[15px] bg-[#F8FBFF] text-center text-[#101828] shadow-lg">
                         <span><strong className="block text-[16px] leading-4">{date?.split(" ")[0]}</strong><small className="text-[8px] font-semibold uppercase">{weekday}</small></span>
                       </span>
                       <span className="min-w-0">
@@ -503,7 +503,7 @@ function UserDashboard() {
                       </span>
                     </div>
                     <div className="mt-4 flex items-center justify-between border-t border-white/10 pt-3">
-                      <span className="inline-flex items-center gap-1.5 text-[9px] font-medium text-[#BFD8FF]"><Check className="size-3.5" />{appointment.status}</span>
+                      <span className="inline-flex items-center gap-1.5 text-[9px] font-medium text-[#4DA3FF]"><Check className="size-3.5" />{appointment.status}</span>
                       <span className="text-[9px] text-white/52">{tx("with", "နှင့်")} {appointment.contact}</span>
                     </div>
                   </Link>
@@ -514,17 +514,17 @@ function UserDashboard() {
         </section>
       </main>
 
-      <nav className="fixed inset-x-3 bottom-2 z-50 grid h-[66px] grid-cols-4 rounded-[22px] border border-[#17263A]/10 bg-white/94 p-1.5 shadow-[0_14px_36px_rgba(23,43,63,.18)] backdrop-blur-2xl md:hidden" aria-label={tx("Mobile home journey", "မိုဘိုင်းအိမ်ခရီးစဉ်")}>
+      <nav className="fixed inset-x-3 bottom-2 z-50 grid h-[66px] grid-cols-4 rounded-[22px] border border-[#101828]/10 bg-[#F8FBFF]/94 p-1.5 shadow-[0_14px_36px_rgba(23,43,63,.18)] backdrop-blur-2xl md:hidden" aria-label={tx("Mobile home journey", "မိုဘိုင်းအိမ်ခရီးစဉ်")}>
         <Link href="/search?purpose=rent" className="flex flex-col items-center justify-center gap-1 rounded-2xl text-[10px] font-medium text-[#687481]"><Search className="size-[18px]" />{tx("Explore", "ရှာဖွေ")}</Link>
         {journeyLinks.map((item) => {
           const Icon = item.icon;
           const active = activeSection === item.id;
           return (
-            <Link key={item.id} href={item.href} aria-current={active ? "page" : undefined} className={cn("flex flex-col items-center justify-center gap-1 rounded-2xl text-[10px] font-medium", active ? "bg-[#EEF5FC] text-[#0057D9]" : "text-[#687481]")}>
+            <Link key={item.id} href={item.href} aria-current={active ? "page" : undefined} className={cn("flex flex-col items-center justify-center gap-1 rounded-2xl text-[10px] font-medium", active ? "bg-[#DCEBFF] text-[#123B73]" : "text-[#687481]")}>
               <Icon className="size-[18px]" />
               <span className="inline-flex items-center gap-1">
                 {isMyanmar ? item.labelMy : item.label.replace(" homes", "")}
-                {item.id === "saved" && <span data-type="number" className="grid min-w-4 place-items-center rounded-full bg-[#0057D9] px-1 text-[8px] font-bold leading-4 text-white">{savedProperties.length}</span>}
+                {item.id === "saved" && <span data-type="number" className="grid min-w-4 place-items-center rounded-full bg-[#123B73] px-1 text-[8px] font-bold leading-4 text-white">{savedProperties.length}</span>}
               </span>
             </Link>
           );
@@ -545,7 +545,7 @@ function UserDashboard() {
               value={reply}
               onChange={(event) => setReply(event.target.value)}
               placeholder="Write a message…"
-              className="h-11 min-w-0 flex-1 rounded-full border border-[#D6DEE7] bg-[#F8FAFC] px-4 text-xs outline-none focus:border-[#0057D9] focus:ring-4 focus:ring-[#0057D9]/10"
+              className="h-11 min-w-0 flex-1 rounded-full border border-[#D6DEE7] bg-[#F8FBFF] px-4 text-xs outline-none focus:border-[#123B73] focus:ring-4 focus:ring-[#123B73]/10"
             />
             <Button type="submit" size="icon" className="size-11 shrink-0 rounded-full" disabled={!reply.trim()} aria-label="Send reply">
               <Send className="size-4" />
@@ -555,8 +555,8 @@ function UserDashboard() {
       >
         {activeConversation && (
           <div className="flex min-h-full flex-col p-5 sm:p-7">
-            <Link href={`/properties/${activeConversation.propertyId}`} className="mb-6 flex items-center justify-between rounded-2xl bg-[#F2F6FA] p-4 text-xs font-semibold text-[#17304A]">
-              View property details <ChevronRight className="size-4 text-[#0057D9]" />
+            <Link href={`/properties/${activeConversation.propertyId}`} className="mb-6 flex items-center justify-between rounded-2xl bg-[#F8FBFF] p-4 text-xs font-semibold text-[#101828]">
+              View property details <ChevronRight className="size-4 text-[#123B73]" />
             </Link>
             <div className="space-y-4" aria-live="polite">
               {activeConversation.thread.map((message) => (
@@ -564,8 +564,8 @@ function UserDashboard() {
                   <div className={cn(
                     "max-w-[84%] rounded-[18px] px-4 py-3 text-[12px] leading-5",
                     message.sender === "user"
-                      ? "rounded-br-md bg-[#0057D9] text-white"
-                      : "rounded-bl-md bg-[#EEF2F6] text-[#33465A]",
+                      ? "rounded-br-md bg-[#123B73] text-white"
+                      : "rounded-bl-md bg-[#DCEBFF] text-[#33465A]",
                   )}>
                     <p>{message.text}</p>
                     <span className={cn("mt-1.5 block text-[9px]", message.sender === "user" ? "text-white/65" : "text-[#82909E]")}>{message.time}</span>
