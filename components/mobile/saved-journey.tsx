@@ -1,42 +1,24 @@
 "use client";
 
-import {
-  Bookmark,
-  Building2,
-  Check,
-  ChevronDown,
-  Folder,
-  Heart,
-  Plus,
-  Scale,
-  Search,
-  ShoppingBag,
-  SlidersHorizontal,
-  X,
-} from "lucide-react";
+import { Bath, BedDouble, Heart, Maximize2, ShieldCheck } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 
 import { useLanguage } from "@/components/i18n/language-provider";
-import { MobileSearchCard } from "@/components/mobile/mobile-search-card";
-import { usePropertyComparison } from "@/hooks/use-property-comparison";
+import { LanguageSwitcher } from "@/components/i18n/language-switcher";
+import { ProgressiveImage } from "@/components/ui/progressive-image";
 import { readStoredIds, STORAGE_KEYS, writeStoredIds } from "@/lib/local-storage";
 import { mockUser } from "@/lib/mock-users";
-import { allProperties, type Property } from "@/lib/properties";
+import { allProperties, formatPropertyPrice, type Property } from "@/lib/properties";
 import { cn } from "@/lib/utils";
 
-type SavedTab = "all" | "rent" | "buy" | "collections";
-type SavedSort = "recent" | "price-low" | "price-high";
+type SavedTab = "all" | "buy" | "rent";
 
 function SavedJourney() {
-  const { tx } = useLanguage();
+  const { isMyanmar, tx } = useLanguage();
   const [savedIds, setSavedIds] = useState(mockUser.savedPropertyIds);
   const [tab, setTab] = useState<SavedTab>("all");
-  const [sort, setSort] = useState<SavedSort>("recent");
-  const [searchOpen, setSearchOpen] = useState(false);
-  const [query, setQuery] = useState("");
-  const { comparisonIds, comparisonProperties, toggleProperty, maxComparisonHomes } = usePropertyComparison();
 
   useEffect(() => {
     const stored = readStoredIds(STORAGE_KEYS.saved, STORAGE_KEYS.legacySaved, mockUser.savedPropertyIds);
@@ -44,91 +26,130 @@ function SavedJourney() {
   }, []);
 
   const savedHomes = useMemo(
-    () => savedIds.map((id) => allProperties.find((property) => property.id === id)).filter((item): item is Property => Boolean(item)),
+    () => savedIds
+      .map((id) => allProperties.find((property) => property.id === id))
+      .filter((property): property is Property => Boolean(property)),
     [savedIds],
   );
 
-  const visibleHomes = useMemo(() => {
-    if (tab === "collections") return [];
-    let next = savedHomes.filter((property) => tab === "all" || (tab === "rent" ? property.purpose === "rent" : property.purpose === "sale"));
-    const normalizedQuery = query.trim().toLowerCase();
-    if (normalizedQuery) next = next.filter((property) => `${property.title} ${property.township} ${property.city}`.toLowerCase().includes(normalizedQuery));
-    if (sort === "price-low") next = [...next].sort((a, b) => a.price - b.price);
-    if (sort === "price-high") next = [...next].sort((a, b) => b.price - a.price);
-    return next;
-  }, [query, savedHomes, sort, tab]);
+  const visibleHomes = useMemo(
+    () => savedHomes.filter((property) => tab === "all" || (tab === "buy" ? property.purpose === "sale" : property.purpose === "rent")),
+    [savedHomes, tab],
+  );
 
-  function toggleSaved(property: Property) {
-    const next = savedIds.includes(property.id) ? savedIds.filter((id) => id !== property.id) : [...savedIds, property.id];
+  function removeSaved(property: Property) {
+    const next = savedIds.filter((id) => id !== property.id);
     setSavedIds(next);
     writeStoredIds(STORAGE_KEYS.saved, next);
   }
 
   return (
-    <div className="min-h-screen bg-[#EAF4FF] pb-[188px] text-[#101828] lg:pb-16">
-      <main className="mx-auto w-full max-w-[1040px] px-4 pb-10 pt-[max(.875rem,env(safe-area-inset-top))] sm:px-6 lg:px-8">
-        <header className="flex min-h-12 items-center gap-3">
-          <div className="min-w-0 flex-1">
-            <h1 className="text-[27px] font-semibold leading-none tracking-[-0.045em] sm:text-[32px]">{tx("Saved", "သိမ်းထားသည်")}</h1>
-            <p className="mt-1.5 text-[10px] text-[#667085] sm:text-[11px]">{tx("Your saved homes and collections", "သိမ်းထားသောအိမ်များနှင့် စုစည်းမှုများ")}</p>
+    <div className="min-h-screen bg-[#F7F8FA] pb-[118px] text-[#1B1B1F] lg:pb-12">
+      <header className="fixed inset-x-0 top-0 z-50 border-b border-black/[.035] bg-[#FAF9FD]/85 shadow-[0_1px_8px_rgba(0,0,0,.04)] backdrop-blur-xl">
+        <div className="mx-auto flex h-16 w-full max-w-[760px] items-center justify-between px-4 sm:px-6">
+          <Link href="/" className="flex items-center gap-2" aria-label={tx("A7 Property home", "A7 Property ပင်မစာမျက်နှာ")}>
+            <span className="relative size-8 overflow-hidden rounded-full bg-white shadow-[0_2px_7px_rgba(16,24,40,.12)]">
+              <Image src="/images/brand/a7-property-logo.jpg" alt="" fill sizes="32px" className="scale-[2.55] object-contain" />
+            </span>
+            <span className="text-[20px] font-semibold tracking-[-.035em] text-[#0053D2]">{tx("Saved", "သိမ်းထားသည်")}</span>
+          </Link>
+
+          <div className="flex items-center gap-1.5">
+            <LanguageSwitcher className="[&_button]:h-9 [&_button]:rounded-lg [&_button]:bg-[#EFEDF1] [&_button]:px-2.5 [&_button]:text-[#424655] [&_button]:hover:bg-[#E3E2E6]" />
+            <Link href="/profile" className="relative size-8 overflow-hidden rounded-full border border-[#C2C6D8]" aria-label={tx("Open profile", "ပရိုဖိုင်ဖွင့်ရန်")}>
+              <Image src="/images/profile/thiri-win.jpg" alt={mockUser.name} fill sizes="32px" className="object-cover" />
+            </Link>
           </div>
-          <div className="flex items-center gap-1">
-            <button type="button" onClick={() => setSearchOpen((current) => !current)} className="grid size-11 place-items-center rounded-full text-[#101828] transition-colors hover:bg-[#F8FBFF] hover:text-[#123B73]" aria-label={tx("Search saved homes", "သိမ်းထားသောအိမ်များရှာရန်")} aria-expanded={searchOpen}>{searchOpen ? <X className="size-5" /> : <Search className="size-5" />}</button>
-            <button type="button" onClick={() => document.getElementById("saved-tabs")?.focus()} className="grid size-11 place-items-center rounded-full text-[#101828] transition-colors hover:bg-[#F8FBFF] hover:text-[#123B73]" aria-label={tx("Saved home filters", "သိမ်းထားသောအိမ် စစ်ထုတ်မှုများ")}><SlidersHorizontal className="size-5" /></button>
-          </div>
-        </header>
+        </div>
+      </header>
 
-        {searchOpen && <label className="mt-4 flex h-11 items-center gap-2 rounded-full border border-[#D0DEF0] bg-[#F8FBFF] px-4 shadow-[0_8px_24px_rgba(28,55,92,.06)] transition-[border-color,box-shadow] focus-within:border-[#4DA3FF] focus-within:shadow-[0_0_0_3px_rgba(18,59,115,.08)]"><Search className="size-4 text-[#667085]" /><span className="sr-only">{tx("Search saved homes", "သိမ်းထားသောအိမ်များရှာရန်")}</span><input data-focus-ring="parent" autoFocus value={query} onChange={(event) => setQuery(event.target.value)} placeholder={tx("Search saved homes…", "သိမ်းထားသောအိမ်များရှာပါ…")} className="min-w-0 flex-1 bg-transparent text-[11px] outline-none placeholder:text-[#667085]" /></label>}
-
-        <nav id="saved-tabs" tabIndex={-1} className="mt-4 grid grid-cols-4 rounded-[22px] border border-[#D0DEF0] bg-[#F8FBFF] p-1 shadow-[0_8px_22px_rgba(26,52,88,.065)] outline-none" aria-label={tx("Saved categories", "သိမ်းထားမှုအမျိုးအစားများ")}>
-          <SavedTabButton active={tab === "all"} onClick={() => setTab("all")} label={tx("All", "အားလုံး")} />
-          <SavedTabButton active={tab === "rent"} onClick={() => setTab("rent")} label={tx("Rent", "ငှားရန်")} icon={Building2} />
-          <SavedTabButton active={tab === "buy"} onClick={() => setTab("buy")} label={tx("Buy", "ဝယ်ရန်")} icon={ShoppingBag} />
-          <SavedTabButton active={tab === "collections"} onClick={() => setTab("collections")} label={tx("Collections", "စုစည်းမှု")} icon={Folder} />
-        </nav>
-
-        <section className="mt-4 flex min-h-[64px] items-center gap-2.5 rounded-[20px] border border-[#D0DEF0] bg-[#F8FBFF] px-4 py-2.5 shadow-[0_8px_22px_rgba(26,52,88,.05)]" aria-label={tx("Saved homes summary", "သိမ်းထားသောအိမ် အကျဉ်းချုပ်")}>
-          <Bookmark className="size-[18px] text-[#101828]" />
-          <p className="min-w-0 flex-1 text-[12px] font-semibold">{tx(`${visibleHomes.length} saved homes`, `သိမ်းထားသောအိမ် ${visibleHomes.length} လုံး`)}</p>
-          <label className="relative flex h-11 w-[146px] items-center rounded-[14px] border border-[#D0DEF0] bg-[#F8FBFF] transition-[border-color,box-shadow] focus-within:border-[#4DA3FF] focus-within:shadow-[0_0_0_3px_rgba(18,59,115,.08)]">
-            <span className="sr-only">{tx("Sort saved homes", "သိမ်းထားသောအိမ်များစီရန်")}</span>
-            <select data-focus-ring="parent" value={sort} onChange={(event) => setSort(event.target.value as SavedSort)} className="h-11 min-w-0 flex-1 appearance-none bg-transparent pl-3.5 pr-8 text-[10px] font-semibold text-[#172A49] outline-none">
-              <option value="recent">{tx("Recently saved", "မကြာသေးမီက")}</option>
-              <option value="price-low">{tx("Lowest price", "ဈေးအနည်းဆုံး")}</option>
-              <option value="price-high">{tx("Highest price", "ဈေးအများဆုံး")}</option>
-            </select>
-            <ChevronDown className="pointer-events-none absolute right-3 size-3.5 text-[#172A49]" />
-          </label>
+      <main className="mx-auto w-full max-w-[760px] px-4 pt-[88px] sm:px-6" aria-labelledby="saved-homes-title">
+        <section className="pb-4 pt-1">
+          <h1 id="saved-homes-title" className="text-[34px] font-bold leading-[1.16] tracking-[-.045em] text-[#1B1B1F] sm:text-[38px]">{tx("Saved Homes", "သိမ်းထားသောအိမ်များ")}</h1>
+          <p className="mt-2 text-[16px] leading-6 text-[#424655] sm:text-[17px]">{tx("Properties you want to revisit", "ပြန်လည်ကြည့်ရှုလိုသောအိမ်များ")}</p>
         </section>
 
-        {tab === "collections" ? (
-          <section className="mt-6 rounded-[24px] border border-dashed border-[#4DA3FF] bg-[#F8FBFF] px-6 py-14 text-center"><Folder className="mx-auto size-9 text-[#123B73]" /><h2 className="mt-4 text-[21px] font-semibold">{tx("Create your first collection", "ပထမဆုံးစုစည်းမှု ဖန်တီးပါ")}</h2><p className="mx-auto mt-2 max-w-sm text-[11px] leading-5 text-[#667085]">{tx("Group homes for family, work, or your next neighborhood.", "မိသားစု၊ အလုပ် သို့မဟုတ် နောက်နေရာအလိုက် အိမ်များစုစည်းပါ။")}</p><button type="button" className="mt-5 inline-flex h-11 items-center gap-2 rounded-full bg-[#123B73] px-5 text-[11px] font-semibold text-white"><Plus className="size-4" />{tx("New collection", "စုစည်းမှုအသစ်")}</button></section>
-        ) : visibleHomes.length ? (
-          <section className="mt-4 space-y-3" aria-label={tx("Saved home list", "သိမ်းထားသောအိမ်စာရင်း")}>
-            {visibleHomes.map((property) => <MobileSearchCard key={property.id} variant="compact" property={property} saved onToggleSaved={toggleSaved} compared={comparisonIds.includes(property.id)} compareDisabled={!comparisonIds.includes(property.id) && comparisonIds.length >= maxComparisonHomes} onToggleCompare={toggleProperty} />)}
+        <div className="mb-5 overflow-x-auto pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+          <div className="inline-flex rounded-lg bg-[#EFEDF1] p-1" role="tablist" aria-label={tx("Saved home category", "သိမ်းထားသောအိမ် အမျိုးအစား")}>
+            <SavedTabButton active={tab === "all"} label={tx("All", "အားလုံး")} onClick={() => setTab("all")} />
+            <SavedTabButton active={tab === "buy"} label={tx("Buy", "ဝယ်ရန်")} onClick={() => setTab("buy")} />
+            <SavedTabButton active={tab === "rent"} label={tx("Rent", "ငှားရန်")} onClick={() => setTab("rent")} />
+          </div>
+        </div>
+
+        {visibleHomes.length > 0 ? (
+          <section className="space-y-8" aria-label={tx("Saved home list", "သိမ်းထားသောအိမ်စာရင်း")}>
+            {visibleHomes.map((property, index) => (
+              <SavedHomeCard key={property.id} property={property} isMyanmar={isMyanmar} tx={tx} priority={index < 2} onRemove={removeSaved} />
+            ))}
           </section>
         ) : (
-          <section className="mt-6 rounded-[24px] border border-dashed border-[#4DA3FF] bg-[#F8FBFF] px-6 py-14 text-center"><Heart className="mx-auto size-9 text-[#123B73]" /><h2 className="mt-4 text-[21px] font-semibold">{tx("No saved homes here yet", "ဤနေရာတွင် သိမ်းထားသောအိမ် မရှိသေးပါ")}</h2><Link href="/search?purpose=rent" className="mt-5 inline-flex h-11 items-center rounded-full bg-[#123B73] px-5 text-[11px] font-semibold text-white">{tx("Explore homes", "အိမ်များရှာဖွေရန်")}</Link></section>
+          <section className="flex min-h-[360px] flex-col items-center justify-center px-5 text-center">
+            <span className="grid size-16 place-items-center rounded-full bg-[#EFEDF1] text-[#727687]"><Heart className="size-8" /></span>
+            <h2 className="mt-5 text-[22px] font-semibold tracking-[-.03em]">{tx("No saved homes yet", "သိမ်းထားသောအိမ် မရှိသေးပါ")}</h2>
+            <p className="mt-2 max-w-[300px] text-[15px] leading-6 text-[#424655]">{tx("Keep track of the properties you love by tapping the heart icon.", "နှစ်သက်သောအိမ်များကို နှလုံးပုံကိုနှိပ်ပြီး သိမ်းထားနိုင်ပါသည်။")}</p>
+            <Link href="/search?purpose=rent" className="mt-6 inline-flex h-11 items-center rounded-full bg-[#0053D2] px-5 text-[13px] font-semibold text-white shadow-[0_8px_18px_rgba(0,83,210,.18)]">{tx("Explore properties", "အိမ်များရှာဖွေရန်")}</Link>
+          </section>
         )}
       </main>
-
-      {comparisonProperties.length > 0 && <CompareTray properties={comparisonProperties} tx={tx} />}
     </div>
   );
 }
 
-function SavedTabButton({ active, onClick, label, icon: Icon }: { active: boolean; onClick: () => void; label: string; icon?: typeof Building2 }) {
-  return <button type="button" onClick={onClick} aria-pressed={active} className={cn("inline-flex h-11 min-w-0 items-center justify-center gap-1.5 rounded-[17px] px-1.5 text-[9px] font-semibold transition-[background-color,color,box-shadow] sm:text-[10px]", active ? "bg-[#123B73] text-white shadow-[0_6px_16px_rgba(77,163,255,.2)]" : "text-[#101828] hover:bg-[#DCEBFF]")}>{Icon && <Icon className="size-4 shrink-0" />}<span className="truncate">{label}</span></button>;
+function SavedTabButton({ active, label, onClick }: { active: boolean; label: string; onClick: () => void }) {
+  return (
+    <button
+      type="button"
+      role="tab"
+      aria-selected={active}
+      onClick={onClick}
+      className={cn(
+        "h-9 rounded-md px-5 text-[13px] font-medium transition-[background-color,color,box-shadow]",
+        active ? "bg-white text-[#1B1B1F] shadow-[0_1px_3px_rgba(0,0,0,.12)]" : "text-[#424655] hover:bg-white/60",
+      )}
+    >
+      {label}
+    </button>
+  );
 }
 
-function CompareTray({ properties, tx }: { properties: Property[]; tx: (english: string, myanmar: string) => string }) {
+function SavedHomeCard({ property, isMyanmar, tx, priority, onRemove }: { property: Property; isMyanmar: boolean; tx: (english: string, myanmar: string) => string; priority: boolean; onRemove: (property: Property) => void }) {
+  const price = formatPropertyPrice(property, isMyanmar ? "my" : "en");
+  const isVerified = property.verification_status === "verified";
+
   return (
-    <aside className="fixed inset-x-3 bottom-[94px] z-[70] mx-auto flex h-[72px] max-w-[780px] items-center gap-2.5 rounded-[22px] border border-[#D0DEF0] bg-[#F8FBFF]/94 px-3.5 shadow-[0_12px_32px_rgba(22,50,89,.13)] backdrop-blur-2xl" aria-label={tx("Selected homes comparison", "ရွေးထားသောအိမ်များ နှိုင်းယှဉ်မှု")}>
-      <span className="inline-flex shrink-0 items-center gap-2 text-[11px] font-semibold"><Check className="size-5 rounded-full bg-[#123B73] p-1 text-white" />{properties.length} {tx("selected", "ရွေးထား")}</span>
-      <div className="hidden items-center gap-1.5 min-[390px]:flex">{properties.slice(0, 3).map((property) => <span key={property.id} className="relative size-10 overflow-hidden rounded-[10px] border border-white shadow-sm"><Image src={property.images[0]} alt="" fill sizes="40px" className="object-cover" /></span>)}<span className="grid size-10 place-items-center rounded-[10px] bg-[#F1F5FB] text-[#123B73]"><Plus className="size-5" /></span></div>
-      <Link href="/compare" className="ml-auto inline-flex h-11 items-center justify-center gap-2 rounded-[15px] bg-[#123B73] px-3.5 text-[10px] font-semibold text-white shadow-[0_8px_20px_rgba(77,163,255,.2)]"><Scale className="size-4" />{tx(`Compare ${properties.length} homes`, `အိမ် ${properties.length} လုံး နှိုင်းယှဉ်`)}</Link>
-    </aside>
+    <article className="group overflow-hidden rounded-xl bg-white shadow-[0_2px_10px_rgba(27,27,31,.08)] transition-transform duration-200 active:scale-[.985]">
+      <div className="relative aspect-[16/10] overflow-hidden bg-[#EFEDF1]">
+        <Link href={`/properties/${property.id}`} className="absolute inset-0 z-10" aria-label={tx(`View ${property.title}`, `${property.title} ကိုကြည့်ရန်`)} />
+        <ProgressiveImage src={property.images[0]} alt={property.title} fill priority={priority} sizes="(max-width: 800px) calc(100vw - 32px), 712px" className="object-cover transition-transform duration-700 group-hover:scale-[1.035]" />
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-black/[.44] via-black/[.08] to-transparent" />
+        {isVerified && <span className="absolute left-3 top-3 z-20 inline-flex h-7 items-center gap-1.5 rounded-md bg-white/90 px-2.5 text-[10px] font-semibold uppercase tracking-[.08em] text-[#1B1B1F] shadow-sm backdrop-blur-md"><ShieldCheck className="size-3.5 text-[#059669]" fill="currentColor" strokeWidth={2.3} />{tx("Verified", "စိစစ်ပြီး")}</span>}
+        <button type="button" onClick={() => onRemove(property)} aria-label={tx(`Remove ${property.title} from saved homes`, `${property.title} ကို သိမ်းထားမှုမှဖယ်ရန်`)} className="absolute right-3 top-3 z-20 grid size-10 place-items-center rounded-full bg-white/90 text-[#0053D2] shadow-sm backdrop-blur-md transition-transform active:scale-95">
+          <Heart className="size-5 fill-current" />
+        </button>
+      </div>
+
+      <div className="p-4 sm:p-5">
+        <p className="text-[27px] font-bold leading-none tracking-[-.04em] text-[#1B1B1F] sm:text-[30px]">{price}{property.purpose === "rent" && <span className="ml-1.5 text-[13px] font-medium tracking-normal text-[#424655]">{tx("/ mo", "/လ")}</span>}</p>
+        <Link href={`/properties/${property.id}`} className="mt-3 block">
+          <h2 className="truncate text-[19px] font-semibold leading-6 tracking-[-.03em] text-[#1B1B1F] transition-colors hover:text-[#0053D2] sm:text-[21px]">{property.title}</h2>
+          <p className="mt-1 truncate text-[15px] text-[#424655] sm:text-[16px]">{property.township}, {property.city}</p>
+        </Link>
+
+        <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2 text-[#424655] sm:gap-x-5" aria-label={tx("Property details", "အိမ်အသေးစိတ်")}>
+          <PropertyFact icon={BedDouble} label={tx(`${property.bedrooms} ${property.bedrooms === 1 ? "Bed" : "Beds"}`, `${property.bedrooms} အိပ်ခန်း`)} />
+          <span className="size-1 rounded-full bg-[#C2C6D8]" aria-hidden="true" />
+          <PropertyFact icon={Bath} label={tx(`${property.bathrooms} ${property.bathrooms === 1 ? "Bath" : "Baths"}`, `${property.bathrooms} ရေချိုးခန်း`)} />
+          <span className="size-1 rounded-full bg-[#C2C6D8]" aria-hidden="true" />
+          <PropertyFact icon={Maximize2} label={tx(`${property.area_sqft.toLocaleString()} sqft`, `${property.area_sqft.toLocaleString()} စတုရန်းပေ`)} />
+        </div>
+      </div>
+    </article>
   );
+}
+
+function PropertyFact({ icon: Icon, label }: { icon: typeof BedDouble; label: string }) {
+  return <span className="inline-flex items-center gap-1.5 text-[14px] sm:text-[15px]"><Icon className="size-[19px]" strokeWidth={1.8} />{label}</span>;
 }
 
 export { SavedJourney };
