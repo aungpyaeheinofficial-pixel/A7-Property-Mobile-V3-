@@ -1,33 +1,28 @@
 "use client";
 
-import { ArrowLeft, Check, Heart, Scale, Share2, ShieldCheck, Star } from "lucide-react";
+import { ArrowLeft, Bath, BedDouble, Building2, Check, ChevronDown, ChevronUp, MapPin, Maximize2, Phone, ShieldCheck, Star } from "lucide-react";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 
 import { useLanguage } from "@/components/i18n/language-provider";
 import { InquirySheet, type InquiryMode } from "@/components/property/inquiry-sheet";
-import { OwnerCard } from "@/components/property/owner-card";
-import { PropertyCardBody } from "@/components/property/property-card-system";
-import { AIAssistantCard, BottomActionBar, DescriptionSection, LocationCard, NearbyPlaces, SimilarProperties, TrustMeta, VerificationCard } from "@/components/property/property-detail-sections";
+import { AmenitiesGrid, LocationCard } from "@/components/property/property-detail-sections";
 import { PropertyGallery } from "@/components/property/property-gallery";
+import { Avatar } from "@/components/ui/avatar";
 import { useToast } from "@/components/ui/toast-provider";
-import { usePropertyComparison } from "@/hooks/use-property-comparison";
 import { readStoredIds, STORAGE_KEYS, writeStoredIds } from "@/lib/local-storage";
 import { mockUser } from "@/lib/mock-users";
-import { allProperties, type Property } from "@/lib/properties";
+import { formatPropertyPrice, propertyTypeLabels, type Property } from "@/lib/properties";
 import { cn } from "@/lib/utils";
 
 function PropertyDetailView({ property }: { property: Property }) {
-  const { tx } = useLanguage();
+  const { tx, isMyanmar } = useLanguage();
   const { toast } = useToast();
   const router = useRouter();
   const [favorite, setFavorite] = useState(false);
   const [inquiryOpen, setInquiryOpen] = useState(false);
-  const [inquiryMode, setInquiryMode] = useState<InquiryMode>("contact");
-  const [compactHeader, setCompactHeader] = useState(false);
-  const { comparisonIds, toggleProperty, maxComparisonHomes } = usePropertyComparison();
-  const compared = comparisonIds.includes(property.id);
-  const compareDisabled = !compared && comparisonIds.length >= maxComparisonHomes;
+  const [inquiryMode, setInquiryMode] = useState<InquiryMode>("schedule");
 
   useEffect(() => {
     const saved = readStoredIds(STORAGE_KEYS.saved, STORAGE_KEYS.legacySaved, mockUser.savedPropertyIds);
@@ -36,37 +31,12 @@ function PropertyDetailView({ property }: { property: Property }) {
     writeStoredIds(STORAGE_KEYS.recent, [property.id, ...recent.filter((id) => id !== property.id)].slice(0, 12));
   }, [property.id]);
 
-  useEffect(() => {
-    let frame = 0;
-    const update = () => {
-      window.cancelAnimationFrame(frame);
-      frame = window.requestAnimationFrame(() => setCompactHeader(window.scrollY > 330));
-    };
-    window.addEventListener("scroll", update, { passive: true });
-    return () => {
-      window.cancelAnimationFrame(frame);
-      window.removeEventListener("scroll", update);
-    };
-  }, []);
-
-  const similarProperties = useMemo(
-    () => allProperties
-      .filter((candidate) => candidate.id !== property.id && candidate.purpose === property.purpose)
-      .sort((a, b) => Number(b.city === property.city) - Number(a.city === property.city) || b.rating - a.rating)
-      .slice(0, 5),
-    [property.city, property.id, property.purpose],
-  );
-
   function toggleFavorite() {
     const saved = readStoredIds(STORAGE_KEYS.saved, STORAGE_KEYS.legacySaved, mockUser.savedPropertyIds);
     const next = favorite ? saved.filter((id) => id !== property.id) : [...saved, property.id];
     writeStoredIds(STORAGE_KEYS.saved, next);
     setFavorite(!favorite);
-    toast({
-      tone: "success",
-      title: favorite ? tx("Removed from Saved Homes", "သိမ်းထားသောအိမ်မှ ဖယ်ပြီး") : tx("Saved for later", "နောက်မှကြည့်ရန် သိမ်းပြီး"),
-      description: property.title,
-    });
+    toast({ tone: "success", title: favorite ? tx("Removed from Saved Homes", "သိမ်းထားသောအိမ်မှ ဖယ်ပြီး") : tx("Saved for later", "နောက်မှကြည့်ရန် သိမ်းပြီး"), description: property.title });
   }
 
   function openInquiry(mode: InquiryMode) {
@@ -82,80 +52,87 @@ function PropertyDetailView({ property }: { property: Property }) {
     router.push(`/search?purpose=${property.purpose}`);
   }
 
-  async function shareProperty() {
-    const shareData = { title: property.title, text: `${property.title} in ${property.township}`, url: window.location.href };
-    try {
-      if (navigator.share) await navigator.share(shareData);
-      else {
-        await navigator.clipboard.writeText(window.location.href);
-        toast({ tone: "success", title: tx("Link copied", "လင့်ခ်ကူးပြီး"), description: tx("Ready to share with family or friends.", "မိသားစု သို့မဟုတ် သူငယ်ချင်းများထံ မျှဝေနိုင်ပါပြီ။") });
-      }
-    } catch {
-      // Native sharing can be dismissed without changing the page.
-    }
-  }
+  const price = formatPropertyPrice(property, isMyanmar ? "my" : "en");
+  const propertyType = isMyanmar
+    ? ({ condo: "ကွန်ဒို", apartment: "တိုက်ခန်း", house: "အိမ်", villa: "ဗီလာ", mini_condo: "မီနီကွန်ဒို" } as const)[property.property_type]
+    : propertyTypeLabels[property.property_type];
 
   return (
-    <div className="min-h-screen bg-[#EAF4FF] pb-28 text-[#101828] lg:pb-12">
-      <header className="sticky top-0 z-50 border-b border-[#D0DEF0] bg-[#EAF4FF]/96 backdrop-blur-xl">
-        <div className="mx-auto flex h-16 max-w-[1280px] items-center gap-2 px-3 sm:px-6 lg:px-8">
-          <button type="button" onClick={returnToSearch} className="grid size-11 shrink-0 place-items-center rounded-full border border-[#D0DEF0] bg-[#F8FBFF] text-[#123B73] shadow-sm" aria-label={tx("Back to search", "ရှာဖွေမှုသို့ပြန်ရန်")}><ArrowLeft className="size-[18px]" /></button>
-          <div className="min-w-0 flex-1 px-2 text-center">
-            <span className={cn("block truncate text-[11px] font-semibold text-[#101828] transition-opacity duration-200", compactHeader ? "opacity-100" : "opacity-0")}>{property.title}</span>
-          </div>
-          <button type="button" onClick={toggleFavorite} className="grid size-11 shrink-0 place-items-center rounded-full border border-[#D0DEF0] bg-[#F8FBFF] text-[#123B73] shadow-sm" aria-label={favorite ? tx("Remove from saved", "သိမ်းထားမှုမှဖယ်ရန်") : tx("Save property", "အိမ်ကိုသိမ်းရန်")} aria-pressed={favorite}><Heart className={cn("size-[18px]", favorite && "fill-current")} /></button>
-          <button type="button" onClick={shareProperty} className="grid size-11 shrink-0 place-items-center rounded-full border border-[#D0DEF0] bg-[#F8FBFF] text-[#123B73] shadow-sm" aria-label={tx("Share property", "အိမ်ကိုမျှဝေရန်")}><Share2 className="size-[17px]" /></button>
+    <div className="min-h-screen bg-[#FAF8FF] pb-[104px] text-[#191B24]">
+      <header className="sticky top-0 z-50 border-b border-black/[.035] bg-[#FAF8FF]/88 shadow-[0_1px_8px_rgba(0,0,0,.025)] backdrop-blur-xl">
+        <div className="mx-auto flex h-14 w-full max-w-[760px] items-center gap-3 px-4 sm:px-6">
+          <button type="button" onClick={returnToSearch} className="grid size-10 shrink-0 place-items-center text-[#191B24] transition-colors hover:text-[#0053D2]" aria-label={tx("Back to search", "ရှာဖွေမှုသို့ပြန်ရန်")}><ArrowLeft className="size-5" /></button>
+          <h1 className="min-w-0 flex-1 truncate text-[20px] font-semibold tracking-[-.035em]">{tx("Property Details", "အိမ်အသေးစိတ်")}</h1>
+          <span className="relative size-8 shrink-0 overflow-hidden rounded-full border border-[#C2C6D8]"><Image src="/images/profile/thiri-win.jpg" alt={mockUser.name} fill sizes="32px" className="object-cover" /></span>
         </div>
       </header>
 
-      <main className="mx-auto max-w-[1280px] sm:px-6 sm:py-6 lg:px-8">
+      <main className="mx-auto w-full max-w-[760px]">
         <PropertyGallery images={property.images} title={property.title} verified={property.verification_status === "verified"} favorite={favorite} onToggleFavorite={toggleFavorite} />
 
-        <div className="mt-6 grid items-start gap-10 px-4 sm:px-0 lg:grid-cols-[minmax(0,1fr)_360px] lg:gap-12">
-          <div className="min-w-0">
-            <section className="pb-5">
-              <PropertyCardBody property={property} variant="featured" updatedLabel={tx("Updated 2 hours ago", "၂ နာရီက ပြင်ထားသည်")} />
-              <div className="mt-4 flex flex-wrap items-center gap-2">
-                <span className="inline-flex items-center gap-0.5 text-[#123B73]" aria-label={`${property.rating} out of 5 stars`}>{Array.from({ length: 5 }, (_, index) => <Star key={index} className="size-3.5 fill-current" />)}</span>
-                <strong className="text-[11px] text-[#101828]">{property.rating.toFixed(1)}</strong>
-                <span className="text-[10px] text-[#667085]">12 {tx("reviews", "သုံးသပ်ချက်")}</span>
-                {property.verification_status === "verified" && <span className="ml-1 inline-flex items-center gap-1 text-[10px] font-semibold text-[#123B73]"><ShieldCheck className="size-3.5" />{tx("A7 verified", "A7 စိစစ်ပြီး")}</span>}
-              </div>
-              <div className="mt-4"><TrustMeta property={property} tx={tx} /></div>
-              <button
-                type="button"
-                onClick={() => {
-                  toggleProperty(property);
-                  toast({ tone: "info", title: compared ? tx("Removed from comparison", "နှိုင်းယှဉ်မှုမှ ဖယ်ပြီး") : tx("Added to comparison", "နှိုင်းယှဉ်ရန် ထည့်ပြီး"), description: property.title });
-                }}
-                disabled={compareDisabled}
-                className={cn("mt-4 inline-flex h-11 items-center gap-2 rounded-[14px] border border-[#D0DEF0] bg-[#F8FBFF] px-4 text-[10px] font-semibold text-[#123B73] transition-colors disabled:cursor-not-allowed disabled:opacity-45", compared && "border-[#101828] bg-[#101828] text-white")}
-                aria-pressed={compared}
-                aria-label={compared ? tx("Remove this home from comparison", "ဤအိမ်ကို နှိုင်းယှဉ်မှုမှဖယ်ရန်") : tx("Add this home to comparison", "ဤအိမ်ကို နှိုင်းယှဉ်ရန်ထည့်မည်")}
-              >
-                {compared ? <Check className="size-4" /> : <Scale className="size-4" />}
-                {compared ? tx("Added to comparison", "နှိုင်းယှဉ်ရန် ထည့်ပြီး") : tx("Compare this home", "ဤအိမ်ကို နှိုင်းယှဉ်မယ်")}
-              </button>
-            </section>
+        <div className="px-4 pt-7 sm:px-6 sm:pt-8">
+          <section>
+            <div className="flex flex-wrap items-center gap-2">
+              {property.verification_status === "verified" && <span className="inline-flex h-7 items-center gap-1.5 rounded-md bg-[#0053D2]/10 px-2.5 text-[10px] font-semibold uppercase tracking-[.06em] text-[#0053D2]"><ShieldCheck className="size-3.5 fill-current" />{tx("Verified listing", "စိစစ်ထားသောအိမ်")}</span>}
+              <span className="text-[10px] font-semibold uppercase tracking-[.08em] text-[#727687]">{propertyType} · {property.purpose === "rent" ? tx("For rent", "ငှားရန်") : tx("For sale", "ရောင်းရန်")}</span>
+            </div>
+            <p className="mt-4 text-[26px] font-bold leading-8 tracking-[-.04em] text-[#0053D2]">{price}{property.purpose === "rent" && <span className="ml-1.5 text-[13px] font-normal tracking-normal text-[#424655]">{tx("/ month", "/ လ")}</span>}</p>
+            <h2 className="mt-2 text-[28px] font-bold leading-[1.16] tracking-[-.04em] text-[#191B24] sm:text-[34px]">{property.title}</h2>
+            <p className="mt-2 inline-flex items-center gap-1.5 text-[15px] text-[#424655]"><MapPin className="size-[18px]" />{property.township}, {property.city}</p>
+          </section>
 
-            <div className="mt-5"><VerificationCard tx={tx} /></div>
+          <section className="mt-6 grid grid-cols-4 divide-x divide-[#E1E2EE] border-y border-[#E1E2EE] py-5" aria-label={tx("Property facts", "အိမ်အချက်အလက်")}>
+            <PropertyFact icon={BedDouble} value={property.bedrooms} label={tx("Beds", "အိပ်ခန်း")} />
+            <PropertyFact icon={Bath} value={property.bathrooms} label={tx("Baths", "ရေချိုးခန်း")} />
+            <PropertyFact icon={Maximize2} value={property.area_sqft.toLocaleString()} label={tx("Sqft", "စတုရန်းပေ")} />
+            <PropertyFact icon={Building2} value={property.floor ?? "—"} label={tx("Floor", "အထပ်")} />
+          </section>
 
-            <DescriptionSection property={property} tx={tx} />
-            <LocationCard property={property} tx={tx} />
-            <NearbyPlaces tx={tx} />
-
-            <div className="py-7 lg:hidden"><OwnerCard owner={property.owner} onContact={() => openInquiry("contact")} onSchedule={() => openInquiry("schedule")} /></div>
-            <AIAssistantCard property={property} tx={tx} />
-            <SimilarProperties properties={similarProperties} tx={tx} />
-          </div>
-
-          <aside className="hidden lg:block"><div className="sticky top-[88px]"><OwnerCard owner={property.owner} onContact={() => openInquiry("contact")} onSchedule={() => openInquiry("schedule")} /></div></aside>
+          <OverviewSection property={property} tx={tx} />
+          <AmenitiesGrid property={property} tx={tx} />
+          <LocationCard property={property} tx={tx} />
+          <ListedByCard property={property} tx={tx} onContact={() => openInquiry("contact")} />
         </div>
       </main>
 
-      <BottomActionBar property={property} tx={tx} onMessage={() => openInquiry("contact")} onSchedule={() => openInquiry("schedule")} />
+      <div className="fixed inset-x-0 bottom-0 z-[70] border-t border-[#E1E2EE] bg-[#FAF8FF]/92 px-4 pb-[max(.75rem,env(safe-area-inset-bottom))] pt-2.5 shadow-[0_-4px_20px_rgba(0,0,0,.06)] backdrop-blur-xl">
+        <div className="mx-auto flex max-w-[728px] items-center justify-between gap-4">
+          <div className="min-w-0"><span className="block text-[11px] text-[#424655]">{property.purpose === "rent" ? tx("Monthly rent", "လစဉ်ငှားရမ်းခ") : tx("Total price", "စုစုပေါင်းဈေးနှုန်း")}</span><strong className="mt-0.5 block truncate text-[20px] font-bold tracking-[-.035em] text-[#0053D2]">{price}</strong></div>
+          <button type="button" onClick={() => openInquiry("schedule")} className="inline-flex h-12 shrink-0 items-center justify-center rounded-lg bg-[#0053D2] px-6 text-[12px] font-semibold uppercase tracking-[.05em] text-white shadow-sm transition-[transform,box-shadow] active:scale-[.98]">{tx("Request viewing", "အိမ်ကြည့်ရန်တောင်းဆို")}</button>
+        </div>
+      </div>
+
       <InquirySheet open={inquiryOpen} onOpenChange={setInquiryOpen} mode={inquiryMode} property={property} />
     </div>
+  );
+}
+
+function PropertyFact({ icon: Icon, value, label }: { icon: typeof BedDouble; value: string | number; label: string }) {
+  return <div className="flex min-w-0 flex-col items-center px-1 text-center"><Icon className="size-5 text-[#727687]" strokeWidth={1.8} /><strong className="mt-1.5 max-w-full truncate text-[17px] font-semibold text-[#191B24]">{value}</strong><span className="mt-0.5 text-[9px] font-semibold uppercase tracking-[.06em] text-[#424655]">{label}</span></div>;
+}
+
+function OverviewSection({ property, tx }: { property: Property; tx: (english: string, myanmar: string) => string }) {
+  const [expanded, setExpanded] = useState(false);
+  return (
+    <section className="border-b border-[#E1E2EE] py-7" aria-labelledby="overview-title">
+      <h2 id="overview-title" className="text-[20px] font-semibold tracking-[-.035em]">{tx("Overview", "အကျဉ်းချုပ်")}</h2>
+      <p className={cn("mt-3 text-[15px] leading-7 text-[#424655]", !expanded && "line-clamp-4")}>{property.description} {tx("This listing has clear pricing, recent photos, and verified contact details to help you plan with confidence.", "ဤအိမ်တွင် ရှင်းလင်းသောဈေးနှုန်း၊ မကြာသေးမီကဓာတ်ပုံများနှင့် စိစစ်ထားသောဆက်သွယ်ရန်အချက်အလက်များ ပါရှိသည်။")}</p>
+      <button type="button" onClick={() => setExpanded((value) => !value)} className="mt-2 inline-flex h-10 items-center gap-1 text-[11px] font-semibold uppercase tracking-[.05em] text-[#0053D2]" aria-expanded={expanded}>{expanded ? tx("Read less", "အနည်းငယ်ပြရန်") : tx("Read more", "ပိုမိုဖတ်ရန်")}{expanded ? <ChevronUp className="size-4" /> : <ChevronDown className="size-4" />}</button>
+    </section>
+  );
+}
+
+function ListedByCard({ property, tx, onContact }: { property: Property; tx: (english: string, myanmar: string) => string; onContact: () => void }) {
+  const initials = property.owner.name.split(" ").map((part) => part[0]).slice(0, 2).join("");
+  return (
+    <section className="py-7" aria-labelledby="listed-by-title">
+      <h2 id="listed-by-title" className="text-[20px] font-semibold tracking-[-.035em]">{tx("Listed By", "စာရင်းတင်သူ")}</h2>
+      <div className="mt-4 flex items-center gap-3 rounded-lg bg-[#F2F3FF] p-4">
+        <Avatar initials={initials} className="size-14 shrink-0 bg-[#DCE2F3] text-[15px] font-semibold text-[#0053D2]" />
+        <div className="min-w-0 flex-1"><strong className="block truncate text-[15px] font-semibold">{property.owner.name}</strong><span className="mt-1 inline-flex items-center gap-1 text-[11px] text-[#424655]"><Star className="size-3.5 fill-[#0053D2] text-[#0053D2]" />{property.rating.toFixed(1)} · {property.owner.type === "agent" ? tx("Verified agent", "စိစစ်ထားသောအကျိုးဆောင်") : tx("Verified owner", "စိစစ်ထားသောပိုင်ရှင်")}</span></div>
+        <button type="button" onClick={onContact} className="grid size-10 shrink-0 place-items-center rounded-full bg-[#E6E7F4] text-[#0053D2] shadow-sm transition-transform active:scale-95" aria-label={tx(`Contact ${property.owner.name}`, `${property.owner.name} ကိုဆက်သွယ်ရန်`)}><Phone className="size-[18px]" /></button>
+      </div>
+    </section>
   );
 }
 
