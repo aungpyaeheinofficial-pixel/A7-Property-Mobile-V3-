@@ -1,11 +1,13 @@
 "use client";
 
-import { ArrowUpDown, Bell, Building, Building2, Check, ChevronDown, Grid2X2, House, List, Map, MapPin, Menu, ScanSearch, ShieldCheck, ShoppingBag, X } from "lucide-react";
+import { ArrowUpDown, Bath, Bell, BedDouble, Building, Building2, Check, ChevronDown, Grid2X2, Heart, House, List, Map, MapPin, Maximize2, Menu, ScanSearch, Search, ShieldCheck, ShoppingBag, SlidersHorizontal, X } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useRef, useState } from "react";
 
 import { useLanguage } from "@/components/i18n/language-provider";
+import { LanguageSwitcher } from "@/components/i18n/language-switcher";
 import { MobilePropertyCard } from "@/components/mobile/a7-mobile-ui";
 import { MobileSearchCard } from "@/components/mobile/mobile-search-card";
 import { PropertyMap, type MapSearchBounds } from "@/components/property/property-map";
@@ -13,11 +15,12 @@ import { PropertySearchBar, type PropertySearchTab } from "@/components/search/p
 import { Button } from "@/components/ui/button";
 import { Avatar } from "@/components/ui/avatar";
 import { FilterSheet } from "@/components/ui/filter-sheet";
+import { ProgressiveImage } from "@/components/ui/progressive-image";
 import { useToast } from "@/components/ui/toast-provider";
 import { usePropertyComparison } from "@/hooks/use-property-comparison";
 import { readStoredIds, STORAGE_KEYS, writeStoredIds } from "@/lib/local-storage";
 import { mockUser } from "@/lib/mock-users";
-import { filterProperties, propertyTypeLabels, searchLocations, sortProperties, type Property, type PropertySort, type SearchFilters } from "@/lib/properties";
+import { filterProperties, formatPropertyPrice, propertyTypeLabels, searchLocations, sortProperties, type Property, type PropertySort, type SearchFilters } from "@/lib/properties";
 import { cn } from "@/lib/utils";
 
 const SEARCH_RESTORE_KEY = "a7:search-journey";
@@ -349,6 +352,50 @@ function MobilePropertySearch({ properties }: { properties: Property[] }) {
     onBathroomsChange: (value) => { setBathrooms(value); resetResultWindow(); },
   };
 
+  const browseLanding = !query.trim()
+    && location === "All Myanmar"
+    && minPrice === null
+    && maxPrice === null
+    && propertyTypes.length === 0
+    && bedrooms === null
+    && bathrooms === null
+    && amenities.length === 0
+    && mapBounds === null
+    && view === "list";
+
+  if (browseLanding) {
+    return (
+      <ExploreLanding
+        purpose={purpose}
+        searchTab={searchTab}
+        homes={results}
+        saved={saved}
+        tx={tx}
+        isMyanmar={isMyanmar}
+        onSearchValueChange={(value) => { setQuery(value); setLocation("All Myanmar"); resetResultWindow(); }}
+        onSearchSubmit={resetResultWindow}
+        onPurposeChange={selectSearchTab}
+        onOpenFilters={() => openFilters("all")}
+        onToggleSaved={toggleSaved}
+        onOpenProperty={rememberJourneyState}
+        filterSheet={
+          <FilterSheet
+            open={filtersOpen}
+            onOpenChange={setFiltersOpen}
+            title={filterSheetCopy[filterFocus].title}
+            description={filterFocus === "all" ? undefined : filterSheetCopy[filterFocus].description}
+            className="!inset-x-3 !bottom-3 max-h-[calc(100svh-24px)] !rounded-[28px] border after:pointer-events-none after:absolute after:inset-x-3 after:-bottom-3 after:-z-10 after:h-8 after:rounded-b-[28px] after:bg-a7-blue sm:!left-[calc(50%-240px)] sm:!right-[calc(50%-240px)]"
+            headerClassName="border-b-0 px-4 pb-2 pt-3 sm:px-5 sm:py-3"
+            footerClassName="border-0 bg-[#F8FBFF] px-4 pb-4 pt-2 backdrop-blur-none sm:px-5"
+            footer={<Button className="h-12 w-full rounded-full bg-a7-blue !text-white shadow-[var(--shadow-action)] hover:bg-[#0E2F5C]" onClick={() => setFiltersOpen(false)}>{tx("Apply Filters", "စစ်ထုတ်မည်")}</Button>}
+          >
+            <div className="px-4 pb-7 pt-2 sm:px-5"><FilterControls {...filterControlProps} /></div>
+          </FilterSheet>
+        }
+      />
+    );
+  }
+
   return (
     <div className="min-h-screen bg-[#EAF4FF] pb-28 lg:pb-10">
       <header className="relative z-30 bg-[#EAF4FF]">
@@ -515,6 +562,135 @@ function MobilePropertySearch({ properties }: { properties: Property[] }) {
         <div className="px-4 pb-7 pt-2 sm:px-5"><FilterControls {...filterControlProps} /></div>
       </FilterSheet>
     </div>
+  );
+}
+
+interface ExploreLandingProps {
+  purpose: "rent" | "sale";
+  searchTab: PropertySearchTab;
+  homes: Property[];
+  saved: string[];
+  tx: (english: string, myanmar: string) => string;
+  isMyanmar: boolean;
+  onSearchValueChange: (value: string) => void;
+  onSearchSubmit: () => void;
+  onPurposeChange: (tab: PropertySearchTab) => void;
+  onOpenFilters: () => void;
+  onToggleSaved: (property: Property) => void;
+  onOpenProperty: (propertyId: string) => void;
+  filterSheet: React.ReactNode;
+}
+
+function ExploreLanding({ purpose, searchTab, homes, saved, tx, isMyanmar, onSearchValueChange, onSearchSubmit, onPurposeChange, onOpenFilters, onToggleSaved, onOpenProperty, filterSheet }: ExploreLandingProps) {
+  const locationCards = [
+    { location: "Yangon", image: "/images/properties/a7-yangon-blue-hour-hero.png", title: tx("Yangon", "ရန်ကုန်"), detail: tx("Explore homes in Yangon", "ရန်ကုန်ရှိအိမ်များကိုရှာရန်") },
+    { location: "Mandalay", image: "/images/properties/hero-yangon-home.jpg", title: tx("Mandalay", "မန္တလေး"), detail: tx("Explore homes in Mandalay", "မန္တလေးရှိအိမ်များကိုရှာရန်") },
+    { location: "All Myanmar", image: "/images/properties/a7-yangon-daylight-hero.png", title: tx("Across Myanmar", "မြန်မာတစ်ဝန်း"), detail: tx("Find your next place", "သင့်အိမ်အသစ်ကိုရှာရန်") },
+  ];
+
+  function locationHref(location: string) {
+    const params = new URLSearchParams({ purpose });
+    if (purpose === "sale") params.set("mode", "buy");
+    if (location !== "All Myanmar") params.set("location", location);
+    return `/search?${params.toString()}`;
+  }
+
+  return (
+    <div className="min-h-screen bg-[#F7F8FA] pb-[120px] text-[#1B1B1F] lg:pb-12">
+      <header className="fixed inset-x-0 top-0 z-50 border-b border-black/[.035] bg-white/85 shadow-[0_1px_8px_rgba(0,0,0,.04)] backdrop-blur-xl">
+        <div className="mx-auto flex h-16 w-full max-w-[760px] items-center justify-between px-4 sm:px-6">
+          <Link href="/" className="flex min-w-0 items-center gap-2" aria-label={tx("A7 Property home", "A7 Property ပင်မစာမျက်နှာ")}>
+            <span className="relative size-8 shrink-0 overflow-hidden rounded-full bg-white shadow-[0_2px_7px_rgba(16,24,40,.12)]"><Image src="/images/brand/a7-property-logo.jpg" alt="" fill sizes="32px" className="scale-[2.55] object-contain" /></span>
+            <span className="truncate text-[20px] font-semibold tracking-[-.035em] text-[#0053D2]">A7 Property</span>
+          </Link>
+          <div className="flex items-center gap-1">
+            <LanguageSwitcher className="[&_button]:h-9 [&_button]:rounded-full [&_button]:bg-[#EFEDF1] [&_button]:px-2.5 [&_button]:text-[#424655] [&_button]:hover:bg-[#E3E2E6]" />
+            <Link href="/messages" className="relative grid size-10 place-items-center rounded-full text-[#424655] transition-colors hover:bg-[#EFEDF1]" aria-label={tx("Messages and alerts", "မက်ဆေ့ချ်နှင့် အသိပေးချက်များ")}><Bell className="size-5" /><span className="absolute right-2 top-2 size-1.5 rounded-full bg-[#0053D2] ring-2 ring-white" /></Link>
+            <Link href="/profile" className="relative size-9 overflow-hidden rounded-full" aria-label={tx("Open profile", "ပရိုဖိုင်ဖွင့်ရန်")}><Image src="/images/profile/thiri-win.jpg" alt={mockUser.name} fill sizes="36px" className="object-cover" /></Link>
+          </div>
+        </div>
+      </header>
+
+      <main className="pt-16" id="main-content" tabIndex={-1}>
+        <section className="bg-white px-4 pb-5 pt-4 sm:px-6">
+          <div className="mx-auto max-w-[760px]">
+            <form onSubmit={(event) => { event.preventDefault(); onSearchSubmit(); }} role="search" className="flex h-14 items-center rounded-full bg-[#E9E7EC] px-4 shadow-sm transition-shadow focus-within:shadow-[0_0_0_3px_rgba(0,83,210,.12)]">
+              <Search className="mr-3 size-5 shrink-0 text-[#424655]" />
+              <input type="search" autoComplete="off" onChange={(event) => onSearchValueChange(event.target.value)} placeholder={tx("Search township, city or property...", "မြို့နယ်၊ မြို့ သို့မဟုတ် အိမ်ရှာရန်...")} aria-label={tx("Search properties", "အိမ်ခြံမြေရှာရန်")} className="min-w-0 flex-1 bg-transparent text-[14px] text-[#1B1B1F] outline-none placeholder:text-[#6B7280]" />
+              <span className="mx-3 h-6 w-px bg-[#C2C6D8]" aria-hidden="true" />
+              <button type="button" onClick={onOpenFilters} className="grid size-10 place-items-center rounded-full text-[#0053D2] transition-colors hover:bg-white/70" aria-label={tx("Open filters", "စစ်ထုတ်မှုဖွင့်ရန်")}><SlidersHorizontal className="size-5" /></button>
+            </form>
+            <div className="mt-4 flex rounded-full bg-[#EFEDF1] p-1" role="tablist" aria-label={tx("Property purpose", "အိမ်ခြံမြေ ရည်ရွယ်ချက်")}>
+              <ExplorePurposeButton active={searchTab === "buy" || searchTab === "sale"} label={tx("Buy", "ဝယ်ရန်")} onClick={() => onPurposeChange("buy")} />
+              <ExplorePurposeButton active={searchTab === "rent"} label={tx("Rent", "ငှားရန်")} onClick={() => onPurposeChange("rent")} />
+            </div>
+          </div>
+        </section>
+
+        <section className="py-5">
+          <div className="mx-auto max-w-[760px]">
+            <h1 className="px-4 text-[20px] font-semibold tracking-[-.03em] text-[#1B1B1F] sm:px-6">{tx("Where do you want to live?", "ဘယ်မှာနေချင်ပါသလဲ?")}</h1>
+            <div className="mt-3 flex snap-x snap-mandatory gap-3 overflow-x-auto px-4 pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:px-6">
+              {locationCards.map((location) => <ExploreLocationCard key={location.location} href={locationHref(location.location)} image={location.image} title={location.title} detail={location.detail} />)}
+            </div>
+          </div>
+        </section>
+
+        <section id="recommended-properties" className="mx-auto max-w-[760px] px-4 pb-5 pt-2 sm:px-6" aria-labelledby="recommended-title">
+          <div className="mb-4 flex items-center justify-between gap-4">
+            <h2 id="recommended-title" className="text-[20px] font-semibold tracking-[-.03em] text-[#1B1B1F]">{tx("Recommended for you", "သင့်အတွက်အကြံပြုထားသည်")}</h2>
+            <Link href="#all-properties" className="inline-flex h-10 items-center text-[13px] font-medium text-[#0053D2]">{tx("See all", "အားလုံးကြည့်ရန်")}</Link>
+          </div>
+          <div id="all-properties" className="space-y-6">
+            {homes.slice(0, 4).map((property, index) => <ExploreRecommendationCard key={property.id} property={property} saved={saved.includes(property.id)} isMyanmar={isMyanmar} tx={tx} priority={index < 2} onToggleSaved={onToggleSaved} onOpen={onOpenProperty} />)}
+          </div>
+        </section>
+      </main>
+      {filterSheet}
+    </div>
+  );
+}
+
+function ExplorePurposeButton({ active, label, onClick }: { active: boolean; label: string; onClick: () => void }) {
+  return <button type="button" role="tab" aria-selected={active} onClick={onClick} className={cn("h-10 flex-1 rounded-full text-[13px] font-medium transition-[background-color,color,box-shadow]", active ? "bg-[#0053D2] text-white shadow-[0_2px_5px_rgba(0,83,210,.25)]" : "text-[#424655] hover:bg-white/70")}>{label}</button>;
+}
+
+function ExploreLocationCard({ href, image, title, detail }: { href: string; image: string; title: string; detail: string }) {
+  return (
+    <Link href={href} className="group relative h-48 w-40 shrink-0 snap-start overflow-hidden rounded-[14px] bg-[#E3E2E6] shadow-[0_2px_8px_rgba(27,27,31,.08)]">
+      <ProgressiveImage src={image} alt={title} fill sizes="160px" className="object-cover transition-transform duration-700 group-hover:scale-105" />
+      <span className="absolute inset-0 bg-gradient-to-t from-black/[.72] via-black/[.15] to-transparent" />
+      <span className="absolute inset-x-3 bottom-3 text-white"><strong className="block text-[20px] font-semibold tracking-[-.03em]">{title}</strong><small className="mt-1 block text-[10px] font-medium text-white/85">{detail}</small></span>
+    </Link>
+  );
+}
+
+function ExploreRecommendationCard({ property, saved, isMyanmar, tx, priority, onToggleSaved, onOpen }: { property: Property; saved: boolean; isMyanmar: boolean; tx: ExploreLandingProps["tx"]; priority: boolean; onToggleSaved: (property: Property) => void; onOpen: (propertyId: string) => void }) {
+  const price = formatPropertyPrice(property, isMyanmar ? "my" : "en");
+  const secondaryPrice = formatPropertyPrice(property, isMyanmar ? "en" : "my");
+
+  return (
+    <article className="overflow-hidden rounded-[14px] bg-white shadow-[0_4px_20px_rgba(0,0,0,.045)] transition-transform active:scale-[.99]">
+      <div className="relative aspect-[16/10] overflow-hidden bg-[#E3E2E6]">
+        <Link href={`/properties/${property.id}`} onClick={() => onOpen(property.id)} className="absolute inset-0 z-10" aria-label={tx(`View ${property.title}`, `${property.title} ကိုကြည့်ရန်`)} />
+        <ProgressiveImage src={property.images[0]} alt={property.title} fill priority={priority} sizes="(max-width: 800px) calc(100vw - 32px), 712px" className="object-cover transition-transform duration-700 group-hover:scale-[1.03]" />
+        <span className="absolute left-3 top-3 z-20 inline-flex h-7 items-center gap-1.5 rounded-full bg-white/90 px-2.5 text-[10px] font-semibold text-[#059669] shadow-sm backdrop-blur-md"><Check className="size-3.5" strokeWidth={3} />{property.verification_status === "verified" ? tx("Verified", "စိစစ်ပြီး") : tx("New listing", "အိမ်သစ်")}</span>
+        <button type="button" onClick={() => onToggleSaved(property)} aria-label={saved ? tx(`Remove ${property.title} from saved homes`, `${property.title} ကို သိမ်းထားမှုမှဖယ်ရန်`) : tx(`Save ${property.title}`, `${property.title} ကို သိမ်းရန်`)} aria-pressed={saved} className={cn("absolute right-3 top-3 z-20 grid size-10 place-items-center rounded-full bg-white/85 shadow-sm backdrop-blur-md transition-transform active:scale-95", saved ? "text-[#BA1A1A]" : "text-[#424655]")}><Heart className={cn("size-5", saved && "fill-current")} /></button>
+        {property.images.length > 1 && <span className="absolute inset-x-0 bottom-3 z-20 flex justify-center gap-1.5" aria-hidden="true">{property.images.slice(0, 3).map((_, index) => <i key={index} className={cn("size-2 rounded-full shadow-sm", index === 0 ? "bg-white" : "bg-white/50")} />)}</span>}
+      </div>
+      <div className="p-4 sm:p-5">
+        <p className="text-[22px] font-semibold leading-7 tracking-[-.035em] text-[#1B1B1F] sm:text-[24px]">{price}<span className="ml-2 text-[13px] font-normal tracking-normal text-[#6B7280]">/ {secondaryPrice}</span></p>
+        <Link href={`/properties/${property.id}`} onClick={() => onOpen(property.id)} className="mt-1.5 block"><h3 className="truncate text-[16px] leading-6 text-[#424655] transition-colors hover:text-[#0053D2] sm:text-[17px]">{property.title}</h3></Link>
+        <p className="mt-1.5 inline-flex items-center gap-1.5 text-[12px] font-medium text-[#6B7280]"><MapPin className="size-4 text-[#424655]" />{property.township}, {property.city}</p>
+        <div className="mt-4 flex flex-wrap items-center gap-x-3.5 gap-y-2 text-[#424655]">
+          <span className="inline-flex items-center gap-1.5 text-[12px] font-medium"><BedDouble className="size-[18px]" />{property.bedrooms} {property.bedrooms === 1 ? tx("Bed", "အိပ်ခန်း") : tx("Beds", "အိပ်ခန်း")}</span>
+          <i className="size-[3px] rounded-full bg-[#727687]" aria-hidden="true" />
+          <span className="inline-flex items-center gap-1.5 text-[12px] font-medium"><Bath className="size-[18px]" />{property.bathrooms} {property.bathrooms === 1 ? tx("Bath", "ရေချိုးခန်း") : tx("Baths", "ရေချိုးခန်း")}</span>
+          <i className="size-[3px] rounded-full bg-[#727687]" aria-hidden="true" />
+          <span className="inline-flex items-center gap-1.5 text-[12px] font-medium"><Maximize2 className="size-[17px]" />{property.area_sqft.toLocaleString()} sqft</span>
+        </div>
+      </div>
+    </article>
   );
 }
 

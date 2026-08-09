@@ -8,8 +8,19 @@ interface SearchPageProps {
 }
 
 export const metadata: Metadata = {
-  title: "Search verified homes in Myanmar | A7 Property",
-  description: "Filter verified Myanmar properties by location, price, home type, bedrooms, furniture and parking. Explore list and map views.",
+  title: "Explore homes in Myanmar | A7 Property",
+  description: "Discover verified homes across Myanmar by location, price, and property type.",
+  openGraph: {
+    title: "Explore Homes | A7 Property",
+    description: "Discover verified homes across Myanmar by location, price, and property type.",
+    images: [{ url: "/og-explore-homes.png", width: 1734, height: 907, alt: "A7 Property Explore Homes" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Explore Homes | A7 Property",
+    description: "Discover verified homes across Myanmar by location, price, and property type.",
+    images: ["/og-explore-homes.png"],
+  },
 };
 
 export default async function SearchPage({ searchParams }: SearchPageProps) {
