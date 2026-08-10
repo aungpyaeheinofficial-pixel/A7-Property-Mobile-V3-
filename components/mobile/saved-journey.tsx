@@ -1,12 +1,11 @@
 "use client";
 
 import { Bath, BedDouble, Heart, Maximize2, ShieldCheck } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 
 import { useLanguage } from "@/components/i18n/language-provider";
-import { LanguageSwitcher } from "@/components/i18n/language-switcher";
+import { MobileAppHeader } from "@/components/layout/mobile-app-header";
 import { ProgressiveImage } from "@/components/ui/progressive-image";
 import { readStoredIds, STORAGE_KEYS, writeStoredIds } from "@/lib/local-storage";
 import { mockUser } from "@/lib/mock-users";
@@ -46,21 +45,7 @@ function SavedJourney() {
   return (
     <div className="min-h-screen bg-[#F7F8FA] pb-[118px] text-[#1B1B1F] lg:pb-12">
       <header className="fixed inset-x-0 top-0 z-50 border-b border-black/[.035] bg-[#FAF9FD]/85 shadow-[0_1px_8px_rgba(0,0,0,.04)] backdrop-blur-xl">
-        <div className="mx-auto flex h-16 w-full max-w-[760px] items-center justify-between px-4 sm:px-6">
-          <Link href="/" className="flex items-center gap-2" aria-label={tx("A7 Property home", "A7 Property ပင်မစာမျက်နှာ")}>
-            <span className="relative size-8 overflow-hidden rounded-full bg-white shadow-[0_2px_7px_rgba(16,24,40,.12)]">
-              <Image src="/images/brand/a7-property-logo.jpg" alt="" fill sizes="32px" className="scale-[2.55] object-contain" />
-            </span>
-            <span className="text-[20px] font-semibold tracking-[-.035em] text-[#0053D2]">{tx("Saved", "သိမ်းထားသည်")}</span>
-          </Link>
-
-          <div className="flex items-center gap-1.5">
-            <LanguageSwitcher className="[&_button]:h-9 [&_button]:rounded-lg [&_button]:bg-[#EFEDF1] [&_button]:px-2.5 [&_button]:text-[#424655] [&_button]:hover:bg-[#E3E2E6]" />
-            <Link href="/profile" className="relative size-8 overflow-hidden rounded-full border border-[#C2C6D8]" aria-label={tx("Open profile", "ပရိုဖိုင်ဖွင့်ရန်")}>
-              <Image src="/images/profile/thiri-win.jpg" alt={mockUser.name} fill sizes="32px" className="object-cover" />
-            </Link>
-          </div>
-        </div>
+        <MobileAppHeader />
       </header>
 
       <main className="mx-auto w-full max-w-[760px] px-4 pt-[88px] sm:px-6" aria-labelledby="saved-homes-title">

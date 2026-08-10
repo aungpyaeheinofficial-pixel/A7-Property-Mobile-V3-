@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation";
 import { FormEvent, useEffect, useMemo, useState } from "react";
 
 import { useLanguage } from "@/components/i18n/language-provider";
-import { LanguageSwitcher } from "@/components/i18n/language-switcher";
+import { MobileAppHeader } from "@/components/layout/mobile-app-header";
 import { ProgressiveImage } from "@/components/ui/progressive-image";
 import { useToast } from "@/components/ui/toast-provider";
 import { readStoredIds, STORAGE_KEYS, writeStoredIds } from "@/lib/local-storage";
@@ -20,9 +20,9 @@ import { cn } from "@/lib/utils";
 type HomeMode = "rent" | "buy";
 
 const locationCards = [
-  { name: "Yangon", nameMy: "ရန်ကုန်", location: "Yangon", image: "/images/properties/a7-yangon-daylight-hero.png" },
-  { name: "Mandalay", nameMy: "မန္တလေး", location: "Mandalay", image: "/images/properties/jade-residence-exterior.jpg" },
-  { name: "Bahan", nameMy: "ဗဟန်း", location: "Bahan", image: "/images/properties/hero-yangon-home.jpg" },
+  { name: "Yangon", nameMy: "ရန်ကုန်", location: "Yangon", image: "/images/locations/yangon-karaweik-v2.jpg" },
+  { name: "Mandalay", nameMy: "မန္တလေး", location: "Mandalay", image: "/images/locations/mandalay-u-bein-v2.jpg" },
+  { name: "Bahan", nameMy: "ဗဟန်း", location: "Bahan", image: "/images/locations/bahan-shwedagon-v2.jpg" },
 ] as const;
 
 function HomeDiscovery() {
@@ -68,33 +68,24 @@ function HomeDiscovery() {
 
   return (
     <div className="min-h-screen overflow-x-clip bg-[#FAF8FF] pb-[116px] text-[#191B24] lg:pb-12">
-      <header className="fixed inset-x-0 top-0 z-50 border-b border-black/[.025] bg-[#FAF8FF]/85 shadow-[0_1px_8px_rgba(0,0,0,.025)] backdrop-blur-xl">
-        <div className="mx-auto flex h-16 w-full max-w-[920px] items-center justify-between px-4 sm:px-6">
-          <Link href="/" className="flex items-center gap-2" aria-label={tx("A7 Property home", "A7 Property ပင်မစာမျက်နှာ")}>
-            <span className="relative size-8 overflow-hidden rounded-lg bg-[#0053D2] shadow-sm"><Image src="/images/brand/a7-property-logo.jpg" alt="" fill sizes="32px" className="scale-[2.55] object-contain" /></span>
-            <span className="text-[20px] font-semibold tracking-[-.035em]">{tx("Home", "ပင်မ")}</span>
-          </Link>
-          <div className="flex items-center gap-1.5">
-            <LanguageSwitcher className="[&_button]:h-9 [&_button]:rounded-lg [&_button]:px-2.5 [&_button]:text-[#424655]" />
-            <Link href="/profile" className="relative size-8 overflow-hidden rounded-full border border-[#C2C6D8]" aria-label={tx("Open profile", "ပရိုဖိုင်ဖွင့်ရန်")}><Image src="/images/profile/thiri-win.jpg" alt={mockUser.name} fill sizes="32px" className="object-cover" /></Link>
-          </div>
-        </div>
+      <header className="sticky inset-x-0 top-0 z-50 border-b border-[#DCE5EF] bg-[#F8FAFD]/92 backdrop-blur-xl">
+        <MobileAppHeader />
       </header>
 
       <motion.main
         initial={reduceMotion ? false : "hidden"}
         animate="show"
         variants={{ hidden: {}, show: { transition: { staggerChildren: reduceMotion ? 0 : 0.06, delayChildren: reduceMotion ? 0 : 0.05 } } }}
-        className="pt-16"
+        className="pt-0"
       >
-        <motion.section variants={reveal(reduceMotion)} className="relative mx-auto h-[500px] w-full max-w-[920px] overflow-hidden rounded-b-[32px] bg-[#191B24] sm:h-[570px] sm:rounded-b-[38px]" aria-labelledby="home-hero-title">
-          <ProgressiveImage src="/images/properties/a7-yangon-blue-hour-hero.png" alt="Modern tropical home in Yangon at dusk" fill priority sizes="(max-width: 920px) 100vw, 920px" className="object-cover object-center" skeletonClassName="bg-[#DCEBFF]" />
-          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(8,15,27,.45)_0%,rgba(8,15,27,.1)_36%,rgba(8,15,27,.82)_100%)]" />
+        <motion.section variants={reveal(reduceMotion)} className="relative mx-1.5 h-[516px] max-w-[920px] overflow-hidden rounded-[26px] bg-[#191B24] sm:mx-auto sm:h-[570px] sm:rounded-[38px]" aria-labelledby="home-hero-title">
+          <ProgressiveImage src="/images/properties/hero-yangon-home.jpg" alt="Warm modern tropical home in Yangon" fill priority sizes="(max-width: 920px) calc(100vw - 12px), 920px" className="object-cover object-center" skeletonClassName="bg-[#DCEBFF]" />
+          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(7,13,23,.52)_0%,rgba(7,13,23,.18)_34%,rgba(7,13,23,.84)_100%)]" />
 
-          <div className="relative z-10 flex h-full flex-col justify-between px-4 pb-8 pt-6 sm:px-8 sm:pb-10">
+          <div className="relative z-10 flex h-full flex-col justify-between px-5 pb-[18px] pt-3 sm:px-8 sm:pb-10 sm:pt-6">
             <div className="flex items-start justify-between gap-4">
-              <div className="text-white"><p className="text-[14px] text-white/78">{tx("Good morning", "မင်္ဂလာနံနက်ခင်းပါ")}</p><p className="mt-0.5 text-[28px] font-semibold tracking-[-.04em]">{tx("Thiri", "သီရိ")}</p></div>
-              <Link href="/search?purpose=rent&location=Yangon" className="inline-flex h-10 items-center gap-1.5 rounded-full border border-white/20 bg-black/25 px-3 text-[13px] font-medium text-white backdrop-blur-md"><MapPin className="size-4" />{tx("Yangon", "ရန်ကုန်")}<ChevronDown className="size-3.5 text-white/70" /></Link>
+              <div className="text-white"><p className="text-[12px] text-white/75 sm:text-[14px]">{tx("Good morning", "မင်္ဂလာနံနက်ခင်းပါ")}</p><p className="mt-0.5 text-[22px] font-semibold tracking-[-.04em] sm:text-[28px]">{tx("Thiri", "သီရိ")}</p></div>
+              <Link href="/search?purpose=rent&location=Yangon" className="inline-flex h-11 items-center gap-1.5 rounded-full border border-white/20 bg-black/25 px-3.5 text-[13px] font-medium text-white backdrop-blur-md"><MapPin className="size-4 text-[#4EA4FF]" />{tx("Yangon", "ရန်ကုန်")}<ChevronDown className="size-3.5 text-white/70" /></Link>
             </div>
 
             <div className="max-w-[620px]">
@@ -102,13 +93,13 @@ function HomeDiscovery() {
               <h1 id="home-hero-title" className="mt-3 max-w-[470px] text-[36px] font-bold leading-[1.12] tracking-[-.045em] text-white sm:text-[50px]">{tx("Find a home that feels like you.", "သင့်စိတ်တိုင်းကျ အိမ်တစ်လုံးကို ရှာပါ။")}</h1>
               <p className="mt-3 max-w-[440px] text-[14px] leading-6 text-white/78 sm:text-[15px]">{tx("Trusted homes, clear prices, and people you can feel confident speaking with.", "ယုံကြည်ရသောအိမ်များ၊ ရှင်းလင်းသောဈေးနှုန်းများနှင့် ယုံကြည်စိတ်ချရသောအိမ်ပိုင်ရှင်များ။")}</p>
 
-              <form onSubmit={submitSearch} role="search" className="mt-5 flex h-14 items-center rounded-full bg-[#FAF8FF] p-1.5 pl-4 shadow-[0_14px_36px_rgba(0,0,0,.22)] focus-within:ring-4 focus-within:ring-[#B2C5FF]/25">
+              <form onSubmit={submitSearch} role="search" className="mt-5 flex h-16 items-center rounded-full bg-[#FAF8FF] p-1.5 pl-5 shadow-[0_14px_36px_rgba(0,0,0,.22)] focus-within:ring-4 focus-within:ring-[#B2C5FF]/25">
                 <Search className="size-5 shrink-0 text-[#424655]" />
-                <input value={query} onChange={(event) => setQuery(event.target.value)} placeholder={tx("Township, landmark or property ID...", "မြို့နယ်၊ အထင်ကရနေရာ သို့မဟုတ် အိမ်နံပါတ်...")} aria-label={tx("Search for a home", "အိမ်ရှာရန်")} className="min-w-0 flex-1 bg-transparent px-3 text-[13px] text-[#191B24] outline-none placeholder:text-[#727687] sm:text-[14px]" />
-                <button type="submit" className="grid size-11 shrink-0 place-items-center rounded-full bg-[#0053D2] text-white shadow-[0_7px_18px_rgba(0,83,210,.28)] transition-transform active:scale-95" aria-label={tx("Search", "ရှာရန်")}><Search className="size-5" /></button>
+                <input value={query} onChange={(event) => setQuery(event.target.value)} placeholder={tx("Township, landmark or property ID...", "မြို့နယ်၊ အထင်ကရနေရာ သို့မဟုတ် အိမ်နံပါတ်...")} aria-label={tx("Search for a home", "အိမ်ရှာရန်")} className="min-w-0 flex-1 bg-transparent px-3 text-[14px] text-[#191B24] outline-none placeholder:text-[#66758A] sm:text-[15px]" />
+                <button type="submit" className="grid size-[52px] shrink-0 place-items-center rounded-full bg-[#064D93] text-white shadow-[0_7px_18px_rgba(0,83,210,.28)] transition-transform active:scale-95" aria-label={tx("Search", "ရှာရန်")}><Search className="size-5" /></button>
               </form>
 
-              <div className="mt-2 flex items-center rounded-full bg-[#FAF8FF]/92 p-1 shadow-lg backdrop-blur-md" role="tablist" aria-label={tx("Property purpose", "အိမ်ခြံမြေ ရည်ရွယ်ချက်")}>
+              <div className="mt-2 flex h-[58px] items-center rounded-full bg-[#FAF8FF]/92 p-1.5 shadow-lg backdrop-blur-md" role="tablist" aria-label={tx("Property purpose", "အိမ်ခြံမြေ ရည်ရွယ်ချက်")}>
                 <ModeButton active={mode === "rent"} label={tx("Rent", "ငှားရန်")} onClick={() => setMode("rent")} />
                 <ModeButton active={mode === "buy"} label={tx("Buy", "ဝယ်ရန်")} onClick={() => setMode("buy")} />
                 <Link href={searchHref} className="ml-1 grid size-10 shrink-0 place-items-center rounded-full text-[#424655] transition-colors hover:bg-[#E6E7F4] hover:text-[#0053D2]" aria-label={tx("Open filters", "စစ်ထုတ်မှုဖွင့်ရန်")}><SlidersHorizontal className="size-5" /></Link>
@@ -116,7 +107,7 @@ function HomeDiscovery() {
             </div>
           </div>
 
-          <Link href="/assistant" className="absolute bottom-4 right-4 z-20 inline-flex h-11 items-center gap-2 rounded-full bg-[#0053D2] px-4 text-[13px] font-semibold text-white shadow-[0_12px_28px_rgba(0,83,210,.32)] transition-transform hover:-translate-y-0.5 sm:right-8"><Sparkles className="size-[18px] fill-current" />{tx("Ask A7", "A7 ကိုမေးရန်")}</Link>
+          <Link href="/assistant" className="absolute bottom-1 right-3 z-20 inline-flex h-11 items-center gap-2 rounded-full border border-[#A6CFFF] bg-[#064D93] px-4 text-[13px] font-semibold text-white shadow-[0_12px_28px_rgba(0,83,210,.32)] transition-transform hover:-translate-y-0.5 sm:bottom-4 sm:right-8"><Sparkles className="size-[18px] fill-current" />{tx("Ask A7", "A7 ကိုမေးရန်")}</Link>
         </motion.section>
 
         <motion.section variants={reveal(reduceMotion)} className="mx-auto mt-10 w-full max-w-[920px]" aria-labelledby="locations-title">
@@ -152,7 +143,7 @@ function buildSearchHref(mode: HomeMode, location?: string) {
 }
 
 function ModeButton({ active, label, onClick }: { active: boolean; label: string; onClick: () => void }) {
-  return <button type="button" role="tab" aria-selected={active} onClick={onClick} className={cn("h-10 flex-1 rounded-full text-[11px] font-semibold uppercase tracking-[.06em] transition-[background-color,color,box-shadow]", active ? "bg-white text-[#0053D2] shadow-sm" : "text-[#424655] hover:text-[#191B24]")}>{label}</button>;
+  return <button type="button" role="tab" aria-selected={active} onClick={onClick} className={cn("h-[46px] flex-1 rounded-full text-[14px] font-medium transition-[background-color,color,box-shadow]", active ? "bg-white text-[#28558C] shadow-sm" : "text-[#58677B] hover:text-[#191B24]")}>{label}</button>;
 }
 
 function LocationCard({ location, mode, isMyanmar }: { location: (typeof locationCards)[number]; mode: HomeMode; isMyanmar: boolean }) {

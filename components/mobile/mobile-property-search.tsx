@@ -1,13 +1,12 @@
 "use client";
 
 import { ArrowUpDown, Bath, Bell, BedDouble, Building, Building2, Check, ChevronDown, Grid2X2, Heart, House, List, Map, MapPin, Maximize2, Menu, ScanSearch, Search, ShieldCheck, ShoppingBag, SlidersHorizontal, X } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useRef, useState } from "react";
 
 import { useLanguage } from "@/components/i18n/language-provider";
-import { LanguageSwitcher } from "@/components/i18n/language-switcher";
+import { MobileAppHeader } from "@/components/layout/mobile-app-header";
 import { MobilePropertyCard } from "@/components/mobile/a7-mobile-ui";
 import { MobileSearchCard } from "@/components/mobile/mobile-search-card";
 import { PropertyMap, type MapSearchBounds } from "@/components/property/property-map";
@@ -598,17 +597,7 @@ function ExploreLanding({ purpose, searchTab, homes, saved, tx, isMyanmar, onSea
   return (
     <div className="min-h-screen bg-[#F7F8FA] pb-[120px] text-[#1B1B1F] lg:pb-12">
       <header className="fixed inset-x-0 top-0 z-50 border-b border-black/[.035] bg-white/85 shadow-[0_1px_8px_rgba(0,0,0,.04)] backdrop-blur-xl">
-        <div className="mx-auto flex h-16 w-full max-w-[760px] items-center justify-between px-4 sm:px-6">
-          <Link href="/" className="flex min-w-0 items-center gap-2" aria-label={tx("A7 Property home", "A7 Property ပင်မစာမျက်နှာ")}>
-            <span className="relative size-8 shrink-0 overflow-hidden rounded-full bg-white shadow-[0_2px_7px_rgba(16,24,40,.12)]"><Image src="/images/brand/a7-property-logo.jpg" alt="" fill sizes="32px" className="scale-[2.55] object-contain" /></span>
-            <span className="truncate text-[20px] font-semibold tracking-[-.035em] text-[#0053D2]">A7 Property</span>
-          </Link>
-          <div className="flex items-center gap-1">
-            <LanguageSwitcher className="[&_button]:h-9 [&_button]:rounded-full [&_button]:bg-[#EFEDF1] [&_button]:px-2.5 [&_button]:text-[#424655] [&_button]:hover:bg-[#E3E2E6]" />
-            <Link href="/messages" className="relative grid size-10 place-items-center rounded-full text-[#424655] transition-colors hover:bg-[#EFEDF1]" aria-label={tx("Messages and alerts", "မက်ဆေ့ချ်နှင့် အသိပေးချက်များ")}><Bell className="size-5" /><span className="absolute right-2 top-2 size-1.5 rounded-full bg-[#0053D2] ring-2 ring-white" /></Link>
-            <Link href="/profile" className="relative size-9 overflow-hidden rounded-full" aria-label={tx("Open profile", "ပရိုဖိုင်ဖွင့်ရန်")}><Image src="/images/profile/thiri-win.jpg" alt={mockUser.name} fill sizes="36px" className="object-cover" /></Link>
-          </div>
-        </div>
+        <MobileAppHeader />
       </header>
 
       <main className="pt-16" id="main-content" tabIndex={-1}>

@@ -14,11 +14,12 @@ const options: Array<{ value: Language; label: string; nativeLabel: string }> = 
 
 interface LanguageSwitcherProps {
   className?: string;
+  buttonClassName?: string;
   compact?: boolean;
   menuAlign?: "left" | "right";
 }
 
-function LanguageSwitcher({ className, compact = false, menuAlign = "right" }: LanguageSwitcherProps) {
+function LanguageSwitcher({ className, buttonClassName, compact = false, menuAlign = "right" }: LanguageSwitcherProps) {
   const { language, setLanguage, tx } = useLanguage();
   const [open, setOpen] = useState(false);
   const rootRef = useRef<HTMLDivElement>(null);
@@ -61,6 +62,7 @@ function LanguageSwitcher({ className, compact = false, menuAlign = "right" }: L
           "inline-flex h-11 items-center justify-center rounded-full text-[#526172] transition-[background-color,color,box-shadow] hover:bg-[#EEF5FC] hover:text-[#0057D9] focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-[#0057D9]/18",
           compact ? "w-11" : "gap-1.5 px-3",
           open && "bg-[#EEF5FC] text-[#0057D9]",
+          buttonClassName,
         )}
       >
         <Globe2 className="size-[18px]" strokeWidth={2} />
