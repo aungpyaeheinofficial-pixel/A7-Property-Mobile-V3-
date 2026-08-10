@@ -1,6 +1,7 @@
 "use client";
 
 import { Bell } from "lucide-react";
+import { motion, useReducedMotion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -27,6 +28,7 @@ function MobileAppHeader({
   theme = "light",
 }: MobileAppHeaderProps) {
   const { tx } = useLanguage();
+  const reduceMotion = useReducedMotion();
   const isDark = theme === "dark";
   const iconColor = isDark ? "text-[#E7E9EE] hover:bg-white/10" : "text-[#424655] hover:bg-[#EFEDF1]";
   const languageButton = isDark
@@ -40,7 +42,12 @@ function MobileAppHeader({
   );
 
   return (
-    <div className={cn("mx-auto flex h-16 w-full max-w-[920px] items-center justify-between gap-2 px-3 sm:px-6", className)}>
+    <motion.div
+      initial={reduceMotion ? false : { opacity: 0, y: -10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: reduceMotion ? 0 : 0.38, ease: [0.22, 1, 0.36, 1] }}
+      className={cn("mx-auto flex h-16 w-full max-w-[920px] items-center justify-between gap-2 px-3 sm:px-6", className)}
+    >
       <Link href="/" className="flex min-w-0 shrink items-center gap-2 sm:gap-3" aria-label={tx("A7 Property home", "A7 Property ပင်မစာမျက်နှာ")}>
         <span className="relative size-9 shrink-0 overflow-hidden rounded-full bg-white shadow-[0_2px_8px_rgba(16,24,40,.12)] sm:size-11">
           <Image src="/images/brand/a7-property-logo.jpg" alt="" fill sizes="44px" className="scale-[2.55] object-contain" />
@@ -71,7 +78,7 @@ function MobileAppHeader({
           </Link>
         )}
       </div>
-    </div>
+    </motion.div>
   );
 }
 

@@ -13,6 +13,7 @@ import {
   ShieldCheck,
   UserRound,
 } from "lucide-react";
+import { motion, useReducedMotion } from "framer-motion";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState, type ElementType, type ReactNode } from "react";
@@ -33,6 +34,7 @@ type SettingId = "notifications" | "language" | "verification" | "help";
 
 function ProfileExperience() {
   const { tx, language, setLanguage } = useLanguage();
+  const reduceMotion = useReducedMotion();
   const { signOut } = useAuth();
   const { toast } = useToast();
   const router = useRouter();
@@ -79,36 +81,36 @@ function ProfileExperience() {
       </header>
 
       <main className="mx-auto w-full max-w-[760px] px-4 pb-8 pt-[calc(88px+env(safe-area-inset-top))] sm:px-6">
-        <section className="flex flex-col items-center text-center" aria-labelledby="profile-title">
+        <motion.section initial={reduceMotion ? false : { opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: reduceMotion ? 0 : 0.42, ease: [0.22, 1, 0.36, 1] }} className="flex flex-col items-center text-center" aria-labelledby="profile-title">
           <button type="button" onClick={() => { setProfileDraft(profile); setProfileOpen(true); }} className="relative rounded-full focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#0053D2]/20" aria-label={tx("Edit personal information", "ကိုယ်ရေးအချက်အလက်ပြင်ရန်")}>
             <Avatar src="/images/profile/thiri-win.jpg" alt={profile.name} initials={mockUser.initials} size="lg" className="size-24 border border-[#E5E7EB] bg-[#E9EEF5] shadow-sm" />
             <span className="absolute -bottom-1 -right-1 grid size-8 place-items-center rounded-full bg-white p-1 shadow-sm"><ShieldCheck className="size-5 fill-[#0053D2] text-white" /></span>
           </button>
           <h1 id="profile-title" className="mt-3 text-[28px] font-bold leading-9 tracking-[-.025em]">{profile.name}</h1>
           <p className={cn("mt-1 text-[15px]", darkMode ? "text-[#BFC3CA]" : "text-[#6B7280]")}>{tx("Member since 2024", "၂၀၂၄ ခုနှစ်မှ အဖွဲ့ဝင်")}</p>
-        </section>
+        </motion.section>
 
         <div className="mt-8 space-y-6">
-          <SettingsGroup title={tx("Account", "အကောင့်")} dark={darkMode}>
+          <motion.div initial={reduceMotion ? false : { opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: reduceMotion ? 0 : 0.38, delay: reduceMotion ? 0 : 0.08, ease: [0.22, 1, 0.36, 1] }}><SettingsGroup title={tx("Account", "အကောင့်")} dark={darkMode}>
             <SettingsRow icon={UserRound} label={tx("Personal Information", "ကိုယ်ရေးအချက်အလက်")} onClick={() => { setProfileDraft(profile); setProfileOpen(true); }} dark={darkMode} />
             <SettingsRow icon={ShieldCheck} label={tx("Verification Status", "အတည်ပြုအခြေအနေ")} trailing={tx("Verified", "အတည်ပြုပြီး")} onClick={() => setActiveSetting("verification")} dark={darkMode} />
             <SettingsRow icon={Building2} label={tx("My Properties", "ကျွန်ုပ်၏အိမ်များ")} href="/saved" dark={darkMode} />
-          </SettingsGroup>
+          </SettingsGroup></motion.div>
 
-          <SettingsGroup title={tx("Preferences", "စိတ်ကြိုက်ရွေးချယ်မှု")} dark={darkMode}>
+          <motion.div initial={reduceMotion ? false : { opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: reduceMotion ? 0 : 0.38, delay: reduceMotion ? 0 : 0.14, ease: [0.22, 1, 0.36, 1] }}><SettingsGroup title={tx("Preferences", "စိတ်ကြိုက်ရွေးချယ်မှု")} dark={darkMode}>
             <SettingsRow icon={Globe2} label={tx("Language", "ဘာသာစကား")} trailing={language === "en" ? "EN" : "မြန်မာ"} onClick={() => setActiveSetting("language")} dark={darkMode} />
             <SettingsRow icon={Bell} label={tx("Notifications", "အသိပေးချက်များ")} onClick={() => setActiveSetting("notifications")} dark={darkMode} />
             <ToggleRow checked={darkMode} onChange={() => setDarkMode((current) => !current)} dark={darkMode} label={tx("Dark Mode", "အမှောင်ပုံစံ")} />
-          </SettingsGroup>
+          </SettingsGroup></motion.div>
 
-          <SettingsGroup title={tx("Support & Legal", "အကူအညီနှင့် စည်းမျဉ်းများ")} dark={darkMode}>
+          <motion.div initial={reduceMotion ? false : { opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: reduceMotion ? 0 : 0.38, delay: reduceMotion ? 0 : 0.2, ease: [0.22, 1, 0.36, 1] }}><SettingsGroup title={tx("Support & Legal", "အကူအညီနှင့် စည်းမျဉ်းများ")} dark={darkMode}>
             <SettingsRow icon={CircleHelp} label={tx("Help Center", "အကူအညီစင်တာ")} onClick={() => setActiveSetting("help")} dark={darkMode} />
             <SettingsRow icon={LockKeyhole} label={tx("Privacy Policy", "ကိုယ်ရေးလုံခြုံမှု မူဝါဒ")} href="/privacy" dark={darkMode} />
             <SettingsRow icon={FileText} label={tx("Terms of Service", "ဝန်ဆောင်မှု စည်းကမ်းများ")} href="/terms" dark={darkMode} />
-          </SettingsGroup>
+          </SettingsGroup></motion.div>
         </div>
 
-        <button type="button" onClick={handleSignOut} className={cn("mt-7 flex min-h-14 w-full items-center justify-center gap-2 rounded-xl text-[15px] font-medium shadow-sm transition-colors", darkMode ? "bg-[#2C2F34] text-[#FFB4AB]" : "bg-white text-[#BA1A1A]")}><LogOut className="size-5" />{tx("Sign Out", "အကောင့်မှ ထွက်ရန်")}</button>
+        <motion.button initial={reduceMotion ? false : { opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: reduceMotion ? 0 : 0.36, delay: reduceMotion ? 0 : 0.26, ease: [0.22, 1, 0.36, 1] }} type="button" onClick={handleSignOut} className={cn("mt-7 flex min-h-14 w-full items-center justify-center gap-2 rounded-xl text-[15px] font-medium shadow-sm transition-colors", darkMode ? "bg-[#2C2F34] text-[#FFB4AB]" : "bg-white text-[#BA1A1A]")}><LogOut className="size-5" />{tx("Sign Out", "အကောင့်မှ ထွက်ရန်")}</motion.button>
       </main>
 
       <Modal

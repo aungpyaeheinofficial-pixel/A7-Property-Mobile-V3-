@@ -1,6 +1,7 @@
 "use client";
 
 import { ArrowUpDown, Bath, Bell, BedDouble, Building, Building2, Check, ChevronDown, Grid2X2, Heart, House, List, Map, MapPin, Maximize2, Menu, ScanSearch, Search, ShieldCheck, ShoppingBag, SlidersHorizontal, X } from "lucide-react";
+import { motion, useReducedMotion } from "framer-motion";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useRef, useState } from "react";
@@ -64,6 +65,7 @@ interface ActiveFilter {
 function MobilePropertySearch({ properties }: { properties: Property[] }) {
   const params = useSearchParams();
   const { tx, isMyanmar } = useLanguage();
+  const reduceMotion = useReducedMotion();
   const { toast } = useToast();
   const locationParam = params.get("location") ?? "";
   const recognizedLocation = searchLocations.includes(locationParam as (typeof searchLocations)[number]);
@@ -377,6 +379,7 @@ function MobilePropertySearch({ properties }: { properties: Property[] }) {
         onOpenFilters={() => openFilters("all")}
         onToggleSaved={toggleSaved}
         onOpenProperty={rememberJourneyState}
+        reduceMotion={Boolean(reduceMotion)}
         filterSheet={
           <FilterSheet
             open={filtersOpen}
@@ -397,7 +400,7 @@ function MobilePropertySearch({ properties }: { properties: Property[] }) {
 
   return (
     <div className="min-h-screen bg-[#EAF4FF] pb-28 lg:pb-10">
-      <header className="relative z-30 bg-[#EAF4FF]">
+      <motion.header initial={reduceMotion ? false : { opacity: 0, y: -12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: reduceMotion ? 0 : 0.4, ease: [0.22, 1, 0.36, 1] }} className="relative z-30 bg-[#EAF4FF]">
         <div className="mx-auto max-w-[1280px] px-4 pb-3 pt-3 sm:px-6 lg:px-8">
           <div className="mb-3 flex h-12 items-center gap-3">
             <Link href="/" className="grid size-11 shrink-0 place-items-center rounded-full text-a7-navy transition-colors hover:bg-[#F8FBFF] hover:text-a7-blue" aria-label={tx("Open main navigation", "အဓိကလမ်းညွှန်ဖွင့်ရန်")}><Menu className="size-[22px]" /></Link>
@@ -439,9 +442,9 @@ function MobilePropertySearch({ properties }: { properties: Property[] }) {
             <QuickFilterChip selected={false} onClick={() => { setPropertyTypes([]); resetResultWindow(); }} label={tx("Any type", "အမျိုးအစားမရွေး")} icon={<Grid2X2 className="size-3.5" />} />
           </div>
         </div>
-      </header>
+      </motion.header>
 
-      <main id="main-content" tabIndex={-1} className="mx-auto max-w-[1280px] px-4 py-4 outline-none sm:px-6 sm:py-6 lg:px-8">
+      <motion.main initial={reduceMotion ? false : { opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: reduceMotion ? 0 : 0.46, delay: reduceMotion ? 0 : 0.08, ease: [0.22, 1, 0.36, 1] }} id="main-content" tabIndex={-1} className="mx-auto max-w-[1280px] px-4 py-4 outline-none sm:px-6 sm:py-6 lg:px-8">
         <div className={cn(view === "map" && "hidden lg:block")}>
           <div className="flex items-end justify-between gap-3 border-b border-a7-line pb-4">
             <div className="min-w-0">
@@ -517,7 +520,7 @@ function MobilePropertySearch({ properties }: { properties: Property[] }) {
         ) : results.length ? (
           <>
             <div className="mt-5 grid gap-4 lg:grid-cols-2 xl:grid-cols-3">
-              {results.slice(0, visibleCount).map((property, index) => <div key={property.id} data-search-property-id={property.id} className={cn(index === 0 && "lg:col-span-2 xl:col-span-3")}><MobileSearchCard variant={index === 0 ? "feature" : "compact"} property={property} saved={saved.includes(property.id)} onToggleSaved={toggleSaved} onOpen={() => rememberJourneyState(property.id)} priority={index < 2} compared={comparisonIds.includes(property.id)} compareDisabled={!comparisonIds.includes(property.id) && comparisonIds.length >= maxComparisonHomes} onToggleCompare={toggleCompared} /></div>)}
+              {results.slice(0, visibleCount).map((property, index) => <motion.div key={property.id} data-search-property-id={property.id} initial={reduceMotion ? false : { opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: reduceMotion ? 0 : 0.38, delay: reduceMotion ? 0 : Math.min(index, 7) * 0.045, ease: [0.22, 1, 0.36, 1] }} className={cn(index === 0 && "lg:col-span-2 xl:col-span-3")}><MobileSearchCard variant={index === 0 ? "feature" : "compact"} property={property} saved={saved.includes(property.id)} onToggleSaved={toggleSaved} onOpen={() => rememberJourneyState(property.id)} priority={index < 2} compared={comparisonIds.includes(property.id)} compareDisabled={!comparisonIds.includes(property.id) && comparisonIds.length >= maxComparisonHomes} onToggleCompare={toggleCompared} /></motion.div>)}
             </div>
             {visibleCount < results.length && (
               <div className="mt-7 text-center">
@@ -546,7 +549,7 @@ function MobilePropertySearch({ properties }: { properties: Property[] }) {
             </div>
           </section>
         )}
-      </main>
+      </motion.main>
 
       <FilterSheet
         open={filtersOpen}
@@ -577,10 +580,11 @@ interface ExploreLandingProps {
   onOpenFilters: () => void;
   onToggleSaved: (property: Property) => void;
   onOpenProperty: (propertyId: string) => void;
+  reduceMotion: boolean;
   filterSheet: React.ReactNode;
 }
 
-function ExploreLanding({ purpose, searchTab, homes, saved, tx, isMyanmar, onSearchValueChange, onSearchSubmit, onPurposeChange, onOpenFilters, onToggleSaved, onOpenProperty, filterSheet }: ExploreLandingProps) {
+function ExploreLanding({ purpose, searchTab, homes, saved, tx, isMyanmar, onSearchValueChange, onSearchSubmit, onPurposeChange, onOpenFilters, onToggleSaved, onOpenProperty, reduceMotion, filterSheet }: ExploreLandingProps) {
   const locationCards = [
     { location: "Yangon", image: "/images/properties/a7-yangon-blue-hour-hero.png", title: tx("Yangon", "ရန်ကုန်"), detail: tx("Explore homes in Yangon", "ရန်ကုန်ရှိအိမ်များကိုရှာရန်") },
     { location: "Mandalay", image: "/images/properties/hero-yangon-home.jpg", title: tx("Mandalay", "မန္တလေး"), detail: tx("Explore homes in Mandalay", "မန္တလေးရှိအိမ်များကိုရှာရန်") },
@@ -600,7 +604,7 @@ function ExploreLanding({ purpose, searchTab, homes, saved, tx, isMyanmar, onSea
         <MobileAppHeader />
       </header>
 
-      <main className="pt-16" id="main-content" tabIndex={-1}>
+      <motion.main initial={reduceMotion ? false : { opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: reduceMotion ? 0 : 0.44, ease: [0.22, 1, 0.36, 1] }} className="pt-16" id="main-content" tabIndex={-1}>
         <section className="bg-white px-4 pb-5 pt-4 sm:px-6">
           <div className="mx-auto max-w-[760px]">
             <form onSubmit={(event) => { event.preventDefault(); onSearchSubmit(); }} role="search" className="flex h-14 items-center rounded-full bg-[#E9E7EC] px-4 shadow-sm transition-shadow focus-within:shadow-[0_0_0_3px_rgba(0,83,210,.12)]">
@@ -620,7 +624,7 @@ function ExploreLanding({ purpose, searchTab, homes, saved, tx, isMyanmar, onSea
           <div className="mx-auto max-w-[760px]">
             <h1 className="px-4 text-[20px] font-semibold tracking-[-.03em] text-[#1B1B1F] sm:px-6">{tx("Where do you want to live?", "ဘယ်မှာနေချင်ပါသလဲ?")}</h1>
             <div className="mt-3 flex snap-x snap-mandatory gap-3 overflow-x-auto px-4 pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:px-6">
-              {locationCards.map((location) => <ExploreLocationCard key={location.location} href={locationHref(location.location)} image={location.image} title={location.title} detail={location.detail} />)}
+              {locationCards.map((location, index) => <motion.div key={location.location} initial={reduceMotion ? false : { opacity: 0, x: 18 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: reduceMotion ? 0 : 0.4, delay: reduceMotion ? 0 : 0.1 + index * 0.06, ease: [0.22, 1, 0.36, 1] }}><ExploreLocationCard href={locationHref(location.location)} image={location.image} title={location.title} detail={location.detail} /></motion.div>)}
             </div>
           </div>
         </section>
@@ -631,10 +635,10 @@ function ExploreLanding({ purpose, searchTab, homes, saved, tx, isMyanmar, onSea
             <Link href="#all-properties" className="inline-flex h-10 items-center text-[13px] font-medium text-[#0053D2]">{tx("See all", "အားလုံးကြည့်ရန်")}</Link>
           </div>
           <div id="all-properties" className="space-y-6">
-            {homes.slice(0, 4).map((property, index) => <ExploreRecommendationCard key={property.id} property={property} saved={saved.includes(property.id)} isMyanmar={isMyanmar} tx={tx} priority={index < 2} onToggleSaved={onToggleSaved} onOpen={onOpenProperty} />)}
+            {homes.slice(0, 4).map((property, index) => <motion.div key={property.id} initial={reduceMotion ? false : { opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: reduceMotion ? 0 : 0.42, delay: reduceMotion ? 0 : 0.2 + index * 0.06, ease: [0.22, 1, 0.36, 1] }}><ExploreRecommendationCard property={property} saved={saved.includes(property.id)} isMyanmar={isMyanmar} tx={tx} priority={index < 2} onToggleSaved={onToggleSaved} onOpen={onOpenProperty} /></motion.div>)}
           </div>
         </section>
-      </main>
+      </motion.main>
       {filterSheet}
     </div>
   );

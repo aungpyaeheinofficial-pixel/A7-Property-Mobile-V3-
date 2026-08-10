@@ -1,6 +1,7 @@
 "use client";
 
 import { Bath, BedDouble, Heart, Maximize2, ShieldCheck } from "lucide-react";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 
@@ -16,6 +17,7 @@ type SavedTab = "all" | "buy" | "rent";
 
 function SavedJourney() {
   const { isMyanmar, tx } = useLanguage();
+  const reduceMotion = useReducedMotion();
   const [savedIds, setSavedIds] = useState(mockUser.savedPropertyIds);
   const [tab, setTab] = useState<SavedTab>("all");
 
@@ -48,35 +50,39 @@ function SavedJourney() {
         <MobileAppHeader />
       </header>
 
-      <main className="mx-auto w-full max-w-[760px] px-4 pt-[88px] sm:px-6" aria-labelledby="saved-homes-title">
-        <section className="pb-4 pt-1">
+      <motion.main initial={reduceMotion ? false : { opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: reduceMotion ? 0 : 0.42, ease: [0.22, 1, 0.36, 1] }} className="mx-auto w-full max-w-[760px] px-4 pt-[88px] sm:px-6" aria-labelledby="saved-homes-title">
+        <motion.section initial={reduceMotion ? false : { opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: reduceMotion ? 0 : 0.38, delay: reduceMotion ? 0 : 0.06, ease: [0.22, 1, 0.36, 1] }} className="pb-4 pt-1">
           <h1 id="saved-homes-title" className="text-[34px] font-bold leading-[1.16] tracking-[-.045em] text-[#1B1B1F] sm:text-[38px]">{tx("Saved Homes", "သိမ်းထားသောအိမ်များ")}</h1>
           <p className="mt-2 text-[16px] leading-6 text-[#424655] sm:text-[17px]">{tx("Properties you want to revisit", "ပြန်လည်ကြည့်ရှုလိုသောအိမ်များ")}</p>
-        </section>
+        </motion.section>
 
-        <div className="mb-5 overflow-x-auto pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+        <motion.div initial={reduceMotion ? false : { opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: reduceMotion ? 0 : 0.38, delay: reduceMotion ? 0 : 0.12, ease: [0.22, 1, 0.36, 1] }} className="mb-5 overflow-x-auto pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           <div className="inline-flex rounded-lg bg-[#EFEDF1] p-1" role="tablist" aria-label={tx("Saved home category", "သိမ်းထားသောအိမ် အမျိုးအစား")}>
             <SavedTabButton active={tab === "all"} label={tx("All", "အားလုံး")} onClick={() => setTab("all")} />
             <SavedTabButton active={tab === "buy"} label={tx("Buy", "ဝယ်ရန်")} onClick={() => setTab("buy")} />
             <SavedTabButton active={tab === "rent"} label={tx("Rent", "ငှားရန်")} onClick={() => setTab("rent")} />
           </div>
-        </div>
+        </motion.div>
 
         {visibleHomes.length > 0 ? (
           <section className="space-y-8" aria-label={tx("Saved home list", "သိမ်းထားသောအိမ်စာရင်း")}>
-            {visibleHomes.map((property, index) => (
-              <SavedHomeCard key={property.id} property={property} isMyanmar={isMyanmar} tx={tx} priority={index < 2} onRemove={removeSaved} />
-            ))}
+            <AnimatePresence initial={false} mode="popLayout">
+              {visibleHomes.map((property, index) => (
+                <motion.div key={property.id} layout initial={reduceMotion ? false : { opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={reduceMotion ? undefined : { opacity: 0, y: -10, scale: 0.98 }} transition={{ duration: reduceMotion ? 0 : 0.4, delay: reduceMotion ? 0 : 0.16 + index * 0.055, ease: [0.22, 1, 0.36, 1] }}>
+                  <SavedHomeCard property={property} isMyanmar={isMyanmar} tx={tx} priority={index < 2} onRemove={removeSaved} />
+                </motion.div>
+              ))}
+            </AnimatePresence>
           </section>
         ) : (
-          <section className="flex min-h-[360px] flex-col items-center justify-center px-5 text-center">
+          <motion.section initial={reduceMotion ? false : { opacity: 0, scale: 0.98 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: reduceMotion ? 0 : 0.34, ease: [0.22, 1, 0.36, 1] }} className="flex min-h-[360px] flex-col items-center justify-center px-5 text-center">
             <span className="grid size-16 place-items-center rounded-full bg-[#EFEDF1] text-[#727687]"><Heart className="size-8" /></span>
             <h2 className="mt-5 text-[22px] font-semibold tracking-[-.03em]">{tx("No saved homes yet", "သိမ်းထားသောအိမ် မရှိသေးပါ")}</h2>
             <p className="mt-2 max-w-[300px] text-[15px] leading-6 text-[#424655]">{tx("Keep track of the properties you love by tapping the heart icon.", "နှစ်သက်သောအိမ်များကို နှလုံးပုံကိုနှိပ်ပြီး သိမ်းထားနိုင်ပါသည်။")}</p>
             <Link href="/search?purpose=rent" className="mt-6 inline-flex h-11 items-center rounded-full bg-[#0053D2] px-5 text-[13px] font-semibold text-white shadow-[0_8px_18px_rgba(0,83,210,.18)]">{tx("Explore properties", "အိမ်များရှာဖွေရန်")}</Link>
-          </section>
+          </motion.section>
         )}
-      </main>
+      </motion.main>
     </div>
   );
 }
